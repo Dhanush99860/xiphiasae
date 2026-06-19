@@ -10,7 +10,9 @@ type PolymorphicProps<E extends React.ElementType> = {
 export default function SectionCard<E extends React.ElementType = "section">(
   { as, className, children, ...rest }: PolymorphicProps<E>
 ) {
-  const Tag = (as ?? "section") as React.ElementType;
+  // Cast to any: TypeScript infers children as `never` for generic ElementType
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Tag = (as ?? "section") as any;
 
   return (
     <Tag

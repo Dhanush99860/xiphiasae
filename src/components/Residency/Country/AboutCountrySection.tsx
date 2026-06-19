@@ -371,7 +371,7 @@ function Chip({
 type FactItem = {
   label: string;
   value: React.ReactNode;
-  Icon: React.ElementType;
+  Icon: React.ComponentType<{ className?: string }>;
   accent: Accent;
 };
 
