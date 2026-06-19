@@ -1,0 +1,102 @@
+{
+  "users": [
+    {
+      "email": "your-admin@email.com",
+      "name": "XIPHIAS Admin",
+      "role": "admin",
+      "portalStatus": "active",
+      "id": "usr_2a8baeaf",
+      "createdAt": "2026-06-12T03:52:59.286Z",
+      "updatedAt": "2026-06-12T03:52:59.286Z"
+    }
+  ],
+  "clientProfiles": [],
+  "leads": [
+    {
+      "source": "website",
+      "name": "Adyanta Dubey",
+      "email": "ceo@astahealthtech.com",
+      "phone": "08779404951",
+      "page": "hero",
+      "referrer": "http://localhost:4000/",
+      "consent": true,
+      "tags": [],
+      "id": "lead_038a4c5d",
+      "status": "new",
+      "createdAt": "2026-06-12T03:53:40.819Z",
+      "updatedAt": "2026-06-12T03:53:40.819Z"
+    }
+  ],
+  "cases": [],
+  "documents": [],
+  "milestones": [],
+  "conversations": [],
+  "riskProfiles": [],
+  "contentTasks": [],
+  "partnerReferrals": [],
+  "b2gInquiries": [],
+  "auditLogs": [
+    {
+      "id": "aud_c0d789ea",
+      "actorId": "usr_2a8baeaf",
+      "action": "document.plan.generated",
+      "entityType": "document_plan",
+      "entityId": "usr_2a8baeaf",
+      "metadata": {
+        "track": "skilled",
+        "country": "Canada",
+        "readinessScore": 8
+      },
+      "createdAt": "2026-06-12T03:55:49.541Z"
+    },
+    {
+      "id": "aud_b24a1e7c",
+      "actorId": "usr_2a8baeaf",
+      "action": "portal.viewed",
+      "entityType": "portal_session",
+      "entityId": "usr_2a8baeaf",
+      "metadata": {
+        "event": "sign_in",
+        "role": "admin",
+        "email": "your-admin@email.com",
+        "authSource": "configured"
+      },
+      "createdAt": "2026-06-12T03:54:52.358Z"
+    },
+    {
+      "id": "aud_5bd4d143",
+      "action": "lead.created",
+      "entityType": "lead",
+      "entityId": "lead_038a4c5d",
+      "metadata": {
+        "source": "website"
+      },
+      "createdAt": "2026-06-12T03:53:40.819Z"
+    },
+    {
+      "id": "aud_ae4ef819",
+      "actorId": "usr_2a8baeaf",
+      "action": "portal.viewed",
+      "entityType": "portal_session",
+      "entityId": "usr_2a8baeaf",
+      "metadata": {
+        "event": "sign_in",
+        "role": "admin",
+        "email": "your-admin@email.com",
+        "authSource": "configured"
+      },
+      "createdAt": "2026-06-12T03:52:59.289Z"
+    },
+    {
+      "id": "aud_61510b91",
+      "action": "user.provisioned",
+      "entityType": "user",
+      "entityId": "usr_2a8baeaf",
+      "metadata": {
+        "role": "admin",
+        "portalStatus": "active"
+      },
+      "createdAt": "2026-06-12T03:52:59.287Z"
+    }
+  ]
+}
