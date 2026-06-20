@@ -43,9 +43,7 @@ export default function TrustBar({
 }: Props) {
   const pad = variant === "compact" ? "px-3 py-2.5" : "px-4 py-3";
 
-  // Cast to any: TypeScript infers children as `never` for generic ElementType
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const T = Tag as any;
+  const T = Tag as React.ComponentType<{ className?: string; "aria-label"?: string; children?: React.ReactNode }>;
 
   return (
     <T
