@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 import WorkPermitsClient from "@/components/WorkPermits/WorkPermitsClient";
 import { workPermitCountries } from "@/lib/work-permits";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Work Permit Advisory | XIPHIAS Immigration",
@@ -40,7 +48,7 @@ export default async function WorkPermitsPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <WorkPermitsClient initialCountrySlug={country} />
+      <WorkPermitsClient initialCountrySlug={country} serifClass={serif.className} />
     </>
   );
 }

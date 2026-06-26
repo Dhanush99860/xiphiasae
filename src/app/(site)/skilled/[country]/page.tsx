@@ -1,242 +1,44 @@
 // src/app/(site)/skilled/[country]/page.tsx
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import {
-  getSkilledCountrySlugs,
-  getSkilledCountries,
-  getSkilledPrograms,
-  loadCountryPage,
-} from "@/lib/skilled-content";
-import { baseFromCategory } from "@/lib/section-helpers";
+import { Cormorant_Garamond } from "next/font/google";
+import { getSkilledCountrySlugs, getSkilledPrograms, getCountryFrontmatter } from "@/lib/skilled-content";
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
+import CountryHub, { type CountryData } from "@/components/Country/CountryHub";
 
-import nextDynamic from "next/dynamic";
-const MediaHero = nextDynamic(() => import("@/components/Residency/MediaHero"));
-const ContactForm = nextDynamic(() => import("@/components/ContactForm"));
-const Breadcrumb = nextDynamic(() => import("@/components/Common/Breadcrumb"));
-const SidebarStatsPanel = nextDynamic(
-  () => import("@/components/Skilled/SidebarStatsPanel"),
-);
-const SidebarProgramsList = nextDynamic(
-  () => import("@/components/Residency/Country/SidebarProgramsList"),
-);
-const SidebarHighlights = nextDynamic(
-  () => import("@/components/Residency/Country/SidebarHighlights"),
-);
-const AboutCountrySection = nextDynamic(
-  () => import("@/components/Residency/Country/AboutCountrySection"),
-);
-const WhyCountrySection = nextDynamic(
-  () => import("@/components/Residency/Country/WhyCountrySection"),
-);
-const ProcessSteps = nextDynamic(
-  () => import("@/components/Residency/Country/ProcessSteps"),
-);
-const EligibilityRequirements = nextDynamic(
-  () => import("@/components/Residency/Country/EligibilityRequirements"),
-);
-const FAQSection = nextDynamic(
-  () => import("@/components/Residency/Country/FAQSection"),
-);
-const MDXDetailsSection = nextDynamic(
-  () => import("@/components/Residency/Country/MDXDetailsSection"),
-);
-const RelatedCountriesSection = nextDynamic(
-  () => import("@/components/Residency/Country/RelatedCountriesSection"),
-);
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
 export const revalidate = 86400;
 
-/** SSG params */
 export async function generateStaticParams() {
-  const slugs = getSkilledCountrySlugs();
-  return slugs.map((country) => ({ country }));
+  return getSkilledCountrySlugs().map((slug) => ({ country: slug }));
 }
 
-/** SEO */
-export async function generateMetadata(
-  props: { params: Promise<{ country: string }> },
-): Promise<Metadata> {
-  const { country } = await props.params;
-  const all = getSkilledCountrySlugs();
-  if (!all.includes(country)) return { title: "Skilled country not found" };
-
-  const { meta } = await loadCountryPage(country);
-
-  const heroImage = (meta as any).heroImage as string | undefined;
-  const title =
-    (meta as any).seo?.title ??
-    (meta as any).metaTitle ??
-    (meta as any).title ??
-    (meta as any).name ??
-    `${country} — Skilled Migration`;
-
-  const description =
-    (meta as any).seo?.description ??
-    (meta as any).metaDescription ??
-    (meta as any).summary ??
-    (meta as any).description ??
-    `Skilled migration programs in ${(meta as any).name ?? country}.`;
-
-  const keywords =
-    ((meta as any).seo?.keywords as string[] | undefined) ??
-    ((meta as any).keywords as string[] | undefined);
-
-  const canonicalPath = `${baseFromCategory("skilled")}/${country}`;
-  const canonicalUrl = `https://www.xiphiasimmigration.com${canonicalPath}`;
-
-  return {
-    title,
-    description,
-    keywords,
-    alternates: { canonical: canonicalPath },
-    openGraph: {
-      title,
-      description,
-      url: canonicalUrl,
-      siteName: "XIPHIAS Immigration",
-      locale: "en_US",
-      type: "website",
-      images: [
-        {
-          url: heroImage ?? "/xiphias-immigration.png",
-          width: 1200,
-          height: 630,
-          alt: `${title} – XIPHIAS`,
-        },
-      ],
-    },
-  };
+export async function generateMetadata(props: { params: Promise<{ country: string }> }): Promise<Metadata> {
+  const params = await props.params;
+  const m = getCountryFrontmatter(params.country) as Record<string, unknown> & { title: string; summary?: string };
+  const seo = m.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
+  const title = seo?.title ?? m.title;
+  const description = seo?.description ?? m.summary;
+  const heroImage = m.heroImage as string | undefined;
+  return { title, description, keywords: seo?.keywords, alternates: { canonical: `/skilled/${params.country}` }, openGraph: { title, description, url: `https://www.xiphiasimmigration.com/skilled/${params.country}`, siteName: "XIPHIAS Immigration", locale: "en_US", type: "website", images: [{ url: heroImage ?? "/xiphias-immigration.png", width: 1200, height: 630, alt: `${title} – XIPHIAS Immigration` }] }, twitter: { card: "summary_large_image", title, description, images: [heroImage ?? "/xiphias-immigration.png"] } };
 }
 
-export default async function CountryPage(props: {
-  params: Promise<{ country: string }>;
-}) {
-  const { country } = await props.params;
-  const slugs = getSkilledCountrySlugs();
-  if (!slugs.includes(country)) notFound();
+function prettyLabel(k: string) { const map: Record<string, string> = { timeZone: "Time zone", population: "Population", capital: "Capital", language: "Language", currency: "Currency", climate: "Climate" }; return map[k] ?? k.replace(/([A-Z])/g, " $1").replace(/^./, (c) => c.toUpperCase()); }
+function money(n: number, c?: string) { const sym = c === "USD" ? "$" : c === "EUR" ? "€" : c === "GBP" ? "£" : ""; return `${sym}${n.toLocaleString("en-US")}${sym ? "" : c ? ` ${c}` : ""}`; }
 
-  const { meta, content } = await loadCountryPage(country);
-  const programs = getSkilledPrograms(country);
-  const countryName = (meta as any).country ?? (meta as any).name ?? country;
-
-  const minInvestments = programs
-    .map((p) => p.minInvestment)
-    .filter((n): n is number => typeof n === "number");
-  const timelines = programs
-    .map((p) => p.timelineMonths)
-    .filter((n): n is number => typeof n === "number");
-
-  const minInvestmentRange =
-    minInvestments.length && programs[0]?.currency
-      ? `${Math.min(...minInvestments).toLocaleString()}–${Math.max(
-          ...minInvestments,
-        ).toLocaleString()} ${programs[0].currency}`
-      : "Varies";
-
-  const timelineRange = timelines.length
-    ? `${Math.min(...timelines)}–${Math.max(...timelines)} months`
-    : "Varies";
-
-  const {
-    overview,
-    keyPoints,
-    facts,
-    applicationProcess,
-    requirements,
-    faq,
-    introPoints,
-  } = (meta as any) as Record<string, any>;
-
-  const related = getSkilledCountries()
-    .filter((c) => c.countrySlug !== country)
-    .slice(0, 2);
-
-  const videoSrc = (meta as any).heroVideo as string | undefined;
-  const poster = (meta as any).heroPoster as string | undefined;
-  const heroImage = (meta as any).heroImage as string | undefined;
-
-  // Brochure URL (country-level)
-  // 1) Prefer `brochure` from _country.mdx frontmatter if present
-  // 2) Fallback: a conventional PDF path for this category/country
-  const brochure =
-    ((meta as any).brochure as string | undefined) ??
-    `/brochures/skilled/${country}.pdf`;
-
-  // Hero actions: Book Consultation + Download Brochure
-  const heroActions: {
-    href: string;
-    label: string;
-    variant?: "primary" | "ghost";
-    download?: boolean;
-  }[] = [
-    { href: "/personal-booking", label: "Book Free Consultation", variant: "primary" },
-    {
-      href: brochure,
-      label: "Download Brochure",
-      variant: "ghost",
-      download: true,
-    },
-  ];
-
-  return (
-    <main className="relative container mx-auto px-4 sm:px-6 lg:px-8 pb-2 text-black">
-      <h1 className="sr-only">Skilled migration in {countryName}</h1>
-
-      <JsonLd
-        data={breadcrumbLd([
-          { name: "Skilled", url: baseFromCategory("skilled") },
-          { name: countryName, url: `${baseFromCategory("skilled")}/${country}` },
-        ])}
-      />
-
-      <section className="pt-4">
-        <MediaHero
-          title={(meta as any).title ?? (meta as any).name ?? countryName}
-          subtitle={(meta as any).summary ?? (meta as any).description}
-          videoSrc={videoSrc}
-          poster={poster}
-          imageSrc={heroImage}
-          actions={heroActions}
-        />
-      </section>
-
-      <div className="mt-3">
-        <Breadcrumb />
-      </div>
-
-      <div className="mt-6 grid gap-8 md:grid-cols-12">
-        <aside className="md:col-span-4 space-y-6">
-          <SidebarStatsPanel
-            programsCount={programs.length}
-            timelineRange={timelineRange}
-          />
-          <SidebarProgramsList country={countryName} programs={programs} />
-          <SidebarHighlights points={introPoints} />
-          <div className="hidden md:block">
-            <ContactForm />
-          </div>
-        </aside>
-
-        <div className="md:col-span-8 space-y-8">
-          <AboutCountrySection
-            country={countryName}
-            overview={overview}
-            facts={facts}
-          />
-          <WhyCountrySection country={countryName} points={keyPoints} />
-          <ProcessSteps steps={applicationProcess} />
-          <EligibilityRequirements items={requirements} />
-          <FAQSection faqs={faq} />
-          <MDXDetailsSection country={countryName} content={content} />
-          <div className="md:hidden">
-            <ContactForm />
-          </div>
-        </div>
-      </div>
-
-      <RelatedCountriesSection related={related} />
-    </main>
-  );
+export default async function CountryPage(props: { params: Promise<{ country: string }> }) {
+  const { country: slug } = await props.params;
+  const m = getCountryFrontmatter(slug) as Record<string, any> & { country: string; summary?: string };
+  const programs = getSkilledPrograms(slug);
+  const facts = m.facts && typeof m.facts === "object" ? Object.entries(m.facts).map(([k, v]) => ({ label: prettyLabel(k), value: String(v) })) : [];
+  const froms = programs.map((p) => p.minInvestment).filter((n): n is number => typeof n === "number");
+  const programmes = programs.map((p) => ({ title: p.title, tagline: p.tagline, from: typeof p.minInvestment === "number" ? `from ${money(p.minInvestment, p.currency)}` : undefined, timeline: p.timelineLabel, href: `/skilled/${slug}/${p.programSlug}` }));
+  const stats: { label: string; value: string }[] = [];
+  if (m.timelineLabel || m.timelineMonths) stats.push({ label: "Timeline", value: m.timelineLabel ?? `${m.timelineMonths} mo` });
+  if (typeof m.visaFreeCount === "number") stats.push({ label: "Visa-free", value: String(m.visaFreeCount) });
+  if (programmes.length) stats.push({ label: "Pathways", value: String(programmes.length) });
+  const data: CountryData = { vertical: "Skilled Migration", verticalSlug: "skilled", country: m.country, slug, region: typeof m.region === "string" ? m.region : undefined, summary: m.summary ?? "", heroImage: (m.heroImage as string) ?? "/xiphias-immigration.png", brochure: typeof m.brochure === "string" ? m.brochure : undefined, stats: stats.slice(0, 4), overview: typeof m.overview === "string" ? m.overview : "", keyPoints: Array.isArray(m.keyPoints) ? m.keyPoints : [], facts, programmes, process: Array.isArray(m.applicationProcess) ? m.applicationProcess : [], requirements: Array.isArray(m.requirements) ? m.requirements : [], faq: Array.isArray(m.faq) ? m.faq : [] };
+  return (<><JsonLd data={breadcrumbLd([{ name: "Skilled Migration", url: "/skilled" }, { name: m.country, url: `/skilled/${slug}` }])} /><CountryHub data={data} serifClass={serif.className} /></>);
 }

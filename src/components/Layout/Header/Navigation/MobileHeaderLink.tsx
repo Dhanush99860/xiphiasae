@@ -82,14 +82,14 @@ const Node = ({ item, depth, path, closeMenuAction, reduced }: NodeProps) => {
     }
   };
 
-  // subtle background bands per level for orientation (no harsh white)
+  // subtle background bands per level for orientation (navy tints)
   const levelBg =
     depth % 2 === 0
-      ? 'bg-white dark:bg-zinc-900'
-      : 'bg-zinc-50/70 dark:bg-zinc-800/50';
+      ? 'bg-transparent'
+      : 'bg-white/[0.04]';
 
   return (
-    <li className={`list-none border-b border-zinc-200 last:border-0 dark:border-white/10 ${levelBg}`}>
+    <li className={`list-none border-b border-gold/20 last:border-0 ${levelBg}`}>
       <div
         className="flex items-stretch justify-between"
         style={{ paddingLeft: padLeft, paddingRight: 12 }}
@@ -98,7 +98,7 @@ const Node = ({ item, depth, path, closeMenuAction, reduced }: NodeProps) => {
         <Link
           id={`${baseId}-label`}
           href={item.href}
-          className="flex min-h-[46px] flex-1 items-center py-2 text-[15px] text-zinc-900 outline-none focus-visible:ring-2 focus-visible:ring-primary/40 dark:text-zinc-100"
+          className="flex min-h-[46px] flex-1 items-center py-2 text-[15px] text-[#eef3fb]/85 hover:text-gold transition-colors duration-150 outline-none focus-visible:ring-2 focus-visible:ring-gold/40"
           onClick={() => {
             if (!hasKids) closeMenuAction?.();
           }}
@@ -114,7 +114,7 @@ const Node = ({ item, depth, path, closeMenuAction, reduced }: NodeProps) => {
             aria-expanded={open}
             onClick={toggle}
             onKeyDown={onChevronKey}
-            className="ml-1.5 inline-flex h-10 w-10 shrink-0 items-center justify-center self-center rounded-lg text-zinc-700 hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 dark:text-zinc-200 dark:hover:bg-white/10"
+            className="ml-1.5 inline-flex h-10 w-10 shrink-0 items-center justify-center self-center rounded-lg text-[#eef3fb]/70 hover:bg-gold/10 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 transition-colors duration-150"
           >
             <svg
               className={`h-5 w-5 transition-transform ${reduced ? '' : 'duration-200'} ${open ? '-rotate-180' : ''}`}

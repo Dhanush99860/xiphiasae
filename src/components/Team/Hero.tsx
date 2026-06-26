@@ -1,41 +1,121 @@
 // ==============================================
-// components/team/Hero.tsx – styled like your HeroPremium
+// components/team/Hero.tsx – navy/gold Spotlight hero with featured MD
 // ==============================================
 "use client";
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Download, Open, Dot } from "@/components/Team/Icons";
-import { cn } from "@/components/Team/cn";
+import { Person } from "@/components/Team/team";
+import { Avatar } from "@/components/Team/Avatar";
+import { SocialLink } from "./_Social";
+import Ambient from "@/components/HomeLuxe/Ambient";
 
-type HeroProps = { title: string; subtitle: string; primaryHref: string; primaryText: string; secondaryHref: string; secondaryText: string; badge?: string; align?: "left" | "center"; className?: string };
+const GOLD = "#bfa15c";
+const NAVY = "#0a1733";
 
-export function Hero({ title, subtitle, primaryHref, primaryText, secondaryHref, secondaryText, badge = "", align = "left", className = "" }: HeroProps) {
-  const alignClasses = align === "center" ? "text-center md:max-w-3xl mx-auto" : "text-left";
+type HeroProps = {
+  title: string;
+  subtitle: string;
+  primaryHref: string;
+  primaryText: string;
+  secondaryHref: string;
+  secondaryText: string;
+  badge?: string;
+  featured?: Person;
+  serifClass?: string;
+};
+
+export function Hero({ title, subtitle, primaryHref, primaryText, secondaryHref, secondaryText, badge = "", featured, serifClass = "" }: HeroProps) {
   const isPdf = typeof secondaryHref === "string" && secondaryHref.endsWith(".pdf");
   const heroId = "team-hero-title";
 
   return (
-    <section aria-labelledby={heroId} className={cn("relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10","bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80","dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40","text-black dark:text-white", className)}>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-        <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-        <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-        </div>
-      </div>
-      <div className={cn("relative", alignClasses)}>
-        {badge ? (<span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800"><Dot className="mr-1.5" />{badge}</span>) : null}
-        <h1 id={heroId} className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight">{title}</h1>
-        <p className="mt-3 text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 md:text-base">{subtitle}</p>
-        <div className={cn("mt-6 flex flex-wrap items-center gap-3", align === "center" && "justify-center") }>
-          <Link href={primaryHref} prefetch={false} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition" aria-label={primaryText}>{primaryText}<ArrowRight /></Link>
+    <section
+      aria-labelledby={heroId}
+      data-tone="dark"
+      className="relative overflow-hidden px-6 pb-24 pt-36 md:px-10 lg:px-16"
+      style={{ background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`, color: "#fff" }}
+    >
+      <Ambient tone="dark" />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {badge ? (
+          <div className="flex items-center gap-3">
+            <span className="h-px w-10" style={{ background: GOLD }} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>{badge}</span>
+            <span lang="ar" dir="rtl" className="font-arabic-display text-base" style={{ color: `${GOLD}cc` }}>فريقنا</span>
+          </div>
+        ) : null}
+
+        <h1 id={heroId} className={`${serifClass} mt-6 max-w-4xl text-[clamp(2.6rem,6.5vw,5rem)] font-medium leading-[0.98]`}>
+          Meet the people <span className="italic" style={{ color: GOLD }}>behind the work</span>
+        </h1>
+        <p className="mt-6 max-w-xl text-[15px] leading-7 text-white/60 md:text-base">{subtitle}</p>
+
+        <div className="mt-9 flex flex-wrap items-center gap-4">
+          <Link
+            href={primaryHref}
+            prefetch={false}
+            aria-label={primaryText}
+            className="group inline-flex items-center gap-2 rounded-full px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] transition-transform hover:-translate-y-0.5"
+            style={{ background: GOLD, color: NAVY }}
+          >
+            {primaryText} <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
           {isPdf ? (
-            <a href={secondaryHref} download className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition" aria-label={secondaryText}><Download />{secondaryText}</a>
+            <a
+              href={secondaryHref}
+              download
+              aria-label={secondaryText}
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-white/5"
+              style={{ border: "1px solid rgba(191,161,92,0.5)", color: GOLD }}
+            >
+              {secondaryText}
+            </a>
           ) : (
-            <Link href={secondaryHref} prefetch={false} className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition" aria-label={secondaryText}><Open />{secondaryText}</Link>
+            <Link
+              href={secondaryHref}
+              prefetch={false}
+              aria-label={secondaryText}
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-white/5"
+              style={{ border: "1px solid rgba(191,161,92,0.5)", color: GOLD }}
+            >
+              {secondaryText}
+            </Link>
           )}
-          <span className="ml-0 md:ml-2 text-xs text-zinc-500 dark:text-zinc-400">No obligation · Response within 24 hours</span>
+          <span className="text-xs text-white/40">No obligation · Response within 24 hours</span>
         </div>
+
+        {/* FEATURED spotlight — Managing Director called out large */}
+        {featured && (
+          <div
+            className="mt-14 grid items-center gap-8 rounded-3xl p-8 md:grid-cols-[auto_1fr] md:p-12"
+            style={{ border: "1px solid rgba(191,161,92,0.4)", background: "rgba(255,255,255,0.03)" }}
+          >
+            <div className="flex flex-col items-start gap-5">
+              <span className={`${serifClass} text-[clamp(3rem,8vw,6rem)] font-medium leading-none`} style={{ color: GOLD }}>01</span>
+              <Avatar src={featured.headshot} alt={featured.name} size="lg" />
+            </div>
+            <div>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: GOLD }}>{featured.role}</span>
+              <h2 className={`${serifClass} mt-3 text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-tight`}>{featured.name}</h2>
+              {featured.location && <p className="mt-3 text-sm uppercase tracking-[0.14em] text-white/55">{featured.location}</p>}
+              {featured.bio && <p className="mt-4 max-w-2xl text-[15px] leading-7 text-white/65">{featured.bio}</p>}
+              {featured.tags?.length ? (
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {featured.tags.map((t) => (
+                    <li key={t} className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.12em]" style={{ border: "1px solid rgba(191,161,92,0.4)", color: GOLD }}>
+                      <span className="h-1 w-1 rounded-full" style={{ background: GOLD }} aria-hidden />{t}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              {featured.socials?.length ? (
+                <ul className="mt-5 flex flex-wrap gap-4 text-xs">
+                  {featured.socials.map((s, i) => (<li key={i}><SocialLink s={s} tone="dark" /></li>))}
+                </ul>
+              ) : null}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

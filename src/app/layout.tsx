@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Lato, Inter, Sora } from "next/font/google";
+import { Lato, Inter, Sora, Reem_Kufi, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
@@ -28,6 +28,23 @@ const sora = Sora({
 const lato = Lato({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
+  display: "swap",
+});
+
+// UAE refresh — Arabic faces. Display = calligraphic kufi for hero kickers /
+// eyebrows; body = clean sans for Arabic copy. Exposed as CSS vars and mapped
+// to the `font-arabic` / `font-arabic-display` Tailwind utilities.
+const reemKufi = Reem_Kufi({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic-display",
+  display: "swap",
+});
+
+const plexArabic = IBM_Plex_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-arabic",
   display: "swap",
 });
 
@@ -208,7 +225,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sora.variable} ${lato.className} scroll-smooth`}
+      className={`${inter.variable} ${sora.variable} ${reemKufi.variable} ${plexArabic.variable} ${lato.className} scroll-smooth`}
       suppressHydrationWarning
     >
       <body className="antialiased">

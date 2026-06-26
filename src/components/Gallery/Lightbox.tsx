@@ -12,8 +12,8 @@ function shimmer() {
     encodeURIComponent(
       `<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20'>
          <defs><linearGradient id='g'>
-          <stop stop-color='#f3f4f6' offset='20%'/><stop stop-color='#e5e7eb' offset='50%'/><stop stop-color='#f3f4f6' offset='80%'/></linearGradient></defs>
-         <rect width='100%' height='100%' fill='#f3f4f6'/>
+          <stop stop-color='#0a0e1a' offset='20%'/><stop stop-color='#141a2b' offset='50%'/><stop stop-color='#0a0e1a' offset='80%'/></linearGradient></defs>
+         <rect width='100%' height='100%' fill='#050810'/>
          <rect width='100%' height='100%' fill='url(#g)'>
            <animate attributeName='x' from='-100%' to='100%' dur='1.2s' repeatCount='indefinite'/>
          </rect>
@@ -70,7 +70,7 @@ export default function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-3 md:p-6"
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-[#0a1733]/95 p-3 md:p-6"
       onMouseDown={(e) => e.currentTarget === e.target && onClose()}
     >
       <figure className="relative flex w-full max-w-6xl flex-col items-center gap-3">
@@ -78,7 +78,7 @@ export default function Lightbox({
           type="button"
           onClick={onClose}
           aria-label="Close lightbox"
-          className="absolute right-2 top-2 z-20 rounded-full bg-black/55 px-3 py-2 text-sm text-white ring-1 ring-white/20 backdrop-blur hover:bg-black/70 md:right-4 md:top-4"
+          className="absolute right-2 top-2 z-20 rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-sm text-ink backdrop-blur transition hover:border-gold/65 hover:text-gold md:right-4 md:top-4"
         >
           Close
         </button>
@@ -89,7 +89,7 @@ export default function Lightbox({
             onClick={() => setIdx((current) => Math.max(0, current - 1))}
             disabled={!canPrev}
             aria-label="Previous image"
-            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/55 px-3 py-2 text-sm text-white ring-1 ring-white/20 backdrop-blur hover:bg-black/70 disabled:opacity-30 md:left-4"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-sm text-ink backdrop-blur transition hover:border-gold/65 hover:text-gold disabled:opacity-30 md:left-4"
           >
             {"<"}
           </button>
@@ -113,20 +113,20 @@ export default function Lightbox({
             }
             disabled={!canNext}
             aria-label="Next image"
-            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/55 px-3 py-2 text-sm text-white ring-1 ring-white/20 backdrop-blur hover:bg-black/70 disabled:opacity-30 md:right-4"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-sm text-ink backdrop-blur transition hover:border-gold/65 hover:text-gold disabled:opacity-30 md:right-4"
           >
             {">"}
           </button>
         </div>
 
-        <figcaption className="flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl bg-white/10 px-4 py-3 text-white/90 backdrop-blur">
+        <figcaption className="flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-gold/45 bg-white/70 px-4 py-3 text-ink backdrop-blur">
           <div className="min-w-0">
             {it.caption && (
-              <p className="truncate text-sm font-medium">{it.caption}</p>
+              <p className="truncate text-sm font-medium text-ink">{it.caption}</p>
             )}
 
             {(it.date || it.category) && (
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-ink/55">
                 {it.date ? formatDateUS(it.date) : null}
                 {it.date ? " - " : ""}
                 {String(it.category).charAt(0).toUpperCase() +
@@ -136,7 +136,7 @@ export default function Lightbox({
           </div>
 
           <div className="ml-auto flex items-center gap-2">
-            <span className="rounded-full bg-white/10 px-3 py-2 text-xs ring-1 ring-white/15">
+            <span className="rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-xs text-gold_deep backdrop-blur">
               {idx + 1} / {items.length}
             </span>
             <button
@@ -144,7 +144,7 @@ export default function Lightbox({
               onClick={() => setIdx((current) => Math.max(0, current - 1))}
               disabled={!canPrev}
               aria-label="Previous image"
-              className="rounded-full bg-white/10 px-3 py-2 text-sm ring-1 ring-white/20 backdrop-blur hover:bg-white/15 disabled:opacity-40"
+              className="rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-sm text-ink backdrop-blur transition hover:border-gold/65 hover:text-gold_deep disabled:opacity-40"
             >
               Prev
             </button>
@@ -155,7 +155,7 @@ export default function Lightbox({
               }
               disabled={!canNext}
               aria-label="Next image"
-              className="rounded-full bg-white/10 px-3 py-2 text-sm ring-1 ring-white/20 backdrop-blur hover:bg-white/15 disabled:opacity-40"
+              className="rounded-full border border-gold/45 bg-white/70 px-3 py-2 text-sm text-ink backdrop-blur transition hover:border-gold/65 hover:text-gold_deep disabled:opacity-40"
             >
               Next
             </button>

@@ -119,7 +119,7 @@ function Img({
     />
   ) : (
     <div className={`relative ${className}`} style={style} aria-hidden>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,.18),transparent_40%),radial-gradient(circle_at_70%_80%,rgba(16,185,129,.18),transparent_40%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,.16),transparent_45%),radial-gradient(circle_at_70%_80%,rgba(212,175,55,.08),transparent_45%)]" />
     </div>
   );
 }
@@ -181,13 +181,13 @@ export default function InsightsPreviewClient({
     >
       {/* Header (card-style, keeps your structure & CTA) */}
       <div className="mb-6 md:mb-8">
-        <div className="relative overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-4 sm:p-5 md:p-6 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/10">
+        <div className="relative overflow-hidden rounded-2xl border border-gold/45 bg-white p-4 sm:p-5 md:p-6">
           {/* soft background accents (clipped inside) */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-20 -left-24 h-56 w-56 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-            <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-            <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(70%_70%_at_10%_10%,black,transparent_75%)]">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+            <div className="absolute -top-20 -left-24 h-56 w-56 rounded-full bg-gold/10 blur-3xl" />
+            <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-gold/[0.06] blur-3xl" />
+            <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(70%_70%_at_10%_10%,black,transparent_75%)]">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
             </div>
           </div>
 
@@ -195,7 +195,7 @@ export default function InsightsPreviewClient({
           <div className="relative flex flex-wrap items-center justify-between gap-3">
             <h2
               id="insights-top6-title"
-              className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-white break-words"
+              className="font-sora text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-ink break-words"
             >
               {title}
             </h2>
@@ -203,7 +203,7 @@ export default function InsightsPreviewClient({
             <div className="shrink-0">
               <Link
                 href={viewAllHref}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300/70 dark:border-slate-600/60 bg-white/70 dark:bg-slate-800/70 px-3.5 py-2 text-sm font-medium text-slate-900 dark:text-slate-50 shadow-sm hover:bg-white/90 dark:hover:bg-slate-800/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3.5 py-2 text-sm font-medium text-ink hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gold focus-visible:ring-offset-sand transition"
               >
                 View all
                 <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -221,9 +221,9 @@ export default function InsightsPreviewClient({
         <article className="lg:col-span-2">
           <Link
             href={hero.url}
-            className="group block overflow-hidden rounded-2xl border border-slate-200/70 dark:border-slate-700/60 shadow-sm hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/60"
+            className="group block overflow-hidden rounded-2xl border border-gold/45 hover:border-gold/65 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gold focus-visible:ring-offset-sand"
           >
-            <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-800">
+            <div className="relative aspect-[16/9] w-full bg-sand">
               <Img
                 src={hero.img}
                 alt={hero.title}
@@ -233,34 +233,34 @@ export default function InsightsPreviewClient({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
               <div className="absolute left-4 top-4 flex items-center gap-2">
-                <span className="rounded-full bg-white/90 text-slate-900 px-2.5 py-1 text-xs font-medium shadow">
+                <span className="rounded-full bg-gold text-midnight px-2.5 py-1 text-xs font-medium shadow">
                   {hero.kind}
                 </span>
                 {hero.when && (
-                  <span className="rounded-full bg-black/50 text-white px-2.5 py-1 text-xs font-medium backdrop-blur">
+                  <span className="rounded-full bg-sand/70 text-ink px-2.5 py-1 text-xs font-medium backdrop-blur ring-1 ring-gold/15">
                     {hero.when}
                   </span>
                 )}
               </div>
             </div>
 
-            <div className="bg-white/90 dark:bg-slate-900/80 backdrop-blur px-4 sm:px-5 py-4">
-              <h3 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-white leading-snug">
+            <div className="bg-white backdrop-blur px-4 sm:px-5 py-4">
+              <h3 className="font-sora text-lg sm:text-xl font-semibold text-ink leading-snug">
                 {hero.title}
               </h3>
               {hero.excerpt && (
-                <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 line-clamp-3">
+                <p className="mt-2 text-sm sm:text-base text-ink/55 line-clamp-3">
                   {hero.excerpt}
                 </p>
               )}
-              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300">
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-ink/55">
                 {hero.team && <span>{hero.team}</span>}
                 {hero.time && (
                   <span>• {typeof hero.time === "number" ? `${hero.time} min read` : hero.time}</span>
                 )}
               </div>
 
-              <div className="mt-3 inline-flex items-center gap-2 text-primary font-medium">
+              <div className="mt-3 inline-flex items-center gap-2 text-gold font-medium">
                 Read the full story
                 <svg
                   aria-hidden
@@ -281,7 +281,7 @@ export default function InsightsPreviewClient({
         <aside className="lg:col-span-1">
           <ul
             role="list"
-            className="divide-y divide-slate-200/70 dark:divide-slate-700/60 rounded-2xl border border-slate-200/70 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/70 backdrop-blur"
+            className="divide-y divide-gold/[0.08] rounded-2xl border border-gold/45 bg-white backdrop-blur"
           >
             {sorted.slice(1, 6).map((it) => {
               const title = (pick(it.title, it.heading) ?? "Untitled").toString();
@@ -294,21 +294,21 @@ export default function InsightsPreviewClient({
                 <li key={it.url} className="p-4 sm:p-5">
                   <Link
                     href={it.url}
-                    className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/60 rounded-md"
+                    className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gold focus-visible:ring-offset-sand rounded-md"
                   >
                     <div className="flex items-center gap-3">
                       <div className="relative h-16 w-16">
                         <Img
                           src={thumb}
                           alt={title}
-                          className="h-16 w-16 rounded-lg object-cover ring-1 ring-slate-200/70 dark:ring-slate-700/60 bg-slate-100 dark:bg-slate-800"
+                          className="h-16 w-16 rounded-lg object-cover ring-1 ring-gold/15 bg-sand"
                           sizes="64px"
                         />
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-600 dark:text-slate-300">
-                          <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2 py-0.5 font-semibold">
+                        <div className="flex items-center gap-2 text-[11px] sm:text-xs text-ink/55">
+                          <span className="inline-flex items-center rounded-full bg-gold/10 text-gold px-2 py-0.5 font-semibold">
                             {kind}
                           </span>
                           {when && <span>{when}</span>}
@@ -316,10 +316,10 @@ export default function InsightsPreviewClient({
                             <span>• {typeof time === "number" ? `${time} min read` : time}</span>
                           )}
                         </div>
-                        <h3 className="mt-1 text-[15px] sm:text-base font-semibold text-slate-900 dark:text-white line-clamp-2">
+                        <h3 className="mt-1 font-sora text-[15px] sm:text-base font-semibold text-ink line-clamp-2">
                           {title}
                         </h3>
-                        <span className="mt-0.5 inline-flex items-center gap-1 text-primary text-xs font-medium">
+                        <span className="mt-0.5 inline-flex items-center gap-1 text-gold text-xs font-medium">
                           Read
                           <svg
                             aria-hidden

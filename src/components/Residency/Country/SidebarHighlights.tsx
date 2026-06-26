@@ -17,14 +17,14 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
       itemScope
       itemType="https://schema.org/ItemList"
     >
-      {/* Decorative primary glows (non-interactive) */}
+      {/* Decorative gold glows (non-interactive) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-10 -left-10 h-28 w-28 rounded-full bg-sky-400/15 blur-2xl"
+        className="pointer-events-none absolute -top-10 -left-10 h-28 w-28 rounded-full bg-gold/10 blur-2xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-blue-500/15 blur-2xl"
+        className="pointer-events-none absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-gold/5 blur-2xl"
       />
 
       <meta itemProp="name" content="Program highlights" />
@@ -36,7 +36,6 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
       <SectionHeader
         eyebrow="Highlights"
         title="Why founders choose this"
-        className="text-neutral-900 dark:text-neutral-100"
       />
 
       <ul
@@ -55,11 +54,11 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
             className={[
               "group relative overflow-hidden rounded-xl",
               // Card surface
-              "bg-white/80 dark:bg-neutral-950/60 backdrop-blur",
-              // Subtle border & shadow
-              "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-xs hover:shadow-sm",
+              "bg-white",
+              // Subtle border
+              "border border-gold/45 hover:border-gold/65",
               // Spacing & interaction
-              "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60",
+              "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
             ].join(" ")}
             itemProp="itemListElement"
             itemScope
@@ -72,7 +71,7 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
             <div
               className="
                 pointer-events-none absolute -top-10 -right-10 h-28 w-28 rounded-full
-                bg-sky-300/20 dark:bg-sky-600/25 opacity-0
+                bg-gold/15 opacity-0
                 blur-2xl group-hover:opacity-100 transition-opacity duration-300
               "
               aria-hidden
@@ -83,17 +82,17 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
               <span
                 className="
                   mt-0.5 grid h-8 w-8 place-items-center shrink-0 rounded-full
-                  bg-gradient-to-b from-white to-slate-50 dark:from-neutral-900 dark:to-neutral-800
-                  ring-1 ring-sky-200/60 dark:ring-sky-900/50
+                  bg-sand/50
+                  border border-gold/45
                 "
                 aria-hidden
               >
-                <CheckCircle2 className="h-4.5 w-4.5 text-sky-600 dark:text-sky-400" />
+                <CheckCircle2 className="h-4.5 w-4.5 text-gold" />
               </span>
 
               {/* Copy */}
               <p
-                className="min-w-0 text-14 sm:text-[15px] leading-6 text-neutral-800 dark:text-neutral-100 break-words hyphens-auto"
+                className="min-w-0 text-14 sm:text-[15px] leading-6 text-ink/70 break-words hyphens-auto"
                 itemProp="name"
               >
                 {pt}
@@ -104,8 +103,7 @@ export default function SidebarHighlights({ points }: { points?: string[] }) {
                 className="
                   ml-2 mt-0.5 inline-flex items-center justify-center
                   rounded-full px-2 py-0.5 text-[11px] font-medium tabular-nums
-                  bg-sky-50/80 text-sky-800 ring-1 ring-inset ring-sky-200
-                  dark:bg-sky-900/30 dark:text-sky-300 dark:ring-sky-800/60
+                  bg-sand/50 text-gold border border-gold/45
                 "
                 aria-label={`Highlight ${idx + 1}`}
               >

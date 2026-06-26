@@ -50,7 +50,7 @@ export default async function XHubSignInPage({
       </div>
 
       {/* ── Card ── */}
-      <div className="relative w-full max-w-[420px] overflow-hidden rounded-2xl shadow-[0_32px_80px_rgba(0,0,0,0.65)] ring-1 ring-white/10">
+      <div className="relative w-full max-w-[420px] overflow-hidden rounded-2xl shadow-[0_32px_80px_rgba(15,23,42,0.08)] ring-1 ring-white/10">
 
         {/* ━━ Dark branding zone ━━ */}
         <div className="relative bg-[#071a3a] px-7 pt-6 pb-7">

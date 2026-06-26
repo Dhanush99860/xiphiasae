@@ -331,10 +331,14 @@ export default function LocationsDirectory({
   return (
     <section className={["w-full", className].join(" ")}>
       {/* Header */}
-      <div className="rounded-2xl ring-1 ring-blue-100/80 bg-white/80 p-4 shadow-sm dark:ring-blue-900/40 dark:bg-white/[0.03]">
-        <h2 className="text-lg font-semibold md:text-xl">Worldwide locations</h2>
-        <p className="mt-1 text-xs md:text-sm text-black/70 dark:text-white/70">
-          Jump to a region and contact the nearest office. No maps or images—just essentials.
+      <div className="rounded-2xl border border-gold/45 bg-white p-4">
+        <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-ink/40">
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold" />
+          Global presence
+        </div>
+        <h2 className="mt-2 font-sora text-lg font-semibold text-ink md:text-xl">Worldwide locations</h2>
+        <p className="mt-1 text-xs md:text-sm text-ink/55">
+          Jump to a region and contact the nearest office.
         </p>
 
         {/* Jump nav */}
@@ -344,10 +348,10 @@ export default function LocationsDirectory({
               <li key={r.key}>
                 <a
                   href={`#region-${r.key}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs text-blue-700 hover:bg-blue-50 dark:border-blue-800/60 dark:bg-white/5 dark:text-blue-200"
+                  className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1.5 text-xs text-ink/70 transition-colors hover:border-gold/65 hover:text-ink"
                 >
                   <span>{r.label}</span>
-                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] text-blue-700 ring-1 ring-blue-200 dark:bg-white/10 dark:text-blue-300 dark:ring-blue-800/60">
+                  <span className="rounded-full bg-sand/60 px-2 py-0.5 text-[11px] text-gold border border-gold/45">
                     {count(r.key)}
                   </span>
                 </a>
@@ -369,21 +373,21 @@ export default function LocationsDirectory({
               aria-labelledby={`heading-${r.key}`}
             >
               <div className="mb-2 flex items-end justify-between">
-                <h3 id={`heading-${r.key}`} className="text-sm font-semibold">
+                <h3 id={`heading-${r.key}`} className="font-sora text-sm font-semibold text-ink">
                   {r.label}
                 </h3>
-                <span className="text-xs text-black/60 dark:text-white/60">
+                <span className="text-xs uppercase tracking-wide text-ink/40">
                   {offices.length} {offices.length === 1 ? "office" : "offices"}
                 </span>
               </div>
 
               {offices.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-blue-200 p-6 text-center text-sm text-zinc-600 dark:border-blue-900/40">
+                <div className="rounded-xl border border-dashed border-gold/45 p-6 text-center text-sm text-ink/45">
                   No offices listed.
                 </div>
               ) : (
-                <div className="rounded-xl ring-1 ring-blue-100/80 bg-white/80 dark:ring-blue-900/40 dark:bg-white/[0.03]">
-                  <ul className="divide-y divide-blue-100/70 dark:divide-blue-900/40">
+                <div className="rounded-xl border border-gold/45 bg-white">
+                  <ul className="divide-y divide-gold/10">
                     {offices.map((o: Office) => (
                       <li key={o.id} className="p-4 sm:p-5">
                         <OfficeRow office={o} />
@@ -401,7 +405,7 @@ export default function LocationsDirectory({
       <div className="mt-6">
         <a
           href="#"
-          className="inline-flex items-center gap-2 rounded-md border border-blue-200 bg-white px-3 py-1.5 text-xs text-blue-700 hover:bg-blue-50 dark:border-blue-800/60 dark:bg-white/5 dark:text-blue-200"
+          className="inline-flex items-center gap-2 rounded-md border border-gold/45 bg-sand/50 px-3 py-1.5 text-xs text-ink/70 transition-colors hover:border-gold/65 hover:text-ink"
         >
           ↑ Back to top
         </a>
@@ -428,14 +432,14 @@ function OfficeRow({ office: o }: { office: Office }) {
       {/* Left: title + address */}
       <div className="min-w-0">
         <div className="flex items-baseline justify-between gap-3">
-          <h4 className="truncate text-[15px] font-semibold">{o.city}</h4>
+          <h4 className="truncate font-sora text-[15px] font-semibold text-ink">{o.city}</h4>
         </div>
         {o.company && (
-          <div className="mt-0.5 truncate text-[13px] font-medium text-blue-700 dark:text-blue-300">
+          <div className="mt-0.5 truncate text-[13px] font-medium text-gold">
             {o.company}
           </div>
         )}
-        <div className="mt-1.5 space-y-0.5 text-sm text-zinc-800 dark:text-zinc-300">
+        <div className="mt-1.5 space-y-0.5 text-sm text-ink/55">
           {o.address.map((line: string, i: number) => (
             <div key={i} className="truncate">
               {line}
@@ -448,10 +452,10 @@ function OfficeRow({ office: o }: { office: Office }) {
       <div className="min-w-0 sm:pl-4">
         <dl className="space-y-1 text-sm">
           {phones.map((p: string, i: number) => (
-            <div key={`ph-${i}`} className="flex items-center gap-2">
-              <PhoneIcon />
+            <div key={`ph-${i}`} className="flex items-center gap-2 text-ink/70">
+              <span className="text-gold"><PhoneIcon /></span>
               <a
-                className="underline decoration-blue-400 hover:decoration-blue-600"
+                className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                 href={tel(p)}
               >
                 {p}
@@ -459,10 +463,10 @@ function OfficeRow({ office: o }: { office: Office }) {
             </div>
           ))}
           {o.email && (
-            <div className="flex items-center gap-2">
-              <MailIcon />
+            <div className="flex items-center gap-2 text-ink/70">
+              <span className="text-gold"><MailIcon /></span>
               <a
-                className="underline decoration-blue-400 hover:decoration-blue-600"
+                className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                 href={`mailto:${o.email}`}
               >
                 {o.email}
@@ -470,10 +474,10 @@ function OfficeRow({ office: o }: { office: Office }) {
             </div>
           )}
           {o.whatsapp && (
-            <div className="flex items-center gap-2">
-              <WhatsIcon />
+            <div className="flex items-center gap-2 text-ink/70">
+              <span className="text-gold"><WhatsIcon /></span>
               <a
-                className="underline decoration-blue-400 hover:decoration-blue-600"
+                className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                 href={wa(o.whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -483,16 +487,16 @@ function OfficeRow({ office: o }: { office: Office }) {
             </div>
           )}
           {faxes.map((f: string, i: number) => (
-            <div key={`fax-${i}`} className="flex items-center gap-2">
-              <FaxIcon />
+            <div key={`fax-${i}`} className="flex items-center gap-2 text-ink/70">
+              <span className="text-gold"><FaxIcon /></span>
               <span>{f}</span>
             </div>
           ))}
           {o.website && (
-            <div className="flex items-center gap-2">
-              <LinkIcon />
+            <div className="flex items-center gap-2 text-ink/70">
+              <span className="text-gold"><LinkIcon /></span>
               <a
-                className="underline decoration-blue-400 hover:decoration-blue-600"
+                className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                 href={o.website}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -507,7 +511,7 @@ function OfficeRow({ office: o }: { office: Office }) {
           {o.email && (
             <a
               href={`mailto:${o.email}`}
-              className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-1.5 text-xs text-white ring-1 ring-blue-700/20 hover:bg-blue-700"
+              className="inline-flex items-center gap-1 rounded-md bg-gold px-2.5 py-1.5 text-xs font-semibold text-ink border border-gold/60 hover:bg-gold_bright"
             >
               Email
               <ArrowRight />
@@ -518,7 +522,7 @@ function OfficeRow({ office: o }: { office: Office }) {
               href={mapLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs ring-1 ring-blue-200 text-blue-700 hover:bg-blue-50 dark:ring-blue-800/60 dark:text-blue-200 dark:hover:bg-white/10"
+              className="inline-flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs border border-gold/45 bg-sand/50 text-ink/70 transition-colors hover:border-gold/65 hover:text-ink"
             >
               Directions
               <OpenIcon />

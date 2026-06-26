@@ -51,14 +51,17 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
 
   return (
     <section id="faq" role="region" aria-label="Frequently asked questions" className="mt-5">
-      <div className="overflow-visible rounded-2xl bg-gradient-to-br from-slate-50 to-white dark:from-neutral-900/60 dark:to-neutral-900/20 ring-1 ring-slate-200/70 dark:ring-neutral-800/70 shadow-sm divide-y divide-slate-200/70 dark:divide-neutral-800/70">
+      <div className="overflow-visible rounded-2xl bg-white border border-gold/45 divide-y divide-gold/5">
         {faqs.map((f, i) => {
           const isOpen = openIndex === i;
           const panelId = `faq-panel-${i}-${slugs[i]}`;
           const buttonId = `faq-button-${i}-${slugs[i]}`;
 
           return (
-            <div key={panelId} className="px-4 sm:px-5">
+            <div
+              key={panelId}
+              className={`px-4 sm:px-5 border-l-2 transition-colors ${isOpen ? "border-gold" : "border-transparent"}`}
+            >
               <h3 className="m-0">
                 <button
                   id={buttonId}
@@ -66,12 +69,15 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => onToggle(i)}
-                  className="group flex w-full items-center justify-between gap-3 py-4 sm:py-5 text-left text-[15px] sm:text-base font-semibold rounded-lg hover:bg-white/60 dark:hover:bg-neutral-900/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500/60 text-neutral-900 dark:text-neutral-100 transition"
+                  className={[
+                    "group flex w-full items-center justify-between gap-3 py-4 sm:py-5 text-left text-[15px] sm:text-base font-semibold rounded-lg hover:bg-white/[0.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold transition",
+                    isOpen ? "text-gold" : "text-ink",
+                  ].join(" ")}
                 >
                   <span className="pr-2">{f.q}</span>
                   <Chevron
                     className={[
-                      "h-5 w-5 shrink-0 text-neutral-600 dark:text-neutral-300 transition-transform duration-300",
+                      "h-5 w-5 shrink-0 text-gold transition-transform duration-300",
                       isOpen ? "rotate-180" : "rotate-0",
                     ].join(" ")}
                   />
@@ -88,7 +94,7 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
                 ].join(" ")}
               >
                 <div className="overflow-hidden">
-                  <div className="pb-4 sm:pb-5 text-[15px] leading-7 text-black/80 dark:text-gray-200 whitespace-pre-line">
+                  <div className="pb-4 sm:pb-5 text-[15px] leading-7 text-ink/55 whitespace-pre-line">
                     {f.a}
                   </div>
                 </div>

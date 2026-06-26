@@ -32,14 +32,14 @@ const BlogCard = ({ blog }: BlogCardProps) => {
 
       <div>
         {formattedDate && (
-          <span className="mb-1 text-16 text-dark_grey">
+          <span className="mb-1 text-16 text-ink/45">
             {formattedDate}
           </span>
         )}
-        <h5 className="mb-9 text-22 font-medium group-hover:text-primary">
+        <h5 className="mb-9 text-22 font-medium font-sora text-ink group-hover:text-gold transition-colors">
           {title}
         </h5>
-        <p className="text-17 font-medium text-primary">Read More</p>
+        <p className="text-17 font-medium text-gold">Read More</p>
       </div>
     </Link>
   );

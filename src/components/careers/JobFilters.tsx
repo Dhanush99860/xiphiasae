@@ -74,12 +74,19 @@ export default function JobFilters({ depts }: Props) {
 
   const hasActive = q.trim() !== "" || dept !== "all" || remoteOnly;
 
+  const GOLD = "#bfa15c";
+  const fieldStyle = {
+    border: "1px solid rgba(191,161,92,0.3)",
+    background: "rgba(255,255,255,0.03)",
+  } as const;
+
   return (
     <form
       role="search"
       aria-label="Filter jobs"
       onSubmit={onSubmit}
-      className="flex w-full flex-wrap items-center gap-3 rounded-xl border border-black/20 bg-white/70 p-3 text-black ring-1 ring-black/5 backdrop-blur dark:border-white/20 dark:bg-white/5 dark:text-white dark:ring-white/5"
+      className="flex w-full flex-wrap items-center gap-3 rounded-2xl p-4 text-white"
+      style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }}
     >
       <label htmlFor="jobs-search" className="sr-only">Search jobs</label>
       <input
@@ -89,7 +96,8 @@ export default function JobFilters({ depts }: Props) {
         placeholder="Search by title, location..."
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        className="min-w-[220px] flex-1 rounded-lg border border-black/20 px-3 py-2 text-sm text-black placeholder-black focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:text-white dark:placeholder-white"
+        className="min-w-[220px] flex-1 rounded-lg px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none transition-colors focus:border-[#bfa15c]"
+        style={fieldStyle}
         aria-label="Search jobs by title or location"
       />
 
@@ -99,30 +107,32 @@ export default function JobFilters({ depts }: Props) {
         value={dept}
         onChange={(e) => setDept(e.target.value)}
         aria-label="Filter by department"
-        className="rounded-lg border border-black/20 bg-white px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:text-white"
+        className="rounded-lg px-3 py-2.5 text-sm text-white outline-none transition-colors focus:border-[#bfa15c]"
+        style={fieldStyle}
       >
         {deptOptions.map((d) => (
-          <option key={d} value={d}>
+          <option key={d} value={d} className="bg-[#0a1733] text-white">
             {d === "all" ? "All Departments" : d}
           </option>
         ))}
       </select>
 
-      <label className="flex items-center gap-2 text-sm">
+      <label className="flex items-center gap-2 text-sm text-white/80">
         <input
           type="checkbox"
           checked={remoteOnly}
           onChange={(e) => setRemoteOnly(e.target.checked)}
-          className="h-4 w-4 rounded border-black/30 text-blue-600 focus:ring-blue-400"
+          className="h-4 w-4 rounded accent-[#bfa15c]"
           aria-label="Remote only"
         />
-        <span className="text-black dark:text-white">Remote only</span>
+        <span>Remote only</span>
       </label>
 
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ms-auto flex items-center gap-2">
         <button
           type="submit"
-          className="rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="rounded-full px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] transition-transform hover:-translate-y-0.5"
+          style={{ background: GOLD, color: "#0a1733" }}
         >
           Apply
         </button>
@@ -130,7 +140,8 @@ export default function JobFilters({ depts }: Props) {
           <button
             type="button"
             onClick={clearAll}
-            className="rounded-xl border border-black/20 bg-white/80 px-3 py-2 text-sm font-semibold text-black hover:bg-white focus:outline-none focus:ring-2 focus:ring-black/20 dark:border-white/20 dark:bg-white/10 dark:text-white"
+            className="rounded-full px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-white/80 transition-colors hover:text-white"
+            style={{ border: `1px solid ${GOLD}55` }}
             aria-label="Clear all filters"
           >
             Clear

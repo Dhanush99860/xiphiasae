@@ -42,7 +42,7 @@ export default function TestimonialCarouselMarquee({
       role="region"
       className={[
         "mx-auto max-w-screen-2xl px-4 py-5",
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20",
+        "bg-sand",
         className,
       ].join(" ")}
       aria-roledescription="carousel"
@@ -51,14 +51,14 @@ export default function TestimonialCarouselMarquee({
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <div className="inline-flex items-center gap-2 text-[12px]">
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
+          <div className="inline-flex items-center gap-2 text-[12px] text-ink/70">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
             <span className="font-semibold">Testimonials</span>
           </div>
-          <h2 className="mt-1 text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
+          <h2 className="mt-1 font-sora text-2xl md:text-3xl font-semibold tracking-tight text-ink">
             {title}
           </h2>
-          <p className="mt-1 text-sm md:text-[15px] text-neutral-700 dark:text-neutral-300">
+          <p className="mt-1 text-sm md:text-[15px] text-ink/55">
             {subtitle}
           </p>
         </div>
@@ -110,13 +110,13 @@ function Card({
     <article
       className={[
         "h-full flex flex-col justify-between",
-        "rounded-2xl ring-1 ring-blue-100/80 bg-white/90 p-6 md:p-7 shadow-sm",
-        "dark:ring-blue-900/40 dark:bg-white/[0.03]",
+        "rounded-2xl border border-gold/45 bg-white p-6 md:p-7",
+        "transition-colors hover:border-gold/65",
       ].join(" ")}
     >
       {/* Top meta */}
       <div className="mb-3 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300">
+        <div className="flex items-center gap-2 text-gold">
           <Quote className="h-5 w-5" aria-hidden="true" />
           <span className="text-xs font-semibold uppercase tracking-wide">
             Review
@@ -132,8 +132,8 @@ function Card({
               size={14}
               className={
                 i < stars
-                  ? "text-amber-400 fill-amber-400"
-                  : "text-neutral-300 dark:text-neutral-700"
+                  ? "text-gold fill-gold"
+                  : "text-ink/50"
               }
               aria-hidden="true"
             />
@@ -142,7 +142,7 @@ function Card({
       </div>
 
       {/* Quote */}
-      <p className="text-neutral-800 dark:text-neutral-200 leading-relaxed">
+      <p className="text-ink/70 leading-relaxed">
         “{t.text}”
       </p>
 
@@ -151,20 +151,20 @@ function Card({
         <Avatar src={showInitialsOnly ? undefined : t.image} alt={t.name} />
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <h3 className="truncate text-[15px] font-semibold text-neutral-900 dark:text-neutral-50">
+            <h3 className="truncate text-[15px] font-semibold text-ink">
               {t.name}
             </h3>
             {t.verified && (
               <span
                 title="Verified reviewer"
-                className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-800/60"
+                className="inline-flex items-center gap-1 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-[11px] font-medium text-gold"
               >
                 <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
                 Verified
               </span>
             )}
           </div>
-          <p className="truncate text-sm text-neutral-600 dark:text-neutral-300">
+          <p className="truncate text-sm text-ink/55">
             {t.role}
           </p>
         </div>
@@ -196,7 +196,7 @@ function Avatar({
       <div
         role="img"
         aria-label={label}
-        className="flex items-center justify-center rounded-full ring-1 ring-blue-200 dark:ring-blue-900/40 bg-blue-100/70 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200"
+        className="flex items-center justify-center rounded-full border border-gold/45 bg-sand/50 text-gold"
         style={{ width: size, height: size }}
       >
         <span className="text-sm font-semibold">{letters}</span>
@@ -211,7 +211,7 @@ function Avatar({
       width={size}
       height={size}
       onError={() => setError(true)}
-      className="rounded-full object-cover ring-1 ring-blue-100/80 dark:ring-blue-900/40"
+      className="rounded-full object-cover ring-1 ring-gold/[0.08]"
       style={{ width: size, height: size }}
       loading="lazy"
     />

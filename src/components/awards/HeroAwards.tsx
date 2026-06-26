@@ -1,169 +1,126 @@
-import React from "react";
-import Link from "next/link";
+"use client";
 
-export function HeroAwards() {
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import Ambient from "@/components/HomeLuxe/Ambient";
+import { awardsData } from "@/components/awards/awards.data";
+
+const GOLD = "#bfa15c";
+const NAVY = "#0a1733";
+
+/* The featured lead award, derived from the real data. */
+const FEATURED = awardsData[0];
+
+/* tasteful 2-letter initial badge from an issuer name */
+function initials(name: string) {
+  const parts = name.replace(/[^A-Za-z ]/g, "").trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? parts[0]?.[1] ?? "")).toUpperCase();
+}
+
+function Rise({
+  children,
+  delay = 0,
+  reduce,
+  className,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  reduce: boolean | null;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      initial={reduce ? false : { opacity: 0, y: 26 }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function Badge({ issuer }: { issuer: string }) {
+  return (
+    <span
+      aria-hidden
+      className="grid h-14 w-14 shrink-0 place-items-center rounded-full text-[13px] font-semibold tracking-[0.06em]"
+      style={{ border: `1px solid rgba(191,161,92,0.45)`, color: GOLD, background: "rgba(191,161,92,0.06)" }}
+    >
+      {initials(issuer)}
+    </span>
+  );
+}
+
+export function HeroAwards({ serifClass }: { serifClass: string }) {
+  const reduce = useReducedMotion();
+
   return (
     <section
+      data-tone="dark"
       aria-labelledby="hero-awards"
-      className={[
-        "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10 ring-1",
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-blue-100/80 text-slate-900",
-        "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40 dark:text-white",
-      ].join(" ")}
+      className="relative overflow-hidden px-6 pb-24 pt-36 md:px-10 lg:px-16"
+      style={{ background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`, color: "#fff" }}
     >
-      {/* soft glows + faint grid (static) */}
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-        <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-        <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-        </div>
-      </div>
+      <Ambient tone="dark" />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <Rise reduce={reduce}>
+          <div className="flex items-center gap-3">
+            <span className="h-px w-10" style={{ background: GOLD }} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>
+              Recognition
+            </span>
+            <span lang="ar" dir="rtl" className="font-arabic-display text-base" style={{ color: `${GOLD}cc` }}>
+              تقدير
+            </span>
+          </div>
+        </Rise>
 
-      <div className="relative">
-        <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-          <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
-          Recognition
-        </span>
+        <Rise reduce={reduce} delay={0.1}>
+          <h1
+            id="hero-awards"
+            className={`${serifClass} mt-6 max-w-4xl text-[clamp(2.6rem,6.5vw,5rem)] font-medium leading-[0.98]`}
+          >
+            Most Awarded <span className="italic" style={{ color: GOLD }}>Immigration Company</span>
+          </h1>
+        </Rise>
 
-        <h1
-          id="hero-awards"
-          className="mt-3 text-4xl md:text-5xl font-semibold tracking-tight leading-tight"
-        >
-          Awards &amp; Recognition
-        </h1>
+        <Rise reduce={reduce} delay={0.2}>
+          <p className="mt-6 max-w-xl text-[15px] leading-7 text-white/60 md:text-base">
+            Independent publications have recognised our innovation, industry leadership, and client-first
+            execution across more than a decade of practice.
+          </p>
+        </Rise>
 
-        <p className="mt-3 max-w-2xl text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 md:text-base">
-          Independent publications have highlighted our innovation, industry
-          leadership, and client-first execution.
-        </p>
-
-        {/* primary CTAs */}
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Link
-            href="/personal-booking"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-600"
-          >
-            <Calendar />
-            Expert consultation
-          </Link>
-
-          <Link
-            href="/contact"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
-          >
-            Contact
-            <Arrow />
-          </Link>
-        </div>
-
-        {/* quick links row */}
-        <div className="mt-3 flex flex-wrap gap-2">
-          <Link
-            href="/citizenship"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Layers />
-            Citizenship
-          </Link>
-          <Link
-            href="/residency"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Layers />
-            residency
-          </Link>
-          <Link
-            href="/corporate"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Layers />
-            Corporate
-          </Link>
-          <Link
-            href="/skilled"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Layers />
-            Skilled
-          </Link>
-          <Link
-            href="/insights"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Lightbulb />
-            Latest Insights
-          </Link>
-          <Link
-            href="/about"
-            prefetch={false}
-            className="inline-flex items-center gap-2 rounded-lg bg-white/70 px-3 py-2 text-sm text-slate-800 ring-1 ring-slate-200 hover:bg-white dark:bg-white/5 dark:text-slate-100 dark:ring-white/10"
-          >
-            <Info />
-            About us
-          </Link>
-        </div>
+        {/* FEATURED lead award — called out big */}
+        {FEATURED && (
+          <Rise reduce={reduce} delay={0.32}>
+            <div
+              className="mt-14 grid items-center gap-8 rounded-3xl p-8 md:grid-cols-[auto_1fr] md:p-12"
+              style={{ border: `1px solid rgba(191,161,92,0.4)`, background: "rgba(255,255,255,0.03)" }}
+            >
+              <div className="flex flex-col items-start gap-4">
+                <span className={`${serifClass} text-[clamp(3rem,8vw,6rem)] font-medium leading-none`} style={{ color: GOLD }}>
+                  01
+                </span>
+                <Badge issuer={FEATURED.issuer} />
+              </div>
+              <div>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: GOLD }}>
+                  {FEATURED.tag}
+                </span>
+                <h2 className={`${serifClass} mt-3 text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-tight`}>
+                  {FEATURED.title}
+                </h2>
+                <p className="mt-4 text-sm uppercase tracking-[0.14em] text-white/55">
+                  {FEATURED.issuer} · {FEATURED.year}
+                </p>
+              </div>
+            </div>
+          </Rise>
+        )}
       </div>
     </section>
-  );
-}
-
-/* --- tiny inline icons (no extra deps) --- */
-
-function Arrow() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
-      <path
-        fill="currentColor"
-        d="M5 12.75h11.19l-3.72 3.72a.75.75 0 1 0 1.06 1.06l5.25-5.25a.75.75 0 0 0 0-1.06L13.53 5.97a.75.75 0 1 0-1.06 1.06l3.72 3.72H5a.75.75 0 0 0 0 1.5z"
-      />
-    </svg>
-  );
-}
-function Calendar() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h1V3a1 1 0 0 1 1-1zm13 7H4v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9z"
-      />
-    </svg>
-  );
-}
-function Layers() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M12 2l9 5-9 5-9-5 9-5zm0 8l9 5-9 5-9-5 9-5zm-8.2 3.8l8.2 4.6 8.2-4.6"
-      />
-    </svg>
-  );
-}
-function Lightbulb() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M9 21h6a1 1 0 0 0 1-1v-1H8v1a1 1 0 0 0 1 1zm9-11a6 6 0 1 0-12 0c0 2.1 1.1 3.6 2.3 4.7.5.5.7 1.1.7 1.8V17h6v-.5c0-.7.2-1.3.7-1.8 1.2-1.1 2.3-2.6 2.3-4.7z"
-      />
-    </svg>
-  );
-}
-function Info() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
-      <path
-        fill="currentColor"
-        d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
-      />
-    </svg>
   );
 }

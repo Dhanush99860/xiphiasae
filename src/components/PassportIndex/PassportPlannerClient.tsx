@@ -16,6 +16,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import type { PassportRecord } from "@/data/passport-index";
+import Flag from "@/components/Countries/Flag";
 import {
   bandClass,
   passportProfileHref,
@@ -24,6 +25,7 @@ import {
   PassportSourceNote,
   regionClass,
   scoreWidth,
+  serifClass,
   type PassportStats,
 } from "@/components/PassportIndex/PassportIndexShared";
 
@@ -103,64 +105,67 @@ export default function PassportPlannerClient({ records, stats }: Props) {
         <div className="grid gap-5 lg:grid-cols-[300px_1fr]">
 
           {/* ══ LEFT — profile builder ══ */}
-          <aside className="flex flex-col gap-4 rounded-xl border border-[#E1E1E1] bg-white p-5 shadow-sm">
+          <aside className="flex flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
 
             {/* Header */}
             <div>
-              <p className="text-[10.5px] font-black uppercase tracking-[0.2em] text-[#1c57b4]">My passport</p>
-              <h2 className="mt-0.5 text-base font-black text-[#071a3a]">Build your profile</h2>
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#bfa15c]">My passport</p>
+              <h2 className={`${serifClass} mt-0.5 text-lg font-medium text-white`}>Build your profile</h2>
             </div>
 
             {/* Passport select */}
             <div>
-              <label htmlFor="planner-passport" className="mb-1.5 block text-[10.5px] font-black uppercase tracking-[0.14em] text-[#505050]">
+              <label htmlFor="planner-passport" className="mb-1.5 block text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/70">
                 Current passport
               </label>
               <div className="relative">
+                <span className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2">
+                  <Flag code={selected.code} size={20} />
+                </span>
                 <select
                   id="planner-passport"
                   value={passportCode}
                   onChange={(e) => setPassportCode(e.target.value)}
-                  className="w-full appearance-none rounded-lg border border-[#E1E1E1] bg-white py-2.5 pl-3 pr-8 text-[13px] font-semibold text-[#263238] outline-none focus:border-[#1c57b4] focus:ring-2 focus:ring-[#1c57b4] focus:ring-offset-1"
+                  className="w-full appearance-none rounded-lg border border-white/15 bg-white/[0.05] py-2.5 pl-9 pr-8 text-[13px] font-semibold text-white outline-none focus:border-[#bfa15c] focus:ring-1 focus:ring-[#bfa15c] [&>option]:bg-[#0c1f3f] [&>option]:text-white"
                 >
                   {records.map((r) => (
                     <option key={r.code} value={r.code}>{r.country} · {r.score}</option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-[#9ca3af]" aria-hidden="true" />
+                <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-white/45" aria-hidden="true" />
               </div>
 
               {/* Passport mini stats */}
               <div className="mt-2.5 grid grid-cols-3 gap-1.5">
-                <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] px-2 py-2 text-center">
-                  <p className="text-[9px] font-black uppercase tracking-[0.1em] text-[#9ca3af]">Code</p>
-                  <p className="mt-0.5 text-[12px] font-black text-[#071a3a]">{selected.code}</p>
+                <div className="rounded-lg border border-white/12 bg-white/[0.04] px-2 py-2 text-center">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/40">Code</p>
+                  <p className="mt-0.5 text-[12px] font-semibold text-white">{selected.code}</p>
                 </div>
-                <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] px-2 py-2 text-center">
-                  <p className="text-[9px] font-black uppercase tracking-[0.1em] text-[#9ca3af]">Rank</p>
-                  <p className="mt-0.5 text-[12px] font-black text-[#071a3a]">{selected.rank}</p>
+                <div className="rounded-lg border border-white/12 bg-white/[0.04] px-2 py-2 text-center">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/40">Rank</p>
+                  <p className="mt-0.5 text-[12px] font-semibold text-white">{selected.rank}</p>
                 </div>
-                <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] px-2 py-2 text-center">
-                  <p className="text-[9px] font-black uppercase tracking-[0.1em] text-[#9ca3af]">Score</p>
-                  <p className="mt-0.5 text-[12px] font-black text-[#1c57b4]">{selected.score}</p>
+                <div className="rounded-lg border border-white/12 bg-white/[0.04] px-2 py-2 text-center">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.1em] text-white/40">Score</p>
+                  <p className="mt-0.5 text-[12px] font-semibold text-[#bfa15c]">{selected.score}</p>
                 </div>
               </div>
 
               {/* Score bar */}
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-[#E1E1E1]">
-                <div className="h-full rounded-full bg-[#1c57b4] transition-all duration-500" style={{ width: scoreWidth(selected.score, stats.topScore) }} />
+              <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-[#bfa15c] transition-all duration-500" style={{ width: scoreWidth(selected.score, stats.topScore) }} />
               </div>
               <div className="mt-1 flex items-center justify-between">
-                <span className={`rounded-full px-2 py-0.5 text-[9.5px] font-black ${bandClass(selected.band)}`}>{selected.band}</span>
-                <span className="text-[10px] text-[#9ca3af] tabular-nums">{selected.score} / {stats.topScore}</span>
+                <span className={`rounded-full border px-2 py-0.5 text-[9.5px] font-semibold ${bandClass(selected.band)}`}>{selected.band}</span>
+                <span className="text-[10px] text-white/40 tabular-nums">{selected.score} / {stats.topScore}</span>
               </div>
             </div>
 
-            <div className="border-t border-[#E1E1E1]" />
+            <div className="border-t border-white/12" />
 
             {/* Goal list — compact: only active shows description */}
             <div>
-              <p className="mb-2 text-[10.5px] font-black uppercase tracking-[0.14em] text-[#505050]">Primary goal</p>
+              <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/70">Primary goal</p>
               <div className="grid gap-1.5">
                 {goals.map((item) => {
                   const Icon = item.icon;
@@ -172,26 +177,26 @@ export default function PassportPlannerClient({ records, stats }: Props) {
                       onClick={() => setGoal(item.id)}
                       className={[
                         "flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
-                        active ? "border-[#1c57b4] bg-[#eaf2ff]" : "border-[#E1E1E1] bg-white hover:bg-[#F5F7FA]",
+                        active ? "border-[#bfa15c] bg-[#bfa15c]/[0.1]" : "border-white/12 bg-white/[0.04] hover:bg-white/[0.06]",
                       ].join(" ")}
                     >
                       <span className={[
                         "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md transition-colors",
-                        active ? "bg-[#1c57b4] text-white" : "bg-[#F5F7FA] text-[#1c57b4]",
+                        active ? "bg-[#bfa15c] text-[#0c1f3f]" : "bg-white/[0.06] text-[#bfa15c]",
                       ].join(" ")}>
                         <Icon className="size-3.5" aria-hidden="true" />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className={`block text-[12.5px] font-black leading-tight ${active ? "text-[#1c57b4]" : "text-[#071a3a]"}`}>
+                        <span className={`block text-[12.5px] font-semibold leading-tight ${active ? "text-[#bfa15c]" : "text-white"}`}>
                           {item.label}
                         </span>
                         {active && (
-                          <span className="mt-1 block text-[11px] leading-[1.5] text-[#505050]">
+                          <span className="mt-1 block text-[11px] leading-[1.5] text-white/60">
                             {item.description}
                           </span>
                         )}
                       </span>
-                      {active && <ChevronRight className="mt-0.5 size-3.5 shrink-0 text-[#1c57b4]" aria-hidden="true" />}
+                      {active && <ChevronRight className="mt-0.5 size-3.5 shrink-0 text-[#bfa15c]" aria-hidden="true" />}
                     </button>
                   );
                 })}
@@ -201,7 +206,7 @@ export default function PassportPlannerClient({ records, stats }: Props) {
             {/* Talk to advisor CTA */}
             <Link
               href="/personal-booking"
-              className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg border border-[#E1E1E1] px-4 py-2.5 text-[12.5px] font-black text-[#1c57b4] transition hover:border-[#1c57b4] hover:bg-[#eaf2ff]"
+              className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/15 px-4 py-2.5 text-[12.5px] font-semibold text-[#bfa15c] transition hover:border-[#bfa15c] hover:bg-[#bfa15c]/10"
             >
               Talk to an advisor <ArrowRight className="size-3.5" />
             </Link>
@@ -211,18 +216,19 @@ export default function PassportPlannerClient({ records, stats }: Props) {
           <div className="flex flex-col gap-5">
 
             {/* Direction card */}
-            <div className="rounded-xl border border-[#E1E1E1] bg-white shadow-sm overflow-hidden">
+            <div className="rounded-2xl border border-white/12 bg-white/[0.04] shadow-xl shadow-black/30 backdrop-blur-sm overflow-hidden">
 
               {/* Passport bar */}
-              <div className="flex flex-wrap items-center gap-2 border-b border-[#E1E1E1] bg-[#F5F7FA] px-5 py-3">
-                <MapPin className="size-3.5 text-[#1c57b4]" aria-hidden="true" />
-                <span className="text-[10.5px] font-black uppercase tracking-[0.14em] text-[#505050]">Current passport</span>
-                <span className="h-3 w-px bg-[#E1E1E1]" />
-                <span className="text-[13px] font-black text-[#071a3a]">{selected.country}</span>
-                <span className="rounded-md border border-[#E1E1E1] bg-white px-2 py-0.5 text-[10px] font-black text-[#505050]">{selected.code}</span>
-                <span className={`rounded-full px-2 py-0.5 text-[10px] font-black ${regionClass(selected.region)}`}>{selected.region}</span>
-                <span className={`rounded-full border px-2 py-0.5 text-[10px] font-black ${bandClass(selected.band)}`}>{selected.band}</span>
-                <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-[#1c57b4] px-3 py-1 text-[11.5px] font-black text-white tabular-nums">
+              <div className="flex flex-wrap items-center gap-2 border-b border-white/12 bg-white/[0.05] px-5 py-3">
+                <MapPin className="size-3.5 text-[#bfa15c]" aria-hidden="true" />
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/55">Current passport</span>
+                <span className="h-3 w-px bg-white/15" />
+                <Flag code={selected.code} size={22} />
+                <span className="text-[13px] font-semibold text-white">{selected.country}</span>
+                <span className="rounded-md border border-white/15 bg-white/[0.06] px-2 py-0.5 text-[10px] font-semibold text-white/55">{selected.code}</span>
+                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${regionClass(selected.region)}`}>{selected.region}</span>
+                <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${bandClass(selected.band)}`}>{selected.band}</span>
+                <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-[#bfa15c] px-3 py-1 text-[11.5px] font-semibold text-[#0c1f3f] tabular-nums">
                   {selected.score} <span className="font-normal opacity-70">score</span>
                 </span>
               </div>
@@ -230,37 +236,37 @@ export default function PassportPlannerClient({ records, stats }: Props) {
               {/* Direction body — single column */}
               <div className="p-5">
                 <div className="flex items-center gap-2">
-                  <span className="flex size-6 items-center justify-center rounded-md bg-[#eaf2ff]">
-                    <TrendingUp className="size-3.5 text-[#1c57b4]" aria-hidden="true" />
+                  <span className="flex size-6 items-center justify-center rounded-md bg-[#bfa15c]/15">
+                    <TrendingUp className="size-3.5 text-[#bfa15c]" aria-hidden="true" />
                   </span>
-                  <p className="text-[10.5px] font-black uppercase tracking-[0.2em] text-[#1c57b4]">{rec.eyebrow}</p>
+                  <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#bfa15c]">{rec.eyebrow}</p>
                 </div>
-                <h2 className="mt-3 text-[1.2rem] font-black leading-snug text-[#071a3a]">{rec.title}</h2>
-                <p className="mt-2 text-[13px] leading-[1.7] text-[#505050]">{rec.body}</p>
+                <h2 className={`${serifClass} mt-3 text-[1.4rem] font-medium leading-snug text-white`}>{rec.title}</h2>
+                <p className="mt-2 text-[13px] leading-[1.7] text-white/60">{rec.body}</p>
 
                 <div className="mt-4 flex flex-wrap gap-2.5">
                   <Link
                     href={rec.href}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#1c57b4] px-4 py-2.5 text-[12.5px] font-black text-white transition hover:bg-[#1648a0]"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#bfa15c] px-4 py-2.5 text-[12.5px] font-semibold text-[#0c1f3f] transition hover:bg-[#d8bd78]"
                   >
                     {rec.cta} <ArrowRight className="size-3.5" />
                   </Link>
                   <Link
                     href={passportProfileHref(selected)}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[#E1E1E1] px-4 py-2.5 text-[12.5px] font-black text-[#1c57b4] transition hover:border-[#1c57b4] hover:bg-[#eaf2ff]"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 px-4 py-2.5 text-[12.5px] font-semibold text-[#bfa15c] transition hover:border-[#bfa15c] hover:bg-[#bfa15c]/10"
                   >
                     Passport profile
                   </Link>
                 </div>
 
                 {/* Key checks — 2×2 grid below CTAs */}
-                <div className="mt-4 border-t border-[#E1E1E1] pt-4">
-                  <p className="mb-2.5 text-[10.5px] font-black uppercase tracking-[0.18em] text-[#505050]">Key checks</p>
+                <div className="mt-4 border-t border-white/12 pt-4">
+                  <p className="mb-2.5 text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/55">Key checks</p>
                   <div className="grid gap-2 sm:grid-cols-2">
                     {rec.checks.map((check) => (
-                      <div key={check} className="flex gap-2 rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] px-3 py-2.5">
-                        <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-[#1c57b4]" aria-hidden="true" />
-                        <p className="text-[12px] leading-[1.5] text-[#505050]">{check}</p>
+                      <div key={check} className="flex gap-2 rounded-lg border border-white/12 bg-white/[0.04] px-3 py-2.5">
+                        <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-[#bfa15c]" aria-hidden="true" />
+                        <p className="text-[12px] leading-[1.5] text-white/60">{check}</p>
                       </div>
                     ))}
                   </div>
@@ -270,15 +276,15 @@ export default function PassportPlannerClient({ records, stats }: Props) {
 
             {/* Upgrades section */}
             {targetRecs.length > 0 && (
-              <div className="rounded-xl border border-[#E1E1E1] bg-white p-5 shadow-sm">
+              <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-[10.5px] font-black uppercase tracking-[0.2em] text-[#1c57b4]">Possible upgrades</p>
-                    <h2 className="mt-0.5 text-base font-black text-[#071a3a]">Passports with higher access</h2>
+                    <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#bfa15c]">Possible upgrades</p>
+                    <h2 className={`${serifClass} mt-0.5 text-lg font-medium text-white`}>Passports with higher access</h2>
                   </div>
                   <Link
                     href="/passport-index/ranking"
-                    className="hidden items-center gap-1 text-[12px] font-black text-[#1c57b4] sm:inline-flex hover:underline"
+                    className="hidden items-center gap-1 text-[12px] font-semibold text-[#bfa15c] sm:inline-flex hover:underline"
                   >
                     Full ranking <ArrowRight className="size-3.5" />
                   </Link>

@@ -23,10 +23,9 @@ export function ProgressBar({ value, text, onBackAction }: Props) {
             type="button"
             onClick={onBackAction}
             className={[
-              "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs",
-              "ring-1 ring-black/10 hover:ring-black/20",
-              "dark:ring-white/15 dark:hover:ring-white/25",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+              "inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-ink/70",
+              "border border-gold/45 hover:border-gold/65 hover:text-ink",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
             ].join(" ")}
             aria-label="Go back"
             title="Back (Esc or ←)"
@@ -47,7 +46,7 @@ export function ProgressBar({ value, text, onBackAction }: Props) {
           <span aria-hidden="true" />
         )}
 
-        <span className="text-xs md:text-sm text-black/70 dark:text-white/70" aria-live="polite">
+        <span className="text-xs md:text-sm text-ink/70" aria-live="polite">
           {text}
         </span>
       </div>
@@ -56,8 +55,8 @@ export function ProgressBar({ value, text, onBackAction }: Props) {
       <div
         className={[
           "relative h-2.5 overflow-hidden rounded-full",
-          "bg-black/10 dark:bg-white/10",
-          "ring-1 ring-black/10 dark:ring-white/10",
+          "bg-sand/60",
+          "border border-gold/45",
         ].join(" ")}
         role="progressbar"
         aria-valuemin={0}
@@ -69,7 +68,7 @@ export function ProgressBar({ value, text, onBackAction }: Props) {
         <div
           className={[
             "absolute inset-y-0 left-0 rounded-full",
-            "bg-gradient-to-r from-blue-600 to-indigo-500",
+            "bg-gradient-to-r from-gold_deep via-gold to-gold_bright",
             "transition-[width] duration-500 ease-out",
             "[motion-reduce:transition-none]",
             "will-change-[width]",
@@ -77,13 +76,13 @@ export function ProgressBar({ value, text, onBackAction }: Props) {
           style={{ width: `${clamped}%` }}
         />
 
-        {/* subtle gloss */}
+        {/* subtle gold sheen */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-15 mix-blend-overlay"
+          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay"
           style={{
             backgroundImage:
-              "linear-gradient(45deg, rgba(255,255,255,0.65) 0, rgba(255,255,255,0.0) 60%)",
+              "linear-gradient(45deg, rgba(212,175,55,0.65) 0, rgba(212,175,55,0.0) 60%)",
           }}
         />
       </div>

@@ -63,46 +63,45 @@ export function CategoryTile({
         "group relative w-full min-w-0 overflow-hidden rounded-3xl",
         // tighter mobile sizing so nothing crushes
         "p-3 sm:p-4 md:p-6 min-h-[116px] sm:min-h-[124px]",
-        // premium bg
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-        "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
+        // Midnight Embassy card
+        "bg-white border border-gold/45 hover:border-gold/65",
         // copy
-        "text-black dark:text-white",
+        "text-ink",
         // elevation + focus
-        "shadow-sm hover:shadow-md transition",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
-        disabled || loading ? "opacity-60 cursor-not-allowed hover:shadow-sm" : "",
+        "transition-colors",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
+        disabled || loading ? "opacity-60 cursor-not-allowed" : "",
         className,
       ].join(" ")}
       data-state={loading ? "loading" : isInteractive ? "ready" : "disabled"}
     >
       {/* Decorative bg — keep grid, hide heavy glows on phones */}
       <span aria-hidden className="pointer-events-none absolute inset-0">
-        <span className="hidden md:block absolute -top-24 -right-24 h-56 w-56 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-        <span className="hidden md:block absolute -bottom-24 -left-12 h-64 w-64 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-        <span className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-          <span className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+        <span className="hidden md:block absolute -top-24 -right-24 h-56 w-56 rounded-full bg-gold/[0.06] blur-3xl" />
+        <span className="hidden md:block absolute -bottom-24 -left-12 h-64 w-64 rounded-full bg-gold/[0.05] blur-3xl" />
+        <span className="absolute inset-0 opacity-25 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
+          <span className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.07)_1px,transparent_1px)] bg-[size:22px_22px]" />
         </span>
       </span>
 
-      {/* hairline accent */}
+      {/* hairline accent — gold guiding stroke */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-blue-600 to-indigo-500 transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-gold to-transparent transition-transform duration-300 group-hover:scale-x-100 group-focus-visible:scale-x-100"
       />
 
       <div className={`relative ${alignClasses}`}>
         <div className="flex items-start gap-3 sm:gap-4">
           {/* hide icon on xs to free space */}
           {icon ? (
-            <span className="mt-0.5 hidden sm:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl ring-1 ring-blue-200/60 dark:ring-blue-800/60 bg-white/70 dark:bg-white/5">
+            <span className="mt-0.5 hidden sm:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-gold/45 bg-sand/50 text-gold">
               {icon}
             </span>
           ) : null}
 
           <div className="min-w-0 flex-1">
             {badge ? (
-              <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-[11px] sm:text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
+              <span className="inline-flex items-center rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] sm:text-xs font-medium text-gold backdrop-blur">
                 <Dot className="mr-1.5" />
                 {badge}
               </span>
@@ -112,7 +111,7 @@ export function CategoryTile({
             <div className="mt-1.5 sm:mt-2 flex items-center gap-2 min-w-0">
               <h3
                 id={titleId}
-                className="min-w-0 flex-1 truncate text-[15px] sm:text-base md:text-lg font-semibold leading-tight"
+                className="min-w-0 flex-1 truncate text-[15px] sm:text-base md:text-lg font-semibold leading-tight text-ink"
               >
                 {title}
               </h3>
@@ -120,7 +119,7 @@ export function CategoryTile({
               {!loading ? (
                 <span
                   aria-hidden
-                  className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/80 ring-1 ring-blue-200 transition group-hover:translate-x-0.5 dark:bg-white/5 dark:ring-blue-800"
+                  className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full border border-gold/45 bg-sand/50 text-gold transition group-hover:translate-x-0.5"
                 >
                   <ArrowRight />
                 </span>
@@ -128,7 +127,7 @@ export function CategoryTile({
                 <span
                   role="status"
                   aria-live="polite"
-                  className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/80 ring-1 ring-blue-200 dark:bg-white/5 dark:ring-blue-800"
+                  className="shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-full border border-gold/45 bg-sand/50 text-gold"
                 >
                   <Spinner />
                   <span className="sr-only">Loading</span>
@@ -139,7 +138,7 @@ export function CategoryTile({
             {/* Compact subtitle for phones */}
             <p
               id={descId}
-              className="mt-1 text-[12px] sm:text-sm leading-snug line-clamp-3 break-words"
+              className="mt-1 text-[12px] sm:text-sm leading-snug line-clamp-3 break-words text-ink/55"
             >
               {subtitle ?? `Check your eligibility for ${title} pathways in minutes.`}
             </p>
@@ -150,7 +149,7 @@ export function CategoryTile({
                 {features.map((f) => (
                   <li
                     key={f}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-ink/70 backdrop-blur"
                   >
                     <Check />
                     <span>{f}</span>
@@ -165,7 +164,7 @@ export function CategoryTile({
       {/* Focus overlay */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-blue-600/0 group-focus-visible:ring-2"
+        className="pointer-events-none absolute inset-0 rounded-3xl ring-0 ring-gold/0 group-focus-visible:ring-2 group-focus-visible:ring-gold/50"
       />
     </motion.button>
   );
@@ -178,7 +177,7 @@ function Check() {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className="h-3.5 w-3.5 fill-blue-600 dark:fill-blue-400"
+      className="h-3.5 w-3.5 fill-gold"
     >
       <path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7.25 7.25a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 5.457 8.543l3.293 3.293 6.543-6.543a1 1 0 0 1 1.414 0z" />
     </svg>
@@ -204,6 +203,6 @@ function Spinner() {
 }
 function Dot({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`} />
+    <span className={`inline-block h-1.5 w-1.5 rounded-full bg-gold ${className}`} />
   );
 }

@@ -1,49 +1,102 @@
 // src/components/careers/Hero.tsx
-export default function Hero() {
+import type { Job } from "@/lib/jobs";
+
+const GOLD = "#bfa15c";
+
+/**
+ * Careers hero — navy/gold "Spotlight Feature".
+ * A featured lead role is called out large (serif + gold numeral) when available.
+ */
+export default function Hero({
+  serifClass,
+  featured,
+  openCount,
+}: {
+  serifClass: string;
+  featured?: Job;
+  openCount?: number;
+}) {
   return (
-    <header
-      className={[
-        "relative overflow-hidden rounded-3xl p-6 sm:p-8 lg:p-10",
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-        "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-        "text-black dark:text-white",
-      ].join(" ")}
-    >
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-        <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-        <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-        </div>
+    <header className="relative">
+      <div className="flex items-center gap-3">
+        <span className="h-px w-10" style={{ background: GOLD }} />
+        <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>
+          Careers
+        </span>
+        <span lang="ar" dir="rtl" className="font-arabic-display text-base" style={{ color: `${GOLD}cc` }}>
+          انضم إلينا
+        </span>
       </div>
 
-      <div className="relative">
-        <p className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-          On-site roles
-        </p>
-        <h1 className="mt-3 text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">
-          Careers at XIPHIAS Immigration
-        </h1>
-        <p className="mt-2 max-w-3xl text-sm text-slate-700 dark:text-slate-200">
-          Help people move, work, and thrive across borders. Join our experts in
-          citizenship, residency, skilled migration, and corporate immigration
-          from our Bengaluru headquarters and branch offices.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <a
-            href="#open-roles"
-            className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            View open roles
-          </a>
-          <a
-            href="#apply"
-            className="rounded-xl border border-blue-200 bg-white/80 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-white/10 dark:bg-white/5 dark:text-white"
-          >
-            Submit resume
-          </a>
-        </div>
+      <h1 className={`${serifClass} mt-6 max-w-4xl text-[clamp(2.6rem,6.5vw,5rem)] font-medium leading-[0.98]`}>
+        Build a career in <span className="italic" style={{ color: GOLD }}>global mobility</span>
+      </h1>
+
+      <p className="mt-6 max-w-xl text-[15px] leading-7 text-white/60 md:text-base">
+        Help people move, work, and thrive across borders. Join our experts in citizenship, residency,
+        skilled migration, and corporate immigration from our Bengaluru headquarters and branch offices.
+      </p>
+
+      <div className="mt-8 flex flex-wrap gap-3">
+        <a
+          href="#open-roles"
+          className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] transition-transform hover:-translate-y-0.5"
+          style={{ background: GOLD, color: "#0a1733" }}
+        >
+          View open roles
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+        <a
+          href="#apply"
+          className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.14em] text-white/85 transition-colors hover:text-white"
+          style={{ border: `1px solid ${GOLD}55` }}
+        >
+          Submit resume
+        </a>
       </div>
+
+      {/* FEATURED lead role — called out big */}
+      {featured && (
+        <div
+          className="mt-14 grid items-center gap-8 rounded-3xl p-8 md:grid-cols-[auto_1fr] md:p-12"
+          style={{ border: `1px solid rgba(191,161,92,0.4)`, background: "rgba(255,255,255,0.03)" }}
+        >
+          <div className="flex flex-col items-start gap-4">
+            <span className={`${serifClass} text-[clamp(3rem,8vw,6rem)] font-medium leading-none`} style={{ color: GOLD }}>
+              01
+            </span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.24em]" style={{ color: GOLD }}>
+              Featured role
+            </span>
+          </div>
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.28em]" style={{ color: GOLD }}>
+              {featured.dept || "Open position"}
+            </span>
+            <h2 className={`${serifClass} mt-3 text-[clamp(1.8rem,3.4vw,2.8rem)] font-medium leading-tight`}>
+              {featured.title}
+            </h2>
+            <p className="mt-4 text-sm uppercase tracking-[0.14em] text-white/55">
+              {featured.location}
+              {featured.employmentType ? ` · ${featured.employmentType}` : ""}
+            </p>
+            <a
+              href={`/careers/${featured.slug}`}
+              className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.14em] transition-transform hover:translate-x-0.5"
+              style={{ color: GOLD }}
+            >
+              View &amp; apply
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      )}
+
+      {typeof openCount === "number" && openCount > 0 && (
+        <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/40">
+          {openCount} open role{openCount === 1 ? "" : "s"} · on-site across India
+        </p>
+      )}
     </header>
   );
 }

@@ -1,5 +1,9 @@
 // src/components/careers/FAQ.tsx
-export default function FAQ() {
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const INK = "#0c1f3f";
+
+export default function FAQ({ serifClass }: { serifClass: string }) {
   const faqs = [
     {
       q: "Do you offer remote roles?",
@@ -34,83 +38,66 @@ export default function FAQ() {
   });
 
   return (
-    <section aria-labelledby="faq">
+    <div>
       {/* SEO: FAQPage structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: faqJsonLd }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqJsonLd }} />
 
-      <div
-        className={[
-          "rounded-3xl p-6 sm:p-8",
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-          "dark:from-blue-950/30 dark:to-indigo-950/20 dark:ring-blue-900/40",
-          "text-black dark:text-white",
-        ].join(" ")}
-      >
-        <h2 id="faq" className="text-xl font-bold tracking-tight">
-          FAQ
-        </h2>
-
-        <div className="mt-5 grid gap-3 sm:grid-cols-2">
-          {faqs.map((f) => (
-            <details
-              key={f.q}
-              className="group rounded-2xl border border-black/10 bg-white/85 p-4 ring-1 ring-black/5 open:bg-white dark:border-white/20 dark:bg-white/5 dark:ring-white/5"
-            >
-              <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm font-semibold text-black outline-none dark:text-white">
-                {f.q}
-                {/* plus/minus icon that flips when open */}
-                <span
-                  aria-hidden
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-black/20 text-black dark:border-white/30 dark:text-white"
-                >
-                  {/* plus */}
-                  <svg
-                    className="h-3.5 w-3.5 group-open:hidden"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M10 4v12M4 10h12" />
-                  </svg>
-                  {/* minus */}
-                  <svg
-                    className="hidden h-3.5 w-3.5 group-open:block"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M4 10h12" />
-                  </svg>
-                </span>
-              </summary>
-              <p className="mt-2 text-sm">{f.a}</p>
-            </details>
-          ))}
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs opacity-80">
-            Still have questions?{" "}
-            <a
-              href="mailto:hr@xiphias.in"
-              className="underline decoration-2 underline-offset-2"
-            >
-              hr@xiphias.in
-            </a>
-          </p>
-          <a
-            href="#apply"
-            className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Quick Apply
-          </a>
-        </div>
+      <div className="flex items-center gap-3">
+        <span className="h-px w-8" style={{ background: GOLD_DEEP }} />
+        <span className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: GOLD_DEEP }}>
+          Questions
+        </span>
       </div>
-    </section>
+      <h2 className={`${serifClass} mt-4 text-[clamp(1.7rem,3.6vw,2.6rem)] font-medium`} style={{ color: INK }}>
+        Frequently asked <span className="italic" style={{ color: GOLD_DEEP }}>questions</span>
+      </h2>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {faqs.map((f) => (
+          <details
+            key={f.q}
+            className="group rounded-2xl p-5 transition"
+            style={{ border: "1px solid rgba(168,125,31,0.2)", background: "#ffffff" }}
+          >
+            <summary
+              className="flex cursor-pointer items-center justify-between gap-3 text-sm font-semibold outline-none"
+              style={{ color: INK }}
+            >
+              {f.q}
+              <span
+                aria-hidden
+                className="inline-flex h-6 w-6 items-center justify-center rounded-full"
+                style={{ border: "1px solid rgba(168,125,31,0.3)", color: GOLD_DEEP }}
+              >
+                <svg className="h-3.5 w-3.5 group-open:hidden" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M10 4v12M4 10h12" />
+                </svg>
+                <svg className="hidden h-3.5 w-3.5 group-open:block" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 10h12" />
+                </svg>
+              </span>
+            </summary>
+            <p className="mt-3 text-sm" style={{ color: "rgba(12,31,63,0.6)" }}>{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-xs" style={{ color: "rgba(12,31,63,0.5)" }}>
+          Still have questions?{" "}
+          <a href="mailto:hr@xiphias.in" className="font-semibold underline decoration-2 underline-offset-2" style={{ color: GOLD_DEEP }}>
+            hr@xiphias.in
+          </a>
+        </p>
+        <a
+          href="#apply"
+          className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] transition-transform hover:-translate-y-0.5"
+          style={{ background: GOLD, color: "#0a1733" }}
+        >
+          Quick Apply
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+      </div>
+    </div>
   );
 }

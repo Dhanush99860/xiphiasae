@@ -54,8 +54,8 @@ export default function MapCard({
   return (
     <section
       className={[
-        "rounded-3xl overflow-hidden ring-1 ring-blue-100/80",
-        "bg-white dark:bg-white/5",
+        "rounded-3xl overflow-hidden border border-gold/45",
+        "bg-white",
         className,
       ]
         .filter(Boolean)
@@ -66,7 +66,7 @@ export default function MapCard({
       <div className="relative">
         {!loaded && (
           <div
-            className="absolute inset-0 animate-pulse bg-[linear-gradient(110deg,rgba(0,0,0,0.06)_8%,transparent_18%,rgba(0,0,0,0.06)_33%)] bg-[length:200%_100%]"
+            className="absolute inset-0 animate-pulse bg-[linear-gradient(110deg,rgba(212,175,55,0.08)_8%,transparent_18%,rgba(212,175,55,0.08)_33%)] bg-[length:200%_100%]"
             aria-hidden
           />
         )}
@@ -101,8 +101,8 @@ export default function MapCard({
               <span
                 className={[
                   "m-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5",
-                  "bg-white text-black text-xs font-medium ring-1 ring-blue-200",
-                  "dark:bg-white/10 dark:text-white dark:ring-blue-900/50 backdrop-blur",
+                  "bg-white/90 text-ink text-xs font-medium border border-gold/45",
+                  "backdrop-blur",
                 ].join(" ")}
               >
                 <HandIcon />
@@ -113,6 +113,9 @@ export default function MapCard({
         </div>
       </div>
 
+      {/* Gold hairline at the base of the map frame */}
+      <div aria-hidden className="h-px w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+
       {/* Actions + address */}
       <div className="p-4 md:p-5">
         <div className="flex flex-wrap gap-2">
@@ -120,7 +123,7 @@ export default function MapCard({
             href={directionsLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-3 py-2 text-white text-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+            className="inline-flex items-center gap-2 rounded-xl bg-gold px-3 py-2 text-ink text-sm font-semibold border border-gold/60 hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <DirectionsIcon />
             Get directions
@@ -130,7 +133,7 @@ export default function MapCard({
             href={primaryMapsHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+            className="inline-flex items-center gap-2 rounded-xl bg-sand/60 px-3 py-2 text-sm text-ink border border-gold/45 hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <OpenIcon />
             {isApple && showAppleLink ? "Open in Apple Maps" : "Open in Google Maps"}
@@ -147,7 +150,7 @@ export default function MapCard({
                   /* no-op */
                 }
               }}
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-black ring-1 ring-blue-200 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-white dark:ring-blue-900/40 dark:hover:bg-blue-950/20"
+              className="inline-flex items-center gap-2 rounded-xl bg-sand/60 px-3 py-2 text-sm text-ink border border-gold/45 hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               aria-live="polite"
             >
               {copied ? <CheckIcon /> : <CopyIcon />}

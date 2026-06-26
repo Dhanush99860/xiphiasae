@@ -194,11 +194,11 @@ export default function EligibilityQuickCheck({
     const palette =
       value === "yes"
         ? checked
-          ? "bg-emerald-600 text-white hover:bg-emerald-600"
-          : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-900/20 dark:text-emerald-300"
+          ? "bg-gold text-midnight hover:bg-gold_bright"
+          : "bg-sand/50 text-ink/70 border border-gold/45 hover:border-gold/65"
         : checked
-          ? "bg-rose-600 text-white hover:bg-rose-600"
-          : "bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-900/20 dark:text-rose-300";
+          ? "bg-pearl/15 text-ink border border-gold/40"
+          : "bg-sand/50 text-ink/55 border border-gold/45 hover:border-gold/45";
 
     return (
       <div className="relative">
@@ -217,8 +217,8 @@ export default function EligibilityQuickCheck({
           tabIndex={0}
           className={[
             // fixed size + padding to prevent any jitter
-            "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium shadow-sm",
-            "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60",
+            "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
+            "transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
             palette,
           ].join(" ")}
           aria-label={`${label}: ${value === "yes" ? "Yes" : "No"}`}
@@ -241,10 +241,9 @@ export default function EligibilityQuickCheck({
       className="
         relative overflow-hidden
         rounded-2xl p-5 sm:p-6
-        bg-white/95 dark:bg-neutral-950/60
-        border border-neutral-200 dark:border-neutral-800
-        shadow-sm
-        text-black dark:text-white
+        bg-white
+        border border-gold/45
+        text-ink
       "
     >
       <BackgroundGraphics />
@@ -252,13 +251,14 @@ export default function EligibilityQuickCheck({
       {/* Header */}
       <header className="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <span className="inline-flex items-center rounded-md bg-sky-600/10 px-2 py-1 text-xs font-semibold text-sky-700 dark:text-sky-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
             ~10 sec
           </span>
-          <h3 id="eligibility-heading" className="text-lg font-semibold pt-2">
+          <h3 id="eligibility-heading" className="font-sora text-lg font-semibold pt-2 text-ink">
             Quick eligibility check
           </h3>
-          <p className="text-sm opacity-80 mt-1">
+          <p className="text-sm text-ink/55 mt-1">
             Answer {questions.length} short question
             {questions.length > 1 ? "s" : ""}. No data is sent to our servers.
           </p>
@@ -269,7 +269,7 @@ export default function EligibilityQuickCheck({
           <button
             type="button"
             onClick={reset}
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] ring-1 ring-neutral-200 dark:ring-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] border border-gold/45 text-ink/70 hover:border-gold/65"
             aria-label="Reset answers"
           >
             <RefreshCw className="h-3.5 w-3.5" />
@@ -281,7 +281,7 @@ export default function EligibilityQuickCheck({
       {/* Progress */}
       <div className="relative z-10 mt-4" aria-live="polite">
         <div
-          className="w-full h-2 rounded-full overflow-hidden bg-sky-100 dark:bg-sky-900/30"
+          className="w-full h-2 rounded-full overflow-hidden bg-sand/60 border border-gold/45"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={100}
@@ -296,21 +296,21 @@ export default function EligibilityQuickCheck({
                 ? { duration: 0 }
                 : { type: "spring", stiffness: 140, damping: 18 }
             }
-            className={`h-2 rounded-full ${progress === 100 ? "bg-sky-600" : "bg-sky-500"}`}
+            className="h-2 rounded-full bg-gradient-to-r from-gold_deep via-gold to-gold_bright"
           />
         </div>
         <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[13px]">
-          <span className="font-medium">
+          <span className="font-medium text-ink">
             {answered}/{questions.length} answered
           </span>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-900 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-0.5">
+            <span className="inline-flex items-center gap-1 rounded-full bg-sand/50 text-gold border border-gold/45 px-2 py-0.5">
               <CheckCircle className="h-3.5 w-3.5" /> {yesCount} yes
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-rose-100 text-rose-900 dark:bg-rose-900/30 dark:text-rose-300 px-2 py-0.5">
+            <span className="inline-flex items-center gap-1 rounded-full bg-sand/50 text-ink/55 border border-gold/45 px-2 py-0.5">
               <AlertTriangle className="h-3.5 w-3.5" /> {noCount} no
             </span>
-            <span className="opacity-70">{progress}%</span>
+            <span className="text-ink/45">{progress}%</span>
           </div>
         </div>
       </div>
@@ -325,13 +325,13 @@ export default function EligibilityQuickCheck({
               ref={setFieldsetRef(q.id)}
               className="
                 p-3 sm:p-4 rounded-xl
-                bg-white/85 dark:bg-white/5 backdrop-blur
-                border border-neutral-200 dark:border-neutral-800
-                focus-within:border-sky-400/70 dark:focus-within:border-sky-600/60
+                bg-sand/40
+                border border-gold/45
+                focus-within:border-gold/50
               "
             >
-              <legend className="text-sm font-semibold">
-                <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-600 text-white text-[11px] align-middle">
+              <legend className="text-sm font-semibold text-ink">
+                <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-gold text-midnight text-[11px] align-middle">
                   {idx + 1}
                 </span>
                 <span className="sr-only">
@@ -340,7 +340,7 @@ export default function EligibilityQuickCheck({
                 {q.label}
               </legend>
               {q.desc ? (
-                <p id={`${q.id}-desc`} className="mt-1 text-xs opacity-80">
+                <p id={`${q.id}-desc`} className="mt-1 text-xs text-ink/55">
                   {q.desc}
                 </p>
               ) : null}
@@ -385,23 +385,23 @@ export default function EligibilityQuickCheck({
             className={[
               "rounded-xl p-4 border",
               ok
-                ? "bg-emerald-50 dark:bg-emerald-900/25 border-emerald-200 dark:border-emerald-800"
-                : "bg-amber-50 dark:bg-amber-900/25 border-amber-200 dark:border-amber-800",
+                ? "bg-sand/50 border-gold/40"
+                : "bg-sand/50 border-gold/45",
             ].join(" ")}
           >
             <div className="flex items-start gap-3">
               <div className="mt-0.5" aria-hidden>
                 {ok ? (
-                  <CheckCircle className="w-6 h-6 text-emerald-700 dark:text-emerald-400" />
+                  <CheckCircle className="w-6 h-6 text-gold" />
                 ) : (
-                  <AlertTriangle className="w-6 h-6 text-amber-700 dark:text-amber-400" />
+                  <AlertTriangle className="w-6 h-6 text-ink/55" />
                 )}
               </div>
               <div>
-                <div className="font-semibold">
+                <div className="font-sora font-semibold text-ink">
                   {ok ? verdictText.successTitle : verdictText.cautionTitle}
                 </div>
-                <div className="text-sm opacity-90 mt-1">
+                <div className="text-sm text-ink/55 mt-1">
                   {ok ? verdictText.successText : verdictText.cautionText}
                 </div>
               </div>
@@ -411,7 +411,7 @@ export default function EligibilityQuickCheck({
             <div className="mt-3 flex flex-col sm:flex-row sm:flex-wrap gap-2">
               <Link
                 href={ctas.primaryHref!}
-                className="inline-flex justify-center rounded-lg bg-sky-600 px-4 py-2 text-white shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                className="inline-flex justify-center rounded-lg bg-gold px-4 py-2 text-midnight font-medium hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label={ctas.primaryText}
               >
                 {ctas.primaryText}
@@ -420,7 +420,7 @@ export default function EligibilityQuickCheck({
               {ctas.secondaryHref && ctas.secondaryText ? (
                 <Link
                   href={ctas.secondaryHref}
-                  className="inline-flex justify-center rounded-lg border border-sky-200 dark:border-sky-800 px-4 py-2 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                  className="inline-flex justify-center rounded-lg border border-gold/45 px-4 py-2 text-sm text-ink hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                   aria-label={ctas.secondaryText}
                 >
                   {ctas.secondaryText}
@@ -428,13 +428,13 @@ export default function EligibilityQuickCheck({
               ) : null}
             </div>
 
-            <p className="mt-2 text-[12px] opacity-70">
+            <p className="mt-2 text-[12px] text-ink/45">
               This is an indicative check only. Final eligibility depends on
               your full profile and current regulations.
             </p>
           </motion.div>
         ) : (
-          <p className="mt-2 text-sm opacity-80">
+          <p className="mt-2 text-sm text-ink/55">
             Select answers above to get an instant indication and tailored next
             steps.
           </p>
@@ -443,12 +443,12 @@ export default function EligibilityQuickCheck({
 
       {/* Footer */}
       <footer className="relative z-10 mt-4 flex items-center justify-between gap-3">
-        <p className="text-xs opacity-70">
+        <p className="text-xs text-ink/45">
           We respect your privacy — answers stay in your browser.
         </p>
         <Link
           href="/contact"
-          className="text-sm underline focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded"
+          className="text-sm text-gold underline focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
           aria-label="Contact us"
         >
           Contact us
@@ -472,11 +472,11 @@ function BackgroundGraphics() {
       aria-hidden
       className="pointer-events-none absolute inset-0 print:hidden"
     >
-      {/* white-first with brand-blue glows */}
-      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-sky-400/12 blur-3xl" />
-      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-blue-500/12 blur-3xl" />
+      {/* gold glows */}
+      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/10 blur-3xl" />
+      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
       {/* faint grid */}
-      <svg className="absolute inset-0 h-full w-full opacity-[0.05] dark:opacity-[0.07]">
+      <svg className="absolute inset-0 h-full w-full opacity-[0.05]">
         <defs>
           <pattern
             id="qc-grid"
@@ -496,11 +496,11 @@ function BackgroundGraphics() {
           width="100%"
           height="100%"
           fill="url(#qc-grid)"
-          className="text-sky-900 dark:text-sky-300"
+          className="text-gold/60"
         />
       </svg>
       {/* top gloss for mobile legibility */}
-      <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white/60 to-transparent dark:from-white/10" />
+      <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-pearl/[0.04] to-transparent" />
     </div>
   );
 }

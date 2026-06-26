@@ -2,10 +2,20 @@
 import Hero from "@/components/PersonalBooking/Hero";
 // Use dynamic imports for below-the-fold components to reduce the initial bundle size
 import nextDynamic from "next/dynamic";
+import { Cormorant_Garamond } from "next/font/google";
+import Header from "@/components/HomeLuxe/LuxeHeader";
+import Footer from "@/components/HomeLuxe/LuxeFooter";
 const Details = nextDynamic(() => import("@/components/PersonalBooking/Details"));
 const FAQSection = nextDynamic(() => import("@/components/Common/FAQSection"));
 import { getAllInsights } from "@/lib/insights-content";
 import type { Metadata } from "next";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const revalidate = 86400; // 1 day
 
@@ -70,10 +80,22 @@ export default async function personalbookingPage() {
   }));
 
   return (
-    <main className="bg-light_bg dark:bg-dark_bg text-light_text dark:text-dark_text">
-      <Hero />
-      <Details articles={articles} />
-      <FAQSection />
+    <main style={{ background: "#0a1733", color: "#fff" }}>
+      <Header serifClass={serif.className} />
+
+      <Hero serifClass={serif.className} />
+      <Details articles={articles} serifClass={serif.className} />
+
+      {/* FAQ — shared component; wrapped in a light Spotlight band */}
+      <section
+        data-tone="light"
+        className="relative overflow-hidden"
+        style={{ background: "#fbfaf7", color: "#0c1f3f" }}
+      >
+        <FAQSection />
+      </section>
+
+      <Footer serifClass={serif.className} />
 
       <script
         type="application/ld+json"

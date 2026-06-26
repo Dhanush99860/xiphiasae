@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { ImageReveal } from "@/components/motion";
 import type { InsightMeta } from "@/types/insights";
 
 /** Format date in UTC for consistent display (e.g., 16 Sep 2025) */
@@ -38,48 +38,15 @@ function pickSummary(a: any): string | null {
   return a?.summary ?? a?.excerpt ?? a?.description ?? null;
 }
 
-/* ───────── kind UI (unchanged) ───────── */
+/* ───────── kind UI — Midnight Embassy: gold pill, one accent ───────── */
 type KindKey = NonNullable<InsightMeta["kind"]> | "default";
 
-const KIND_UI: Record<
-  KindKey,
-  { label: string; badge: string; ambientFrom: string; ambientTo: string }
-> = {
-  articles: {
-    label: "Article",
-    badge:
-      "bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-200 dark:ring-indigo-800/60",
-    ambientFrom: "rgba(79,70,229,0.85)",
-    ambientTo: "rgba(99,102,241,0.55)",
-  },
-  blog: {
-    label: "Blog",
-    badge:
-      "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-200 dark:ring-emerald-800/60",
-    ambientFrom: "rgba(16,185,129,0.80)",
-    ambientTo: "rgba(52,211,153,0.50)",
-  },
-  news: {
-    label: "News",
-    badge:
-      "bg-amber-50 text-amber-800 ring-1 ring-amber-200 dark:bg-amber-900/40 dark:text-amber-200 dark:ring-amber-800/60",
-    ambientFrom: "rgba(217,119,6,0.85)",
-    ambientTo: "rgba(245,158,11,0.50)",
-  },
-  media: {
-    label: "Media",
-    badge:
-      "bg-fuchsia-50 text-fuchsia-800 ring-1 ring-fuchsia-200 dark:bg-fuchsia-900/40 dark:text-fuchsia-200 dark:ring-fuchsia-800/60",
-    ambientFrom: "rgba(192,38,211,0.85)",
-    ambientTo: "rgba(168,85,247,0.50)",
-  },
-  default: {
-    label: "Content",
-    badge:
-      "bg-neutral-100 text-neutral-700 ring-1 ring-neutral-200 dark:bg-neutral-800/60 dark:text-neutral-200 dark:ring-neutral-700",
-    ambientFrom: "rgba(2,132,199,0.75)",
-    ambientTo: "rgba(59,130,246,0.45)",
-  },
+const KIND_LABEL: Record<KindKey, string> = {
+  articles: "Article",
+  blog: "Blog",
+  news: "News",
+  media: "Media",
+  default: "Insight",
 };
 
 export default function InsightCard({
@@ -97,68 +64,59 @@ export default function InsightCard({
       ? (item as any).author
       : (item as any).author?.name) || "";
 
-  const ui = KIND_UI[item.kind as KindKey] ?? KIND_UI.default;
+  const label = KIND_LABEL[item.kind as KindKey] ?? KIND_LABEL.default;
 
-  // NEW: tolerate multiple front-matter keys
+  // tolerate multiple front-matter keys
   const img = pickImage(item);
   const desc = pickSummary(item);
 
   return (
     <Link
       href={item.url}
-      className="block focus:outline-none"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gold/45 transition-all duration-300 hover:-translate-y-1 hover:border-gold/70 hover:shadow-[0_30px_70px_-30px_rgba(15,23,42,0.22)] motion-reduce:transform-none focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand"
     >
-      <article
-        className="
-          relative isolate flex h-full flex-col overflow-hidden rounded-2xl
-          border border-neutral-200 bg-white shadow-sm transition
-          hover:-translate-y-0.5 hover:shadow-md hover:ring-2 hover:ring-indigo-300/40
-          focus-visible:ring-2 focus-visible:ring-indigo-300/60
-          dark:border-neutral-800 dark:bg-neutral-900 dark:hover:ring-indigo-500/30
-          will-change-transform
-        "
-      >
-        {/* Media (fixed aspect) */}
-        <div className="relative aspect-[16/9] w-full overflow-hidden">
+      <article className="flex h-full flex-col">
+        {/* Media (fixed aspect, cinematic masked reveal) */}
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-sand">
           {img ? (
-            <Image
-              src={img}
-              alt={item.heroAlt || item.title}
-              fill
-              sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-              quality={80}
-              priority={priority}
-              loading={priority ? "eager" : "lazy"}
-              className="object-cover"
-            />
+            <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.05] motion-reduce:transform-none">
+              <ImageReveal
+                src={img}
+                alt={item.heroAlt || item.title}
+                ratio="aspect-[16/9]"
+                priority={priority}
+                sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
+                className="h-full w-full rounded-none"
+              />
+            </div>
           ) : (
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `radial-gradient(180px 120px at 15% 0%, ${ui.ambientFrom}, transparent 60%),
-                             radial-gradient(220px 120px at 100% 20%, ${ui.ambientTo}, transparent 60%),
-                             linear-gradient(to bottom right, rgba(241,245,249,.8), rgba(241,245,249,1))`,
-              }}
-              aria-hidden
-            />
+            <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-sand to-white">
+              <span className="text-xs text-ink/40">{label}</span>
+            </div>
           )}
 
+          {/* legibility veil + gold hairline at the base */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-white/85 via-transparent to-transparent"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+          />
+
           {showKindBadge && (
-            <span
-              className={[
-                "absolute left-3 top-3 z-10 rounded-full px-2 py-0.5 text-[11px] font-semibold",
-                ui.badge,
-              ].join(" ")}
-            >
-              {ui.label}
+            <span className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/70 px-2.5 py-0.5 text-[11px] font-semibold text-gold backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+              {label}
             </span>
           )}
         </div>
 
-        {/* Meta row */}
-        <div className="flex flex-1 flex-col px-4 sm:px-5 py-2 sm:py-2">
-          <div className="flex-1" />
-          <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-neutral-500 dark:text-neutral-400">
+        {/* Body */}
+        <div className="flex flex-1 flex-col px-4 sm:px-5 py-4">
+          {/* Meta row */}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] text-ink/40">
             {displayDate && (
               <time
                 dateTime={(item.updated || item.date)!}
@@ -169,7 +127,7 @@ export default function InsightCard({
             )}
             {author && (
               <>
-                <span aria-hidden className="text-neutral-300 dark:text-neutral-600">
+                <span aria-hidden className="text-ink/50">
                   •
                 </span>
                 <span className="truncate">{author}</span>
@@ -177,7 +135,7 @@ export default function InsightCard({
             )}
             {typeof item.readingTimeMins === "number" && (
               <>
-                <span aria-hidden className="text-neutral-300 dark:text-neutral-600">
+                <span aria-hidden className="text-ink/50">
                   •
                 </span>
                 <span className="whitespace-nowrap">
@@ -186,29 +144,25 @@ export default function InsightCard({
               </>
             )}
           </div>
-        </div>
 
-        {/* Title + summary */}
-        <div className="flex flex-1 flex-col px-4 sm:px-5 py-1 sm:py-1">
-          <h3 className="line-clamp-2 text-[18px] font-semibold leading-6 text-neutral-900 dark:text-white">
+          {/* Title + summary */}
+          <h3 className="mt-3 line-clamp-2 font-sora text-[18px] font-semibold leading-6 tracking-tight text-ink">
             {item.title}
           </h3>
           {desc && (
-            <p className="mt-2 mb-4 line-clamp-2 text-[14px] leading-5 text-neutral-700 dark:text-neutral-300">
+            <p className="mt-2 line-clamp-2 text-[14px] leading-5 text-ink/55">
               {desc}
             </p>
           )}
-        </div>
 
-        {/* Ambient glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-px rounded-[1.1rem] opacity-[.05] blur-xl dark:opacity-[.09]"
-          style={{
-            background: `radial-gradient(180px 120px at 15% 0%, ${ui.ambientFrom}, transparent 60%),
-                         radial-gradient(220px 120px at 100% 20%, ${ui.ambientTo}, transparent 60%)`,
-          }}
-        />
+          {/* Read affordance pinned to bottom for even card heights */}
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-[12px] font-semibold uppercase tracking-[0.18em] text-gold/80 transition-colors group-hover:text-gold">
+            Read
+            <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+              →
+            </span>
+          </span>
+        </div>
       </article>
     </Link>
   );

@@ -199,7 +199,7 @@ export default function QuickEnquiryPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-[900] flex items-end justify-center bg-black/55 p-4 backdrop-blur-[2px] sm:items-center"
+      className="fixed inset-0 z-[900] flex items-end justify-center bg-[#0c1f3f]/70 p-4 backdrop-blur-[2px] sm:items-center"
       onClick={handleDismiss}
     >
       <div
@@ -214,7 +214,7 @@ export default function QuickEnquiryPopup() {
           type="button"
           aria-label="Close enquiry popup"
           onClick={handleDismiss}
-          className="absolute right-2 top-2 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="absolute right-2 top-2 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 bg-[#0a1733] text-gold hover:bg-[#0a1733]/90 hover:text-gold_bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
         >
           <span aria-hidden>x</span>
         </button>
@@ -232,7 +232,7 @@ export default function QuickEnquiryPopup() {
         <button
           type="button"
           onClick={handleDismiss}
-          className="mt-2 w-full rounded-lg py-2 text-center text-sm text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="mt-2 w-full rounded-lg py-2 text-center text-sm text-pearl/85 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
         >
           Not now
         </button>

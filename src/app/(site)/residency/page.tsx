@@ -1,96 +1,88 @@
+// src/app/(site)/residency/page.tsx
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 import {
   getResidencyCountries,
   getResidencyPrograms,
   ProgramMeta,
   CountryMeta,
 } from "@/lib/residency-content";
-import ResidencyHero from "@/components/Residency/ResidencyHero";
-// Use dynamic imports for heavy, below-the-fold components to reduce the initial JS bundle
-// size and improve Lighthouse performance【330944343751455†L23-L112】.
-import nextDynamic from "next/dynamic";
-const ResidencyLanding = nextDynamic(() => import("@/components/Residency/ResidencyLanding"));
-const InsightsPreview = nextDynamic(() => import("@/components/Insights/InsightsPreview"));
-const TestimonialCarousel = nextDynamic(() => import("@/components/Citizenship/TestimonialCarousel"));
-const OurOffer = nextDynamic(() => import("@/components/Citizenship/OurOffer"));
+import { JsonLd } from "@/lib/seo";
+import ResidencyHub from "@/components/Residency/ResidencyHub";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Residency Programs – Countries & Options",
+  title: "Residency & Golden Visas — Investor Residence, Privately Arranged | XIPHIAS",
   description:
-    "Explore residency pathways by country. Compare timelines, requirements and costs. Book a personal consultation.",
+    "A 10-year UAE Golden Visa, EU golden visas and global investor residence across 20+ jurisdictions — real estate, fund and capital-transfer routes, arranged end-to-end. Book a private consultation.",
   alternates: { canonical: "/residency" },
   openGraph: {
-    title: "Residency Programs – Countries & Options",
+    title: "Residency & Golden Visas — Investor Residence, Privately Arranged",
     description:
-      "Explore residency pathways by country. Compare timelines, requirements and costs. Book a personal consultation.",
+      "Investor residence across 20+ jurisdictions — the UAE Golden Visa, Portugal, Greece, Malta and more, arranged with discretion from Dubai.",
     url: "https://www.xiphiasimmigration.com/residency",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/xiphias-immigration.png",
-        width: 1200,
-        height: 630,
-        alt: "Residency Programs – Countries & Options – XIPHIAS Immigration",
-      },
-    ],
+    images: [{ url: "/xiphias-immigration.png", width: 1200, height: 630, alt: "Residency & Golden Visas – XIPHIAS Immigration" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Residency Programs – Countries & Options",
-    description:
-      "Explore residency pathways by country. Compare timelines, requirements and costs. Book a personal consultation.",
+    title: "Residency & Golden Visas — Investor Residence, Privately Arranged",
+    description: "Investor residence across 20+ jurisdictions, arranged with discretion from Dubai.",
     images: ["/xiphias-immigration.png"],
   },
 };
 
-function pickTopPrograms(all: ProgramMeta[], n = 10): ProgramMeta[] {
-  const ranked = [...all].sort((a, b) => {
-    const tA = a.timelineMonths ?? 999;
-    const tB = b.timelineMonths ?? 999;
-    if (tA !== tB) return tA - tB;
-    const iA = a.minInvestment ?? Number.MAX_SAFE_INTEGER;
-    const iB = b.minInvestment ?? Number.MAX_SAFE_INTEGER;
-    if (iA !== iB) return iA - iB;
-    return (a.title + a.country).localeCompare(b.title + b.country);
-  });
-  return ranked.slice(0, n);
-}
-
 export default function ResidencyPage() {
   const countries: CountryMeta[] = getResidencyCountries();
-  const programs = getResidencyPrograms();
-  const top10 = pickTopPrograms(programs, 10);
+  const programs: ProgramMeta[] = getResidencyPrograms();
+
+  const webPageLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Residency & Golden Visas — Investor Residence, Privately Arranged",
+    url: "https://www.xiphiasimmigration.com/residency",
+    description:
+      "Investor residence across 20+ jurisdictions — the UAE Golden Visa, Portugal, Greece, Malta and more. Book a private consultation.",
+  };
+  const countryListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Residency Countries",
+    itemListElement: countries.map((c, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `https://www.xiphiasimmigration.com/residency/${c.countrySlug}`,
+      name: c.title || c.country,
+    })),
+  };
+  const topProgramsLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Top Residency Programmes",
+    itemListElement: programs.slice(0, 5).map((p, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `https://www.xiphiasimmigration.com/residency/${p.countrySlug}/${p.programSlug}`,
+      name: p.title,
+    })),
+  };
 
   return (
     <>
-      <main className="max-w-screen-2xl mx-auto px-4 py-10">
-        <ResidencyHero />
-        <ResidencyLanding countries={countries} topPrograms={top10} />
-      </main>
-      <div className="mt-10 grid gap-6 lg:grid-cols-3 max-w-screen-2xl mx-auto px-4 py-10 text-black dark:text-white">
-        <OurOffer className="lg:col-span-2" />
-        <TestimonialCarousel
-          items={[
-            {
-              quote:
-                "Flawless execution from due diligence to passport delivery.",
-              author: "Family Office, Dubai",
-            },
-            {
-              quote: "Transparent costs and genuinely vetted projects.",
-              author: "HNWI, Singapore",
-            },
-            {
-              quote: "Impressive compliance depth—exactly what we needed.",
-              author: "Private Banker, Zurich",
-            },
-          ]}
-        />
-      </div>
-      <InsightsPreview limit={6} />
+      <JsonLd data={webPageLd} />
+      <JsonLd data={countryListLd} />
+      <JsonLd data={topProgramsLd} />
+      <ResidencyHub serifClass={serif.className} />
     </>
   );
 }

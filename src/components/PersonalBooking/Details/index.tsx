@@ -18,6 +18,11 @@ import {
   DollarSign,
 } from "lucide-react";
 
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const NAVY = "#0a1733";
+const INK = "#0c1f3f";
+
 type ArticleMeta = {
   title: string;
   url: string;
@@ -42,23 +47,24 @@ function ArticleCard({ a }: { a: ArticleMeta }) {
   return (
     <a
       href={a.url}
-      className="group block rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900 hover:shadow-lg transition"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl transition"
+      style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }}
       aria-label={a.title}
     >
       {a.hero ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={a.hero} alt={a.title} className="w-full h-40 object-cover" />
       ) : null}
-      <div className="p-4">
-        <h3 className="font-semibold leading-snug group-hover:underline">
+      <div className="flex h-full flex-col p-4">
+        <h3 className="font-semibold leading-snug text-white transition-colors group-hover:text-[#bfa15c]">
           {a.title}
         </h3>
         {a.summary ? (
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+          <p className="mt-2 text-sm text-white/55 line-clamp-2">
             {a.summary}
           </p>
         ) : null}
-        <div className="mt-2 text-xs text-gray-500">
+        <div className="mt-auto pt-2 text-xs text-white/40">
           {a.date ? formatDateUS(a.date) : null}
         </div>
       </div>
@@ -66,7 +72,13 @@ function ArticleCard({ a }: { a: ArticleMeta }) {
   );
 }
 
-export default function Sections({ articles }: { articles: ArticleMeta[] }) {
+export default function Sections({
+  articles,
+  serifClass = "",
+}: {
+  articles: ArticleMeta[];
+  serifClass?: string;
+}) {
   const [active, setActive] = useState<string>(SECTION_IDS[0]);
   const [sectionEls, setSectionEls] = useState<Record<string, HTMLElement>>({});
 
@@ -142,9 +154,12 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
   };
 
   return (
-    <div className="w-full transition-colors duration-500 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100">
+    <div className="w-full" style={{ background: NAVY, color: "#fff" }}>
       {/* Sticky Top Nav (Desktop) */}
-      <section className="sticky top-0 z-40 hidden sm:block bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-700">
+      <section
+        className="sticky top-0 z-40 hidden sm:block backdrop-blur-md"
+        style={{ background: "rgba(10,23,51,0.82)", borderBottom: "1px solid rgba(191,161,92,0.28)" }}
+      >
         <div className="mx-auto max-w-screen-2xl px-4 py-5">
           <nav className="relative flex justify-between text-sm sm:text-base font-medium tracking-wide gap-6 sm:gap-10">
             {navItems.map((item) => {
@@ -156,13 +171,14 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
                   onClick={() => handleNavClick(item.href)}
                   className={`relative p-5 transition-all duration-300 ${
                     isActive
-                      ? "text-black dark:text-white font-semibold"
-                      : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white p-1"
+                      ? "font-semibold"
+                      : "text-white/55 hover:text-white p-1"
                   }`}
+                  style={isActive ? { color: GOLD } : undefined}
                 >
                   {item.label}
                   {isActive && (
-                    <div className="absolute left-0 right-0 -bottom-[20px] h-[3px] bg-black dark:bg-white rounded-full" />
+                    <div className="absolute left-0 right-0 -bottom-[20px] h-[3px] rounded-full" style={{ background: GOLD }} />
                   )}
                 </a>
               );
@@ -177,11 +193,10 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
         aria-label="Section navigation"
         className="
           sm:hidden fixed left-1/2 -translate-x-1/2 z-50
-          bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl
-          border border-neutral-200/70 dark:border-neutral-700/70
+          backdrop-blur-xl
           rounded-2xl shadow-lg w-[92%] max-w-md
         "
-        style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+        style={{ background: "rgba(10,23,51,0.92)", border: "1px solid rgba(191,161,92,0.32)", bottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
       >
         <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory px-2 py-2 gap-1">
           {navItems.map((item) => {
@@ -201,17 +216,18 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
                   h-16 rounded-xl transition-all
                   ${
                     isActive
-                      ? "text-indigo-600 dark:text-indigo-400"
-                      : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                      ? ""
+                      : "text-white/55 hover:text-white"
                   }
                 `}
+                style={isActive ? { color: GOLD } : undefined}
               >
                 <div
                   className={`
                     grid place-items-center h-9 w-9 rounded-xl
                     ${
                       isActive
-                        ? "bg-indigo-50 dark:bg-indigo-900/40 ring-1 ring-indigo-200/60 dark:ring-indigo-800/60"
+                        ? "bg-[#bfa15c]/10 ring-1 ring-[#bfa15c]/40"
                         : ""
                     }
                   `}
@@ -225,48 +241,58 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
             );
           })}
         </div>
-        <div className="pointer-events-none absolute -bottom-2 left-1/2 -translate-x-1/2 h-1.5 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700" />
+        <div className="pointer-events-none absolute -bottom-2 left-1/2 -translate-x-1/2 h-1.5 w-10 rounded-full" style={{ background: "rgba(191,161,92,0.2)" }} />
       </nav>
 
       {/* Sections (no animations) */}
-      <section id="about" className="scroll-mt-28">
-        <Expert />
+      <section
+        id="about"
+        data-tone="light"
+        className="scroll-mt-28"
+        style={{ background: "#fbfaf7", color: INK }}
+      >
+        <Expert serifClass={serifClass} />
       </section>
 
-      {/* Problem & Solution — unchanged */}
-      <section id="problem" className="mt-10 scroll-mt-28">
-        <ProblemSolutionCompare />
+      {/* Problem & Solution */}
+      <section
+        id="problem"
+        data-tone="dark"
+        className="scroll-mt-28"
+        style={{ background: NAVY, color: "#fff" }}
+      >
+        <ProblemSolutionCompare serifClass={serifClass} />
       </section>
 
-      <section id="articles" className="scroll-mt-28">
-        <div className="container mx-auto lg:max-w-screen-2xl px-4 py-8">
-          {/* Header (card-style, keeps your structure & CTA) */}
-          <div className="mb-6 md:mb-8">
-            <div className="relative overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-4 sm:p-5 md:p-6 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/10">
-              {/* soft background accents (clipped inside) */}
-              <div aria-hidden className="pointer-events-none absolute inset-0">
-                <div className="absolute -top-20 -left-24 h-56 w-56 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-                <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-                <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(70%_70%_at_10%_10%,black,transparent_75%)]">
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-                </div>
-              </div>
+      <section
+        id="articles"
+        data-tone="dark"
+        className="scroll-mt-28"
+        style={{ background: NAVY, color: "#fff" }}
+      >
+        <div className="container mx-auto lg:max-w-screen-2xl px-4 py-16">
+          {/* Header */}
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: GOLD }}>
+                Insights
+              </span>
+              <h2
+                id="insights-top6-title"
+                className={`${serifClass} mt-3 text-[clamp(1.8rem,4vw,3rem)] font-medium leading-[1.05] break-words`}
+              >
+                Latest Articles
+              </h2>
+            </div>
 
-              {/* content: responsive flex with title + CTA */}
-              <div className="relative flex flex-wrap items-center justify-between gap-3">
-                <h2
-                  id="insights-top6-title"
-                  className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-950 dark:text-white break-words"
-                >
-                  Latest Articles
-                </h2>
-
-                <div className="shrink-0">
-                  <a href="/articles" className="text-blue-600 hover:underline">
-                    View all
-                  </a>
-                </div>
-              </div>
+            <div className="shrink-0">
+              <a
+                href="/articles"
+                className="text-[13px] font-semibold uppercase tracking-[0.12em] transition-colors hover:text-white"
+                style={{ color: GOLD }}
+              >
+                View all →
+              </a>
             </div>
           </div>
 
@@ -277,23 +303,38 @@ export default function Sections({ articles }: { articles: ArticleMeta[] }) {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 dark:text-gray-400">No articles yet.</p>
+            <p className="text-white/45">No articles yet.</p>
           )}
         </div>
       </section>
 
-      <section id="awards">
+      {/* Awards — shared component (renders its own light/sand band) */}
+      <section
+        id="awards"
+        data-tone="light"
+        style={{ background: "#f7f4ef", color: INK }}
+      >
         <Awards variant="preview" />
       </section>
 
-      <section id="testimonials" className="scroll-mt-28">
+      {/* Testimonials — shared component */}
+      <section
+        id="testimonials"
+        data-tone="dark"
+        className="scroll-mt-28"
+        style={{ background: NAVY, color: "#fff" }}
+      >
         <TestimonialCarouselPro className="mt-2" />
       </section>
 
-      <section id="consultation" className="scroll-mt-28">
-        <section className="scroll-mt-28 py-6 px-4">
-          <AdvisorConsultationCard bookingHref="/booking?plan=paid" />
-        </section>
+      {/* Consultation — shared AdvisorConsultationCard */}
+      <section
+        id="consultation"
+        data-tone="light"
+        className="scroll-mt-28 py-16 px-4"
+        style={{ background: "#fbfaf7", color: INK }}
+      >
+        <AdvisorConsultationCard bookingHref="/booking?plan=paid" />
       </section>
     </div>
   );

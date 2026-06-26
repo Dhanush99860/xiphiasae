@@ -1,5 +1,6 @@
 // components/about/Timeline.tsx
 import React from "react";
+import { Eyebrow } from "@/components/ui";
 
 type Milestone = {
   year: string;
@@ -65,39 +66,34 @@ export default function Timeline() {
     >
       {/* container aligned with hero + overflow safety */}
       <div className="container mx-auto lg:max-w-screen-2xl px-4 sm:px-6 lg:px-8 overflow-x-clip">
-        {/* gradient, ringed wrapper (hero aesthetic) */}
+        {/* dark ink wrapper (Midnight Embassy) */}
         <div
           className={[
             "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-            "bg-gradient-to-br from-sky-50 via-white to-indigo-50",
-            "ring-1 ring-blue-100/80 shadow-sm",
-            "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-            "text-black dark:text-white",
+            "bg-white border border-gold/45",
+            "text-ink",
           ].join(" ")}
         >
           {/* soft background accents (clipped) */}
           <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="hidden sm:block absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-            <div className="hidden sm:block absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-            <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+            <div className="hidden sm:block absolute -top-24 -end-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+            <div className="hidden sm:block absolute -bottom-28 -start-10 h-72 w-72 rounded-full bg-gold/5 blur-3xl" />
+            <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
             </div>
           </div>
 
           {/* header */}
           <header className="relative mb-6 md:mb-8">
-            <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-              <Dot className="mr-1.5" />
-              Our Journey
-            </span>
+            <Eyebrow arabic="مسيرتنا">Our Journey</Eyebrow>
 
             <h2
               id={titleId}
-              className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl lg:text-[32px] break-words"
+              className="mt-3 font-sora text-2xl font-semibold tracking-tight text-ink md:text-3xl lg:text-[32px] break-words"
             >
               Milestones That Shape Our Expertise
             </h2>
-            <p className="mt-2 max-w-3xl text-sm text-zinc-700 dark:text-zinc-300">
+            <p className="mt-2 max-w-3xl text-sm text-ink/55">
               A decade-plus of building trust through diligent work and measurable outcomes.
             </p>
           </header>
@@ -108,48 +104,46 @@ export default function Timeline() {
             <LegendChip tone="legal">Legal/registration milestone</LegendChip>
           </div>
 
-          {/* timeline */}
-          <ol className="relative border-l border-blue-100 pl-6 dark:border-blue-900/40">
+          {/* timeline — gold guiding line */}
+          <ol className="relative border-s border-gold/45 ps-6">
             {milestones.map((m) => (
               <li key={`${m.year}-${m.title}`} className="mb-8 last:mb-0">
                 {/* node */}
                 <span
                   className={[
-                    "absolute -left-[7px] inline-block h-3.5 w-3.5 rounded-full ring-2",
-                    m.tone === "legal"
-                      ? "bg-amber-400 ring-amber-200 dark:bg-amber-300 dark:ring-amber-900/40"
-                      : "bg-blue-600 ring-blue-100 dark:bg-blue-300 dark:ring-blue-900/40",
+                    "absolute -start-[7px] inline-block h-3.5 w-3.5 rounded-full ring-2 ring-midnight",
+                    m.tone === "legal" ? "bg-gold/60" : "bg-gold",
                   ].join(" ")}
                 />
 
-                <div className="rounded-2xl bg-white/90 p-4 ring-1 ring-blue-100/70 backdrop-blur dark:bg:white/5 dark:ring-blue-900/40">
+                <div className="rounded-2xl border border-gold/45 bg-sand/50 p-4">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-xs uppercase tracking-widest text-blue-700 dark:text-blue-300">
+                    <p className="text-xs uppercase tracking-widest text-gold">
                       {m.year}
                     </p>
                     {m.tone && (
                       <span
                         className={[
-                          "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ring-1",
+                          "inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-medium",
                           m.tone === "legal"
-                            ? "bg-amber-500/10 text-amber-800 ring-amber-300 dark:text-amber-200 dark:ring-amber-700"
-                            : "bg-blue-600/10 text-blue-800 ring-blue-300 dark:text-blue-200 dark:ring-blue-800",
+                            ? "border-gold/45 bg-white text-gold/80"
+                            : "border-gold/45 bg-white text-ink/70",
                         ].join(" ")}
                       >
                         {m.tone === "legal" ? "Legal" : "Brand"}
                       </span>
                     )}
                     {m.meta && (
-                      <span className="inline-flex items-center rounded-full bg-zinc-50 px-2 py-0.5 text-[10px] ring-1 ring-zinc-200 dark:bg-black/30 dark:ring-white/10">
+                      <span className="inline-flex items-center rounded-full border border-gold/45 bg-white px-2 py-0.5 text-[10px] text-ink/60">
                         {m.meta}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="mt-1 text-base font-semibold leading-tight break-words">
+                  <h3 className="mt-1 font-sora text-base font-semibold leading-tight text-ink break-words">
                     {m.title}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-300 break-words">
+                  <p className="mt-1 text-sm text-ink/55 break-words">
                     {m.text}
                   </p>
                 </div>
@@ -158,7 +152,7 @@ export default function Timeline() {
           </ol>
 
           {/* disclaimer */}
-          <p className="relative mt-4 text-[11px] text-zinc-600 dark:text-zinc-400">
+          <p className="relative mt-4 text-[11px] text-ink/45">
             *Timeline blends brand and legal milestones sourced from publicly available records and
             company materials. No guarantees. Eligibility & rules apply.
           </p>
@@ -169,13 +163,6 @@ export default function Timeline() {
 }
 
 /* tiny UI atoms */
-function Dot({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`}
-    />
-  );
-}
 function LegendChip({
   tone,
   children,
@@ -183,14 +170,12 @@ function LegendChip({
   tone: "brand" | "legal";
   children: React.ReactNode;
 }) {
-  const cls =
-    tone === "legal"
-      ? "bg-amber-500/10 text-amber-800 ring-amber-300 dark:text-amber-200 dark:ring-amber-700"
-      : "bg-blue-600/10 text-blue-800 ring-blue-300 dark:text-blue-200 dark:ring-blue-800";
   return (
-    <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 ring-1 ${cls}`}
-    >
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-ink/70">
+      <span
+        className={`h-1.5 w-1.5 rounded-full ${tone === "legal" ? "bg-gold/60" : "bg-gold"}`}
+        aria-hidden
+      />
       {children}
     </span>
   );

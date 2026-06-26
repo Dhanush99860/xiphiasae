@@ -174,7 +174,7 @@ export default function ReadingProgress({
                     className={[
                       "mt-1 text-[10px] leading-none select-none",
                       active
-                        ? "text-[rgba(0,0,0,0.65)] dark:text-[rgba(255,255,255,0.8)]"
+                        ? "text-[rgba(15,23,42,0.08)] dark:text-[rgba(255,255,255,0.8)]"
                         : "text-[rgba(0,0,0,0.4)] dark:text-[rgba(255,255,255,0.45)]",
                     ].join(" ")}
                   >
@@ -195,7 +195,7 @@ export default function ReadingProgress({
               "rounded-md text-[11px] font-medium",
               "shadow-sm border",
               "bg-white/90 text-neutral-800 border-black/10",
-              "dark:bg-neutral-900/85 dark:text-neutral-100 dark:border-white/10",
+              "dark:bg-neutral-900/85 dark:text-neutral-100 dark:border-gold/45",
               "transition-transform duration-150",
             ].join(" ")}
             style={{

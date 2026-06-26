@@ -3,7 +3,10 @@
 
 import React from "react";
 import Link from "next/link";
-import Breadcrumb from "@/components/Common/Breadcrumb";
+import Ambient from "@/components/HomeLuxe/Ambient";
+
+const GOLD = "#bfa15c";
+const NAVY = "#0a1733";
 
 type Props = {
   title?: string;
@@ -23,6 +26,8 @@ type Props = {
   microNote?: string;
   /** Paid-call note under CTAs */
   priceNote?: string;
+  /** Cormorant serif class for display headings */
+  serifClass?: string;
 };
 
 export default function HeroPremium({
@@ -45,6 +50,7 @@ export default function HeroPremium({
   align = "left",
   microNote = "Confidential • NDA on request",
   priceNote = "Paid strategy call • 60 mins • Credited on engagement",
+  serifClass = "",
 }: Props) {
   const isPdf =
     typeof secondaryHref === "string" &&
@@ -55,73 +61,103 @@ export default function HeroPremium({
     align === "center" ? "text-center md:max-w-3xl mx-auto" : "text-left";
 
   return (
-    <>
-      <div className="mx-auto max-w-screen-2xl px-4 py-5">
-        <section
-          aria-labelledby={heroId}
-          className={[
-            "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-            "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-            "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-            "text-black dark:text-white",
-            className,
-          ].join(" ")}
+    <section
+      data-tone="dark"
+      aria-labelledby={heroId}
+      className={[
+        "relative overflow-hidden px-6 pb-24 pt-36 md:px-10 lg:px-16",
+        className,
+      ].join(" ")}
+      style={{
+        background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`,
+        color: "#fff",
+      }}
+    >
+      <Ambient tone="dark" />
+
+      <div className={`relative z-10 mx-auto max-w-6xl ${alignClasses}`}>
+        {/* Eyebrow / badge */}
+        {badge ? (
+          <div
+            className={[
+              "flex items-center gap-3",
+              align === "center" ? "justify-center" : "",
+            ].join(" ")}
+          >
+            <span className="h-px w-10" style={{ background: GOLD }} />
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.28em]"
+              style={{ color: GOLD }}
+            >
+              {badge}
+            </span>
+          </div>
+        ) : null}
+
+        {/* Page-level heading for this booking page */}
+        <h1
+          id={heroId}
+          className={`${serifClass} mt-6 max-w-4xl text-[clamp(2.4rem,6vw,4.6rem)] font-medium leading-[1.0]`}
         >
-          {/* décor background */}
-          <div aria-hidden className="pointer-events-none absolute inset-0">
-            <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-            <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-            <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-            </div>
+          {title}
+        </h1>
+
+        <p className="mt-6 max-w-2xl text-[15px] leading-7 text-white/60 md:text-base">
+          {subtitle}
+        </p>
+
+        {features?.length ? (
+          <ul
+            className={[
+              "mt-7 flex flex-wrap gap-2.5 text-xs",
+              align === "center" ? "justify-center" : "",
+            ].join(" ")}
+          >
+            {features.map((f) => (
+              <li
+                key={f}
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-white/70"
+                style={{ border: "1px solid rgba(191,161,92,0.32)", background: "rgba(255,255,255,0.03)" }}
+              >
+                <Check />
+                <span>{f}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        {/* FEATURED spotlight — the booking call, called out large */}
+        <div
+          className="mt-14 grid items-center gap-8 rounded-3xl p-8 md:grid-cols-[auto_1fr] md:p-12"
+          style={{ border: "1px solid rgba(191,161,92,0.4)", background: "rgba(255,255,255,0.03)" }}
+        >
+          <div className="flex flex-col items-start gap-4">
+            <span
+              className={`${serifClass} text-[clamp(3rem,8vw,6rem)] font-medium leading-none`}
+              style={{ color: GOLD }}
+            >
+              01
+            </span>
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.26em]"
+              style={{ color: GOLD }}
+            >
+              Strategy Call
+            </span>
           </div>
 
-          <div className={`relative ${alignClasses}`}>
-            {/* Eyebrow / badge */}
-            {badge ? (
-              <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-                <Dot className="mr-1.5" />
-                {badge}
-              </span>
-            ) : null}
-
-            {/* Page-level heading for this booking page */}
-            <h1
-              id={heroId}
-              className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight"
-            >
-              {title}
-            </h1>
-
-            <p className="mt-3 text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 md:text-base">
-              {subtitle}
-            </p>
-
-            {features?.length ? (
-              <ul className="mt-5 flex flex-wrap gap-2.5 text-xs">
-                {features.map((f) => (
-                  <li
-                    key={f}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800"
-                  >
-                    <Check />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+          <div>
+            <h2 className={`${serifClass} text-[clamp(1.6rem,3.2vw,2.6rem)] font-medium leading-tight`}>
+              Reserve a private consultation
+            </h2>
 
             {/* CTAs */}
-            <div
-              className={[
-                "mt-6 flex flex-wrap items-center gap-3",
-                align === "center" ? "justify-center" : "",
-              ].join(" ")}
-            >
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link
                 href={primaryHref}
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition"
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] transition-transform hover:-translate-y-0.5"
+                style={{ background: GOLD, color: NAVY }}
                 aria-label={primaryText}
               >
                 {primaryText}
@@ -134,7 +170,8 @@ export default function HeroPremium({
                     <a
                       href={secondaryHref}
                       download
-                      className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white/85 transition hover:text-white"
+                      style={{ border: "1px solid rgba(191,161,92,0.4)" }}
                       aria-label={secondaryText}
                     >
                       <Download />
@@ -145,7 +182,8 @@ export default function HeroPremium({
                     <Link
                       href={secondaryHref}
                       prefetch={false}
-                      className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg:white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white/85 transition hover:text-white"
+                      style={{ border: "1px solid rgba(191,161,92,0.4)" }}
                       aria-label={secondaryText}
                     >
                       <Open />
@@ -155,26 +193,21 @@ export default function HeroPremium({
                 : null}
 
               {microNote ? (
-                <span className="ml-0 md:ml-2 text-xs text-zinc-500 dark:text-zinc-400">
+                <span className="ml-0 md:ml-2 text-xs text-white/45">
                   {microNote}
                 </span>
               ) : null}
             </div>
 
             {priceNote ? (
-              <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
+              <p className="mt-3 text-xs text-white/45">
                 {priceNote}
               </p>
             ) : null}
           </div>
-        </section>
-
-        {/* Breadcrumb below hero */}
-        <div className="mt-3">
-          <Breadcrumb />
         </div>
       </div>
-    </>
+    </section>
   );
 }
 
@@ -185,7 +218,8 @@ function Check() {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className="h-3.5 w-3.5 fill-blue-600 dark:fill-blue-400"
+      className="h-3.5 w-3.5"
+      style={{ fill: GOLD }}
     >
       <path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7.25 7.25a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 5.457 8.543l3.293 3.293 6.543-6.543a1 1 0 0 1 1.414 0z" />
     </svg>
@@ -226,13 +260,5 @@ function Open() {
         d="M5 6a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-4a1 1 0 1 0-2 0v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4a1 1 0 1 0 0-2H5z"
       />
     </svg>
-  );
-}
-
-function Dot({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`}
-    />
   );
 }

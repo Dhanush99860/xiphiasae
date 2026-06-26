@@ -1,17 +1,25 @@
 import type { Metadata } from "next";
-import HomeExperience from "@/components/HomeExperience/HomeExperience";
+import { Cormorant_Garamond } from "next/font/google";
+import LuxeHome from "@/components/HomeLuxe/LuxeHome";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Best Immigration Consultants in India - XIPHIAS Immigration",
+  title: "XIPHIAS — Private Global Mobility · Golden Visas & Citizenship by Investment, Dubai",
   description:
-    "Xiphias Immigration offers expert residency, citizenship, corporate, and skilled migration services worldwide with 17+ years of experience",
+    "A private global-mobility practice for those who value discretion. Golden visas, residency and second passports across 35 jurisdictions — arranged end-to-end from Dubai. 17 years, 10,000+ families.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Best Immigration Consultants in India – XIPHIAS Immigration",
+    title: "XIPHIAS — Your second passport, privately arranged",
     description:
-      "Leading consultants for residency, citizenship, and skilled migration. Build your global future with XIPHIAS",
+      "Golden visas and citizenship by investment across 35 jurisdictions, arranged with discretion from Dubai.",
     url: "https://www.xiphiasimmigration.com",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",
@@ -20,13 +28,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Immigration Consultants in India – XIPHIAS Immigration",
+    title: "XIPHIAS — Your second passport, privately arranged",
     description:
-      "Build your global future with XIPHIAS Immigration — experts in residency, citizenship, and migration",
+      "A private global-mobility practice — golden visas, residency and citizenship by investment, arranged from Dubai.",
     images: ["/xiphias-immigration.png"],
   },
 };
 
 export default function Home() {
-  return <HomeExperience />;
+  return <LuxeHome serifClass={serif.className} />;
 }

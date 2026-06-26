@@ -1,25 +1,48 @@
 // ==============================================
-// components/team/CTA.tsx
+// components/team/CTA.tsx – navy/gold closing CTA
 // ==============================================
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Download } from "@/components/Team/Icons";
+import Ambient from "@/components/HomeLuxe/Ambient";
 
-export function CTA(){
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const NAVY = "#0a1733";
+const INK = "#0c1f3f";
+
+export function CTA({ serifClass = "" }: { serifClass?: string }) {
   return (
-    <section aria-labelledby="cta-title" className="mt-16">
-      <div className="relative overflow-hidden rounded-3xl p-6 md:p-10 bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100 dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900 text-black dark:text-white">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" aria-hidden="true" />
-        <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" aria-hidden="true" />
-        <div className="relative md:flex items-center justify-between gap-6">
-          <div>
-            <h2 id="cta-title" className="text-2xl md:text-3xl font-semibold tracking-tight">Build with the senior team.</h2>
-            <p className="mt-2 text-sm md:text-base text-zinc-700 dark:text-zinc-300">Book a zero-pressure discovery call. We respond within 24 hours.</p>
-          </div>
-          <div className="mt-4 md:mt-0 flex gap-3">
-            <Link href="/contact" prefetch={false} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition">Book a Call <ArrowRight /></Link>
-            <Link href="/capability-deck.pdf" prefetch={false} className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition">Download Deck <Download /></Link>
-          </div>
+    <section
+      aria-labelledby="cta-title"
+      data-tone="light"
+      className="relative overflow-hidden px-6 py-28 md:px-10 lg:px-16"
+      style={{ background: "#f7f4ef", color: INK }}
+    >
+      <Ambient tone="light" />
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        <h2 id="cta-title" className={`${serifClass} text-[clamp(2rem,4.5vw,3.4rem)] font-medium leading-[1.04]`} style={{ color: INK }}>
+          Build with the <span className="italic" style={{ color: GOLD_DEEP }}>senior team</span>.
+        </h2>
+        <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7" style={{ color: "rgba(12,31,63,0.6)" }}>
+          Book a zero-pressure discovery call. We respond within 24 hours.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/contact"
+            prefetch={false}
+            className="group inline-flex items-center gap-2 rounded-full px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] transition-transform hover:-translate-y-0.5"
+            style={{ background: GOLD, color: NAVY }}
+          >
+            Book a Call <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
+          <Link
+            href="/capability-deck.pdf"
+            prefetch={false}
+            className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-[13px] font-semibold uppercase tracking-[0.14em] transition-colors hover:bg-[#a87d1f]/10"
+            style={{ border: `1px solid ${GOLD_DEEP}`, color: GOLD_DEEP }}
+          >
+            Download Deck <span aria-hidden>↓</span>
+          </Link>
         </div>
       </div>
     </section>

@@ -4,12 +4,17 @@
 import { getAllContentCached } from "@/lib/content";
 import type { Vertical, ProgramDoc } from "@/lib/content/types";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ add
+
+import { CountryListing, type CountryListingData } from "@/components/Vertical/CatchAllHubs";
+import { countryImage } from "@/components/Countries/country-image";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
 
 export const runtime = "nodejs";
 
@@ -121,33 +126,26 @@ export default function CountryPage({
     { name: country.charAt(0).toUpperCase() + country.slice(1), url: `/${vertical}/${country}` },
   ]);
 
+  const capVertical = vertical.charAt(0).toUpperCase() + vertical.slice(1);
+
+  const data: CountryListingData = {
+    verticalSlug: vertical,
+    vertical: capVertical,
+    country,
+    countryLabel: country.replace(/-/g, " "),
+    heroImage: countryImage(country),
+    programmes: programs.map((p) => ({
+      title: p.title,
+      summary: p.summary,
+      href: `/${p.vertical}/${p.country}/${p.program}`,
+    })),
+  };
+
   return (
-    <main className="mx-auto max-w-6xl space-y-6 p-6">
+    <>
       {/* ✅ JSON-LD */}
       <JsonLd data={breadcrumbJsonLd} />
-
-      <h1 className="text-3xl font-semibold capitalize">
-        {country} – {vertical}
-      </h1>
-
-      {programs.length === 0 ? (
-        <p className="text-neutral-600">No programs available yet.</p>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {programs.map((p) => (
-            <Link
-              key={p.url}
-              href={`/${p.vertical}/${p.country}/${p.program}`}
-              className="rounded-2xl border p-5 transition hover:bg-gray-50"
-            >
-              <div className="text-xl font-medium">{p.title}</div>
-              {p.summary ? (
-                <div className="text-sm opacity-70 mt-1">{p.summary}</div>
-              ) : null}
-            </Link>
-          ))}
-        </div>
-      )}
-    </main>
+      <CountryListing d={data} serifClass={serif.className} />
+    </>
   );
 }

@@ -167,23 +167,22 @@ export default function BookingModal({
           "relative z-10 w-full sm:max-w-2xl",
           "h-[92svh] sm:h-auto sm:max-h-[85vh]",
           "flex flex-col overflow-hidden",
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 text-zinc-900",
-          "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:text-zinc-50",
-          "ring-1 ring-blue-100/80 dark:ring-blue-900/40",
+          "bg-sand text-ink font-sora",
+          "border border-gold/45",
           "sm:rounded-2xl",
         ].join(" ")}
       >
         {/* Header */}
-        <header className="flex-shrink-0 border-b border-blue-100/60 bg-white/85 dark:bg-zinc-900/50 sm:rounded-t-2xl">
+        <header className="flex-shrink-0 border-b border-gold/45 bg-white sm:rounded-t-2xl">
           <div className="flex items-start justify-between p-4 sm:p-5">
             <div className="min-w-0">
               <h2
                 id={headingId}
-                className="truncate text-lg sm:text-xl font-semibold tracking-tight"
+                className="truncate text-lg sm:text-xl font-semibold tracking-tight text-ink"
               >
                 Reserve your consultation
               </h2>
-              <p className="mt-0.5 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
+              <p className="mt-0.5 text-xs sm:text-sm text-ink/55">
                 Private Client Service
               </p>
             </div>
@@ -191,7 +190,7 @@ export default function BookingModal({
             <button
               data-close="1"
               onClick={onCloseAction}
-              className="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-lg text-zinc-500 hover:bg-white/80 hover:text-black ring-1 ring-transparent hover:ring-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="ml-3 inline-flex h-9 w-9 items-center justify-center rounded-lg text-ink/55 hover:bg-pearl/5 hover:text-ink ring-1 ring-transparent hover:ring-gold/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               aria-label="Close dialog"
             >
               <span className="text-xl leading-none">×</span>
@@ -200,18 +199,22 @@ export default function BookingModal({
 
           {/* Stepper + progress */}
           <div className="px-4 sm:px-5 pb-3">
-            <ol className="flex items-center gap-2 overflow-x-auto text-[11px] sm:text-xs text-zinc-700 dark:text-zinc-300">
+            <ol className="flex items-center gap-2 overflow-x-auto text-[11px] sm:text-xs">
               {STEPS.map((s, i) => {
-                const active = STEPS.indexOf(step) >= i;
+                const currentIdx = STEPS.indexOf(step);
+                const isCurrent = step === s;
+                const isDone = currentIdx > i;
                 return (
                   <li
                     key={s}
-                    aria-current={step === s ? "step" : undefined}
+                    aria-current={isCurrent ? "step" : undefined}
                     className={[
-                      "flex-1 min-w-[120px] sm:min-w-0 whitespace-nowrap text-center rounded-full px-2 py-1 ring-1",
-                      active
-                        ? "bg-white/90 ring-blue-200 dark:bg-white/10 dark:ring-blue-800/40"
-                        : "ring-transparent",
+                      "flex-1 min-w-[120px] sm:min-w-0 whitespace-nowrap text-center rounded-full px-2 py-1 ring-1 transition",
+                      isCurrent
+                        ? "bg-gold text-midnight ring-gold font-semibold"
+                        : isDone
+                        ? "text-gold/70 ring-gold/40"
+                        : "text-ink/30 ring-transparent",
                     ].join(" ")}
                   >
                     {i + 1}. {STEP_LABEL[s]}
@@ -220,9 +223,9 @@ export default function BookingModal({
               })}
             </ol>
 
-            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-zinc-200/70 dark:bg-zinc-800">
+            <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-pearl/10">
               <div
-                className="h-full rounded-full bg-blue-600 transition-[width] duration-300"
+                className="h-full rounded-full bg-gold transition-[width] duration-300"
                 style={{ width: `${progress * 100}%` }}
                 aria-hidden="true"
               />
@@ -236,8 +239,8 @@ export default function BookingModal({
         {/* Content */}
         <main className="flex-1 overflow-y-auto px-4 sm:px-5 py-4 sm:py-5 pb-[max(16px,env(safe-area-inset-bottom))]">
           <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute right-[-5%] top-[-5%] h-56 w-56 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-            <div className="absolute left-[-8%] bottom-[-8%] h-64 w-64 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
+            <div className="absolute right-[-5%] top-[-5%] h-56 w-56 rounded-full bg-gold/10 blur-3xl" />
+            <div className="absolute left-[-8%] bottom-[-8%] h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
           </div>
 
           <div className="mx-auto max-w-3xl">

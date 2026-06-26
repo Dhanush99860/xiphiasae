@@ -4,11 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Cormorant_Garamond } from "next/font/google";
 import { CalendarDays, Camera, MapPin, Tag } from "lucide-react";
 import { formatDateLong } from "@/lib/date-format";
 import { getAllEvents, getEventBySlug } from "@/lib/events-data";
+import ArticleDetail from "@/components/Content/ArticleDetail";
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const revalidate = 86400;
 
@@ -126,201 +135,102 @@ export default async function EventDetailPage({ params }: PageProps) {
   };
 
   return (
-    <main className="container mx-auto w-full max-w-screen-2xl px-4 pb-14 pt-8">
-      <nav aria-label="Breadcrumb" className="mb-4 text-xs sm:text-sm">
-        <ol className="flex flex-wrap items-center gap-1.5 text-black/55 dark:text-white/55">
-          <li>
-            <Link href="/" className="hover:text-primary">
-              Home
-            </Link>
-          </li>
-          <li>/</li>
-          <li>
-            <Link href="/events" className="hover:text-primary">
-              Events
-            </Link>
-          </li>
-          <li>/</li>
-          <li className="line-clamp-1 text-black/80 dark:text-white/80">
-            {event.title}
-          </li>
-        </ol>
-      </nav>
+    <ArticleDetail
+      serifClass={serif.className}
+      eyebrow="Event"
+      title={event.title}
+      date={formatDateLong(event.date)}
+      category={event.location ?? undefined}
+      heroImage={heroPhoto?.src}
+      backHref="/events"
+      backLabel="Events"
+    >
+      {/* JSON-LD (preserved verbatim) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
 
-      <div className="mb-6 flex items-center justify-between gap-3">
-        <Link
-          href="/events"
-          className="inline-flex items-center text-sm font-medium text-primary hover:underline underline-offset-4"
-        >
-          Back to events
-        </Link>
-        <span className="hidden text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50 sm:inline">
-          Event detail
+      {/* Event meta chips */}
+      <div className="not-prose mb-8 flex flex-wrap items-center gap-2 text-sm">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#bfa15c]/40 bg-[#bfa15c]/[0.06] px-3 py-1 text-[#0c1f3f]">
+          <CalendarDays className="h-4 w-4 text-[#a87d1f]" />
+          {formatDateLong(event.date)}
+        </span>
+        {event.location ? (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#bfa15c]/40 bg-[#bfa15c]/[0.06] px-3 py-1 text-[#0c1f3f]">
+            <MapPin className="h-4 w-4 text-[#a87d1f]" />
+            {event.location}
+          </span>
+        ) : null}
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#bfa15c]/40 bg-[#bfa15c]/[0.06] px-3 py-1 text-[#0c1f3f]">
+          <Camera className="h-4 w-4 text-[#a87d1f]" />
+          {availablePhotos.length} {availablePhotos.length === 1 ? "photo" : "photos"}
+        </span>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#bfa15c]/40 bg-[#bfa15c]/[0.06] px-3 py-1 text-[#0c1f3f]">
+          <Tag className="h-4 w-4 text-[#a87d1f]" />
+          {event.slug}
         </span>
       </div>
 
-      <article className="overflow-hidden rounded-3xl border border-black/10 bg-white dark:border-white/15 dark:bg-neutral-900">
-        <div className="relative min-h-[280px] overflow-hidden bg-gradient-to-br from-slate-200 via-slate-100 to-slate-50 dark:from-slate-800 dark:via-slate-700 dark:to-slate-900 aspect-[21/9]">
-          {heroPhoto ? (
-            <Image
-              src={heroPhoto.src}
-              alt={heroPhoto.alt || `${event.title} cover image`}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          ) : null}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7 lg:p-9">
-            <div className="flex flex-wrap items-center gap-2 text-xs text-white/95 sm:text-sm">
-              <span className="inline-flex items-center gap-1 rounded-full border border-white/30 bg-black/25 px-2.5 py-1">
-                <CalendarDays className="h-4 w-4" />
-                {formatDateLong(event.date)}
-              </span>
-              {event.location ? (
-                <span className="inline-flex items-center gap-1 rounded-full border border-white/30 bg-black/25 px-2.5 py-1">
-                  <MapPin className="h-4 w-4" />
-                  {event.location}
-                </span>
-              ) : null}
-            </div>
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              {event.title}
-            </h1>
-          </div>
-        </div>
-      </article>
+      {/* Executive summary */}
+      {event.summary ? (
+        <>
+          <h2>Executive Summary</h2>
+          <p>{event.summary}</p>
+        </>
+      ) : null}
 
-      <div className="mt-8 grid grid-cols-1 gap-6 lg:gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
-        <section className="space-y-6">
-          {event.summary ? (
-            <div className="rounded-2xl border border-black/10 bg-white p-5 dark:border-white/15 dark:bg-neutral-900 sm:p-6">
-              <h2 className="text-xl font-bold text-black dark:text-white sm:text-2xl">
-                Executive Summary
-              </h2>
-              <p className="mt-3 text-base leading-relaxed text-black/80 dark:text-white/80 sm:text-lg">
-                {event.summary}
-              </p>
-            </div>
-          ) : null}
+      {/* Overview */}
+      <h2>Event Overview</h2>
+      {paragraphs.map((paragraph, index) => (
+        <p key={`${event.slug}-paragraph-${index + 1}`}>{paragraph}</p>
+      ))}
 
-          <div className="rounded-2xl border border-black/10 bg-white p-5 dark:border-white/15 dark:bg-neutral-900 sm:p-6">
-            <h2 className="text-xl font-bold text-black dark:text-white sm:text-2xl">
-              Event Overview
-            </h2>
-            <div className="mt-4 space-y-4">
-              {paragraphs.map((paragraph, index) => (
-                <p
-                  key={`${event.slug}-paragraph-${index + 1}`}
-                  className="text-sm leading-7 text-black/80 dark:text-white/80 sm:text-base"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <aside className="space-y-4 self-start xl:sticky xl:top-28">
-          <div className="rounded-2xl border border-black/10 bg-white p-5 dark:border-white/15 dark:bg-neutral-900">
-            <h3 className="text-base font-semibold text-black dark:text-white">
-              Event Information
-            </h3>
-            <dl className="mt-4 space-y-3 text-sm">
-              <div className="flex items-start gap-2">
-                <CalendarDays className="mt-0.5 h-4 w-4 text-primary" />
-                <div>
-                  <dt className="text-black/60 dark:text-white/60">Date</dt>
-                  <dd className="font-medium text-black dark:text-white">
-                    {formatDateLong(event.date)}
-                  </dd>
-                </div>
-              </div>
-              {event.location ? (
-                <div className="flex items-start gap-2">
-                  <MapPin className="mt-0.5 h-4 w-4 text-primary" />
-                  <div>
-                    <dt className="text-black/60 dark:text-white/60">Location</dt>
-                    <dd className="font-medium text-black dark:text-white">
-                      {event.location}
-                    </dd>
-                  </div>
-                </div>
-              ) : null}
-              <div className="flex items-start gap-2">
-                <Camera className="mt-0.5 h-4 w-4 text-primary" />
-                <div>
-                  <dt className="text-black/60 dark:text-white/60">Media</dt>
-                  <dd className="font-medium text-black dark:text-white">
-                    {availablePhotos.length} {availablePhotos.length === 1 ? "photo" : "photos"}
-                  </dd>
-                </div>
-              </div>
-              <div className="flex items-start gap-2">
-                <Tag className="mt-0.5 h-4 w-4 text-primary" />
-                <div>
-                  <dt className="text-black/60 dark:text-white/60">Reference ID</dt>
-                  <dd className="font-medium text-black dark:text-white">{event.slug}</dd>
-                </div>
-              </div>
-            </dl>
-          </div>
-        </aside>
-      </div>
-
+      {/* Gallery — real, full-bleed-within-column images */}
       {availablePhotos.length > 0 ? (
-        <section className="mt-8" aria-labelledby="event-gallery-title">
-          <div className="mb-4 flex items-end justify-between">
-            <h2
-              id="event-gallery-title"
-              className="text-2xl font-bold text-black dark:text-white"
-            >
-              Event Gallery
-            </h2>
-            <span className="text-xs text-black/60 dark:text-white/60 sm:text-sm">
-              {availablePhotos.length} {availablePhotos.length === 1 ? "photo" : "photos"}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
+        <>
+          <h2>Event Gallery</h2>
+          <div className="not-prose mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {availablePhotos.map((photo, index) => (
               <figure
                 key={`${event.slug}-${photo.src}-${index}`}
-                className="overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm dark:border-white/15 dark:bg-neutral-900"
+                className="overflow-hidden rounded-xl border border-[#0c1f3f]/10 bg-white shadow-[0_18px_44px_-28px_rgba(10,23,51,0.4)]"
               >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt || `${event.title} photo ${index + 1}`}
-                  width={photo.w}
-                  height={photo.h}
-                  className="h-auto w-full object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt || `${event.title} photo ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
                 {photo.caption ? (
-                  <figcaption className="px-3 py-2 text-xs text-black/70 dark:text-white/70 sm:text-sm">
+                  <figcaption className="px-3 py-2 text-xs text-[#142745]/60">
                     {photo.caption}
                   </figcaption>
                 ) : null}
               </figure>
             ))}
           </div>
-        </section>
+        </>
       ) : null}
 
+      {/* Explore more */}
       {newerEvent || olderEvent ? (
-        <section className="mt-10 border-t border-black/10 pt-6 dark:border-white/15" aria-label="Related events navigation">
-          <h2 className="text-lg font-semibold text-black dark:text-white">Explore More Events</h2>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <>
+          <h2>Explore More Events</h2>
+          <div className="not-prose mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {newerEvent ? (
               <Link
                 href={`/events/${newerEvent.slug}`}
-                className="rounded-xl border border-black/10 bg-white p-4 transition hover:border-primary/40 hover:shadow-sm dark:border-white/15 dark:bg-neutral-900"
+                className="rounded-xl border border-[#bfa15c]/40 bg-white p-4 transition-all hover:border-[#bfa15c] hover:-translate-y-0.5 motion-reduce:transform-none"
               >
-                <p className="text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#142745]/45">
                   Newer event
                 </p>
-                <p className="mt-1 font-semibold text-black dark:text-white">{newerEvent.title}</p>
+                <p className="mt-1 font-semibold text-[#0c1f3f]">{newerEvent.title}</p>
               </Link>
             ) : (
               <div />
@@ -329,23 +239,18 @@ export default async function EventDetailPage({ params }: PageProps) {
             {olderEvent ? (
               <Link
                 href={`/events/${olderEvent.slug}`}
-                className="rounded-xl border border-black/10 bg-white p-4 transition hover:border-primary/40 hover:shadow-sm dark:border-white/15 dark:bg-neutral-900"
+                className="rounded-xl border border-[#bfa15c]/40 bg-white p-4 transition-all hover:border-[#bfa15c] hover:-translate-y-0.5 motion-reduce:transform-none"
               >
-                <p className="text-xs font-medium uppercase tracking-wide text-black/50 dark:text-white/50">
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-[#142745]/45">
                   Older event
                 </p>
-                <p className="mt-1 font-semibold text-black dark:text-white">{olderEvent.title}</p>
+                <p className="mt-1 font-semibold text-[#0c1f3f]">{olderEvent.title}</p>
               </Link>
             ) : null}
           </div>
-        </section>
+        </>
       ) : null}
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
-      />
-    </main>
+    </ArticleDetail>
   );
 }
 

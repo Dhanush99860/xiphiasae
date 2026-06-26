@@ -17,6 +17,21 @@ import {
 } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import { formatTimelineShort } from "@/lib/timeline";
+import { Eyebrow } from "@/components/ui";
+import {
+  DrawLine,
+  Reveal,
+  SandReveal,
+  SplitText,
+  GradientText,
+  LatticeOverlay,
+  CollectionRail,
+  ImageReveal,
+  ParallaxLayer,
+  Stagger,
+  StaggerItem,
+  Counter,
+} from "@/components/motion";
 
 /* ------------------------- helpers & formatters ------------------------- */
 
@@ -357,19 +372,74 @@ export default function ExploreGrid({
   /* --------------------------------- UI --------------------------------- */
 
   return (
-    <div className={["text-black dark:text-white", className].join(" ")}>
+    <div className={["text-ink", className].join(" ")}>
+      {/* Section opener — textured ivory plate to break the flat sand */}
+      <div className="relative mb-10 overflow-hidden rounded-3xl border border-gold/40 bg-gradient-to-br from-white to-dune/40 p-6 shadow-[0_24px_60px_-44px_rgba(168,125,31,0.5)] md:p-9">
+        <LatticeOverlay opacity={0.06} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -start-16 -bottom-16 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.18),transparent_70%)] blur-2xl"
+        />
+        {/* Ghost numeral — readable on light per contrast rules */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute end-4 top-2 select-none font-sora text-[7rem] font-bold leading-none text-gold_deep/25 md:text-[9rem]"
+        >
+          01
+        </span>
+
+        <div className="relative">
+          <Reveal y={0}>
+            <Eyebrow tone="gold" arabic="تنقّل الشركات">
+              Corporate Mobility
+            </Eyebrow>
+          </Reveal>
+
+          <SandReveal delay={0.05}>
+            <h2 className="mt-5 max-w-3xl font-sora text-[clamp(1.5rem,3.2vw,2.25rem)] font-semibold leading-tight tracking-tight text-ink">
+              <SplitText text="Explore corporate routes by" />{" "}
+              <GradientText
+                className="font-sora"
+                colors={["#a87d1f", "#d4af37", "#f0d98a", "#a87d1f"]}
+              >
+                country
+              </GradientText>
+            </h2>
+          </SandReveal>
+
+          <SandReveal delay={0.16} y={24} blur={6}>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink/70">
+              Compare free zone &amp; mainland company formation, investor and
+              entrepreneur options, and employment / work permits across the
+              Emirates and beyond.
+            </p>
+          </SandReveal>
+
+          <DrawLine
+            d="M0 1 L 100 1"
+            viewBox="0 0 100 2"
+            className="mt-6 h-px w-48"
+            strokeWidth={1.5}
+          />
+        </div>
+      </div>
+
+      {/* ── Cinematic destinations rail — a Rolex-style collection of corporate jurisdictions ── */}
+      {safeCountries.length > 0 ? (
+        <CountryRail countries={safeCountries} />
+      ) : null}
+
       {/* MOBILE: collapsible filter panel with premium dropdowns */}
       <details
         className="
           lg:hidden rounded-2xl p-4 open:p-4
-          ring-1 ring-blue-100/80 bg-gradient-to-br from-sky-50 via-white to-indigo-50
-          dark:ring-blue-900/40 dark:from-blue-950/20 dark:via-transparent dark:to-indigo-950/10
+          border border-gold/45 bg-dune/40 backdrop-blur-sm
         "
       >
-        <summary className="cursor-pointer select-none font-semibold flex items-center gap-2">
-          <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+        <summary className="cursor-pointer select-none font-semibold flex items-center gap-2 text-ink">
+          <SlidersHorizontal className="h-4 w-4 text-gold" />
           Filters & Top Programs
-          <span className="ml-auto text-sm font-normal text-zinc-500 dark:text-zinc-400">
+          <span className="ms-auto text-sm font-normal text-ink/60">
             {resultCount} countries
           </span>
         </summary>
@@ -420,7 +490,7 @@ export default function ExploreGrid({
               setRouteType("");
               setSort("timeline");
             }}
-            className="text-sm rounded-xl px-3 py-2 ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+            className="text-sm rounded-full px-4 py-2 border border-gold/40 text-ink/80 hover:border-gold/60 transition-colors"
           >
             Reset all
           </button>
@@ -428,7 +498,7 @@ export default function ExploreGrid({
 
         {/* Top 5 list */}
         <div className="mt-6">
-          <h3 className="text-base font-semibold">Top 5 programs</h3>
+          <h3 className="text-base font-semibold text-ink">Top 5 programs</h3>
           <ol
             className="mt-3 space-y-3"
             itemScope
@@ -444,26 +514,26 @@ export default function ExploreGrid({
                 <meta itemProp="position" content={String(idx + 1)} />
                 <Link
                   href={`/corporate/${p.countrySlug}/${p.programSlug}`}
-                  className="block rounded-xl ring-1 ring-blue-100/80 bg-white p-3 hover:bg-blue-50/60 dark:bg-white/5 dark:ring-blue-900/40 dark:hover:bg-blue-950/20 transition"
+                  className="block rounded-xl border border-gold/45 bg-sand/50 p-3 hover:border-gold/65 transition-colors"
                   itemProp="url"
                 >
                   <div className="flex items-center gap-3">
                     <SquareThumb program={p} />
                     <div className="flex-1">
-                      <div className="text-sm font-medium" itemProp="name">
+                      <div className="text-sm font-medium text-ink" itemProp="name">
                         {p.title}
                       </div>
-                      <div className="text-xs text-zinc-600 dark:text-zinc-300">
+                      <div className="text-xs text-ink/60">
                         {p.country}
                       </div>
                     </div>
-                    <div className="text-right text-xs">
-                      <div className="tabular-nums">
+                    <div className="text-end text-xs">
+                      <div className="tabular-nums text-gold">
                         {typeof p.minInvestment === "number"
                           ? toCurrency(p.minInvestment, p.currency ?? "USD")
                           : "No min"}
                       </div>
-                      <div className="text-zinc-600 dark:text-zinc-300">
+                      <div className="text-ink/60">
                         {formatTimelineShort(
                           p.timelineMonths,
                           p.timelineLabel,
@@ -489,14 +559,13 @@ export default function ExploreGrid({
             <div
               className="
                 rounded-2xl p-5
-                ring-1 ring-blue-100/80 bg-gradient-to-br from-sky-50 via-white to-indigo-50
-                dark:ring-blue-900/40 dark:from-blue-950/20 dark:via-transparent dark:to-indigo-950/10
+                border border-gold/45 bg-dune/40 backdrop-blur-sm
               "
             >
               <div className="mb-4 flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                <h3 className="text-base font-semibold">Filters</h3>
-                <span className="ml-auto text-sm font-normal text-zinc-500 dark:text-zinc-400">
+                <SlidersHorizontal className="h-4 w-4 text-gold" />
+                <h3 className="text-base font-semibold text-ink">Filters</h3>
+                <span className="ms-auto text-sm font-normal text-ink/60">
                   {resultCount} countries
                 </span>
               </div>
@@ -547,7 +616,7 @@ export default function ExploreGrid({
                     setRouteType("");
                     setSort("timeline");
                   }}
-                  className="text-sm rounded-xl px-3 py-2 ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                  className="text-sm rounded-full px-4 py-2 border border-gold/40 text-ink/80 hover:border-gold/60 transition-colors"
                 >
                   Reset all
                 </button>
@@ -555,8 +624,8 @@ export default function ExploreGrid({
             </div>
 
             {/* Top 5 (same UI; thumbnails safe) */}
-            <div className="rounded-2xl p-5 ring-1 ring-blue-100/80 bg-white dark:bg-white/5 dark:ring-blue-900/40">
-              <h3 className="text-base font-semibold">Top 5 programs</h3>
+            <div className="rounded-2xl p-5 border border-gold/45 bg-dune/40 backdrop-blur-sm">
+              <h3 className="text-base font-semibold text-ink">Top 5 programs</h3>
               <ol
                 className="mt-3 space-y-3"
                 itemScope
@@ -572,26 +641,26 @@ export default function ExploreGrid({
                     <meta itemProp="position" content={String(idx + 1)} />
                     <Link
                       href={`/corporate/${p.countrySlug}/${p.programSlug}`}
-                      className="group block rounded-xl ring-1 ring-blue-100/80 bg-white p-3 hover:bg-blue-50/60 dark:bg-white/5 dark:ring-blue-900/40 dark:hover:bg-blue-950/20 transition"
+                      className="group block rounded-xl border border-gold/45 bg-sand/50 p-3 hover:border-gold/65 transition-colors"
                       itemProp="url"
                     >
                       <div className="flex items-center gap-3">
                         <SquareThumb program={p} />
                         <div className="flex-1">
-                          <div className="text-sm font-medium" itemProp="name">
+                          <div className="text-sm font-medium text-ink" itemProp="name">
                             {p.title}
                           </div>
-                          <div className="text-xs text-zinc-600 dark:text-zinc-300">
+                          <div className="text-xs text-ink/60">
                             {p.country}
                           </div>
                         </div>
-                        <div className="text-right text-xs">
-                          <div className="tabular-nums">
+                        <div className="text-end text-xs">
+                          <div className="tabular-nums text-gold">
                             {typeof p.minInvestment === "number"
                               ? toCurrency(p.minInvestment, p.currency ?? "USD")
                               : "No min"}
                           </div>
-                          <div className="text-zinc-600 dark:text-zinc-300">
+                          <div className="text-ink/60">
                             {formatTimelineShort(
                               p.timelineMonths,
                               p.timelineLabel,
@@ -613,11 +682,16 @@ export default function ExploreGrid({
 
         {/* Main grid (same visuals) */}
         <section className="lg:col-span-8">
-          <header className="mb-3 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Explore by country</h2>
+          <header className="mb-4 flex items-center justify-between">
+            <SandReveal y={16} blur={4}>
+              <h3 className="flex items-center gap-2.5 text-xl font-semibold text-ink">
+                <span aria-hidden className="h-5 w-1 rounded-full bg-gradient-to-b from-gold to-gold_deep" />
+                Explore by country
+              </h3>
+            </SandReveal>
             <Link
               href="/personal-booking"
-              className="text-blue-700 hover:underline dark:text-blue-300"
+              className="font-medium text-gold_deep underline-offset-4 hover:text-gold hover:underline"
             >
               Need advice?
             </Link>
@@ -644,6 +718,7 @@ export default function ExploreGrid({
                     itemType="https://schema.org/Country"
                   >
                     <meta itemProp="name" content={c.country} />
+                    <Reveal y={28} delay={Math.min(idx, 5) * 0.06}>
                     <CountryCardPro
                       href={`/corporate/${c.countrySlug}`}
                       title={c.title}
@@ -659,6 +734,7 @@ export default function ExploreGrid({
                       timelineLabel={timelineLabel}
                       tags={(c as any).tags ?? []}
                     />
+                    </Reveal>
                   </div>
                 </li>
               ),
@@ -666,16 +742,16 @@ export default function ExploreGrid({
           </ol>
 
           {resultCount === 0 && (
-            <div className="mt-8 rounded-2xl border border-blue-100/80 bg-white/70 p-6 text-center dark:bg-white/5 dark:border-blue-900/40">
-              <p className="font-medium">No countries match your filters.</p>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+            <div className="mt-8 rounded-2xl border border-gold/45 bg-dune/40 p-6 text-center backdrop-blur-sm">
+              <p className="font-medium text-ink">No countries match your filters.</p>
+              <p className="mt-1 text-sm text-ink/60">
                 Try clearing the search or selecting a different route.
               </p>
               <div className="mt-4 flex justify-center gap-2">
                 {q && (
                   <button
                     onClick={() => setQ("")}
-                    className="rounded-xl px-3 py-2 text-sm ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                    className="rounded-full px-4 py-2 text-sm border border-gold/40 text-ink/80 hover:border-gold/60 transition-colors"
                   >
                     Clear search
                   </button>
@@ -683,7 +759,7 @@ export default function ExploreGrid({
                 {routeType && (
                   <button
                     onClick={() => setRouteType("")}
-                    className="rounded-xl px-3 py-2 text-sm ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                    className="rounded-full px-4 py-2 text-sm border border-gold/40 text-ink/80 hover:border-gold/60 transition-colors"
                   >
                     Reset route
                   </button>
@@ -701,6 +777,133 @@ export default function ExploreGrid({
 
 /* ----------------------------- subcomponents ---------------------------- */
 
+/**
+ * CountryRail — a horizontal scroll-snap "collection" of corporate jurisdictions
+ * with real per-country imagery (ImageReveal masked-wipe media), gold edges and
+ * a parallax drift on the kicker. Native-swipe on mobile; no extra vertical
+ * scroll. Content-first: each card carries country, title and a deep link.
+ */
+function CountryRail({ countries }: { countries: CountryMeta[] }) {
+  const items = countries.slice(0, 10);
+  return (
+    <section
+      aria-label="Corporate destinations"
+      className="relative mb-10 overflow-hidden rounded-3xl border border-gold/40 bg-midnight px-5 py-9 text-white shadow-[0_30px_80px_-50px_rgba(0,0,0,0.8)] md:px-8 md:py-12"
+    >
+      {/* ambient gold haze + lattice on the dark ground */}
+      <LatticeOverlay opacity={0.06} />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -end-20 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.22),transparent_70%)] blur-2xl"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/55 to-transparent"
+      />
+
+      <div className="relative mb-6 flex flex-wrap items-end justify-between gap-4">
+        <ParallaxLayer speed={24} className="max-w-xl">
+          <Reveal y={0}>
+            <Eyebrow tone="onDark" arabic="الوجهات">
+              Destinations
+            </Eyebrow>
+          </Reveal>
+          <SandReveal delay={0.05}>
+            <h3 className="mt-4 font-sora text-[clamp(1.35rem,2.8vw,2rem)] font-semibold leading-tight tracking-tight text-white">
+              <SplitText text="A collection of corporate jurisdictions" />
+            </h3>
+          </SandReveal>
+          <p className="mt-3 text-sm leading-relaxed text-white/65">
+            Swipe through the markets where we structure companies, sponsorship
+            and residence — each a distinct route to global mobility.
+          </p>
+        </ParallaxLayer>
+
+        <span
+          aria-hidden
+          className="hidden items-center gap-2 text-[11px] uppercase tracking-[0.28em] text-white/45 md:inline-flex"
+        >
+          Swipe
+          <span className="inline-block h-px w-10 bg-gradient-to-r from-gold/70 to-transparent" />
+        </span>
+      </div>
+
+      <CollectionRail className="relative">
+        {items.map((c, idx) => {
+          const img =
+            ensureAbs((c as any).heroImage) ||
+            `/images/corporate/${c.countrySlug}.jpg`;
+          return (
+            <Link
+              key={c.countrySlug}
+              href={`/corporate/${c.countrySlug}`}
+              prefetch={false}
+              className="group relative snap-start shrink-0 w-[78%] sm:w-[58%] md:w-[42%] lg:w-[32%]"
+              aria-label={`${c.country} corporate routes`}
+            >
+              <div className="relative overflow-hidden rounded-2xl border border-white/12 ring-1 ring-inset ring-white/5 transition-transform duration-500 group-hover:-translate-y-1">
+                <ImageReveal
+                  src={img}
+                  alt={`${c.country} — corporate immigration`}
+                  ratio="aspect-[4/5]"
+                  sizes="(min-width:1024px) 32vw, (min-width:640px) 58vw, 78vw"
+                  className="rounded-2xl"
+                  position="center"
+                />
+                {/* scrim + caption */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-t from-black/85 via-black/15 to-transparent"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
+                    {String(idx + 1).padStart(2, "0")} · {c.country}
+                  </span>
+                  <div className="mt-1.5 font-sora text-lg font-semibold leading-snug text-white">
+                    {c.title}
+                  </div>
+                  <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-white/75 transition-colors group-hover:text-gold">
+                    Explore routes
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M5 12.75h11.19l-3.72 3.72a.75.75 0 1 0 1.06 1.06l5.25-5.25a.75.75 0 0 0 0-1.06L13.53 5.97a.75.75 0 1 0-1.06 1.06l3.72 3.72H5a.75.75 0 0 0 0 1.5z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </CollectionRail>
+
+      {/* Animated proof strip under the rail */}
+      <Stagger className="relative mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/12 bg-white/10 sm:grid-cols-4">
+        {[
+          { to: items.length, suffix: "", label: "Jurisdictions" },
+          { to: 100, suffix: "%", label: "Ownership routes" },
+          { to: 24, suffix: "h", label: "Advisor response" },
+          { to: 15, suffix: "+", label: "Years advising" },
+        ].map((s) => (
+          <StaggerItem key={s.label} className="bg-white/[0.05] px-4 py-4">
+            <div className="font-sora text-2xl font-semibold tracking-tight text-gold">
+              <Counter to={s.to} suffix={s.suffix} />
+            </div>
+            <div className="mt-1 text-[11px] font-medium uppercase tracking-wide text-white/55">
+              {s.label}
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </section>
+  );
+}
+
 function ActiveFilters({
   q,
   routeType,
@@ -716,32 +919,32 @@ function ActiveFilters({
   return (
     <div className="mb-3 mt-2 flex flex-wrap items-center gap-2">
       {q ? (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs ring-1 ring-blue-200 dark:bg-white/5 dark:ring-blue-800/60">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-sand/50 px-3 py-1 text-xs border border-gold/45 text-ink/80">
           <span className="opacity-80">Search:</span>
-          <strong className="font-medium">{q}</strong>
+          <strong className="font-medium text-ink">{q}</strong>
           <button
             aria-label="Clear search"
             onClick={onClearQ}
-            className="ml-1 p-0.5 hover:opacity-80"
+            className="ms-1 p-0.5 hover:text-gold"
           >
             <XCircle className="h-3.5 w-3.5" />
           </button>
         </span>
       ) : null}
       {routeType ? (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs ring-1 ring-blue-200 dark:bg-white/5 dark:ring-blue-800/60">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-sand/50 px-3 py-1 text-xs border border-gold/45 text-ink/80">
           <span className="opacity-80">Route:</span>
-          <strong className="font-medium">{routeType.replace("-", " ")}</strong>
+          <strong className="font-medium text-ink">{routeType.replace("-", " ")}</strong>
           <button
             aria-label="Reset route"
             onClick={onClearRoute}
-            className="ml-1 p-0.5 hover:opacity-80"
+            className="ms-1 p-0.5 hover:text-gold"
           >
             <XCircle className="h-3.5 w-3.5" />
           </button>
         </span>
       ) : null}
-      <span className="ml-auto text-xs text-zinc-500 dark:text-zinc-400">
+      <span className="ms-auto text-xs text-ink/40">
         Refine your selection
       </span>
     </div>
@@ -756,7 +959,7 @@ function SquareThumb({ program }: { program: ProgramMeta }) {
   const svgFallback =
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#e6f0ff'/><stop offset='1' stop-color='#f5f8ff'/></linearGradient></defs><rect width='80' height='80' fill='url(#g)'/><circle cx='40' cy='40' r='18' fill='#93c5fd'/></svg>",
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#0b1626'/><stop offset='1' stop-color='#0a0e1a'/></linearGradient></defs><rect width='80' height='80' fill='url(#g)'/><circle cx='40' cy='40' r='18' fill='#d4af37' fill-opacity='0.5'/></svg>",
     );
 
   const candidates = [hero, heroPoster, countryPost, og, svgFallback].filter(
@@ -765,7 +968,7 @@ function SquareThumb({ program }: { program: ProgramMeta }) {
   const [idx, setIdx] = React.useState(0);
 
   return (
-    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-900">
+    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-dune ring-1 ring-gold/20">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={candidates[idx]}
@@ -793,12 +996,12 @@ function FilterInput({
   return (
     <label className="relative block">
       <span className="sr-only">Search</span>
-      <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-600/70 dark:text-blue-300/70" />
+      <SearchIcon className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gold/70" />
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-blue-100/80 pl-9 pr-9 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white/90 dark:bg-white/5 dark:border-blue-900/40"
+        className="w-full rounded-xl border border-gold/45 ps-9 pe-9 py-2 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/40 bg-sand/50"
         aria-label="Search programs and countries"
       />
       {value ? (
@@ -806,9 +1009,9 @@ function FilterInput({
           type="button"
           aria-label="Clear search"
           onClick={() => onChange("")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+          className="absolute end-2 top-1/2 -translate-y-1/2 p-1"
         >
-          <XCircle className="h-4 w-4 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200" />
+          <XCircle className="h-4 w-4 text-ink/50 hover:text-gold" />
         </button>
       ) : null}
     </label>
@@ -900,7 +1103,7 @@ function FancySelect({
 
   return (
     <div className="relative">
-      <label className="mb-1 block text-xs font-medium text-zinc-600 dark:text-zinc-300">
+      <label className="mb-1 block text-xs font-medium text-ink/60">
         {label}
       </label>
       <button
@@ -911,12 +1114,12 @@ function FancySelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         className={[
-          "group w-full rounded-xl border border-blue-100/80 bg-white/90 dark:bg-white/5 dark:border-blue-900/40",
-          "px-3 py-2 text-left text-sm focus:outline-none focus:ring-2 focus:ring-blue-600",
+          "group w-full rounded-xl border border-gold/45 bg-sand/50 text-ink",
+          "px-3 py-2 text-start text-sm focus:outline-none focus:border-gold/60 focus:ring-1 focus:ring-gold/40",
           "flex items-center justify-between gap-2",
         ].join(" ")}
       >
-        <span className={selected ? "text-current" : "text-zinc-500"}>
+        <span className={selected ? "text-ink" : "text-ink/40"}>
           {selected ? selected.label : placeholder}
         </span>
         <ChevronDown
@@ -933,9 +1136,8 @@ function FancySelect({
           tabIndex={-1}
           onKeyDown={onMenuKeyDown}
           className="
-            absolute z-50 mt-2 w-full overflow-auto rounded-xl border border-blue-100/80 bg-white shadow-xl
-            dark:bg-zinc-950 dark:border-blue-900/40
-            max-h-72 ring-1 ring-blue-100/60 dark:ring-blue-900/40
+            absolute z-50 mt-2 w-full overflow-auto rounded-xl border border-gold/40 bg-white shadow-xl
+            max-h-72 backdrop-blur-md
           "
         >
           {options.map((opt, i) => {
@@ -955,23 +1157,23 @@ function FancySelect({
                   btnRef.current?.focus();
                 }}
                 className={[
-                  "flex cursor-pointer items-start gap-2 px-3 py-2 text-sm",
-                  isActive ? "bg-blue-50 dark:bg-blue-950/30" : "",
+                  "flex cursor-pointer items-start gap-2 px-3 py-2 text-sm text-ink/80",
+                  isActive ? "bg-gold/10 text-ink" : "",
                 ].join(" ")}
               >
                 <div
                   className={`h-4 w-4 mt-0.5 rounded border ${
                     isSel
-                      ? "bg-blue-600 border-blue-600"
-                      : "border-zinc-300 dark:border-zinc-700"
+                      ? "bg-gold border-gold"
+                      : "border-gold/45"
                   }`}
                 >
-                  {isSel && <CheckIcon className="h-4 w-4 text-white" />}
+                  {isSel && <CheckIcon className="h-4 w-4 text-midnight" />}
                 </div>
                 <div className="min-w-0">
                   <div className="truncate">{opt.label}</div>
                   {opt.hint ? (
-                    <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="text-xs text-ink/55">
                       {opt.hint}
                     </div>
                   ) : null}
@@ -980,7 +1182,7 @@ function FancySelect({
             );
           })}
           {options.length === 0 && (
-            <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <div className="px-3 py-2 text-sm text-ink/45">
               No options
             </div>
           )}

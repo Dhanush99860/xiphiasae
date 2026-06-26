@@ -158,12 +158,13 @@ const fmt = (amt?: number, cur?: string) => {
 
       {/* Header */}
       <header className="flex flex-wrap items-center gap-2">
-        <span className="inline-flex items-center rounded-md bg-blue-600 px-2 py-1 text-xs font-semibold text-white dark:bg-blue-500">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           Costs & funds
         </span>
         <h3
           id="prices-title"
-          className="text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+          className="font-sora text-lg font-semibold tracking-tight text-ink"
         >
           Program fees & proof of funds
         </h3>
@@ -177,18 +178,18 @@ const fmt = (amt?: number, cur?: string) => {
         <div
           className="
             rounded-2xl p-4 sm:p-5
-            bg-white dark:bg-neutral-900
-            ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm
+            bg-white
+            border border-gold/45
           "
           role="group"
           aria-label="Totals summary"
         >
           <div className="grid gap-3 sm:grid-cols-2">
             {itemTotals.length ? (
-              <div className="rounded-xl p-3 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
+              <div className="rounded-xl p-3 bg-sand/50 border border-gold/45">
                 <div className="flex items-center gap-2">
-                  <Banknote className="h-4 w-4 text-blue-700 dark:text-blue-300" />
-                  <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  <Banknote className="h-4 w-4 text-gold" />
+                  <span className="text-sm font-medium text-ink">
                     Estimated program totals
                   </span>
                 </div>
@@ -198,13 +199,12 @@ const fmt = (amt?: number, cur?: string) => {
                       key={`items-${currency}`}
                       className="
                         inline-flex items-center gap-1 rounded-full
-                        bg-white text-neutral-900 ring-1 ring-neutral-200
-                        dark:bg-neutral-800 dark:text-neutral-50 dark:ring-neutral-700
+                        bg-sand/50 text-ink/70 border border-gold/45
                         px-2.5 py-0.5 text-[12px] font-medium
                       "
                     >
                       {currency}:{" "}
-                      <span className="tabular-nums">
+                      <span className="tabular-nums text-gold">
                         {fmt(total, currency)}
                       </span>
                     </span>
@@ -214,10 +214,10 @@ const fmt = (amt?: number, cur?: string) => {
             ) : null}
 
             {proofTotals.length ? (
-              <div className="rounded-xl p-3 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
+              <div className="rounded-xl p-3 bg-sand/50 border border-gold/45">
                 <div className="flex items-center gap-2">
-                  <Wallet className="h-4 w-4 text-blue-700 dark:text-blue-300" />
-                  <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  <Wallet className="h-4 w-4 text-gold" />
+                  <span className="text-sm font-medium text-ink">
                     Required proof of funds
                   </span>
                 </div>
@@ -227,13 +227,12 @@ const fmt = (amt?: number, cur?: string) => {
                       key={`proof-${currency}`}
                       className="
                         inline-flex items-center gap-1 rounded-full
-                        bg-white text-neutral-900 ring-1 ring-neutral-200
-                        dark:bg-neutral-800 dark:text-neutral-50 dark:ring-neutral-700
+                        bg-sand/50 text-ink/70 border border-gold/45
                         px-2.5 py-0.5 text-[12px] font-medium
                       "
                     >
                       {currency}:{" "}
-                      <span className="tabular-nums">
+                      <span className="tabular-nums text-gold">
                         {fmt(total, currency)}
                       </span>
                     </span>
@@ -251,15 +250,15 @@ const fmt = (amt?: number, cur?: string) => {
           aria-label="Payment stages"
           className="
             rounded-2xl p-4 sm:p-5
-            bg-white dark:bg-neutral-900
-            ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm
+            bg-white
+            border border-gold/45
           "
         >
           <ol className="relative grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5">
             {/* connector line */}
             <span
               aria-hidden
-              className="pointer-events-none absolute left-0 right-0 top-5 hidden sm:block h-px bg-neutral-200 dark:bg-neutral-700"
+              className="pointer-events-none absolute left-0 right-0 top-5 hidden sm:block h-px bg-gold/30"
             />
             {(
               ["reservation", "application", "approval", "issuance"] as const
@@ -269,34 +268,34 @@ const fmt = (amt?: number, cur?: string) => {
                 <li key={k} className="relative">
                   <div
                     className={[
-                      "inline-flex h-10 w-10 items-center justify-center rounded-full ring-2 font-semibold tabular-nums transition-colors motion-reduce:transition-none",
+                      "inline-flex h-10 w-10 items-center justify-center rounded-full ring-2 ring-midnight font-semibold tabular-nums transition-colors motion-reduce:transition-none",
                       active
-                        ? "bg-blue-600 text-white ring-blue-500"
-                        : "bg-white text-blue-700 ring-blue-200 dark:bg-neutral-900 dark:text-blue-300 dark:ring-neutral-700",
+                        ? "bg-gold text-midnight"
+                        : "bg-sand/50 text-gold border border-gold/45",
                     ].join(" ")}
                     aria-hidden
                   >
                     {idx + 1}
                   </div>
                   <div className="mt-2">
-                    <div className="text-[12px] uppercase tracking-wide text-neutral-700 dark:text-neutral-300">
+                    <div className="text-[12px] uppercase tracking-[0.14em] text-ink/40">
                       {stageLabel(k)}
                     </div>
                     {stageBuckets[k].totals.length ? (
                       <div className="mt-0.5 space-y-0.5">
                         {stageBuckets[k].totals.map(({ currency, total }) => (
                           <div key={`${k}-${currency}`} className="text-[13px]">
-                            <span className="text-neutral-600 dark:text-neutral-300">
+                            <span className="text-ink/55">
                               {currency}:
                             </span>{" "}
-                            <span className="font-medium tabular-nums text-neutral-900 dark:text-neutral-100">
+                            <span className="font-medium tabular-nums text-gold">
                               {fmt(total, currency)}
                             </span>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <div className="text-[13px] text-neutral-500 dark:text-neutral-400">
+                      <div className="text-[13px] text-ink/40">
                         No fees at this stage
                       </div>
                     )}
@@ -305,7 +304,7 @@ const fmt = (amt?: number, cur?: string) => {
               );
             })}
           </ol>
-          <p className="mt-3 text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 text-[12px] text-ink/45">
             Stages are inferred from each line item’s “When” note.
           </p>
         </nav>
@@ -318,25 +317,25 @@ const fmt = (amt?: number, cur?: string) => {
           aria-label="Program fee breakdown"
           className="
             rounded-2xl
-            bg-white dark:bg-neutral-900
-            ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm
-            print:bg-white print:shadow-none
+            bg-white
+            border border-gold/45
+            print:shadow-none
           "
         >
           <div className="px-4 pt-4 sm:px-6 sm:pt-6 flex items-center gap-2">
             <Banknote
-              className="h-4 w-4 text-blue-700 dark:text-blue-300"
+              className="h-4 w-4 text-gold"
               aria-hidden
             />
-            <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+            <p className="text-sm font-medium text-ink">
               Detailed fee table
             </p>
           </div>
 
           <div className="relative mt-3">
             {/* edge fades (hidden on print) */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-6 z-0 bg-gradient-to-r from-white to-transparent dark:from-neutral-900 print:hidden" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 z-0 bg-gradient-to-l from-white to-transparent dark:from-neutral-900 print:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-6 z-0 bg-gradient-to-r from-ink to-transparent print:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-6 z-0 bg-gradient-to-l from-ink to-transparent print:hidden" />
 
             <div className="overflow-x-auto px-4 sm:px-6 pb-4 overscroll-x-contain">
               <table className="min-w-[780px] w-full table-fixed text-sm print:min-w-full">
@@ -351,9 +350,9 @@ const fmt = (amt?: number, cur?: string) => {
                   Program fee breakdown with price, timing and notes.
                 </caption>
 
-                <thead className="bg-neutral-50 dark:bg-neutral-900/60">
-                  <tr className="text-left text-[12px] uppercase tracking-wide text-neutral-600 dark:text-neutral-300">
-                    <th className="py-2.5 pr-4 font-semibold md:sticky md:left-0 md:bg-neutral-50 md:dark:bg-neutral-900/60 md:z-10">
+                <thead className="bg-sand/40">
+                  <tr className="text-left text-[12px] uppercase tracking-[0.14em] text-ink/45">
+                    <th className="py-2.5 pr-4 font-semibold md:sticky md:left-0 md:bg-sand/40 md:z-10">
                       Item
                     </th>
                     <th className="py-2.5 pr-4 font-semibold">Price</th>
@@ -372,31 +371,26 @@ const fmt = (amt?: number, cur?: string) => {
                   </tr>
                 </thead>
 
-                <tbody>
+                <tbody className="divide-y divide-gold/5">
                   {items.map((it, i) => (
                     <tr
                       key={`${it.label}-${i}`}
-                      className={[
-                        "border-t border-neutral-200 dark:border-neutral-800",
-                        i % 2
-                          ? "bg-white dark:bg-neutral-900"
-                          : "bg-neutral-50/70 dark:bg-neutral-900/50",
-                      ].join(" ")}
+                      className="hover:bg-white/[0.03] transition-colors"
                       itemScope
                       itemType="https://schema.org/Offer"
                     >
                       <td
                         className="
                           py-3 pr-4 font-medium
-                          md:sticky md:left-0 md:bg-inherit md:z-10
+                          md:sticky md:left-0 md:bg-white md:z-10
                           whitespace-nowrap truncate max-w-[60vw] md:max-w-none
-                          text-neutral-900 dark:text-neutral-100
+                          text-ink
                         "
                         title={it.label}
                       >
                         <span itemProp="name">{it.label}</span>
                       </td>
-                      <td className="py-3 pr-4 tabular-nums text-neutral-900 dark:text-neutral-100">
+                      <td className="py-3 pr-4 tabular-nums text-gold">
                         <span itemProp="price">
                           {fmt(it.amount, it.currency)}
                         </span>
@@ -409,20 +403,20 @@ const fmt = (amt?: number, cur?: string) => {
                           />
                         ) : null}
                       </td>
-                      <td className="py-3 pr-4 text-neutral-700 dark:text-neutral-300">
+                      <td className="py-3 pr-4 text-ink/55">
                         {it.when ?? "—"}
                       </td>
 
                       <td className="py-3 pr-4 align-top">
                         {it.notes ? (
                           <p
-                            className="text-neutral-700 dark:text-neutral-300 whitespace-pre-wrap break-words"
+                            className="text-ink/55 whitespace-pre-wrap break-words"
                             title={it.notes}
                           >
                             {it.notes}
                           </p>
                         ) : (
-                          <span className="text-neutral-500 dark:text-neutral-400">
+                          <span className="text-ink/40">
                             —
                           </span>
                         )}
@@ -433,7 +427,7 @@ const fmt = (amt?: number, cur?: string) => {
               </table>
 
               {/* mobile hint */}
-              <p className="mt-2 text-[12px] text-neutral-600 dark:text-neutral-400 sm:hidden">
+              <p className="mt-2 text-[12px] text-ink/45 sm:hidden">
                 Swipe horizontally to see all columns.
               </p>
             </div>
@@ -445,25 +439,25 @@ const fmt = (amt?: number, cur?: string) => {
     <div
       className="
         inline-flex items-center gap-2 rounded-lg
-        bg-neutral-100 dark:bg-neutral-800
-        px-3 py-1.5 text-[12px] ring-1 ring-neutral-200 dark:ring-neutral-700
-        text-neutral-800 dark:text-neutral-200
+        bg-sand/50
+        px-3 py-1.5 text-[12px] border border-gold/45
+        text-ink/70
       "
     >
-      <FileText className="h-3.5 w-3.5" />
+      <FileText className="h-3.5 w-3.5 text-gold" />
       <span>We’ll share a personalized cost sheet after your pre-screen.</span>
     </div>
 
     <div
       className="
         inline-flex items-center gap-2 rounded-lg
-        bg-neutral-100 dark:bg-neutral-800
-        px-3 py-1.5 text-[12px] ring-1 ring-neutral-200 dark:ring-neutral-700
-        text-neutral-700 dark:text-neutral-300
+        bg-sand/50
+        px-3 py-1.5 text-[12px] border border-gold/45
+        text-ink/55
       "
     >
       {/* use any icon you already have; Info is nice if available */}
-      <Info className="h-3.5 w-3.5" />
+      <Info className="h-3.5 w-3.5 text-gold" />
       <span>Estimates only — final costs may vary by case & government updates.</span>
     </div>
   </div>
@@ -476,18 +470,18 @@ const fmt = (amt?: number, cur?: string) => {
         <div
           className="
             rounded-2xl p-4 sm:p-6
-            bg-white dark:bg-neutral-900
-            ring-1 ring-neutral-200 dark:ring-neutral-800
+            bg-white
+            border border-gold/45
           "
           role="group"
           aria-label="Proof of funds guidance"
         >
           <div className="flex items-center gap-2">
             <Wallet
-              className="h-4 w-4 text-blue-700 dark:text-blue-300"
+              className="h-4 w-4 text-gold"
               aria-hidden
             />
-            <h4 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+            <h4 className="font-sora text-base font-semibold text-ink">
               Proof of funds
             </h4>
           </div>
@@ -498,20 +492,20 @@ const fmt = (amt?: number, cur?: string) => {
                 key={`${p.label || "pf"}-${i}`}
                 className="
                   rounded-xl p-3
-                  bg-white dark:bg-neutral-900
-                  ring-1 ring-neutral-200 dark:ring-neutral-800
+                  bg-sand/50
+                  border border-gold/45
                 "
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                  <span className="text-sm font-medium text-ink">
                     {p.label || "Applicant"}
                   </span>
-                  <span className="text-sm font-semibold tabular-nums text-neutral-900 dark:text-neutral-100">
+                  <span className="text-sm font-semibold tabular-nums text-gold">
                     {fmt(p.amount, p.currency)}
                   </span>
                 </div>
                 {p.notes ? (
-                  <p className="mt-1 text-xs text-neutral-700 dark:text-neutral-300">
+                  <p className="mt-1 text-xs text-ink/55">
                     {p.notes}
                   </p>
                 ) : null}
@@ -526,19 +520,18 @@ const fmt = (amt?: number, cur?: string) => {
                   key={`req-${currency}`}
                   className="
                     inline-flex items-center gap-1 rounded-full
-                    bg-white text-blue-900 ring-1 ring-blue-200
-                    dark:bg-neutral-900 dark:text-blue-200 dark:ring-blue-900/50
+                    bg-sand/50 text-ink/70 border border-gold/45
                     px-3 py-1 text-xs font-medium
                   "
                 >
                   Required ({currency}):{" "}
-                  <span className="tabular-nums">{fmt(total, currency)}</span>
+                  <span className="tabular-nums text-gold">{fmt(total, currency)}</span>
                 </span>
               ))}
             </div>
           ) : null}
 
-          <p className="mt-3 text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 text-[12px] text-ink/45">
             Figures are indicative and may change with family size, project
             selection and program updates.
           </p>
@@ -576,19 +569,19 @@ function stageLabel(
 function BackgroundGraphics() {
   return (
     <>
-      {/* neutral soft glows (very faint) */}
+      {/* gold soft glows (very faint) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-300/15 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/[0.06] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-neutral-400/10 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-gold/[0.04] blur-3xl"
       />
-      {/* ultra-faint grid so text remains crisp on white */}
+      {/* ultra-faint grid */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.04]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -610,13 +603,13 @@ function BackgroundGraphics() {
           width="100%"
           height="100%"
           fill="url(#prices-grid-white)"
-          className="text-neutral-900 dark:text-blue-300"
+          className="text-gold/60"
         />
       </svg>
       {/* top gloss for legibility on small screens */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-white/70 to-transparent dark:from-neutral-950/20"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-pearl/[0.04] to-transparent"
       />
     </>
   );

@@ -155,13 +155,13 @@ export default function GuideCatalog({
           placeholder="Search programs, countries, services"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          className="min-w-[220px] rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+          className="min-w-[220px] rounded-lg border border-gold/45 bg-white px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/40"
         />
 
         <select
           value={serviceFilter}
           onChange={(e) => setServiceFilter(e.target.value as any)}
-          className="min-w-[140px] rounded-lg border border-zinc-300 bg-white px-2.5 py-2 text-sm text-black shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+          className="min-w-[140px] rounded-lg border border-gold/45 bg-white px-2.5 py-2 text-sm text-ink focus:outline-none focus:border-gold"
         >
           <option value="All">All Services</option>
           {services.map((s) => (
@@ -174,7 +174,7 @@ export default function GuideCatalog({
         <select
           value={countryFilter}
           onChange={(e) => setCountryFilter(e.target.value)}
-          className="min-w-[140px] rounded-lg border border-zinc-300 bg-white px-2.5 py-2 text-sm text-black shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+          className="min-w-[140px] rounded-lg border border-gold/45 bg-white px-2.5 py-2 text-sm text-ink focus:outline-none focus:border-gold"
         >
           {countries.map((c) => (
             <option key={c} value={c}>
@@ -189,7 +189,7 @@ export default function GuideCatalog({
         <div
           ref={topScrollRef}
           onScroll={onTopScroll}
-          className="mt-2 h-3 overflow-x-auto overflow-y-hidden rounded-md border border-zinc-200 dark:border-zinc-800"
+          className="mt-2 h-3 overflow-x-auto overflow-y-hidden rounded-md border border-gold/45"
           aria-hidden="true"
         >
           <div style={{ width: contentWidth, height: 1 }} />
@@ -200,7 +200,7 @@ export default function GuideCatalog({
       <div
         ref={wrapRef}
         onScroll={onTableScroll}
-        className="mt-2 overflow-auto rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800"
+        className="mt-2 overflow-auto rounded-2xl ring-1 ring-gold/10"
       >
         <table
           ref={tableRef}
@@ -214,44 +214,44 @@ export default function GuideCatalog({
             <col style={{ width: "1%", minWidth: 230 }} />
           </colgroup>
 
-          <thead className="sticky top-0 z-20 bg-white dark:bg-zinc-900">
+          <thead className="sticky top-0 z-20 bg-white">
             <tr>
-              <th className="px-2.5 py-2 text-left font-semibold text-black dark:text-white">Service</th>
-              <th className="px-2.5 py-2 text-left font-semibold text-black dark:text-white">Country</th>
-              <th className="px-2.5 py-2 text-left font-semibold text-black dark:text-white">Program</th>
-              <th className="sticky right-0 z-20 bg-white px-2.5 py-2 text-left font-semibold text-black dark:bg-zinc-900 dark:text-white">
+              <th className="px-2.5 py-2 text-left font-semibold text-ink/40">Service</th>
+              <th className="px-2.5 py-2 text-left font-semibold text-ink/40">Country</th>
+              <th className="px-2.5 py-2 text-left font-semibold text-ink/40">Program</th>
+              <th className="sticky right-0 z-20 bg-white px-2.5 py-2 text-left font-semibold text-ink/40">
                 Actions
               </th>
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-zinc-200 bg-white dark:divide-zinc-800 dark:bg-zinc-900">
+          <tbody className="divide-y divide-gold/10 bg-white">
             {filtered.map((i) => (
               <tr key={i.href} className="align-top">
-                <td className="whitespace-nowrap px-2.5 py-1.5 text-black dark:text-white">
+                <td className="whitespace-nowrap px-2.5 py-1.5 text-ink/70">
                   {i.service}
                 </td>
 
                 <td className="whitespace-nowrap px-2.5 py-1.5">
-                  <Link href={i.countryHref} className="text-black hover:underline dark:text-white">
+                  <Link href={i.countryHref} className="text-ink/70 transition-colors hover:text-gold">
                     {i.country}
                   </Link>
                 </td>
 
                 <td className="px-2.5 py-1.5">
                   <div className="truncate" title={i.program}>
-                    <Link href={i.href} className="font-medium text-black hover:underline dark:text-white">
+                    <Link href={i.href} className="font-medium text-ink transition-colors hover:text-gold">
                       {i.program}
                     </Link>
                   </div>
                 </td>
 
                 {/* Sticky right — chip buttons, always visible, one row */}
-                <td className="sticky right-0 z-10 bg-white px-2.5 py-1.5 dark:bg-zinc-900">
+                <td className="sticky right-0 z-10 bg-white px-2.5 py-1.5">
                   <div className="flex flex-nowrap items-center gap-1.5">
                     <Link
                       href={i.href}
-                      className="rounded-md bg-blue-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
+                      className="rounded-md bg-gold px-2.5 py-1.5 text-xs font-medium text-[#0a1733] transition-colors hover:bg-gold/90"
                       aria-label="View Program"
                     >
                       Explore Program
@@ -262,14 +262,14 @@ export default function GuideCatalog({
                         href={i.brochureUrl}
                         download
                         onClick={() => trackBrochure("brochure_download", i)}
-                        className="rounded-md bg-white px-2.5 py-1.5 text-xs font-medium text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 dark:bg-zinc-900 dark:text-blue-200 dark:ring-blue-800/60"
+                        className="rounded-md border border-gold/45 bg-pearl px-2.5 py-1.5 text-xs font-medium text-gold_deep transition-colors hover:border-gold/60"
                         aria-label="Download Brochure"
                       >
                         Brochure
                       </a>
                     ) : (
                       <span
-                        className="rounded-md bg-white px-2.5 py-1.5 text-xs text-black/60 ring-1 ring-zinc-200 dark:bg-zinc-800 dark:text-white/60 dark:ring-zinc-700"
+                        className="rounded-md border border-gold/45 bg-pearl px-2.5 py-1.5 text-xs text-ink/40"
                         aria-hidden="true"
                       >
                         No brochure
@@ -278,7 +278,7 @@ export default function GuideCatalog({
 
                     <Link
                       href={eligibilityHref}
-                      className="rounded-md bg-white px-2.5 py-1.5 text-xs font-medium text-black ring-1 ring-zinc-300 hover:bg-zinc-50 dark:bg-zinc-900 dark:text-white dark:ring-zinc-700"
+                      className="rounded-md border border-gold/45 bg-pearl px-2.5 py-1.5 text-xs font-medium text-ink/70 transition-colors hover:border-gold/65 hover:text-gold_deep"
                       aria-label="Check Eligibility"
                     >
                       Eligibility
@@ -292,7 +292,7 @@ export default function GuideCatalog({
       </div>
 
       {filtered.length === 0 && (
-        <p className="mt-3 text-sm text-black dark:text-white">No programs match your filters.</p>
+        <p className="mt-3 text-sm text-ink/55">No programs match your filters.</p>
       )}
     </div>
   );

@@ -96,36 +96,34 @@ export default function FamilyMatrixNeo({
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-5 md:p-6 lg:p-8",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800",
-        "shadow-sm print:shadow-none",
+        "bg-white border border-gold/45",
+        "print:shadow-none",
         className,
       ].join(" ")}
     >
-      {/* ---- Background: ultra-light grid + neutral glows (keeps text crisp) ---- */}
+      {/* ---- Background: gold grid + glows ---- */}
       <BackgroundGraphics />
 
       {/* ---- Header ---- */}
       <header className="relative mb-5 md:mb-6">
-        <div className="flex items-center gap-2 text-[12px] text-blue-700 dark:text-blue-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-          <span className="font-medium">Snapshot</span>
+        <div className="flex items-center gap-2 text-[12px] text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+          <span className="font-medium uppercase tracking-[0.2em]">Snapshot</span>
         </div>
 
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm ring-1 ring-blue-500/30">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-sand/50 text-gold border border-gold/45">
               <FamilyIcon aria-hidden className="h-5 w-5" />
             </span>
-            <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+            <h2 className="font-sora text-xl md:text-2xl font-semibold tracking-tight text-ink">
               {title}
             </h2>
           </div>
 
           <p
             className="text-xs sm:text-[13px] font-medium px-2 py-1 rounded-lg self-start
-                       bg-blue-50 text-blue-800 ring-1 ring-blue-100
-                       dark:bg-blue-950/40 dark:text-blue-200 dark:ring-blue-900/40"
+                       border border-gold/45 bg-sand/50 text-gold"
             aria-label="Summary of eligibility"
           >
             {includedCount} of {tiles.length} categories included
@@ -137,7 +135,7 @@ export default function FamilyMatrixNeo({
         {note ? (
           <p
             id={noteId}
-            className="mt-2 text-sm md:text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-3xl"
+            className="mt-2 text-sm md:text-[15px] leading-relaxed text-ink/55 max-w-3xl"
           >
             {note}
           </p>
@@ -146,12 +144,12 @@ export default function FamilyMatrixNeo({
 
       {/* ---- Legend ---- */}
       <div className="relative mb-3 flex flex-wrap items-center gap-2 text-[12px]">
-        <span className="inline-flex items-center gap-1 rounded-md bg-blue-50 text-blue-800 ring-1 ring-blue-100 px-2 py-0.5 dark:bg-blue-950/30 dark:text-blue-200 dark:ring-blue-900/40">
-          <span className="h-2 w-2 rounded-full bg-blue-600" aria-hidden />
+        <span className="inline-flex items-center gap-1 rounded-md border border-gold/45 bg-sand/50 text-gold px-2 py-0.5">
+          <span className="h-2 w-2 rounded-full bg-gold" aria-hidden />
           Included
         </span>
-        <span className="inline-flex items-center gap-1 rounded-md bg-neutral-100 text-neutral-800 ring-1 ring-neutral-200 px-2 py-0.5 dark:bg-neutral-800/60 dark:text-neutral-200 dark:ring-neutral-700">
-          <span className="h-2 w-2 rounded-full bg-neutral-500" aria-hidden />
+        <span className="inline-flex items-center gap-1 rounded-md border border-gold/45 bg-sand/50 text-ink/55 px-2 py-0.5">
+          <span className="h-2 w-2 rounded-full bg-pearl/40" aria-hidden />
           Not included
         </span>
       </div>
@@ -163,10 +161,9 @@ export default function FamilyMatrixNeo({
             key={`${tile.key}-${i}`}
             className={[
               "group rounded-xl p-4",
-              "bg-white dark:bg-neutral-900",
-              "ring-1 ring-neutral-200 dark:ring-neutral-800",
-              "hover:shadow-md transition-shadow motion-reduce:transition-none",
-              "focus-within:ring-2 focus-within:ring-blue-400/70 dark:focus-within:ring-blue-700/60",
+              "bg-sand/50 border border-gold/45",
+              "transition-colors motion-reduce:transition-none",
+              "hover:border-gold/65 focus-within:border-gold/60",
             ].join(" ")}
             itemScope
             itemType="https://schema.org/PropertyValue"
@@ -176,12 +173,11 @@ export default function FamilyMatrixNeo({
               <span
                 aria-hidden
                 className="inline-flex h-8 w-8 items-center justify-center rounded-lg
-                           bg-blue-50 text-blue-700 ring-1 ring-blue-100
-                           dark:bg-blue-950/40 dark:text-blue-300 dark:ring-blue-900/40"
+                           bg-sand/50 text-gold border border-gold/40"
               >
                 <tile.icon className="h-4 w-4" />
               </span>
-              <span className="text-[11px] uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                 {tile.label}
               </span>
             </dt>
@@ -189,14 +185,14 @@ export default function FamilyMatrixNeo({
             <dd className="mt-2 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
                 <span
-                  className="font-medium text-sm md:text-[15px] text-neutral-900 dark:text-neutral-100 truncate"
+                  className="font-medium text-sm md:text-[15px] text-ink truncate"
                   itemProp="value"
                   title={tile.valueText}
                 >
                   {tile.valueText}
                 </span>
                 {tile.chip ? (
-                  <span className="text-[11px] px-1.5 py-0.5 rounded-md bg-white ring-1 ring-blue-100 text-blue-700 dark:bg-neutral-950/40 dark:ring-blue-900/40 dark:text-blue-200">
+                  <span className="text-[11px] px-1.5 py-0.5 rounded-md border border-gold/45 bg-sand/50 text-gold">
                     {tile.chip}
                   </span>
                 ) : null}
@@ -204,10 +200,10 @@ export default function FamilyMatrixNeo({
 
               <span
                 className={[
-                  "text-[11px] px-2 py-1 rounded-md ring-1 select-none",
+                  "text-[11px] px-2 py-1 rounded-md border select-none",
                   tile.included
-                    ? "bg-blue-50 ring-blue-100 text-blue-800 dark:bg-blue-950/30 dark:ring-blue-900/40 dark:text-blue-200"
-                    : "bg-neutral-100 ring-neutral-200 text-neutral-700 dark:bg-neutral-800/60 dark:ring-neutral-700 dark:text-neutral-300",
+                    ? "border-gold/45 bg-sand/50 text-gold"
+                    : "border-gold/45 bg-sand/50 text-ink/45",
                 ].join(" ")}
                 aria-label={
                   tile.included
@@ -278,12 +274,12 @@ function BackgroundGraphics() {
       aria-hidden
       className="pointer-events-none absolute inset-0 print:hidden"
     >
-      {/* soft neutral glows */}
-      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-300/15 blur-3xl" />
-      <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-neutral-400/10 blur-3xl" />
+      {/* soft gold glows */}
+      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
       {/* ultra-faint grid */}
       <svg
-        className="absolute inset-0 w-full h-full opacity-[0.03] dark:opacity-[0.05]"
+        className="absolute inset-0 w-full h-full opacity-[0.04]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -296,15 +292,13 @@ function BackgroundGraphics() {
             <path
               d="M24 0H0v24"
               fill="none"
-              stroke="#111827"
+              stroke="#d4af37"
               strokeWidth="0.75"
             />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#fmneo-grid)" />
       </svg>
-      {/* top gloss */}
-      <div className="absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-white/70 to-transparent dark:from-neutral-950/20" />
     </div>
   );
 }

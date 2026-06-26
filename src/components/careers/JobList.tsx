@@ -116,7 +116,9 @@ function matchesJob(job: Job, q: string, dept: string, remoteOnly: boolean) {
   });
 }
 
-export default function JobList({ jobs }: { jobs: Job[] }) {
+const GOLD = "#bfa15c";
+
+export default function JobList({ jobs, serifClass }: { jobs: Job[]; serifClass?: string }) {
   const sp = useSearchParams();
   const q = sp.get("q") || "";
   const dept = sp.get("dept") || "all";
@@ -129,11 +131,14 @@ export default function JobList({ jobs }: { jobs: Job[] }) {
 
   if (filtered.length === 0) {
     return (
-      <div className="mt-6 rounded-2xl border border-black/10 bg-white p-6 text-black dark:border-white/20 dark:bg-white/5 dark:text-white">
-        <h3 className="text-base font-semibold">No roles found</h3>
-        <p className="mt-1 text-sm">
-          Try different keywords (e.g., <strong>Bengaluru</strong>, <strong>Remote</strong>, <strong>Sales</strong>) or{" "}
-          <a href="/careers#apply" className="font-semibold underline decoration-2 underline-offset-2">
+      <div
+        className="mt-6 rounded-2xl p-6 text-white"
+        style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }}
+      >
+        <h3 className={`${serifClass ?? ""} text-[1.2rem] font-medium`}>No roles found</h3>
+        <p className="mt-1 text-sm text-white/55">
+          Try different keywords (e.g., <strong className="text-white/80">Bengaluru</strong>, <strong className="text-white/80">Remote</strong>, <strong className="text-white/80">Sales</strong>) or{" "}
+          <a href="/careers#apply" className="font-semibold underline decoration-2 underline-offset-2" style={{ color: GOLD }}>
             send your resume
           </a>.
         </p>
@@ -142,37 +147,43 @@ export default function JobList({ jobs }: { jobs: Job[] }) {
   }
 
   return (
-    <ul role="list" className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul role="list" className="mt-5 grid items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {filtered.map((job) => (
-        <li key={job.id}>
+        <li key={job.id} className="h-full">
           <article
-            className={[
-              "h-full rounded-3xl p-4 sm:p-5",
-              "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-              "hover:bg-white transition",
-              "text-black dark:text-white",
-              "dark:from-blue-950/30 dark:to-indigo-950/20 dark:ring-blue-900/40",
-            ].join(" ")}
+            className="group flex h-full flex-col overflow-hidden rounded-2xl p-6 text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-[#bfa15c] motion-reduce:transform-none"
+            style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }}
           >
-            <h3 className="text-base font-extrabold leading-6">{job.title}</h3>
-            <p className="mt-1 text-sm">
+            {job.dept && (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.22em]" style={{ color: GOLD }}>
+                {job.dept}
+              </span>
+            )}
+            <h3 className={`${serifClass ?? ""} mt-2 text-[1.3rem] font-medium leading-snug text-white`}>{job.title}</h3>
+            <p className="mt-2 text-sm uppercase tracking-[0.1em] text-white/45">
               {job.location}
-              {job.employmentType ? ` • ${job.employmentType}` : ""}
-              {job.postedAt ? ` • ${fmtDate(job.postedAt)}` : ""}
+              {job.employmentType ? ` · ${job.employmentType}` : ""}
+              {job.postedAt ? ` · ${fmtDate(job.postedAt)}` : ""}
             </p>
 
-            {job.summary && <p className="mt-2 line-clamp-2 text-sm">{job.summary}</p>}
+            {job.summary && <p className="mt-3 line-clamp-2 text-sm text-white/55">{job.summary}</p>}
 
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-auto flex items-center gap-4 pt-6">
               <Link
                 href={`/careers/${job.slug}`}
                 prefetch={false}
-                className="rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="group/btn inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[12px] font-semibold uppercase tracking-[0.14em] transition-transform hover:-translate-y-0.5"
+                style={{ background: GOLD, color: "#0a1733" }}
                 aria-label={`View details for ${job.title}`}
               >
-                View & Apply
+                View &amp; Apply
+                <span className="transition-transform duration-300 group-hover/btn:translate-x-1">→</span>
               </Link>
-              <a href="/careers#apply" className="text-sm font-semibold underline decoration-2 underline-offset-2">
+              <a
+                href="/careers#apply"
+                className="text-sm font-semibold text-white/65 underline decoration-2 underline-offset-2 transition hover:text-white"
+                style={{ textDecorationColor: `${GOLD}66` }}
+              >
                 Quick apply
               </a>
             </div>

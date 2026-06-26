@@ -23,6 +23,9 @@ import {
   UploadCloud,
 } from "lucide-react";
 
+import Ambient from "@/components/HomeLuxe/Ambient";
+import LuxeHeader from "@/components/HomeLuxe/LuxeHeader";
+import LuxeFooter from "@/components/HomeLuxe/LuxeFooter";
 import type { Vertical } from "@/lib/content/types";
 import type { XiaIntelligenceData } from "@/lib/xia-intelligence";
 import {
@@ -36,6 +39,12 @@ import {
 } from "@/lib/xia-intelligence-model";
 import { BOOKING_ROUTE } from "@/lib/topmate";
 
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const NAVY = "#0a1733";
+const INK = "#0c1f3f";
+const PEARL = "#fbfaf7";
+
 type Engine = "route" | "high-skill" | "investment" | "documents" | "workflow";
 type ProgrammeMatch = ReturnType<typeof scoreProgrammeRoutes>[number];
 type HighSkillMatch = ReturnType<typeof scoreHighSkillRoutes>[number];
@@ -47,6 +56,7 @@ type XiaIntelligenceClientProps = {
   targetCountryLocked?: HighSkillInput["targetCountry"];
   title?: string;
   subtitle?: string;
+  serifClass?: string;
 };
 
 type ContactInput = {
@@ -189,7 +199,7 @@ function readinessScore(routeInput: RouteIntelligenceInput, highSkillInput: High
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{label}</span>
+      <span className="text-sm font-medium text-white/70">{label}</span>
       {children}
     </label>
   );
@@ -199,7 +209,7 @@ function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className={`h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:placeholder:text-white/35 dark:focus:ring-blue-950 ${props.className || ""}`}
+      className={`h-11 w-full rounded-lg border border-[#bfa15c]/35 bg-white/[0.04] px-3 text-sm font-medium text-white outline-none transition placeholder:text-white/40 focus:border-[#bfa15c] focus:ring-1 focus:ring-[#bfa15c] disabled:opacity-60 ${props.className || ""}`}
     />
   );
 }
@@ -208,7 +218,7 @@ function SelectInput(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
     <select
       {...props}
-      className={`h-11 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm font-medium text-slate-950 shadow-sm outline-none transition focus:border-primary focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-blue-950 ${props.className || ""}`}
+      className={`h-11 w-full rounded-lg border border-[#bfa15c]/35 bg-white/[0.04] px-3 text-sm font-medium text-white outline-none transition focus:border-[#bfa15c] focus:ring-1 focus:ring-[#bfa15c] [&>option]:bg-[#0a1733] [&>option]:text-white ${props.className || ""}`}
     />
   );
 }
@@ -217,12 +227,12 @@ function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <textarea
       {...props}
-      className={`w-full resize-none rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm font-medium text-slate-950 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:placeholder:text-white/35 dark:focus:ring-blue-950 ${props.className || ""}`}
+      className={`w-full resize-none rounded-lg border border-[#bfa15c]/35 bg-white/[0.04] px-3 py-3 text-sm font-medium text-white outline-none transition placeholder:text-white/40 focus:border-[#bfa15c] focus:ring-1 focus:ring-[#bfa15c] ${props.className || ""}`}
     />
   );
 }
 
-function XiaHelpPanel() {
+function XiaHelpPanel({ serifClass }: { serifClass: string }) {
   const items = [
     ["Route Intelligence", "Use this when you know the goal, budget, timeline, or preferred destination.", "/route-intelligence"],
     ["Deep Analysis", "Use this for profile, skills, evidence, CV notes, and route review.", "/deep-analysis"],
@@ -231,14 +241,14 @@ function XiaHelpPanel() {
   ] as const;
 
   return (
-    <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
+    <div className="mt-5 rounded-2xl border border-[#bfa15c]/30 bg-white/[0.03] p-4">
       <div className="flex items-center gap-3">
-        <span className="grid size-10 place-items-center rounded-lg bg-blue-50 text-primary dark:bg-white/10 dark:text-blue-200">
+        <span className="grid size-10 place-items-center rounded-lg border border-[#bfa15c]/45 bg-[#bfa15c]/10 text-[#bfa15c]">
           <BrainCircuit className="size-5" />
         </span>
         <div>
-          <h2 className="text-base font-semibold text-midnight_text dark:text-white">XIA help</h2>
-          <p className="text-sm text-slate-500 dark:text-white/70">Choose where you want to go. These links are live.</p>
+          <h2 className={`${serifClass} text-lg font-medium text-white`}>XIA help</h2>
+          <p className="text-sm text-white/55">Choose where you want to go. These links are live.</p>
         </div>
       </div>
       <div className="mt-4 grid gap-3 md:grid-cols-2">
@@ -246,13 +256,13 @@ function XiaHelpPanel() {
           <Link
             key={label}
             href={href}
-            className="group rounded-lg border border-slate-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-primary hover:shadow-md dark:border-slate-800 dark:bg-slate-950"
+            className="group rounded-xl border border-[#bfa15c]/30 bg-white/[0.04] p-4 transition hover:-translate-y-0.5 hover:border-[#bfa15c]/60"
           >
             <span className="flex items-center justify-between gap-3">
-              <span className="font-semibold text-midnight_text dark:text-white">{label}</span>
-              <ArrowRight className="size-4 text-primary transition group-hover:translate-x-1 dark:text-blue-200" />
+              <span className="font-semibold text-white">{label}</span>
+              <ArrowRight className="size-4 text-[#bfa15c] transition group-hover:translate-x-1" />
             </span>
-            <span className="mt-2 block text-sm leading-6 text-slate-600 dark:text-white/70">{copy}</span>
+            <span className="mt-2 block text-sm leading-6 text-white/55">{copy}</span>
           </Link>
         ))}
       </div>
@@ -267,6 +277,7 @@ export default function XiaIntelligenceClient({
   targetCountryLocked,
   title,
   subtitle,
+  serifClass = "",
 }: XiaIntelligenceClientProps) {
   const [engine, setEngine] = useState<Engine>(initialEngine);
   const [routeInput, setRouteInput] = useState<RouteIntelligenceInput>(defaultRouteInput);
@@ -381,37 +392,50 @@ export default function XiaIntelligenceClient({
   };
 
   return (
-    <div className="min-h-screen bg-white pt-8 text-slate-950 transition-colors dark:bg-darkmode dark:text-white">
-      <section className="container py-10 lg:py-14">
+    <div style={{ background: PEARL, color: INK }}>
+      <LuxeHeader serifClass={serifClass} />
+
+      <div className="relative isolate min-h-screen" style={{ background: NAVY, color: PEARL }}>
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(120% 120% at 75% 0%, rgba(19,40,79,0.9), rgba(10,23,51,0.96) 60%, #0a1733 100%)",
+          }}
+        />
+        <Ambient tone="dark" />
+
+        <section className="relative mx-auto w-full max-w-screen-2xl px-4 pb-16 pt-28 sm:px-6 lg:px-10 lg:pt-32">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35 }}
-          className={`group/input-panel mx-auto rounded-xl border border-slate-200 bg-white shadow-cause-shadow transition-all duration-500 dark:border-slate-800 dark:bg-darklight ${
+          className={`group/input-panel mx-auto rounded-2xl border border-[#bfa15c]/25 bg-white/[0.03] backdrop-blur-sm transition-all duration-500 ${
             submitted ? "sticky top-20 z-30 max-w-screen-2xl p-4" : "max-w-screen-xl p-5 sm:p-7 lg:p-9"
           }`}
         >
           {submitted ? (
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="text-xs font-semibold text-primary dark:text-blue-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>
                   {currentTitle}
                 </p>
-                <h1 className="mt-1 text-xl font-semibold text-midnight_text dark:text-white">{compactSummary}</h1>
+                <h1 className={`${serifClass} mt-1 text-2xl font-medium text-white`}>{compactSummary}</h1>
               </div>
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
                   onClick={() => setShowHelp((value) => !value)}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 text-sm font-semibold text-midnight_text transition hover:border-primary hover:bg-blue-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-900"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-[#bfa15c]/40 px-4 text-sm font-semibold text-white transition hover:border-[#bfa15c]/70 hover:bg-white/[0.04]"
                 >
-                  <BrainCircuit className="size-4 text-primary dark:text-blue-200" />
+                  <BrainCircuit className="size-4 text-[#bfa15c]" />
                   XIA help
                 </button>
                 <button
                   type="button"
                   onClick={() => setSubmitted(true)}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-secondary px-4 text-sm font-semibold text-midnight_text transition hover:bg-[#f0cb3b]"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition hover:brightness-110"
+                  style={{ background: GOLD, color: NAVY }}
                 >
                   Refresh
                   <ArrowRight className="size-4" />
@@ -421,32 +445,35 @@ export default function XiaIntelligenceClient({
           ) : (
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-primary dark:border-blue-900 dark:bg-white/5 dark:text-blue-200">
+              <div
+                className="inline-flex items-center gap-2 rounded-full border border-[#bfa15c]/45 bg-[#bfa15c]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]"
+                style={{ color: GOLD }}
+              >
                 <Sparkles className="size-4" />
                 XIA assessment
               </div>
-              <h1 className="mt-4 text-3xl font-semibold tracking-tight text-midnight_text dark:text-white sm:text-4xl">
+              <h1 className={`${serifClass} mt-4 text-4xl font-medium leading-[1.02] tracking-tight text-white sm:text-5xl`}>
                 {currentTitle}
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-white/85">{currentSubtitle}</p>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/65">{currentSubtitle}</p>
             </div>
             <div className="space-y-3 md:max-w-sm">
-              <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm font-medium leading-6 text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-100">
+              <div className="rounded-xl border border-[#bfa15c]/30 bg-[#bfa15c]/[0.06] p-4 text-sm font-medium leading-6 text-white/75">
                 This assessment is a planning aid, not a final visa decision. Final strategy requires XIPHIAS advisor review.
               </div>
               <button
                 type="button"
                 onClick={() => setShowHelp((value) => !value)}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 text-sm font-semibold text-midnight_text transition hover:border-primary hover:bg-blue-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-900"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-[#bfa15c]/40 px-4 text-sm font-semibold text-white transition hover:border-[#bfa15c]/70 hover:bg-white/[0.04]"
               >
-                <BrainCircuit className="size-4 text-primary dark:text-blue-200" />
+                <BrainCircuit className="size-4 text-[#bfa15c]" />
                 XIA help
               </button>
             </div>
           </div>
           )}
 
-          {showHelp && <XiaHelpPanel />}
+          {showHelp && <XiaHelpPanel serifClass={serifClass} />}
 
           <div
             className={
@@ -457,7 +484,7 @@ export default function XiaIntelligenceClient({
           >
 
           {!lockedEngine ? (
-            <div className="mt-7 grid gap-4 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-900 md:grid-cols-2 xl:grid-cols-5">
+            <div className="mt-7 grid gap-4 rounded-2xl border border-[#bfa15c]/25 bg-white/[0.02] p-3 md:grid-cols-2 xl:grid-cols-5">
               {suiteTabs.map((tab) => {
                 const Icon = tab.icon;
                 const active = engine === tab.key;
@@ -466,18 +493,19 @@ export default function XiaIntelligenceClient({
                     key={tab.key}
                     type="button"
                     onClick={() => selectEngine(tab.key)}
-                    className={`flex items-start gap-4 rounded-lg p-4 text-left transition ${
+                    className={`flex items-start gap-4 rounded-xl p-4 text-left transition ${
                       active
-                        ? "bg-primary text-white shadow-sm"
-                        : "bg-white text-slate-700 hover:bg-blue-50 dark:bg-slate-950 dark:text-white/75 dark:hover:bg-slate-800"
+                        ? "text-[#0a1733]"
+                        : "bg-white/[0.03] text-white/75 hover:bg-white/[0.06]"
                     }`}
+                    style={active ? { background: GOLD } : undefined}
                   >
-                    <span className={`grid size-11 shrink-0 place-items-center rounded-lg ${active ? "bg-white/10 text-white" : "bg-blue-50 text-primary dark:bg-white/10 dark:text-blue-200"}`}>
+                    <span className={`grid size-11 shrink-0 place-items-center rounded-lg ${active ? "bg-[#0a1733]/15 text-[#0a1733]" : "border border-[#bfa15c]/45 bg-[#bfa15c]/10 text-[#bfa15c]"}`}>
                       <Icon className="size-5" />
                     </span>
                     <span>
                       <span className="block text-base font-semibold">{tab.label}</span>
-                      <span className={`mt-1 block text-sm leading-5 ${active ? "text-white/85" : "text-slate-500 dark:text-white/82"}`}>
+                      <span className={`mt-1 block text-sm leading-5 ${active ? "text-[#0a1733]/75" : "text-white/55"}`}>
                         {tab.copy}
                       </span>
                     </span>
@@ -489,7 +517,7 @@ export default function XiaIntelligenceClient({
             <div className="mt-6">
               <Link
                 href="/xia-intelligence"
-                className="inline-flex h-11 items-center justify-center rounded-lg border border-slate-200 px-4 text-sm font-semibold text-midnight_text transition hover:border-primary hover:bg-blue-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-900"
+                className="inline-flex h-11 items-center justify-center rounded-lg border border-[#bfa15c]/40 px-4 text-sm font-semibold text-white transition hover:border-[#bfa15c]/70 hover:bg-white/[0.04]"
               >
                 Open full XIA suite
               </Link>
@@ -497,7 +525,7 @@ export default function XiaIntelligenceClient({
           )}
 
           {(engine === "route" || engine === "investment") && (
-            <RouteInputs engine={engine} input={routeInput} setInput={setRouteInput} />
+            <RouteInputs engine={engine} input={routeInput} setInput={setRouteInput} serifClass={serifClass} />
           )}
 
           {engine === "high-skill" && (
@@ -506,21 +534,23 @@ export default function XiaIntelligenceClient({
               setInput={setHighSkillInput}
               completion={highSkillPercent}
               targetCountryLocked={targetCountryLocked}
+              serifClass={serifClass}
             />
           )}
 
-          {engine === "documents" && submitted && <DocumentReadiness readiness={readiness} />}
+          {engine === "documents" && submitted && <DocumentReadiness readiness={readiness} serifClass={serifClass} />}
 
-          {engine === "workflow" && submitted && <WorkflowPanel />}
+          {engine === "workflow" && submitted && <WorkflowPanel serifClass={serifClass} />}
 
-          <div className="mt-7 flex flex-col gap-3 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-500 dark:text-white/70">
+          <div className="mt-7 flex flex-col gap-3 border-t border-[#bfa15c]/25 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-white/55">
               Results and X-Hub save options appear after you generate this assessment.
             </p>
             <button
               type="button"
               onClick={() => setSubmitted(true)}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-secondary px-5 text-sm font-semibold text-midnight_text shadow-sm transition hover:bg-[#f0cb3b]"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold transition hover:brightness-110"
+              style={{ background: GOLD, color: NAVY }}
             >
               {submitted ? "Refresh assessment" : "Generate assessment"}
               <ArrowRight className="size-4" />
@@ -529,8 +559,8 @@ export default function XiaIntelligenceClient({
           </div>
         </motion.div>
 
-        {submitted && (engine === "route" || engine === "investment") && <RouteShortlist matches={activeRouteMatches} />}
-        {submitted && engine === "high-skill" && <HighSkillShortlist matches={highSkillMatches} completion={highSkillPercent} />}
+        {submitted && (engine === "route" || engine === "investment") && <RouteShortlist matches={activeRouteMatches} serifClass={serifClass} />}
+        {submitted && engine === "high-skill" && <HighSkillShortlist matches={highSkillMatches} completion={highSkillPercent} serifClass={serifClass} />}
         {submitted && (engine === "route" || engine === "investment" || engine === "high-skill") && (
           <PremiumReportPanel
             engine={engine}
@@ -539,19 +569,20 @@ export default function XiaIntelligenceClient({
             routeMatches={activeRouteMatches}
             highSkillMatches={highSkillMatches}
             readiness={readiness}
+            serifClass={serifClass}
           />
         )}
 
         {submitted && (
-        <section className="mx-auto mt-6 max-w-screen-xl rounded-xl border border-slate-200 bg-white p-5 shadow-cause-shadow dark:border-slate-800 dark:bg-darklight sm:p-7">
+        <section className="mx-auto mt-6 max-w-screen-xl rounded-2xl border border-[#bfa15c]/25 bg-white/[0.03] p-5 sm:p-7">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
             <div className="flex min-w-0 flex-1 items-center gap-3">
-              <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-blue-50 text-primary dark:bg-white/10 dark:text-blue-200">
+              <span className="grid size-11 shrink-0 place-items-center rounded-lg border border-[#bfa15c]/45 bg-[#bfa15c]/10 text-[#bfa15c]">
                 <Send className="size-5" />
               </span>
               <div>
-                <h3 className="text-lg font-semibold text-midnight_text dark:text-white">Save this assessment into X-Hub</h3>
-                <p className="text-sm text-slate-500 dark:text-white/70">Creates a lead and stores the shortlist for admin follow-up.</p>
+                <h3 className={`${serifClass} text-xl font-medium text-white`}>Save this assessment into X-Hub</h3>
+                <p className="text-sm text-white/55">Creates a lead and stores the shortlist for admin follow-up.</p>
               </div>
             </div>
             <div className="grid flex-[2] gap-3 md:grid-cols-3">
@@ -563,26 +594,30 @@ export default function XiaIntelligenceClient({
               type="button"
               onClick={saveAssessment}
               disabled={saveState === "saving"}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-secondary px-5 text-sm font-semibold text-midnight_text shadow-sm transition hover:bg-[#f0cb3b] disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
+              style={{ background: GOLD, color: NAVY }}
             >
               {saveState === "saving" ? "Saving..." : "Save"}
               <ArrowRight className="size-4" />
             </button>
           </div>
-          <label className="mt-3 flex items-start gap-2 text-xs font-semibold leading-5 text-slate-500 dark:text-white/65">
+          <label className="mt-3 flex items-start gap-2 text-xs font-semibold leading-5 text-white/55">
             <input
               type="checkbox"
               checked={contact.consent}
               onChange={(event) => setContact((prev) => ({ ...prev, consent: event.target.checked }))}
-              className="mt-1 size-4 accent-[#d8ad1f]"
+              className="mt-1 size-4 accent-[#bfa15c]"
             />
             I agree that XIPHIAS may contact me about this assessment.
           </label>
-          {saveState === "saved" && <p className="mt-3 text-sm font-semibold text-emerald-600 dark:text-emerald-300">Saved. This assessment is now available in X-Hub.</p>}
-          {saveState === "error" && <p className="mt-3 text-sm font-semibold text-amber-700 dark:text-amber-200">Add at least one contact detail before saving.</p>}
+          {saveState === "saved" && <p className="mt-3 text-sm font-semibold" style={{ color: GOLD }}>Saved. This assessment is now available in X-Hub.</p>}
+          {saveState === "error" && <p className="mt-3 text-sm font-semibold text-red-400">Add at least one contact detail before saving.</p>}
         </section>
         )}
-      </section>
+        </section>
+      </div>
+
+      <LuxeFooter serifClass={serifClass} />
     </div>
   );
 }
@@ -591,20 +626,22 @@ function RouteInputs({
   engine,
   input,
   setInput,
+  serifClass,
 }: {
   engine: Engine;
   input: RouteIntelligenceInput;
   setInput: React.Dispatch<React.SetStateAction<RouteIntelligenceInput>>;
+  serifClass: string;
 }) {
   return (
     <>
-      <div className="mt-7 flex items-center gap-3 border-t border-slate-200 pt-6 dark:border-white/10">
-        {engine === "investment" ? <Landmark className="size-5 text-[#d8ad1f]" /> : <RouteIcon className="size-5 text-[#d8ad1f]" />}
+      <div className="mt-7 flex items-center gap-3 border-t border-[#bfa15c]/25 pt-6">
+        {engine === "investment" ? <Landmark className="size-5 text-[#bfa15c]" /> : <RouteIcon className="size-5 text-[#bfa15c]" />}
         <div>
-          <h2 className="text-xl font-semibold text-midnight_text dark:text-white">
+          <h2 className={`${serifClass} text-2xl font-medium text-white`}>
             {engine === "investment" ? "Investment & Residency Evaluator" : "Best Visa / Route Evaluator"}
           </h2>
-          <p className="text-sm text-slate-500 dark:text-white/70">
+          <p className="text-sm text-white/55">
             {engine === "investment" ? "Investor, golden visa, CBI, RBI and business mobility routes." : "PR, work visa, citizenship, investment, business and family route matching."}
           </p>
         </div>
@@ -657,8 +694,8 @@ function RouteInputs({
           <option value="business">Business</option>
           <option value="tax">Tax planning</option>
         </SelectInput>
-        <label className="flex h-11 items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-white/88">
-          <input type="checkbox" checked={input.family} onChange={(event) => setInput((prev) => ({ ...prev, family: event.target.checked }))} className="size-4 accent-[#d8ad1f]" />
+        <label className="flex h-11 items-center gap-3 rounded-lg border border-[#bfa15c]/35 bg-white/[0.04] px-4 text-sm font-medium text-white/70">
+          <input type="checkbox" checked={input.family} onChange={(event) => setInput((prev) => ({ ...prev, family: event.target.checked }))} className="size-4 accent-[#bfa15c]" />
           Family
         </label>
       </div>
@@ -676,23 +713,25 @@ function HighSkillInputs({
   setInput,
   completion,
   targetCountryLocked,
+  serifClass,
 }: {
   input: HighSkillInput;
   setInput: React.Dispatch<React.SetStateAction<HighSkillInput>>;
   completion: number;
   targetCountryLocked?: HighSkillInput["targetCountry"];
+  serifClass: string;
 }) {
   return (
     <>
-      <div className="mt-7 flex items-center justify-between gap-3 border-t border-slate-200 pt-6 dark:border-white/10">
+      <div className="mt-7 flex items-center justify-between gap-3 border-t border-[#bfa15c]/25 pt-6">
         <div className="flex items-center gap-3">
-          <GraduationCap className="size-5 text-[#d8ad1f]" />
+          <GraduationCap className="size-5 text-[#bfa15c]" />
           <div>
-            <h2 className="text-xl font-semibold text-midnight_text dark:text-white">High-Skill Visa Evaluator</h2>
-            <p className="text-sm text-slate-500 dark:text-white/70">Evidence-led review for EB1A, EB2 NIW, O1A, H-1B, L1, Global Talent and PR pathways.</p>
+            <h2 className={`${serifClass} text-2xl font-medium text-white`}>High-Skill Visa Evaluator</h2>
+            <p className="text-sm text-white/55">Evidence-led review for EB1A, EB2 NIW, O1A, H-1B, L1, Global Talent and PR pathways.</p>
           </div>
         </div>
-        <span className="hidden rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 dark:border-white/10 dark:text-white/70 sm:inline-flex">{completion}% profile depth</span>
+        <span className="hidden rounded-full border border-[#bfa15c]/45 bg-[#bfa15c]/10 px-3 py-1 text-xs font-semibold text-[#bfa15c] sm:inline-flex">{completion}% profile depth</span>
       </div>
       <div className="mt-5 grid gap-4 lg:grid-cols-4">
         <Field label="Target">
@@ -750,10 +789,10 @@ function HighSkillInputs({
         <Field label="CV / evidence highlights">
           <TextArea rows={4} value={input.profileSummary} onChange={(event) => setInput((prev) => ({ ...prev, profileSummary: event.target.value }))} placeholder="Paste CV/evidence highlights. Text resumes are read locally; PDF/DOCX parsing will be added to the report workflow." />
         </Field>
-        <label className="flex cursor-pointer flex-col justify-center gap-3 rounded-lg border border-dashed border-amber-300 bg-amber-50 p-4 text-sm font-medium text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-100">
-          <UploadCloud className="size-6" />
+        <label className="flex cursor-pointer flex-col justify-center gap-3 rounded-lg border border-dashed border-[#bfa15c]/40 bg-[#bfa15c]/[0.06] p-4 text-sm font-medium text-white/70">
+          <UploadCloud className="size-6 text-[#bfa15c]" />
           <span>{input.resumeFileName || "Attach CV name for advisor review"}</span>
-          <span className="text-xs font-semibold opacity-75">TXT/MD resumes are scanned locally.</span>
+          <span className="text-xs font-semibold text-white/45">TXT/MD resumes are scanned locally.</span>
           <input
             type="file"
             className="hidden"
@@ -787,12 +826,12 @@ function HighSkillInputs({
       </div>
       <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {evidenceKeys.map((key) => (
-          <label key={key} className="flex items-start gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-white/75">
+          <label key={key} className="flex items-start gap-2 rounded-lg border border-[#bfa15c]/30 bg-white/[0.03] p-3 text-xs font-medium text-white/70">
             <input
               type="checkbox"
               checked={input.evidence[key]}
               onChange={(event) => setInput((prev) => ({ ...prev, evidence: { ...prev.evidence, [key]: event.target.checked } }))}
-              className="mt-0.5 size-4 accent-[#d8ad1f]"
+              className="mt-0.5 size-4 accent-[#bfa15c]"
             />
             <span>{evidenceLabels[key]}</span>
           </label>
@@ -802,27 +841,27 @@ function HighSkillInputs({
   );
 }
 
-function DocumentReadiness({ readiness }: { readiness: { percent: number; evidenceCount: number } }) {
+function DocumentReadiness({ readiness, serifClass }: { readiness: { percent: number; evidenceCount: number }; serifClass: string }) {
   return (
-    <div className="mt-7 border-t border-slate-200 pt-6 dark:border-white/10">
+    <div className="mt-7 border-t border-[#bfa15c]/25 pt-6">
       <div className="flex items-center gap-3">
-        <ClipboardCheck className="size-5 text-[#d8ad1f]" />
+        <ClipboardCheck className="size-5 text-[#bfa15c]" />
         <div>
-          <h2 className="text-xl font-semibold text-midnight_text dark:text-white">Document & Evidence Readiness</h2>
-          <p className="text-sm text-slate-500 dark:text-white/70">Preparation checklist before report or advisor review.</p>
+          <h2 className={`${serifClass} text-2xl font-medium text-white`}>Document & Evidence Readiness</h2>
+          <p className="text-sm text-white/55">Preparation checklist before report or advisor review.</p>
         </div>
       </div>
       <div className="mt-5 grid gap-4 lg:grid-cols-[260px_1fr]">
-        <div className="rounded-lg border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-900">
-          <p className="text-xs font-semibold text-primary dark:text-blue-200">Readiness</p>
-          <div className="mt-3 text-4xl font-semibold text-midnight_text dark:text-white">{readiness.percent}%</div>
-          <div className="mt-4 h-2 rounded-full bg-slate-200 dark:bg-white/10">
-            <div className="h-full rounded-full bg-gradient-to-r from-[#d8ad1f] to-[#2a63bd]" style={{ width: `${readiness.percent}%` }} />
+        <div className="rounded-2xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Readiness</p>
+          <div className="mt-3 text-4xl font-semibold text-white">{readiness.percent}%</div>
+          <div className="mt-4 h-2 rounded-full bg-white/10">
+            <div className="h-full rounded-full" style={{ width: `${readiness.percent}%`, background: `linear-gradient(90deg, ${GOLD_DEEP}, ${GOLD})` }} />
           </div>
         </div>
         <div className="grid gap-3 md:grid-cols-2">
           {["Identity and civil documents", "Proof/source of funds", "CV and employment proof", "Education and skills records", "Awards, publications, media", "Company and business documents"].map((item) => (
-            <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-medium text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-white/80">
+            <div key={item} className="rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-4 text-sm font-medium text-white/70">
               {item}
             </div>
           ))}
@@ -832,14 +871,14 @@ function DocumentReadiness({ readiness }: { readiness: { percent: number; eviden
   );
 }
 
-function WorkflowPanel() {
+function WorkflowPanel({ serifClass }: { serifClass: string }) {
   return (
-    <div className="mt-7 border-t border-slate-200 pt-6 dark:border-white/10">
+    <div className="mt-7 border-t border-[#bfa15c]/25 pt-6">
       <div className="flex items-center gap-3">
-        <FileText className="size-5 text-[#d8ad1f]" />
+        <FileText className="size-5 text-[#bfa15c]" />
         <div>
-          <h2 className="text-xl font-semibold text-midnight_text dark:text-white">Report + Advisor Workflow</h2>
-          <p className="text-sm text-slate-500 dark:text-white/70">Preview report, detailed report unlock, advisor review and X-Hub tracking.</p>
+          <h2 className={`${serifClass} text-2xl font-medium text-white`}>Report + Advisor Workflow</h2>
+          <p className="text-sm text-white/55">Preview report, detailed report unlock, advisor review and X-Hub tracking.</p>
         </div>
       </div>
       <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -849,10 +888,10 @@ function WorkflowPanel() {
           ["3", "Advisor review", "XIPHIAS verifies documents, rules and strategy."],
           ["4", "X-Hub tracking", "Lead, case progress and next actions are tracked."],
         ].map(([step, heading, copy]) => (
-          <div key={step} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
-            <span className="grid size-8 place-items-center rounded-full bg-secondary text-sm font-semibold text-midnight_text">{step}</span>
-            <h3 className="mt-3 font-semibold text-midnight_text dark:text-white">{heading}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-white/70">{copy}</p>
+          <div key={step} className="rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-4">
+            <span className="grid size-8 place-items-center rounded-full text-sm font-semibold" style={{ background: GOLD, color: NAVY }}>{step}</span>
+            <h3 className="mt-3 font-semibold text-white">{heading}</h3>
+            <p className="mt-2 text-sm leading-6 text-white/55">{copy}</p>
           </div>
         ))}
       </div>
@@ -953,6 +992,7 @@ function PremiumReportPanel({
   routeMatches,
   highSkillMatches,
   readiness,
+  serifClass,
 }: {
   engine: Engine;
   routeInput: RouteIntelligenceInput;
@@ -960,6 +1000,7 @@ function PremiumReportPanel({
   routeMatches: ReturnType<typeof scoreProgrammeRoutes>;
   highSkillMatches: ReturnType<typeof scoreHighSkillRoutes>;
   readiness: { percent: number; evidenceCount: number };
+  serifClass: string;
 }) {
   const highSkillMode = engine === "high-skill";
   const topHighSkill = highSkillMatches[0];
@@ -979,33 +1020,33 @@ function PremiumReportPanel({
     : ["Route comparison", "Country fit", "Document checklist", "Risk review", "Advisor notes"];
 
   return (
-    <section className="mx-auto mt-6 max-w-screen-xl overflow-hidden rounded-xl border border-[#d8ad1f]/55 bg-[#061936] text-white shadow-cause-shadow">
+    <section className="mx-auto mt-6 max-w-screen-xl overflow-hidden rounded-2xl border border-[#bfa15c]/30 bg-white/[0.03] text-white">
       <div className="relative grid gap-6 p-5 sm:p-7 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#d8ad1f]/10 blur-3xl" aria-hidden="true" />
+        <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-[#bfa15c]/10 blur-3xl" aria-hidden="true" />
         <div className="relative">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#d8ad1f]/45 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#f2c94c]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#bfa15c]/45 bg-[#bfa15c]/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>
               <FileText className="size-4" />
               Personalised report
             </span>
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/75">Coming soon</span>
+            <span className="rounded-full border border-[#bfa15c]/30 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-white/70">Coming soon</span>
           </div>
-          <h3 className="mt-5 max-w-2xl text-3xl font-semibold leading-tight text-white md:text-4xl">{reportTitle}</h3>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/74">
+          <h3 className={`${serifClass} mt-5 max-w-2xl text-4xl font-medium leading-tight text-white`}>{reportTitle}</h3>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55">
             A professional XIPHIAS proposal built from the assessment answers, route scoring,
             verified programme content, and advisor review checkpoints.
           </p>
 
-          <div className="mt-6 rounded-xl border border-[#d8ad1f]/35 bg-[#0b244d] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f2c94c]">Recommended pathway</p>
+          <div className="mt-6 rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Recommended pathway</p>
             <div className="mt-4 flex flex-col gap-5 lg:flex-row lg:items-center">
               <div className="flex min-w-0 flex-1 items-center gap-4">
-                <span className="grid size-16 shrink-0 place-items-center rounded-full border border-[#d8ad1f]/60 bg-[#061936] text-[#f2c94c] shadow-[0_0_24px_rgba(216,173,31,0.22)]">
+                <span className="grid size-16 shrink-0 place-items-center rounded-full border border-[#bfa15c]/60 bg-[#bfa15c]/10 text-[#bfa15c] shadow-[0_0_24px_rgba(191,161,92,0.22)]">
                   {highSkillMode ? <GraduationCap className="size-7" /> : <RouteIcon className="size-7" />}
                 </span>
                 <div className="min-w-0">
-                  <h4 className="text-2xl font-semibold leading-tight text-white">{recommendedTitle}</h4>
-                  <p className="mt-1 text-sm font-medium text-[#f2c94c]">{recommendedCountry}</p>
+                  <h4 className={`${serifClass} text-2xl font-medium leading-tight text-white`}>{recommendedTitle}</h4>
+                  <p className="mt-1 text-sm font-medium" style={{ color: GOLD }}>{recommendedCountry}</p>
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-3 text-sm lg:w-[360px]">
@@ -1017,13 +1058,13 @@ function PremiumReportPanel({
           </div>
         </div>
 
-        <div className="relative rounded-xl border border-white/12 bg-white/7 p-5">
+        <div className="relative rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f2c94c]">Coming soon</p>
-              <h4 className="mt-2 text-xl font-semibold text-white">Personalised PDF + advisor direction</h4>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Coming soon</p>
+              <h4 className={`${serifClass} mt-2 text-xl font-medium text-white`}>Personalised PDF + advisor direction</h4>
             </div>
-            <div className="rounded-xl bg-[#d8ad1f] px-4 py-3 text-center text-[#061936]">
+            <div className="rounded-xl px-4 py-3 text-center" style={{ background: GOLD, color: NAVY }}>
               <p className="text-xs font-semibold uppercase">Secure</p>
               <p className="text-xl font-semibold">Gateway</p>
             </div>
@@ -1031,8 +1072,8 @@ function PremiumReportPanel({
 
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {included.map((item) => (
-              <div key={item} className="flex items-center gap-3 rounded-lg border border-white/10 bg-[#0b244d] p-3 text-sm font-semibold text-white/88">
-                <CheckCircle2 className="size-4 shrink-0 text-[#f2c94c]" />
+              <div key={item} className="flex items-center gap-3 rounded-lg border border-[#bfa15c]/30 bg-white/[0.04] p-3 text-sm font-semibold text-white/80">
+                <CheckCircle2 className="size-4 shrink-0 text-[#bfa15c]" />
                 {item}
               </div>
             ))}
@@ -1042,33 +1083,34 @@ function PremiumReportPanel({
             type="button"
             disabled
             aria-disabled="true"
-            className="mt-5 inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg bg-[#d8ad1f] px-4 py-3 text-sm font-semibold text-[#061936] opacity-75"
+            className="mt-5 inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold opacity-75"
+            style={{ background: GOLD, color: NAVY }}
           >
             Personalised report coming soon
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
-          <p className="mt-3 text-xs leading-5 text-white/58">
+          <p className="mt-3 text-xs leading-5 text-white/45">
             Secure payment setup is in progress. XIPHIAS will enable the personalised report flow after the gateway is connected.
           </p>
         </div>
       </div>
 
-      <div className="grid gap-px border-t border-white/10 bg-white/10 lg:grid-cols-5">
+      <div className="grid gap-px border-t border-[#bfa15c]/25 bg-white/10 lg:grid-cols-5">
         {["Assessment", "Evidence", "Route plan", "Advisor review", "PDF delivery"].map((step, index) => (
-          <div key={step} className="bg-[#061936] px-5 py-4">
-            <span className="grid size-8 place-items-center rounded-full border border-[#d8ad1f]/60 text-sm font-semibold text-[#f2c94c]">{index + 1}</span>
+          <div key={step} className="bg-[#0a1733] px-5 py-4">
+            <span className="grid size-8 place-items-center rounded-full border border-[#bfa15c]/60 text-sm font-semibold" style={{ color: GOLD }}>{index + 1}</span>
             <p className="mt-3 text-sm font-semibold text-white">{step}</p>
           </div>
         ))}
       </div>
 
-      <div className="grid gap-5 border-t border-white/10 p-5 sm:p-7 lg:grid-cols-2">
+      <div className="grid gap-5 border-t border-[#bfa15c]/25 p-5 sm:p-7 lg:grid-cols-2">
         {highSkillMode && (
-          <div className="rounded-xl border border-white/12 bg-white/7 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f2c94c]">Resume/profile signals</p>
+          <div className="rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Resume/profile signals</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {profileSignals.skills.map((skill) => (
-                <span key={skill} className="rounded-full bg-[#0b244d] px-3 py-1 text-xs font-semibold text-white/82 ring-1 ring-white/10">
+                <span key={skill} className="rounded-full border border-[#bfa15c]/30 bg-white/[0.04] px-3 py-1 text-xs font-semibold text-white/70">
                   {skill}
                 </span>
               ))}
@@ -1081,8 +1123,8 @@ function PremiumReportPanel({
         )}
 
         {!highSkillMode && (
-          <div className="rounded-xl border border-white/12 bg-white/7 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f2c94c]">Planning summary</p>
+          <div className="rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Planning summary</p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               <ReportStat label="Capital" value={routePlan.capital} />
               <ReportStat label="Family" value={routeInput.family ? "Included" : "Not selected"} />
@@ -1116,8 +1158,8 @@ function PremiumReportPanel({
 
 function ReportStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-white/7 p-3">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">{label}</p>
+    <div className="rounded-lg border border-[#bfa15c]/30 bg-white/[0.04] p-3">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">{label}</p>
       <p className="mt-1 text-sm font-semibold leading-5 text-white">{value}</p>
     </div>
   );
@@ -1133,17 +1175,17 @@ function ReportList({
   icon: ComponentType<{ className?: string }>;
 }) {
   return (
-    <div className="rounded-xl border border-white/12 bg-white/7 p-5">
+    <div className="rounded-xl border border-[#bfa15c]/30 bg-white/[0.03] p-5">
       <div className="flex items-center gap-3">
-        <span className="grid size-9 place-items-center rounded-lg bg-[#d8ad1f]/15 text-[#f2c94c]">
+        <span className="grid size-9 place-items-center rounded-lg border border-[#bfa15c]/45 bg-[#bfa15c]/15 text-[#bfa15c]">
           <Icon className="size-4" />
         </span>
         <p className="font-semibold text-white">{title}</p>
       </div>
       <ul className="mt-4 space-y-3">
         {items.map((item) => (
-          <li key={item} className="flex gap-3 text-sm leading-6 text-white/76">
-            <CheckCircle2 className="mt-1 size-4 shrink-0 text-[#f2c94c]" />
+          <li key={item} className="flex gap-3 text-sm leading-6 text-white/55">
+            <CheckCircle2 className="mt-1 size-4 shrink-0 text-[#bfa15c]" />
             <span>{item}</span>
           </li>
         ))}
@@ -1152,12 +1194,12 @@ function ReportList({
   );
 }
 
-function RouteShortlist({ matches }: { matches: ReturnType<typeof scoreProgrammeRoutes> }) {
+function RouteShortlist({ matches, serifClass }: { matches: ReturnType<typeof scoreProgrammeRoutes>; serifClass: string }) {
   return (
     <section className="mx-auto mt-6 max-w-screen-2xl px-0">
       <div className="mb-4 px-1">
-        <p className="text-xs font-semibold text-primary dark:text-blue-200">Matched routes</p>
-        <h2 className="mt-1 text-2xl font-semibold text-midnight_text dark:text-white">Recommended route directions</h2>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>Matched routes</p>
+        <h2 className={`${serifClass} mt-1 text-3xl font-medium text-white`}>Recommended route directions</h2>
       </div>
       <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
         {matches.map((match) => (
@@ -1166,10 +1208,10 @@ function RouteShortlist({ matches }: { matches: ReturnType<typeof scoreProgramme
             layout
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-cause-shadow transition hover:-translate-y-0.5 hover:border-primary dark:border-slate-800 dark:bg-darklight"
+            className="group flex h-full flex-col rounded-2xl border border-[#bfa15c]/25 bg-white/[0.03] p-5 transition hover:-translate-y-0.5 hover:border-[#bfa15c]/60"
           >
-            <ResultHeader title={match.title} country={match.country} label={match.track} score={match.fitScore} />
-            <p className="mt-4 min-h-16 text-sm leading-6 text-slate-600 dark:text-white/72">{match.summary}</p>
+            <ResultHeader title={match.title} country={match.country} label={match.track} score={match.fitScore} serifClass={serifClass} />
+            <p className="mt-4 min-h-16 text-sm leading-6 text-white/55">{match.summary}</p>
             <div className="mt-4 grid grid-cols-2 gap-3">
               <Metric icon={BadgeCheck} label="Capital" value={match.investmentLabel} />
               <Metric icon={BriefcaseBusiness} label="Timeline" value={match.timelineLabel} />
@@ -1186,18 +1228,20 @@ function RouteShortlist({ matches }: { matches: ReturnType<typeof scoreProgramme
 function HighSkillShortlist({
   matches,
   completion,
+  serifClass,
 }: {
   matches: ReturnType<typeof scoreHighSkillRoutes>;
   completion: number;
+  serifClass: string;
 }) {
   return (
     <section className="mx-auto mt-6 max-w-screen-2xl px-0">
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3 px-1">
         <div>
-          <p className="text-xs font-semibold text-primary dark:text-blue-200">High-skill shortlist</p>
-          <h2 className="mt-1 text-2xl font-semibold text-midnight_text dark:text-white">Recommended visa directions</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: GOLD }}>High-skill shortlist</p>
+          <h2 className={`${serifClass} mt-1 text-3xl font-medium text-white`}>Recommended visa directions</h2>
         </div>
-        <span className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 dark:border-white/10 dark:text-white/70">{completion}% profile depth</span>
+        <span className="rounded-full border border-[#bfa15c]/45 bg-[#bfa15c]/10 px-3 py-1 text-xs font-semibold text-[#bfa15c]">{completion}% profile depth</span>
       </div>
       <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
         {matches.map((match) => (
@@ -1206,10 +1250,10 @@ function HighSkillShortlist({
             layout
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="rounded-xl border border-slate-200 bg-white p-5 shadow-cause-shadow transition hover:-translate-y-0.5 hover:border-primary dark:border-slate-800 dark:bg-darklight"
+            className="group flex h-full flex-col rounded-2xl border border-[#bfa15c]/25 bg-white/[0.03] p-5 transition hover:-translate-y-0.5 hover:border-[#bfa15c]/60"
           >
-            <ResultHeader title={match.title} country={match.country} label={match.visaFamily} score={match.fitScore} />
-            <p className="mt-4 min-h-16 text-sm leading-6 text-slate-600 dark:text-white/72">{match.summary}</p>
+            <ResultHeader title={match.title} country={match.country} label={match.visaFamily} score={match.fitScore} serifClass={serifClass} />
+            <p className="mt-4 min-h-16 text-sm leading-6 text-white/55">{match.summary}</p>
             <div className="mt-4 grid grid-cols-2 gap-3">
               <Metric icon={ShieldCheck} label="Difficulty" value={match.difficulty.replace("-", " ")} />
               <Metric icon={BriefcaseBusiness} label="Timeline" value={match.timeline} />
@@ -1223,20 +1267,20 @@ function HighSkillShortlist({
   );
 }
 
-function ResultHeader({ title, country, label, score }: { title: string; country: string; label: string; score: number }) {
+function ResultHeader({ title, country, label, score, serifClass }: { title: string; country: string; label: string; score: number; serifClass: string }) {
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
-        <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-semibold text-primary dark:bg-white/10 dark:text-blue-200">
+        <span className="inline-flex rounded-full border border-[#bfa15c]/30 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold text-white/70">
           {label}
         </span>
-        <h3 className="mt-3 text-xl font-semibold leading-tight text-midnight_text dark:text-white">{title}</h3>
-        <div className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-slate-500 dark:text-white/65">
-          <MapPin className="size-4 text-[#1553af] dark:text-[#9fc3ff]" />
+        <h3 className={`${serifClass} mt-3 text-2xl font-medium leading-tight text-white`}>{title}</h3>
+        <div className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-white/55">
+          <MapPin className="size-4 text-[#bfa15c]" />
           {country}
         </div>
       </div>
-      <div className="rounded-lg bg-secondary px-3 py-2 text-center text-xl font-semibold text-midnight_text">
+      <div className="rounded-lg px-3 py-2 text-center text-xl font-semibold" style={{ background: GOLD, color: NAVY }}>
         {score}
         <div className="text-[10px] uppercase tracking-wide">fit</div>
       </div>
@@ -1246,10 +1290,10 @@ function ResultHeader({ title, country, label, score }: { title: string; country
 
 function Metric({ icon: Icon, label, value }: { icon: ComponentType<{ className?: string }>; label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-slate-50 p-3 dark:bg-white/[0.06]">
-      <Icon className="mb-2 size-4 text-[#1553af] dark:text-[#d8ad1f]" />
-      <div className="text-sm font-semibold text-midnight_text dark:text-white">{value}</div>
-      <div className="text-xs text-slate-500 dark:text-white/55">{label}</div>
+    <div className="rounded-lg border border-[#bfa15c]/30 bg-white/[0.03] p-3">
+      <Icon className="mb-2 size-4 text-[#bfa15c]" />
+      <div className="text-sm font-semibold text-white">{value}</div>
+      <div className="text-xs text-white/55">{label}</div>
     </div>
   );
 }
@@ -1258,14 +1302,14 @@ function ReasonList({ reasons, warnings }: { reasons: string[]; warnings: string
   return (
     <div className="mt-4 grid gap-2 text-sm">
       {reasons.slice(0, 3).map((reason) => (
-        <div key={reason} className="flex gap-2 text-slate-600 dark:text-white/75">
-          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-300" />
+        <div key={reason} className="flex gap-2 text-white/70">
+          <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-[#bfa15c]" />
           <span>{reason}</span>
         </div>
       ))}
       {warnings.slice(0, 2).map((warning) => (
-        <div key={warning} className="flex gap-2 text-amber-700 dark:text-amber-100">
-          <CircleAlert className="mt-0.5 size-4 shrink-0 text-[#d8ad1f]" />
+        <div key={warning} className="flex gap-2 text-white/55">
+          <CircleAlert className="mt-0.5 size-4 shrink-0 text-[#bfa15c]" />
           <span>{warning}</span>
         </div>
       ))}
@@ -1275,11 +1319,11 @@ function ReasonList({ reasons, warnings }: { reasons: string[]; warnings: string
 
 function ResultActions({ href }: { href: string }) {
   return (
-    <div className="mt-5 flex flex-wrap gap-2">
-      <Link href={href || "/contact"} className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-white transition hover:bg-blue-700">
+    <div className="mt-auto flex flex-wrap gap-2 pt-5">
+      <Link href={href || "/contact"} className="inline-flex h-11 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition hover:brightness-110" style={{ background: GOLD, color: NAVY }}>
         Open route <ArrowRight className="size-4" />
       </Link>
-      <Link href={BOOKING_ROUTE} className="inline-flex h-11 items-center justify-center rounded-lg border border-slate-200 px-4 text-sm font-semibold text-midnight_text transition hover:border-primary hover:bg-blue-50 dark:border-slate-700 dark:text-white dark:hover:bg-slate-900">
+      <Link href={BOOKING_ROUTE} className="inline-flex h-11 items-center justify-center rounded-lg border border-[#bfa15c]/40 px-4 text-sm font-semibold text-white transition hover:border-[#bfa15c]/70 hover:bg-white/[0.04]">
         Advisor review
       </Link>
     </div>

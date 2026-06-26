@@ -120,8 +120,9 @@ export default function MediaHero({
             </video>
           )
         ) : (
-          <div className="absolute inset-0 bg-slate-200 dark:bg-slateGray" />
+          <div className="absolute inset-0 bg-sand" />
         )}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </div>
 
       {/* DESKTOP overlay & CTAs (hidden on mobile) */}
@@ -138,8 +139,8 @@ export default function MediaHero({
                     "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
                   const styles =
                     a.variant === "ghost"
-                      ? "bg-white/20 text-white backdrop-blur ring-1 ring-inset ring-white/30 hover:bg-white/30"
-                      : "bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600 text-white shadow-lg";
+                      ? "bg-white/10 text-ink backdrop-blur ring-1 ring-inset ring-gold/30 hover:ring-gold/50 hover:text-gold"
+                      : "bg-gold text-midnight hover:bg-gold_bright shadow-lg";
                   return (
                     <Link
                       key={a.label}

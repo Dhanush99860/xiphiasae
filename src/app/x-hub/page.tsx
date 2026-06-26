@@ -180,7 +180,7 @@ export default async function XHubPage() {
                   ["Rule scoring", "Budget, country, family, timeline, risk"],
                   ["Human handoff", "Staff review before final advice"],
                 ].map(([label, value], index) => (
-                    <div key={label} className="rounded-lg border border-white/10 bg-white/[0.07] p-3">
+                    <div key={label} className="rounded-lg border border-gold/45 bg-white/[0.07] p-3">
                     <div className="flex items-center justify-between gap-3 text-sm font-semibold">
                       <span>{label}</span>
                       <span className="text-[#f4d36b]">0{index + 1}</span>

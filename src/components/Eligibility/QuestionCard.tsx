@@ -112,18 +112,18 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
       transition={reduceMotion ? undefined : SPRING}
       className={[
         "rounded-2xl",
-        "bg-white text-black dark:bg-black dark:text-white",
-        "ring-1 ring-black/10 dark:ring-white/10",
+        "bg-white text-ink",
+        "border border-gold/45",
         "p-4 sm:p-5 md:p-6",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
       ].join(" ")}
     >
       {/* Prompt */}
-      <h4 className="text-base sm:text-lg md:text-xl font-semibold leading-snug" id={fieldId}>
+      <h4 className="text-base sm:text-lg md:text-xl font-semibold leading-snug text-ink" id={fieldId}>
         {question.prompt}
       </h4>
       {question.helper && (
-        <p className="mt-1 text-sm text-black/70 dark:text-white/70" id={helperId}>
+        <p className="mt-1 text-sm text-ink/70" id={helperId}>
           {question.helper}
         </p>
       )}
@@ -175,7 +175,7 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
             <div
               role="radiogroup"
               aria-labelledby={fieldId}
-              className="inline-flex rounded-xl ring-1 ring-black/10 dark:ring-white/10 p-1 bg-black/5 dark:bg-white/10"
+              className="inline-flex rounded-xl border border-gold/45 p-1 bg-sand/60"
             >
               <Seg
                 isActive={local === true}
@@ -207,12 +207,11 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
                     type="button"
                     onClick={() => setLocal(o.value)}
                     className={[
-                      "w-full rounded-xl text-left p-3 sm:p-3.5 transition",
-                      "ring-1 ring-black/10 dark:ring-white/10",
+                      "w-full rounded-xl text-left p-3 sm:p-3.5 transition-colors",
                       active
-                        ? "bg-gradient-to-r from-blue-600 to-indigo-500 text-white"
-                        : "bg-white dark:bg-black hover:shadow-sm",
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500",
+                        ? "border border-gold bg-gold/10 text-ink"
+                        : "border border-gold/45 bg-sand/50 text-ink hover:border-gold/65",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
                     ].join(" ")}
                     role="radio"
                     aria-checked={active}
@@ -224,8 +223,8 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
                         className={[
                           "inline-flex h-4 w-4 items-center justify-center rounded-full ring-1",
                           active
-                            ? "bg-white/20 text-white ring-white/40"
-                            : "text-black/60 ring-black/15 dark:text-white/70 dark:ring-white/20",
+                            ? "bg-gold text-midnight ring-gold"
+                            : "text-ink/55 ring-gold/20",
                         ].join(" ")}
                         aria-hidden
                       >
@@ -287,7 +286,7 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
           <button
             type="button"
             onClick={onBackAction}
-            className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs ring-1 ring-black/10 hover:ring-black/20 dark:ring-white/15 dark:hover:ring-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+            className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-ink/70 border border-gold/45 hover:border-gold/65 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
               <path
@@ -314,12 +313,11 @@ export function QuestionCard({ question, value, onSubmitAction, onBackAction }: 
           disabled={disabled || submitting}
           className={[
             "inline-flex items-center gap-2 rounded-lg px-4 py-2.5",
-            "bg-gradient-to-r from-blue-600 to-indigo-500 text-white",
-            "ring-1 ring-blue-700/20 enabled:hover:from-blue-700 enabled:hover:to-indigo-600",
-            "enabled:active:from-blue-800 enabled:active:to-indigo-700",
+            "bg-gold text-midnight font-semibold",
+            "enabled:hover:bg-gold_bright enabled:active:bg-gold_deep",
             "disabled:opacity-50 disabled:cursor-not-allowed",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
-            "transition",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
+            "transition-colors",
           ].join(" ")}
         >
           {submitting ? (
@@ -356,7 +354,7 @@ function Field({
 }) {
   return (
     <label className="block" htmlFor={htmlFor}>
-      <span className="text-xs font-medium">{label}</span>
+      <span className="text-xs font-medium text-ink/70">{label}</span>
       <div className="mt-1">{children}</div>
     </label>
   );
@@ -364,7 +362,7 @@ function Field({
 
 function Hint({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
-    <p id={id} className="mt-1 text-xs text-red-600" aria-live="polite">
+    <p id={id} className="mt-1 text-xs text-error" aria-live="polite">
       {children}
     </p>
   );
@@ -373,8 +371,9 @@ function Hint({ children, id }: { children: React.ReactNode; id?: string }) {
 function inputCls() {
   return [
     "w-full rounded-lg px-3 py-2.5",
-    "bg-white text-black placeholder-black/40",
-    "ring-1 ring-black/10 focus:ring-2 focus:ring-indigo-500 focus:outline-none",
+    "bg-white text-ink placeholder-pearl/40",
+    "border border-gold/45 focus:border-gold focus:ring-1 focus:ring-gold focus:outline-none",
+    "[color-scheme:dark]",
   ].join(" ");
 }
 
@@ -393,10 +392,10 @@ const Seg = React.forwardRef<
       type="button"
       onClick={onClick}
       className={[
-        "min-w-[72px] rounded-lg px-3 py-2 text-sm font-medium transition",
+        "min-w-[72px] rounded-lg px-3 py-2 text-sm font-medium transition-colors",
         isActive
-          ? "bg-white text-black shadow-sm ring-1 ring-black/10"
-          : "text-black/70 hover:text-black dark:text-white/80 dark:hover:text-white",
+          ? "bg-gold text-midnight"
+          : "text-ink/70 hover:text-ink",
       ].join(" ")}
       aria-pressed={isActive}
       {...ariaProps}

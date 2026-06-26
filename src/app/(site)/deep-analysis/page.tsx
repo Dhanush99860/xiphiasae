@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 
 import XiaIntelligenceClient from "@/components/XiaIntelligence/XiaIntelligenceClient";
 import { getXiaIntelligenceData } from "@/lib/xia-intelligence";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Deep Analysis",
@@ -20,6 +28,7 @@ export default function DeepAnalysisPage() {
       lockedEngine
       title="Deep Analysis"
       subtitle="A deeper profile review using skills, education, experience, CV notes, and evidence markers before XIPHIAS advisor verification."
+      serifClass={serif.className}
     />
   );
 }

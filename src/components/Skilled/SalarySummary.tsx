@@ -13,9 +13,9 @@ export default function SalarySummary({
 }) {
   const amount = program.minSalary ?? program.minInvestment;
   return (
-    <div className={["rounded-xl p-3 bg-black/5 dark:bg-white/10 ring-1 ring-neutral-200 dark:ring-neutral-700", className].join(" ")}>
-      <div className="text-sm opacity-70">{label}</div>
-      <div className="mt-0.5 text-base font-semibold tabular-nums">
+    <div className={["rounded-xl p-3 bg-sand/50 border border-gold/45", className].join(" ")}>
+      <div className="text-[10px] uppercase tracking-[0.14em] text-ink/40">{label}</div>
+      <div className="mt-0.5 text-base font-semibold tabular-nums text-gold">
         {formatMoney(amount, program.currency)}
       </div>
     </div>

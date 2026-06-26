@@ -48,8 +48,7 @@ export default function TrustBar({
   return (
     <T
       className={[
-        "rounded-3xl bg-white ring-1 ring-blue-100/80",
-        "dark:bg-white/5 dark:ring-blue-900/30",
+        "rounded-3xl bg-white border border-gold/45",
         pad,
         className,
       ].join(" ")}
@@ -60,16 +59,16 @@ export default function TrustBar({
         {items.map((it) => (
           <li
             key={it.label}
-            className="min-w-[12rem] snap-start rounded-2xl bg-white/80 px-4 py-3 ring-1 ring-blue-100/70 backdrop-blur dark:bg-white/5 dark:ring-blue-900/40"
+            className="min-w-[12rem] snap-start rounded-2xl bg-sand/50 px-4 py-3 border border-gold/45 backdrop-blur"
           >
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-6 w-6 items-center justify-center text-blue-600 dark:text-blue-300">
+              <span className="inline-flex h-6 w-6 items-center justify-center text-gold">
                 {it.icon ?? <Dot />}
               </span>
               <div>
-                <div className="text-sm font-semibold leading-tight">{it.label}</div>
+                <div className="text-sm font-semibold leading-tight text-ink">{it.label}</div>
                 {it.sub ? (
-                  <div className="text-xs text-black/70 dark:text-white/70">{it.sub}</div>
+                  <div className="text-xs text-ink/55">{it.sub}</div>
                 ) : null}
               </div>
             </div>
@@ -81,13 +80,13 @@ export default function TrustBar({
       <ul className="hidden grid-cols-2 gap-3 sm:grid md:grid-cols-4">
         {items.map((it) => (
           <li key={it.label} className="flex items-center gap-3">
-            <span className="inline-flex h-6 w-6 items-center justify-center text-blue-600 dark:text-blue-300">
+            <span className="inline-flex h-6 w-6 items-center justify-center text-gold">
               {it.icon ?? <Dot />}
             </span>
             <div>
-              <div className="text-sm font-semibold leading-tight">{it.label}</div>
+              <div className="text-sm font-semibold leading-tight text-ink">{it.label}</div>
               {it.sub ? (
-                <div className="text-xs text-black/70 dark:text-white/70">{it.sub}</div>
+                <div className="text-xs text-ink/55">{it.sub}</div>
               ) : null}
             </div>
           </li>

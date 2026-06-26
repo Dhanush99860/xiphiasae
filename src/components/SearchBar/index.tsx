@@ -22,12 +22,12 @@
 //         value={q}
 //         onChange={(e) => onChange(e.target.value)}
 //         placeholder="Search programs, countries, blog, news..."
-//         className="w-full rounded-2xl border p-3 outline-none"
+//         className="w-full rounded-2xl border border-gold/45 bg-white p-3 text-ink placeholder:text-ink/40 outline-none focus:border-gold"
 //       />
 //       {open && results.length > 0 && (
-//         <div className="absolute mt-2 w-full rounded-2xl border bg-white shadow-lg z-50 max-h-96 overflow-auto">
+//         <div className="absolute mt-2 w-full rounded-2xl border border-gold/45 bg-white shadow-lg z-50 max-h-96 overflow-auto">
 //           {results.map((r, i) => (
-//             <Link key={i} href={r.url} className="block p-3 hover:bg-gray-50">
+//             <Link key={i} href={r.url} className="block p-3 text-ink hover:bg-white/[0.03]">
 //               <div className="text-[11px] uppercase tracking-wide opacity-60">{r.kind}</div>
 //               <div className="font-medium">{r.title}</div>
 //               {r.summary && <div className="text-sm opacity-80 line-clamp-2">{r.summary}</div>}

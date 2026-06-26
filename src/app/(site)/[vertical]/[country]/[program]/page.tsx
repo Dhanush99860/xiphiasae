@@ -12,9 +12,15 @@ import type { Metadata } from "next";
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ use helper
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Cormorant_Garamond } from "next/font/google";
+
+import { ProgramShell, type ProgramShellData } from "@/components/Vertical/CatchAllHubs";
+import { countryImage } from "@/components/Countries/country-image";
 
 import fs from "node:fs/promises";
 import path from "node:path";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
 
 export const runtime = "nodejs"; // ensure Node.js runtime on Vercel
 
@@ -159,60 +165,85 @@ export default async function ProgramPage({
     { name: doc.title, url: doc.url },
   ]);
 
+  const capVertical = doc.vertical.charAt(0).toUpperCase() + doc.vertical.slice(1);
+
+  const shellData: ProgramShellData = {
+    verticalSlug: doc.vertical,
+    vertical: capVertical,
+    country: doc.country,
+    countryLabel: doc.country.replace(/-/g, " "),
+    title: doc.title,
+    summary: doc.summary,
+    brochure: doc.brochure,
+    heroImage: doc.heroImage ?? countryImage(doc.country),
+  };
+
+  const relatedRail = (
+    <ul className="divide-y" style={{ borderColor: "rgba(12,31,63,0.1)" }}>
+      {related.map((it) => (
+        <li key={it.url} className="border-t first:border-t-0" style={{ borderColor: "rgba(12,31,63,0.1)" }}>
+          <Link
+            className="group flex items-center justify-between gap-3 py-3 text-sm text-[#0c1f3f]/70 transition-colors duration-200 hover:text-[#bfa15c]"
+            href={it.url}
+          >
+            <span>{it.title}</span>
+            <span aria-hidden className="text-[#0c1f3f]/30 transition-colors group-hover:text-[#bfa15c]">
+              →
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <main className="mx-auto max-w-6xl p-6 grid lg:grid-cols-[2fr_1fr] gap-8">
+    <>
       <JsonLd data={breadcrumbJsonLd} />
-
-      <article className="space-y-6">
-        <header className="space-y-3">
-          <h1 className="text-3xl font-semibold">{doc.title}</h1>
-          {doc.summary && <p className="opacity-80">{doc.summary}</p>}
-        </header>
-
+      <ProgramShell d={shellData} serifClass={serif.className} related={relatedRail}>
+        {/* Long-form body uses the already-themed Prose styling */}
         <div className="prose max-w-none">{content}</div>
 
         {doc.brochure && (
           <a
-            className="inline-block rounded-xl border px-4 py-2 hover:bg-gray-50"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300"
+            style={{ borderColor: "rgba(191,161,92,0.5)", color: "#a87d1f" }}
             href={doc.brochure}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Download brochure
+            Download brochure ↓
           </a>
         )}
 
         {doc.faq?.length ? (
-          <section className="mt-8">
-            <h2 className="text-xl font-semibold">FAQ</h2>
-            <ul className="mt-3 space-y-3">
+          <section className="mt-12">
+            <h2 className="text-2xl font-semibold tracking-tight text-[#0c1f3f]">FAQ</h2>
+            <ul className="mt-5 space-y-3">
               {doc.faq.map((f, i) => (
                 <li key={i}>
-                  <details>
-                    <summary className="font-medium">{f.q}</summary>
-                    <div className="opacity-80 mt-1">{f.a}</div>
+                  <details className="group rounded-lg border bg-white/60" style={{ borderColor: "rgba(12,31,63,0.14)" }}>
+                    <summary className="cursor-pointer list-none px-5 py-4 font-medium text-[#0c1f3f] marker:content-none [&::-webkit-details-marker]:hidden">
+                      <span className="flex items-center justify-between gap-4">
+                        {f.q}
+                        <span
+                          aria-hidden
+                          className="transition-transform duration-300 group-open:rotate-45"
+                          style={{ color: "#bfa15c" }}
+                        >
+                          +
+                        </span>
+                      </span>
+                    </summary>
+                    <div className="border-t px-5 py-4 text-sm leading-relaxed text-[#0c1f3f]/65" style={{ borderColor: "rgba(12,31,63,0.1)" }}>
+                      {f.a}
+                    </div>
                   </details>
                 </li>
               ))}
             </ul>
           </section>
         ) : null}
-      </article>
-
-      <aside className="space-y-4">
-        <div className="rounded-2xl border p-4">
-          <h3 className="font-semibold mb-3">Related</h3>
-          <ul className="space-y-2">
-            {related.map((it) => (
-              <li key={it.url}>
-                <Link className="hover:underline" href={it.url}>
-                  {it.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
-    </main>
+      </ProgramShell>
+    </>
   );
 }

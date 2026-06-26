@@ -44,19 +44,19 @@ const BIO: string =
 
 const HIGHLIGHTS: Highlight[] = [
   {
-    icon: <Award className="w-5 h-5 text-primary relative z-10" />,
+    icon: <Award className="w-5 h-5 text-gold relative z-10" />,
     text: <>17+ years of experience & IMC-certified leadership</>,
   },
   {
-    icon: <Globe className="w-5 h-5 text-primary relative z-10" />,
+    icon: <Globe className="w-5 h-5 text-gold relative z-10" />,
     text: <>Customised advice on investments and corporate migration</>,
   },
   {
-    icon: <Sparkles className="w-5 h-5 text-primary relative z-10" />,
+    icon: <Sparkles className="w-5 h-5 text-gold relative z-10" />,
     text: <>Solutions for family migration, residency, and international mobility</>,
   },
   {
-    icon: <ShieldCheck className="w-5 h-5 text-primary relative z-10" />,
+    icon: <ShieldCheck className="w-5 h-5 text-gold relative z-10" />,
     text: <>Global regulatory edge and client-centric excellence</>,
   },
 ];
@@ -89,7 +89,12 @@ const CREDENTIAL_LOGOS: CredentialLogo[] = [
 
 /* ----------------------------- Component ----------------------------- */
 
-export default function Expert() {
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const NAVY = "#0a1733";
+const INK = "#0c1f3f";
+
+export default function Expert({ serifClass = "" }: { serifClass?: string }) {
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
 
   // Respect reduced motion (no autoplay even if you add it later)
@@ -106,71 +111,68 @@ export default function Expert() {
     <div className="mx-auto max-w-screen-2xl px-4 py-5">
       <section
         className={[
-          "relative w-full py-12 sm:py-16",
-          "bg-gradient-to-br from-slate-50 via-white to-slate-100",
-          "dark:from-slate-950 dark:via-slate-900 dark:to-slate-950",
+          "relative w-full py-16 sm:py-24",
           "overflow-hidden",
         ].join(" ")}
+        style={{ background: "#fbfaf7", color: INK }}
         aria-labelledby="expert-title"
       >
-        {/* Background accents */}
+        {/* Background accents — gold guiding glow */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -right-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-          <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-blue-400/10 blur-3xl" />
-          <div
-            className="absolute inset-0 opacity-[0.08] dark:opacity-[0.12]"
-            style={{
-              backgroundImage:
-                "radial-gradient(#64748b 1px, transparent 1px), radial-gradient(#64748b 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-              backgroundPosition: "0 0,14px 14px",
-            }}
-          />
+          <div className="absolute -top-24 -right-20 h-72 w-72 rounded-full blur-3xl" style={{ background: "rgba(191,161,92,0.10)" }} />
+          <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full blur-3xl" style={{ background: "rgba(191,161,92,0.06)" }} />
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-12">
             {/* LEFT: Content */}
             <div className="space-y-6 text-center md:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/70 px-3 py-1 text-xs text-slate-600 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-300">
-                <ShieldCheck className="h-4 w-4" />
+              <div
+                className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs uppercase tracking-[0.2em] backdrop-blur"
+                style={{ border: "1px solid rgba(168,125,31,0.4)", color: "rgba(12,31,63,0.7)" }}
+              >
+                <ShieldCheck className="h-4 w-4" style={{ color: GOLD_DEEP }} />
                 Trusted advisor
               </div>
 
               <div>
                 <h2
                   id="expert-title"
-                  className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl dark:text-slate-100"
+                  className={`${serifClass} text-[clamp(1.8rem,4vw,3rem)] font-medium leading-[1.05]`}
+                  style={{ color: INK }}
                 >
                   Meet{" "}
-                  <span className="bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">
+                  <span className="italic" style={{ color: GOLD_DEEP }}>
                     {NAME}
                   </span>
                 </h2>
-                <p className="mt-1 text-sm font-medium text-slate-700/90 dark:text-slate-300/90">
+                <p className="mt-2 text-sm font-medium" style={{ color: "rgba(12,31,63,0.7)" }}>
                   {ROLE}
                 </p>
               </div>
 
-              <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 md:mx-0">
+              <p className="mx-auto max-w-2xl text-base leading-relaxed md:mx-0" style={{ color: "rgba(12,31,63,0.6)" }}>
                 {BIO}
               </p>
 
               {/* Highlights */}
-              <h3 className="pt-1 text-lg font-semibold text-slate-800 dark:text-slate-200 sm:text-xl">
+              <h3 className={`${serifClass} pt-1 text-xl font-medium sm:text-2xl`} style={{ color: INK }}>
                 Focus &amp; impact
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 {HIGHLIGHTS.map((item: Highlight, i: number) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm transition hover:shadow-md dark:border-slate-700 dark:bg-slate-800/80"
+                    className="flex items-start gap-3 rounded-xl bg-white p-4 transition"
+                    style={{ border: "1px solid rgba(168,125,31,0.22)" }}
                   >
-                    <div className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-primary/20 bg-primary/10 shadow-inner dark:bg-primary/20">
-                      <span className="absolute inset-0 rounded-full bg-gradient-to-br from-white/60 to-transparent opacity-70" />
+                    <div
+                      className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full"
+                      style={{ border: "1px solid rgba(191,161,92,0.4)", background: "rgba(191,161,92,0.1)" }}
+                    >
                       {item.icon}
                     </div>
-                    <p className="text-[15px] leading-relaxed text-slate-700 dark:text-slate-200 sm:text-base">
+                    <p className="text-[15px] leading-relaxed sm:text-base" style={{ color: "rgba(12,31,63,0.7)" }}>
                       {item.text}
                     </p>
                   </div>
@@ -192,7 +194,7 @@ export default function Expert() {
 
               {/* Credential logos */}
               <div className="pt-1">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(12,31,63,0.45)" }}>
                   Verified memberships
                 </p>
                 <div className="mt-3 flex flex-wrap items-center justify-center gap-3 md:justify-start">
@@ -202,7 +204,8 @@ export default function Expert() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white/80 px-3 py-2 shadow-sm transition hover:border-primary/40 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 dark:border-slate-700 dark:bg-slate-800/70"
+                      className="group inline-flex items-center gap-2 rounded-xl bg-white px-3 py-2 transition focus:outline-none focus-visible:ring-2"
+                      style={{ border: "1px solid rgba(168,125,31,0.28)" }}
                       aria-label={`${item.name} (opens in a new tab)`}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -215,20 +218,21 @@ export default function Expert() {
                         loading="lazy"
                         decoding="async"
                       />
-                      <span className="text-xs font-medium text-slate-700 dark:text-slate-200">
+                      <span className="text-xs font-medium" style={{ color: "rgba(12,31,63,0.7)" }}>
                         {item.name}
                       </span>
-                      <ExternalLink className="h-3.5 w-3.5 text-slate-400 transition group-hover:text-primary" />
+                      <ExternalLink className="h-3.5 w-3.5 transition" style={{ color: "rgba(12,31,63,0.45)" }} />
                     </a>
                   ))}
                 </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row md:items-start">
+              <div className="flex flex-col items-center gap-3 pt-3 sm:flex-row md:items-start">
                 <Link
                   href={BOOKING_PAID_ROUTE}
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-primary px-5 py-3 font-semibold text-white shadow-lg transition hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/80 focus-visible:ring-offset-2"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.12em] transition-transform hover:-translate-y-0.5"
+                  style={{ background: GOLD, color: NAVY }}
                   aria-label="Reserve your consultation"
                 >
                   <Calendar className="h-5 w-5" />
@@ -236,7 +240,8 @@ export default function Expert() {
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white/70 px-5 py-3 text-slate-800 transition hover:bg-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 dark:border-slate-700 dark:bg-white/10 dark:text-slate-100 dark:hover:bg-white/15"
+                  className="inline-flex items-center justify-center rounded-full px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.12em] transition"
+                  style={{ border: "1px solid rgba(168,125,31,0.4)", color: INK }}
                 >
                   About XIPHIAS
                 </Link>
@@ -246,16 +251,18 @@ export default function Expert() {
             {/* RIGHT: Media (portrait if no video; landscape if video) */}
             <div
               className={[
-                "relative order-first overflow-hidden rounded-3xl border border-slate-200 shadow-2xl",
-                "bg-slate-100 dark:border-slate-700 dark:bg-slate-800",
+                "relative order-first overflow-hidden rounded-3xl shadow-2xl",
+                "bg-white",
                 HAS_VIDEO ? "aspect-[16/9]" : "aspect-[4/5]",
                 "md:order-none",
               ].join(" ")}
+              style={{ border: "1px solid rgba(168,125,31,0.3)" }}
             >
               {/* gloss */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/40 via-white/10 to-transparent"
+                className="pointer-events-none absolute inset-0 rounded-3xl"
+                style={{ background: "linear-gradient(to top right, rgba(191,161,92,0.15), transparent 60%)" }}
               />
               {HAS_VIDEO ? (
                 <video
@@ -279,8 +286,11 @@ export default function Expert() {
               )}
 
               {/* badge */}
-              <div className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs text-slate-700 shadow dark:bg-slate-900/80 dark:text-slate-200">
-                <ShieldCheck className="h-4 w-4 text-primary" />
+              <div
+                className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs shadow backdrop-blur"
+                style={{ border: "1px solid rgba(168,125,31,0.4)", background: "rgba(251,250,247,0.85)", color: "rgba(12,31,63,0.7)" }}
+              >
+                <ShieldCheck className="h-4 w-4" style={{ color: GOLD_DEEP }} />
                 Verified expert
               </div>
             </div>

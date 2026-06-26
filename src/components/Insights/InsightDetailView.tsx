@@ -122,7 +122,7 @@ export default async function InsightDetailView({
           className={[
             // minimal surface; no loud highlight
             "relative w-full rounded-xl",
-            "border border-black/5 dark:border-white/10",
+            "border border-black/5 dark:border-gold/45",
             "bg-transparent dark:bg-transparent",
             // padding tuned for small screens; airy but not tall
             "px-3 py-2 sm:px-4 sm:py-2.5 lg:px-5",
@@ -369,7 +369,7 @@ function MetaBox({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-black/10 dark:border-white/10 p-4 bg-white/80 dark:bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-black/60">
+    <div className="rounded-2xl border border-black/10 dark:border-gold/45 p-4 bg-white/80 dark:bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 supports-[backdrop-filter]:dark:bg-black/60">
       <div className="mb-2 text-sm font-semibold text-black dark:text-white">
         {title}
       </div>

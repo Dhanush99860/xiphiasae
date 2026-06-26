@@ -148,8 +148,7 @@ export default function CostCalculator({
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-5 md:p-6 lg:p-8",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm print:shadow-none",
+        "bg-white border border-gold/45 print:shadow-none",
         className,
       ].join(" ")}
     >
@@ -157,15 +156,15 @@ export default function CostCalculator({
 
       {/* Header */}
       <header className="relative mb-4 md:mb-5">
-        <div className="flex items-center gap-2 text-[12px] text-blue-700 dark:text-blue-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-          <span className="font-medium">Calculator</span>
+        <div className="flex items-center gap-2 text-[12px] text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+          <span className="font-medium uppercase tracking-[0.2em]">Calculator</span>
         </div>
 
         <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
           <h3
             id="cc-title"
-            className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+            className="font-sora text-xl md:text-2xl font-semibold tracking-tight text-ink"
           >
             {title}
           </h3>
@@ -175,15 +174,15 @@ export default function CostCalculator({
               type="button"
               onClick={reset}
               className="rounded-lg px-2.5 py-1.5 text-[13px] font-medium
-                         bg-neutral-100 text-neutral-800 ring-1 ring-neutral-200
-                         hover:bg-neutral-200/70 dark:bg-neutral-800 dark:text-neutral-200 dark:ring-neutral-700"
+                         bg-sand/50 text-ink/70 border border-gold/45
+                         hover:border-gold/65 hover:text-ink"
             >
               Reset
             </button>
           </div>
         </div>
 
-        <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-300 max-w-3xl">
+        <p className="mt-2 text-sm text-ink/55 max-w-3xl">
           {disclaimer}
         </p>
 
@@ -198,7 +197,7 @@ export default function CostCalculator({
         <section aria-labelledby="cc-base" className="relative">
           <h4
             id="cc-base"
-            className="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+            className="text-sm font-semibold text-ink"
           >
             Choose a base option
           </h4>
@@ -210,27 +209,26 @@ export default function CostCalculator({
                   key={b.id}
                   className={[
                     "flex items-center justify-between gap-3 rounded-xl p-3 cursor-pointer",
-                    "bg-white dark:bg-neutral-900",
-                    "ring-1 ring-neutral-200 dark:ring-neutral-800",
+                    "bg-sand/50 border",
                     checked
-                      ? "outline outline-2 outline-blue-400/70"
-                      : "hover:bg-neutral-50 dark:hover:bg-neutral-800/50",
+                      ? "border-gold/60"
+                      : "border-gold/45 hover:border-gold/65",
                   ].join(" ")}
                 >
                   <span className="flex items-center gap-2">
                     <input
                       type="radio"
                       name="cc-base-option"
-                      className="h-4 w-4 accent-blue-600"
+                      className="h-4 w-4 accent-gold"
                       checked={checked}
                       onChange={() => setSelectedBase(b.id)}
                       aria-label={b.label}
                     />
-                    <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                    <span className="text-sm font-medium text-ink">
                       {b.label}
                     </span>
                   </span>
-                  <span className="text-sm tabular-nums text-neutral-900 dark:text-neutral-100">
+                  <span className="text-sm tabular-nums text-gold">
                     {fmt(b.amount)}
                   </span>
                 </label>
@@ -244,7 +242,7 @@ export default function CostCalculator({
       <section aria-labelledby="cc-family" className="relative mt-5">
         <h4
           id="cc-family"
-          className="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+          className="text-sm font-semibold text-ink"
         >
           Family size
         </h4>
@@ -275,9 +273,9 @@ export default function CostCalculator({
           <div className="flex items-center justify-between">
             <h4
               id="cc-addons"
-              className="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+              className="text-sm font-semibold text-ink"
             >
-              Government & due-diligence fees
+              Government &amp; due-diligence fees
             </h4>
             <button
               type="button"
@@ -286,7 +284,7 @@ export default function CostCalculator({
                   Object.fromEntries(Object.keys(s).map((k) => [k, false])),
                 )
               }
-              className="text-[12px] underline underline-offset-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100"
+              className="text-[12px] underline underline-offset-2 text-ink/55 hover:text-ink"
             >
               Clear all
             </button>
@@ -305,12 +303,12 @@ export default function CostCalculator({
                 <li
                   key={a.id}
                   className="grid grid-cols-[auto_1fr_auto] items-center gap-2 rounded-xl p-3
-                             bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800"
+                             bg-sand/50 border border-gold/45"
                 >
                   <input
                     id={`cc-addon-${a.id}`}
                     type="checkbox"
-                    className="h-4 w-4 accent-blue-600"
+                    className="h-4 w-4 accent-gold"
                     checked={!!enabled[a.id]}
                     onChange={(e) =>
                       setEnabled((s) => ({ ...s, [a.id]: e.target.checked }))
@@ -321,13 +319,13 @@ export default function CostCalculator({
                   />
                   <label
                     htmlFor={`cc-addon-${a.id}`}
-                    className="text-sm text-neutral-900 dark:text-neutral-100"
+                    className="text-sm text-ink"
                   >
                     {a.label}{" "}
                     {a.per ? (
                       <span
                         id={`cc-addon-per-${a.id}`}
-                        className="text-neutral-500 dark:text-neutral-400"
+                        className="text-ink/40"
                       >
                         · per {a.per}
                       </span>
@@ -335,12 +333,12 @@ export default function CostCalculator({
                   </label>
 
                   <div className="text-right">
-                    <div className="text-sm tabular-nums text-neutral-900 dark:text-neutral-100">
+                    <div className="text-sm tabular-nums text-ink">
                       {fmt(a.amount)}
                     </div>
-                    <div className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                    <div className="text-[11px] text-ink/40">
                       {qty} × {fmt(a.amount)} ={" "}
-                      <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                      <span className="font-medium text-gold">
                         {fmt(lineTotal)}
                       </span>
                     </div>
@@ -356,44 +354,41 @@ export default function CostCalculator({
       <section aria-labelledby="cc-summary" className="relative mt-6">
         <h4
           id="cc-summary"
-          className="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+          className="text-sm font-semibold text-ink"
         >
           Summary
         </h4>
 
-        <div className="mt-3 rounded-2xl ring-1 ring-neutral-200 dark:ring-neutral-800 bg-white dark:bg-neutral-900 overflow-hidden">
+        <div className="mt-3 rounded-2xl border border-gold/45 bg-sand/50 overflow-hidden">
           {/* table-like list for clarity & printability */}
-          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
-            {rows.map((r, i) => (
+          <div className="divide-y divide-gold/5">
+            {rows.map((r) => (
               <div
                 key={r.id}
-                className={[
-                  "grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3",
-                  i % 2 ? "bg-neutral-50/60 dark:bg-neutral-900/40" : "",
-                ].join(" ")}
+                className="grid grid-cols-[1fr_auto_auto] items-center gap-3 px-4 py-3 hover:bg-white/[0.03]"
                 itemScope
                 itemType="https://schema.org/PriceSpecification"
               >
                 <meta itemProp="name" content={r.label} />
                 <div className="min-w-0">
                   <div
-                    className="text-sm text-neutral-900 dark:text-neutral-100 truncate"
+                    className="text-sm text-ink truncate"
                     title={r.label}
                   >
                     {r.label}
                   </div>
-                  <div className="text-[11px] text-neutral-500 dark:text-neutral-400">
+                  <div className="text-[11px] text-ink/40">
                     {r.per ? `per ${r.per}` : "fixed"} • Qty {r.qty}
                   </div>
                 </div>
                 <div
-                  className="text-sm tabular-nums text-neutral-700 dark:text-neutral-300"
+                  className="text-sm tabular-nums text-ink/55"
                   itemProp="price"
                 >
                   {fmt(r.unit)}
                 </div>
                 <div
-                  className="text-sm font-semibold tabular-nums text-neutral-900 dark:text-neutral-100"
+                  className="text-sm font-semibold tabular-nums text-ink"
                   itemProp="eligibleQuantity"
                 >
                   {fmt(r.total)}
@@ -403,11 +398,11 @@ export default function CostCalculator({
           </div>
 
           {/* Sticky total bar for mobile */}
-          <div className="sticky bottom-0 flex items-center justify-between gap-3 px-4 py-3 bg-blue-50/80 backdrop-blur dark:bg-blue-950/40 ring-t-1 ring-blue-100/80 dark:ring-blue-900/50">
-            <div className="text-[12px] font-medium text-blue-900 dark:text-blue-100">
+          <div className="sticky bottom-0 flex items-center justify-between gap-3 px-4 py-3 bg-white/90 backdrop-blur border-t border-gold/45">
+            <div className="text-[12px] font-medium uppercase tracking-[0.14em] text-ink/45">
               Estimated total
             </div>
-            <div className="text-lg font-semibold tabular-nums text-blue-900 dark:text-blue-100">
+            <div className="text-lg font-semibold tabular-nums text-gold">
               {fmt(total)}
             </div>
           </div>
@@ -444,8 +439,8 @@ function Stepper({
   ariaLabelIncrement: string;
 }) {
   return (
-    <div className="rounded-xl ring-1 ring-neutral-200 dark:ring-neutral-800 p-3 bg-white dark:bg-neutral-900">
-      <div className="text-xs text-neutral-600 dark:text-neutral-300">
+    <div className="rounded-xl border border-gold/45 p-3 bg-sand/50">
+      <div className="text-xs text-ink/55">
         {label}
       </div>
       <div className="mt-2 flex items-center gap-2">
@@ -453,13 +448,13 @@ function Stepper({
           type="button"
           aria-label={ariaLabelDecrement}
           onClick={() => setValue(Math.max(min, value - 1))}
-          className="h-8 w-8 rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700 grid place-items-center hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          className="h-8 w-8 rounded-md border border-gold/45 text-ink grid place-items-center hover:border-gold/65"
         >
           <MinusIcon className="h-4 w-4" />
         </button>
         <input
           type="number"
-          className="w-14 text-center rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700 bg-white dark:bg-neutral-900 py-1 tabular-nums"
+          className="w-14 text-center rounded-md border border-gold/45 bg-white text-ink py-1 tabular-nums focus:outline-none focus:border-gold"
           value={value}
           min={min}
           onChange={(e) => {
@@ -472,7 +467,7 @@ function Stepper({
           type="button"
           aria-label={ariaLabelIncrement}
           onClick={() => setValue(value + 1)}
-          className="h-8 w-8 rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700 grid place-items-center hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          className="h-8 w-8 rounded-md border border-gold/45 text-ink grid place-items-center hover:border-gold/65"
         >
           <PlusIcon className="h-4 w-4" />
         </button>
@@ -531,9 +526,9 @@ function BackgroundGraphics() {
       aria-hidden
       className="pointer-events-none absolute inset-0 print:hidden"
     >
-      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-300/15 blur-3xl" />
-      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-neutral-400/10 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]">
+      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.04]">
         <defs>
           <pattern
             id="cc-grid"
@@ -544,7 +539,7 @@ function BackgroundGraphics() {
             <path
               d="M24 0H0v24"
               fill="none"
-              stroke="#111827"
+              stroke="#d4af37"
               strokeWidth="0.75"
             />
           </pattern>

@@ -43,12 +43,12 @@ export default function RelatedCompare({
     >
       <header className="mb-4 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center rounded-md bg-blue-600/10 px-2 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300">
+          <span className="inline-flex items-center rounded-md border border-gold/45 bg-sand/50 px-2 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
             Related
           </span>
           <h2
             id={`${sectionId}-title`}
-            className="text-xl font-semibold tracking-tight"
+            className="font-sora text-xl font-semibold tracking-tight text-ink"
           >
             {title}
           </h2>
@@ -79,10 +79,10 @@ export default function RelatedCompare({
                 aria-label={`${r.title} — ${r.country}. Minimum ${price}. Timeline ${time}.`}
                 className={[
                   "block overflow-hidden rounded-2xl",
-                  "bg-white dark:bg-neutral-900",
-                  "ring-1 ring-neutral-200/90 dark:ring-neutral-800/90",
-                  "shadow-sm hover:shadow-lg transition hover:-translate-y-0.5 motion-reduce:transform-none",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70",
+                  "bg-white border border-gold/45",
+                  "transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/65 motion-reduce:transform-none",
+                  "hover:shadow-[0_18px_50px_-20px_rgba(15,23,42,0.08)]",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70",
                 ].join(" ")}
               >
                 {/* ✅ Microdata: Service (NO Product) */}
@@ -147,18 +147,19 @@ export default function RelatedCompare({
                         }}
                       />
                     ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700 grid place-items-center">
-                        <span className="text-xs text-neutral-700/80 dark:text-neutral-200/80">
+                      <div className="h-full w-full bg-sand grid place-items-center">
+                        <span className="text-xs text-ink/40">
                           {r.country}
                         </span>
                       </div>
                     )}
 
                     {/* subtle overlays */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                    <div className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-md bg-white/85 px-2 py-1 text-[11px] font-medium text-neutral-900 ring-1 ring-neutral-200 backdrop-blur dark:bg-neutral-900/70 dark:text-neutral-100 dark:ring-neutral-700">
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+                    <div className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-md bg-sand/50 px-2 py-1 text-[11px] font-medium text-ink/70 border border-gold/45 backdrop-blur">
                       <span
-                        className="h-1.5 w-1.5 rounded-full bg-blue-600"
+                        className="h-1.5 w-1.5 rounded-full bg-gold"
                         aria-hidden
                       />
                       {r.country}
@@ -169,10 +170,10 @@ export default function RelatedCompare({
                   <div className="p-4 sm:p-5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <h3 className="text-base font-semibold leading-6 text-neutral-900 dark:text-neutral-100 line-clamp-2">
+                        <h3 className="font-sora text-base font-semibold leading-6 text-ink line-clamp-2">
                           {r.title}
                         </h3>
-                        <p className="mt-0.5 text-xs text-neutral-600 dark:text-neutral-400">
+                        <p className="mt-0.5 text-xs text-ink/55">
                           {r.country}
                         </p>
                       </div>
@@ -183,11 +184,10 @@ export default function RelatedCompare({
                             <span
                               key={t}
                               className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                                         bg-white text-neutral-900 ring-1 ring-neutral-200
-                                         dark:bg-neutral-900 dark:text-neutral-100 dark:ring-neutral-700"
+                                         border border-gold/45 bg-sand/50 text-ink/70"
                             >
                               <span
-                                className="h-1.5 w-1.5 rounded-full bg-blue-600"
+                                className="h-1.5 w-1.5 rounded-full bg-gold"
                                 aria-hidden
                               />
                               {t}
@@ -199,19 +199,19 @@ export default function RelatedCompare({
 
                     {/* Metrics */}
                     <div className="mt-3 grid grid-cols-2 gap-2 text-[13px]">
-                      <div className="rounded-xl p-2 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
-                        <div className="font-medium tabular-nums text-neutral-900 dark:text-neutral-100">
+                      <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+                        <div className="font-semibold tabular-nums text-gold">
                           {price}
                         </div>
-                        <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+                        <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                           Minimum investment
                         </div>
                       </div>
-                      <div className="rounded-xl p-2 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
-                        <div className="font-medium text-neutral-900 dark:text-neutral-100">
+                      <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+                        <div className="font-semibold text-ink">
                           {time}
                         </div>
-                        <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+                        <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                           Timeline
                         </div>
                       </div>
@@ -224,11 +224,10 @@ export default function RelatedCompare({
                           <span
                             key={`m-${t}`}
                             className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                                       bg-white text-neutral-900 ring-1 ring-neutral-200
-                                       dark:bg-neutral-900 dark:text-neutral-100 dark:ring-neutral-700"
+                                       border border-gold/45 bg-sand/50 text-ink/70"
                           >
                             <span
-                              className="h-1.5 w-1.5 rounded-full bg-blue-600"
+                              className="h-1.5 w-1.5 rounded-full bg-gold"
                               aria-hidden
                             />
                             {t}

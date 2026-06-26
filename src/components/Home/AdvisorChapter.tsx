@@ -114,7 +114,7 @@ export default function AdvisorChapter() {
                 { v: "50+", l: "Countries" },
                 { v: "98%", l: "Success" },
               ].map((s) => (
-                <div key={s.l} className="rounded-2xl border border-white/10 bg-white/[0.04] py-4">
+                <div key={s.l} className="rounded-2xl border border-gold/45 bg-white/[0.04] py-4">
                   <p className="text-2xl font-black text-secondary">{s.v}</p>
                   <p className="mt-0.5 text-[11px] uppercase tracking-wide text-white/55">{s.l}</p>
                 </div>

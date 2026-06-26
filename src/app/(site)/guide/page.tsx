@@ -1,12 +1,14 @@
 // src/app/(site)/guide/page.tsx
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { Cormorant_Garamond } from "next/font/google";
 import { headerMenu } from "@/components/Layout/Header/Navigation/menu.data";
-import Breadcrumb from "@/components/Common/Breadcrumb";
-import GuideCatalog from "@/components/guid/GuideCatalog";
-import GuideSidebar, { SitemapGroup } from "@/components/guid/GuideSidebar";
+import GuideView from "@/components/guid/GuideView";
+import { SitemapGroup } from "@/components/guid/GuideSidebar";
 import { getBrochureUrl } from "@/components/guid/brochures";
 import { extraLinkGroups } from "@/components/guid/extraLinks";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
 
 // ---------- Types ----------
 export type ProgramItem = {
@@ -225,49 +227,16 @@ export default async function GuidePage() {
   const absoluteBase = `${proto}://${host}`;
 
   return (
-    <main id="main" className="mx-auto w-full max-w-screen-2xl px-3 md:px-6 py-6">
-      <div className="mt-3">
-        <Breadcrumb />
-      </div>
-
-      {/* SEO intro (H1 + supporting paragraph) */}
-      <header className="mt-4">
-        <h1 className="text-2xl md:text-3xl font-semibold text-black dark:text-white">
-          Programs Resource Guide: Residency, Citizenship, Corporate & Skilled
-        </h1>
-        <p className="mt-2 max-w-3xl text-black dark:text-white">
-          Browse every <strong>Residency by Investment</strong>, <strong>Citizenship by Investment</strong>,
-          <strong> Corporate formation</strong>, and <strong>Skilled migration</strong> program we support. Use search and filters,
-          compare routes, download brochures, and run an <strong>eligibility check</strong> before you apply.
-        </p>
-      </header>
-
-      {/* 12-col grid, sticky sitemap on the left (desktop) */}
-      <div className="mt-5 grid grid-cols-12 gap-4">
-        {/* Sidebar / Sitemap */}
-        <aside className="col-span-12 lg:col-span-4">
-          <GuideSidebar
-            eligibilityHref="/eligibility"
-            residencyEligibilityHref="/residency/eligibility-check"
-            corporateEligibilityHref="/corporate/eligibility-check"
-            sitemap={sitemap}
-            extraGroups={extraLinkGroups}
-          />
-        </aside>
-
-        {/* Catalog */}
-        <section id="catalog" className="col-span-12 lg:col-span-8">
-          <GuideCatalog
-            items={items}
-            residencyEligibilityHref="/residency/eligibility-check"
-            corporateEligibilityHref="/corporate/eligibility-check"
-            eligibilityHref="/eligibility"
-          />
-        </section>
-      </div>
+    <>
+      <GuideView
+        items={items}
+        sitemap={sitemap}
+        extraGroups={extraLinkGroups}
+        serifClass={serif.className}
+      />
 
       {/* JSON-LD blocks */}
       <JsonLd items={items} absoluteBase={absoluteBase} />
-    </main>
+    </>
   );
 }

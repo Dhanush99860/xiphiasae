@@ -58,12 +58,12 @@ function fmt(v: Value): React.ReactNode {
 
 function CardSkeleton() {
   return (
-    <div className="relative overflow-hidden rounded-xl ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-900/60 p-4">
+    <div className="relative overflow-hidden rounded-xl border border-gold/45 bg-sand/50 p-4">
       <div className="flex items-start gap-3">
-        <div className="h-10 w-10 rounded-lg bg-black/5 dark:bg-white/10 animate-pulse" />
+        <div className="h-10 w-10 rounded-lg bg-white/[0.06] animate-pulse" />
         <div className="min-w-0 flex-1">
-          <div className="h-3 w-24 rounded bg-black/10 dark:bg-white/10" />
-          <div className="mt-2 h-4 w-40 rounded bg-black/10 dark:bg-white/10" />
+          <div className="h-3 w-24 rounded bg-white/[0.08]" />
+          <div className="mt-2 h-4 w-40 rounded bg-white/[0.08]" />
         </div>
       </div>
     </div>
@@ -124,24 +124,25 @@ export default function CompanySnapshot({
   return (
     <section
       className={[
-        "rounded-2xl ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 p-5",
+        "rounded-2xl border border-gold/45 bg-white p-5 font-sora",
         className || "",
       ].join(" ")}
       aria-labelledby="company-snapshot-title"
     >
       <header className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <h2 id="company-snapshot-title" className="text-lg font-semibold">
+          <h2 id="company-snapshot-title" className="text-lg font-semibold text-ink">
             Company snapshot
           </h2>
-          {caption ? <p className="mt-1 text-sm opacity-80">{caption}</p> : null}
+          {caption ? <p className="mt-1 text-sm text-ink/55">{caption}</p> : null}
           {!!highlights?.length && (
             <div className="mt-2 flex flex-wrap gap-1.5">
               {highlights.slice(0, 8).map((h) => (
                 <span
                   key={h}
-                  className="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] ring-1 ring-neutral-200 dark:ring-neutral-700"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-[11px] text-ink/70"
                 >
+                  <span aria-hidden className="h-1 w-1 rounded-full bg-gold" />
                   {h}
                 </span>
               ))}
@@ -160,19 +161,19 @@ export default function CompanySnapshot({
           : items.map(({ label, value, Icon }) => (
               <article
                 key={label}
-                className="relative overflow-hidden rounded-xl ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-900/60 p-4"
+                className="group relative overflow-hidden rounded-xl border border-gold/45 bg-sand/50 p-4 transition-colors hover:border-gold/65"
                 aria-label={label}
                 title={typeof value === "string" ? value : undefined}
               >
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10">
-                    <Icon className="h-5 w-5 opacity-80" aria-hidden="true" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gold/45 bg-white text-gold">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[11px] uppercase tracking-wide opacity-70">
+                    <div className="text-[11px] uppercase tracking-wide text-ink/40">
                       {label}
                     </div>
-                    <div className="mt-0.5 text-[15px] font-medium leading-6 break-words">
+                    <div className="mt-0.5 text-[15px] font-medium leading-6 break-words text-ink">
                       {fmt(value)}
                     </div>
                   </div>

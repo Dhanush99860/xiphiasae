@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { getProgrammeExplorerData } from "@/lib/programme-explorer";
 import { toCostProgram } from "@/lib/cost-estimator";
 import ProgramIndexClient from "@/components/ProgramIndex/ProgramIndexClient";
 import type { ProgramIndexItem } from "@/lib/program-index";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "XIPHIAS Program Index — XIA Intelligence",
@@ -22,5 +30,5 @@ export default function XiphiasProgramIndexPage() {
     family: it.family,
     risk: it.risk,
   }));
-  return <ProgramIndexClient programs={programs} />;
+  return <ProgramIndexClient programs={programs} serifClass={serif.className} />;
 }

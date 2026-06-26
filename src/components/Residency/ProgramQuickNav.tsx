@@ -172,10 +172,10 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
         className="
           hidden md:block sticky top-[var(--header-h)] z-40
           backdrop-blur
-          border-b border-white/20 dark:border-black/20
-          bg-white/65 dark:bg-neutral-900/65
-          supports-[backdrop-filter]:bg-white/45 supports-[backdrop-filter]:dark:bg-neutral-900/45
-          shadow-[0_10px_30px_-20px_rgba(0,0,0,0.35)]
+          border-b border-gold/45
+          bg-white/85
+          supports-[backdrop-filter]:bg-white/70
+          shadow-[0_10px_30px_-20px_rgba(15,23,42,0.08)]
         "
       >
         <div className="relative">
@@ -184,8 +184,7 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
             aria-hidden
             className="
               pointer-events-none absolute inset-0
-              bg-[radial-gradient(120%_60%_at_20%_-20%,rgba(255,255,255,0.45),transparent_60%),radial-gradient(120%_60%_at_80%_-30%,rgba(255,255,255,0.25),transparent_55%)]
-              dark:bg-[radial-gradient(120%_60%_at_20%_-20%,rgba(255,255,255,0.08),transparent_60%),radial-gradient(120%_60%_at_80%_-30%,rgba(255,255,255,0.06),transparent_55%)]
+              bg-[radial-gradient(120%_60%_at_20%_-20%,rgba(212,175,55,0.08),transparent_60%),radial-gradient(120%_60%_at_80%_-30%,rgba(212,175,55,0.05),transparent_55%)]
             "
           />
           <div className="container mx-auto">
@@ -206,20 +205,20 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
                     aria-current={isActive ? "page" : undefined}
                     className={[
                       "relative inline-flex items-center pb-3 pt-3 text-[15px] font-medium",
-                      "text-black/70 hover:text-black dark:text-white/75 dark:hover:text-white",
-                      isActive ? "text-black dark:text-white" : "",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded",
+                      "text-ink/55 hover:text-ink",
+                      isActive ? "text-gold" : "",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded",
                     ].join(" ")}
                   >
                     {s.label}
                     <span
                       aria-hidden
                       className={[
-                        "pointer-events-none absolute bottom-0 left-0 right-0 h-[3px] origin-left rounded-full",
+                        "pointer-events-none absolute bottom-0 left-0 right-0 h-[2px] origin-left rounded-full",
                         "transition-transform duration-300 ease-out",
                         isActive ? "scale-x-100" : "scale-x-0",
-                        "bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400",
-                        "shadow-[0_0_12px_rgba(56,189,248,0.45)]",
+                        "bg-gradient-to-r from-transparent via-gold to-transparent",
+                        "shadow-[0_0_12px_rgba(212,175,55,0.4)]",
                       ].join(" ")}
                     />
                   </a>
@@ -230,13 +229,13 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
 
           {/* thin animated progress at very bottom (based on active index) */}
           <div className="relative h-[2px]">
-            <div className="absolute inset-0 bg-black/5 dark:bg-white/10" />
+            <div className="absolute inset-0 bg-pearl/10" />
             <div
               className="
                 absolute inset-y-0 left-0
-                bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400
+                bg-gradient-to-r from-gold_deep via-gold to-gold_bright
                 transition-[width] duration-300 ease-out
-                shadow-[0_0_8px_rgba(56,189,248,0.45)]
+                shadow-[0_0_8px_rgba(212,175,55,0.4)]
               "
               style={{ width: `${progressPct}%` }}
               aria-hidden
@@ -252,10 +251,10 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
         className="
           md:hidden fixed z-50
           bottom-0 left-0 right-0 w-full
-          border-t border-white/30 dark:border-black/30
-          bg-white/65 dark:bg-neutral-900/65 backdrop-blur
-          supports-[backdrop-filter]:bg-white/45 supports-[backdrop-filter]:dark:bg-neutral-900/45
-          shadow-[0_-10px_30px_-20px_rgba(0,0,0,0.45)]
+          border-t border-gold/45
+          bg-white/85 backdrop-blur
+          supports-[backdrop-filter]:bg-white/70
+          shadow-[0_-10px_30px_-20px_rgba(15,23,42,0.08)]
           pb-[env(safe-area-inset-bottom)]
         "
       >
@@ -265,8 +264,7 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
             aria-hidden
             className="
               pointer-events-none absolute inset-0
-              bg-[radial-gradient(130%_80%_at_50%_-40%,rgba(255,255,255,0.35),transparent_50%)]
-              dark:bg-[radial-gradient(130%_80%_at_50%_-40%,rgba(255,255,255,0.07),transparent_50%)]
+              bg-[radial-gradient(130%_80%_at_50%_-40%,rgba(212,175,55,0.06),transparent_50%)]
             "
           />
           <div className="container mx-auto">
@@ -287,9 +285,9 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
                     aria-current={isActive ? "page" : undefined}
                     className={[
                       "relative inline-flex items-center pb-2 pt-1 text-[12px] font-medium",
-                      "text-black/80 hover:text-black dark:text-white/80 dark:hover:text-white",
-                      isActive ? "text-black dark:text-white" : "",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded",
+                      "text-ink/55 hover:text-ink",
+                      isActive ? "text-gold" : "",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded",
                     ].join(" ")}
                   >
                     {s.label}
@@ -299,8 +297,8 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
                         "pointer-events-none absolute -bottom-0.5 left-0 right-0 h-[2px] origin-left rounded-full",
                         "transition-transform duration-300 ease-out",
                         isActive ? "scale-x-100" : "scale-x-0",
-                        "bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400",
-                        "shadow-[0_0_10px_rgba(56,189,248,0.45)]",
+                        "bg-gradient-to-r from-transparent via-gold to-transparent",
+                        "shadow-[0_0_10px_rgba(212,175,55,0.4)]",
                       ].join(" ")}
                     />
                   </a>
@@ -311,13 +309,13 @@ export default function ProgramQuickNav({ sections }: { sections: Section[] }) {
 
           {/* mobile progress bar */}
           <div className="relative h-[2px]">
-            <div className="absolute inset-0 bg-black/5 dark:bg-white/10" />
+            <div className="absolute inset-0 bg-pearl/10" />
             <div
               className="
                 absolute inset-y-0 left-0
-                bg-gradient-to-r from-fuchsia-500 via-sky-400 to-emerald-400
+                bg-gradient-to-r from-gold_deep via-gold to-gold_bright
                 transition-[width] duration-300 ease-out
-                shadow-[0_0_8px_rgba(56,189,248,0.45)]
+                shadow-[0_0_8px_rgba(212,175,55,0.4)]
               "
               style={{ width: `${progressPct}%` }}
               aria-hidden

@@ -10,8 +10,10 @@ import {
   PassportMiniCard,
   PassportSourceNote,
   scoreWidth,
+  serifClass,
 } from "@/components/PassportIndex/PassportIndexShared";
 import PassportCountryShowcase from "@/components/PassportIndex/PassportCountryShowcase";
+import Flag from "@/components/Countries/Flag";
 import { passportIndexStats, passportRecords } from "@/data/passport-index";
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
@@ -89,57 +91,60 @@ export default async function PassportProfilePage({ params }: PageProps) {
       >
         <section className="mx-auto grid max-w-screen-2xl gap-6 px-4 py-10 md:px-6 lg:grid-cols-[1fr_460px]">
           <div className="grid gap-5">
-            <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <section className="rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div>
-                  <p className="text-sm font-black uppercase tracking-[0.16em] text-[#1c57b4]">{record.code}</p>
-                  <h2 className="mt-2 text-4xl font-black text-[#071a3a] dark:text-white">{record.country}</h2>
-                  <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600 dark:text-slate-300">{record.xiphiasLens}</p>
+                <div className="flex items-start gap-4">
+                  <Flag code={record.code} size={52} />
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#bfa15c]">{record.code}</p>
+                    <h2 className={`${serifClass} mt-2 text-4xl font-medium text-white`}>{record.country}</h2>
+                    <p className="mt-3 max-w-3xl text-sm leading-7 text-white/60">{record.xiphiasLens}</p>
+                  </div>
                 </div>
-                <span className={`w-fit rounded-full border px-3 py-1 text-sm font-black ${bandClass(record.band)}`}>
+                <span className={`w-fit rounded-full border px-3 py-1 text-sm font-semibold ${bandClass(record.band)}`}>
                   {record.band}
                 </span>
               </div>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-md border border-slate-200 p-4 dark:border-slate-800">
-                  <p className="text-sm text-slate-500">Global rank</p>
-                  <p className="mt-1 text-3xl font-black text-[#071a3a] dark:text-white">{record.rank}</p>
+                <div className="rounded-xl border border-white/12 bg-white/[0.04] p-4">
+                  <p className="text-sm text-white/45">Global rank</p>
+                  <p className="mt-1 text-3xl font-semibold text-white">{record.rank}</p>
                 </div>
-                <div className="rounded-md border border-slate-200 p-4 dark:border-slate-800">
-                  <p className="text-sm text-slate-500">Visa-free score</p>
-                  <p className="mt-1 text-3xl font-black text-[#1c57b4]">{record.score}</p>
+                <div className="rounded-xl border border-white/12 bg-white/[0.04] p-4">
+                  <p className="text-sm text-white/45">Visa-free score</p>
+                  <p className="mt-1 text-3xl font-semibold text-[#bfa15c]">{record.score}</p>
                 </div>
-                <div className="rounded-md border border-slate-200 p-4 dark:border-slate-800">
-                  <p className="text-sm text-slate-500">Movement</p>
-                  <p className="mt-1 text-lg font-black text-[#071a3a] dark:text-white">{record.movement}</p>
+                <div className="rounded-xl border border-white/12 bg-white/[0.04] p-4">
+                  <p className="text-sm text-white/45">Movement</p>
+                  <p className="mt-1 text-lg font-semibold text-white">{record.movement}</p>
                 </div>
               </div>
 
               <div className="mt-6">
-                <div className="flex items-center justify-between text-sm font-bold">
+                <div className="flex items-center justify-between text-sm font-medium text-white/70">
                   <span>Score against current top score</span>
                   <span>{record.score} / {passportIndexStats.topScore}</span>
                 </div>
-                <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
-                  <div className="h-full rounded-full bg-[#e1b923]" style={{ width: scoreWidth(record.score, passportIndexStats.topScore) }} />
+                <div className="mt-2 h-3 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-[#bfa15c]" style={{ width: scoreWidth(record.score, passportIndexStats.topScore) }} />
                 </div>
               </div>
             </section>
 
-            <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <section className="rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
               <div className="flex gap-3">
-                <MapPinned className="mt-1 size-6 shrink-0 text-[#1c57b4]" />
+                <MapPinned className="mt-1 size-6 shrink-0 text-[#bfa15c]" />
                 <div>
-                  <h2 className="text-2xl font-black text-[#071a3a] dark:text-white">XIPHIAS interpretation</h2>
-                  <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{record.advisoryNote}</p>
+                  <h2 className={`${serifClass} text-2xl font-medium text-white`}>XIPHIAS interpretation</h2>
+                  <p className="mt-2 text-sm leading-7 text-white/60">{record.advisoryNote}</p>
                 </div>
               </div>
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 {["Travel access", "Family objective", "Compliance fit"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded-md border border-slate-200 p-3 dark:border-slate-800">
-                    <CheckCircle2 className="size-4 shrink-0 text-[#0f6b47]" />
-                    <span className="text-sm font-black text-[#071a3a] dark:text-white">{item}</span>
+                  <div key={item} className="flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] p-3">
+                    <CheckCircle2 className="size-4 shrink-0 text-[#bfa15c]" />
+                    <span className="text-sm font-semibold text-white">{item}</span>
                   </div>
                 ))}
               </div>
@@ -147,8 +152,8 @@ export default async function PassportProfilePage({ params }: PageProps) {
 
             <section>
               <div className="mb-4">
-                <p className="text-sm font-black uppercase tracking-[0.16em] text-[#1c57b4]">Higher access examples</p>
-                <h2 className="mt-2 text-2xl font-black text-[#071a3a] dark:text-white">Compare possible target benchmarks</h2>
+                <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#bfa15c]">Higher access examples</p>
+                <h2 className={`${serifClass} mt-2 text-2xl font-medium text-white`}>Compare possible target benchmarks</h2>
               </div>
               <div className="grid gap-4 md:grid-cols-3">
                 {strongerOptions.map((item) => (
@@ -162,12 +167,12 @@ export default async function PassportProfilePage({ params }: PageProps) {
             <div className="group">
               <PassportBookVisual featured={record} />
             </div>
-            <div className="rounded-lg border border-[#e1b923]/45 bg-[#071a3a] p-5 text-white shadow-sm">
+            <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5 text-white shadow-xl shadow-black/30 backdrop-blur-sm">
               <div className="flex gap-3">
-                <ShieldCheck className="mt-1 size-6 shrink-0 text-[#f6d86d]" />
+                <ShieldCheck className="mt-1 size-6 shrink-0 text-[#bfa15c]" />
                 <div>
-                  <h2 className="text-xl font-black">Next XIPHIAS action</h2>
-                  <p className="mt-2 text-sm leading-6 text-white/78">
+                  <h2 className={`${serifClass} text-xl font-medium text-white`}>Next XIPHIAS action</h2>
+                  <p className="mt-2 text-sm leading-6 text-white/60">
                     Review the available route links below, then move serious interest to eligibility or advisor review.
                   </p>
                 </div>
@@ -177,7 +182,7 @@ export default async function PassportProfilePage({ params }: PageProps) {
                   <Link
                     key={pathway.href}
                     href={pathway.href}
-                    className="inline-flex items-center justify-between rounded-md border border-white/15 bg-white/10 px-4 py-3 text-sm font-black text-white transition hover:bg-white/15"
+                    className="inline-flex items-center justify-between rounded-lg border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-semibold text-white transition hover:border-[#bfa15c]/55 hover:bg-white/[0.06]"
                   >
                     {pathway.label}
                     <ArrowRight className="size-4" />
@@ -185,7 +190,7 @@ export default async function PassportProfilePage({ params }: PageProps) {
                 ))}
                 <Link
                   href="/personal-booking"
-                  className="inline-flex items-center justify-between rounded-md bg-[#e1b923] px-4 py-3 text-sm font-black text-[#071a3a] transition hover:bg-[#f0cb3b]"
+                  className="inline-flex items-center justify-between rounded-lg bg-[#bfa15c] px-4 py-3 text-sm font-semibold text-[#0c1f3f] transition hover:bg-[#d8bd78]"
                 >
                   Speak to advisor
                   <ArrowRight className="size-4" />

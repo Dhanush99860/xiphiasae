@@ -17,7 +17,7 @@ const ITEMS = [
 /** Continuously scrolling trust/credential strip beneath the hero. */
 export default function TrustMarquee() {
   return (
-    <section className="border-y border-border bg-white py-4 dark:border-white/10 dark:bg-darkmode">
+    <section className="border-y border-border bg-white py-4 dark:border-gold/45 dark:bg-darkmode">
       <Marquee duration={38}>
         {ITEMS.map(({ icon: Icon, label }) => (
           <span

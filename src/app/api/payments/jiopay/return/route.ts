@@ -5,7 +5,7 @@ import {
   isJiopaySuccess,
   jiopayResponseCode,
   jiopayStatusLabel,
-  publicJiopayPayload,
+  auditJiopayPayload,
   verifyJiopaySecureHash,
 } from "@/lib/payments/jiopay";
 import { getJiopayOrder, updateJiopayOrder } from "@/lib/payments/jiopay-store";
@@ -74,7 +74,7 @@ async function handleReturn(req: NextRequest) {
       {
         type: "browser_return",
         at: new Date().toISOString(),
-        data: publicJiopayPayload(payload),
+        data: { receivedPayload: auditJiopayPayload(payload) },
       },
     );
 

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 // src/lib/citizenship-content.ts
 import "server-only";
 import fs from "node:fs";
@@ -143,6 +144,12 @@ export type ProgramSections = Record<string, ReactNode>;
  * Constants & tiny utils
  * =======================*/
 const ROOT = path.join(process.cwd(), "content", "citizenship");
+
+// Missing content file → 404 (not an ENOENT 500).
+function readContentFileOr404(file: string): string {
+  if (!fs.existsSync(file)) notFound();
+  return fs.readFileSync(file, "utf8");
+}
 const DEFAULT_PROJECT_IMAGE = "/images/citizenship/grenada/harborview-suites-share-units.webp";
 
 const exists = (p: string) => {
@@ -551,7 +558,7 @@ export function getCitizenshipPrograms(countrySlug?: string): ProgramMeta[] {
   for (const c of countries) {
     for (const p of getCitizenshipProgramSlugs(c)) {
       const f = path.join(ROOT, c, `${p}.mdx`);
-      const raw = fs.readFileSync(f, "utf8");
+      const raw = readContentFileOr404(f);
       const { data } = matter(raw);
       const meta = normalizeProgram(data as Partial<ProgramMeta>, c, p);
       if (!meta?.draft) out.push(meta);
@@ -575,7 +582,7 @@ export function getCitizenshipPrograms(countrySlug?: string): ProgramMeta[] {
  * =======================*/
 export async function loadCountryPage(countrySlug: string) {
   const f = path.join(ROOT, countrySlug, "_country.mdx");
-  const raw = fs.readFileSync(f, "utf8");
+  const raw = readContentFileOr404(f);
   const { data, content } = matter(raw);
 
   const meta = normalizeCountry(data as Partial<CountryMeta>, countrySlug);
@@ -595,7 +602,7 @@ export async function loadProgramPage(
   programSlug: string,
 ) {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const raw = fs.readFileSync(f, "utf8");
+  const raw = readContentFileOr404(f);
   const { data, content } = matter(raw);
 
   const meta = normalizeProgram(
@@ -620,7 +627,7 @@ export async function loadProgramPageSections(
   programSlug: string,
 ): Promise<{ meta: ProgramMeta; sections: ProgramSections }> {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const raw = fs.readFileSync(f, "utf8");
+  const raw = readContentFileOr404(f);
   const { data, content: bodyRaw } = matter(raw);
 
   const meta = normalizeProgram(
@@ -658,7 +665,7 @@ export function getProgramFrontmatter(
   programSlug: string,
 ) {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const { data } = matter(fs.readFileSync(f, "utf8"));
+  const { data } = matter(readContentFileOr404(f));
   return normalizeProgram(
     data as Partial<ProgramMeta>,
     countrySlug,
@@ -668,7 +675,7 @@ export function getProgramFrontmatter(
 
 export function getCountryFrontmatter(countrySlug: string) {
   const f = path.join(ROOT, countrySlug, "_country.mdx");
-  const { data } = matter(fs.readFileSync(f, "utf8"));
+  const { data } = matter(readContentFileOr404(f));
   return normalizeCountry(data as Partial<CountryMeta>, countrySlug);
 }
 

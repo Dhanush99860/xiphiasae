@@ -74,24 +74,15 @@ function uniq<T>(arr: T[]) {
 const ThemeVars = () => (
   <style jsx global>{`
     :root {
-      --c-bg: #ffffff;
-      --c-text: #0a0a0a;
-      --c-card: #ffffff;
-      --c-border: rgba(10, 10, 10, 0.14);
-      --c-primary: #0f172a;
-      --c-secondary: #2563eb;
-      --c-invert: #ffffff;
-      --c-input-bg: #ffffff;
-    }
-    .dark {
-      --c-bg: #000000;
-      --c-text: #ffffff;
-      --c-card: #0b0b0b;
-      --c-border: rgba(255, 255, 255, 0.22);
-      --c-primary: #ffffff;
-      --c-secondary: #60a5fa;
-      --c-invert: #000000;
-      --c-input-bg: #0b0b0b;
+      /* Midnight Embassy — dark ground, ONE gold accent */
+      --c-bg: transparent;
+      --c-text: #f4f0e6; /* pearl */
+      --c-card: #0a0e1a; /* ink */
+      --c-border: rgba(244, 240, 230, 0.1); /* pearl/10 */
+      --c-primary: #d4af37; /* gold */
+      --c-secondary: #d4af37; /* gold (focus ring) */
+      --c-invert: #050810; /* midnight */
+      --c-input-bg: rgba(5, 8, 16, 0.6); /* midnight/60 */
     }
   `}</style>
 );
@@ -209,30 +200,32 @@ function FeatureList({
     const noun = isN ? nounFromCategory(raw.category) : "Residency";
 
     return (
-      <article className="flex rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] text-[var(--c-text)]">
-        <Link href={href2} className="relative block w-1/3 min-h-[120px] overflow-hidden rounded-l-2xl">
+      <article className="group flex h-full overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/65 motion-reduce:transform-none">
+        <Link href={href2} className="relative block w-1/3 min-h-[120px] overflow-hidden rounded-l-2xl bg-sand">
           <Image
             src={normalizeImageSrc(img, `/images/${slug}.jpg`)}
             alt={`${ctry} image`}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
             sizes="(max-width: 768px) 40vw, 33vw"
             loading="lazy"
             unoptimized
           />
+          <div aria-hidden className="pointer-events-none absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-gold/40 to-transparent" />
         </Link>
-        <div className="flex-1 p-4">
-          <h3 className="text-base font-semibold leading-tight">
-            <Link href={href2} className="hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--c-secondary)] rounded">
+        <div className="flex flex-1 flex-col p-4">
+          <h3 className="font-sora text-base font-semibold leading-tight text-ink">
+            <Link href={href2} className="rounded hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold">
               {ctry}
             </Link>
           </h3>
-          <p className="mt-1 text-sm leading-6 line-clamp-2">
+          <p className="mt-1 text-sm leading-6 text-ink/55 line-clamp-2">
             {truncateWords(sum || `${noun} pathways in ${ctry}.`, 22)}
           </p>
-          <div className="pt-3 mt-2 border-t border-[var(--c-border)]">
-            <Link href={href2} className="inline-flex items-center text-sm font-bold tracking-wide">
-              <span>Explore</span><span className="ml-1">→</span>
+          <div className="mt-auto pt-3 border-t border-gold/45">
+            <Link href={href2} className="group/cta inline-flex items-center text-sm font-bold tracking-wide text-gold">
+              <span>Explore</span>
+              <span className="ml-1 inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
             </Link>
           </div>
         </div>
@@ -254,14 +247,14 @@ function FeatureList({
       <li key={`${slug}-${i}`}>
         <Link
           href={href2}
-          className="group flex items-center gap-3 rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-3 hover:ring-2 hover:ring-[var(--c-secondary)] transition"
+          className="group flex items-center gap-3 rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-3 transition-all duration-300 hover:border-gold/65"
         >
-          <div className="relative w-20 h-14 rounded-md overflow-hidden flex-none">
+          <div className="relative w-20 h-14 rounded-md overflow-hidden flex-none bg-sand">
             <Image
               src={normalizeImageSrc(img, `/images/${slug}.jpg`)}
               alt={`${ctry} image`}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               sizes="80px"
               loading="lazy"
               unoptimized
@@ -269,10 +262,10 @@ function FeatureList({
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold truncate">{ctry}</h3>
-              <span className="text-base opacity-0 group-hover:opacity-100 transition">→</span>
+              <h3 className="font-sora text-sm font-semibold truncate text-ink">{ctry}</h3>
+              <span className="text-base text-gold opacity-0 transition group-hover:opacity-100">→</span>
             </div>
-            <p className="mt-0.5 text-xs leading-5 line-clamp-2">
+            <p className="mt-0.5 text-xs leading-5 text-ink/55 line-clamp-2">
               {truncateWords(sum || `${noun} pathways in ${ctry}.`, 18)}
             </p>
           </div>
@@ -304,23 +297,25 @@ function FeatureList({
   return (
     <div className="py-8 lg:max-w-screen-2xl bg-[var(--c-bg)] text-[var(--c-text)]">
       {/* Header */}
-      <div className="relative mb-6 overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-4 sm:p-5 md:p-6 shadow-sm ring-1 ring-black/[0.03] dark:ring-white/10">
-        {/* soft background accents (clipped inside) */}
+      <div className="relative mb-6 overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-4 sm:p-5 md:p-6">
+        {/* soft background accents (clipped inside) — gold underglow */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-20 -left-24 h-56 w-56 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-          <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-          <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(70%_70%_at_10%_10%,black,transparent_75%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+          <div className="absolute -top-20 -left-24 h-56 w-56 rounded-full bg-gold/[0.07] blur-3xl" />
+          <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-gold/[0.05] blur-3xl" />
+          <div className="absolute inset-0 opacity-[0.04] text-gold [mask-image:radial-gradient(70%_70%_at_10%_10%,black,transparent_75%)]">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] bg-[size:22px_22px]" />
           </div>
+          {/* top gold hairline */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
         </div>
 
         {/* content */}
         <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div className="min-w-0">
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[var(--c-primary)] break-words">
+            <h2 className="font-sora text-2xl md:text-3xl font-semibold tracking-tight text-ink break-words">
               {title}
             </h2>
-            <p className="mt-2 text-base md:text-lg leading-relaxed text-black/80 dark:text-white/80 break-words">
+            <p className="mt-2 text-base md:text-lg leading-relaxed text-ink/55 break-words">
               {description}
             </p>
           </div>
@@ -329,7 +324,7 @@ function FeatureList({
           <div className="hidden md:flex items-center gap-3">
             <Link
               href={viewAllHref}
-              className="inline-flex items-center gap-2 rounded-xl border border-[var(--c-border)] bg-[var(--c-card)] px-5 py-2.5 text-sm font-semibold shadow-sm hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--c-secondary)] transition"
+              className="inline-flex items-center gap-2 rounded-xl border border-gold/40 bg-sand/50 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-midnight focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             >
               {ctaText} ({list.length}) <span>→</span>
             </Link>
@@ -341,35 +336,37 @@ function FeatureList({
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-start">
         {/* LEFT (hero + 2 small) */}
         <div className="md:col-span-3">
-          <article className="mb-6 rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] overflow-hidden">
+          <article className="group mb-6 overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] transition-all duration-300 hover:border-gold/65">
             <Link href={href} aria-label={`${country} ${ctaNoun}`}>
-              <div className="relative h-64 sm:h-72 lg:h-[420px]">
+              <div className="relative h-64 sm:h-72 lg:h-[420px] bg-sand">
                 <Image
                   src={normalizeImageSrc(heroImage, `/images/${countrySlug}.jpg`)}
                   alt={`${country} image`}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 66vw, 66vw"
                   priority
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+                <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
               </div>
             </Link>
 
             <div className="px-5 py-4">
-              <h2 className="text-xl font-semibold leading-tight">
-                <Link href={href} className="hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--c-secondary)] rounded">
+              <h2 className="font-sora text-xl font-semibold leading-tight text-ink">
+                <Link href={href} className="rounded hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold">
                   {country}
                 </Link>
               </h2>
-              <p className="mt-2 text-sm leading-7">
+              <p className="mt-2 text-sm leading-7 text-ink/55">
                 {truncateWords(summary || `${ctaNoun} pathways in ${country}.`, 36)}
               </p>
 
               {!!introPoints.length && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {introPoints.map((t, i) => (
-                    <span key={i} className="rounded-full border border-[var(--c-border)] px-3 py-1 text-xs font-medium">
+                    <span key={i} className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-xs font-medium text-ink/70">
+                      <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
                       {t}
                     </span>
                   ))}
@@ -380,16 +377,16 @@ function FeatureList({
               <div className="md:hidden mt-4">
                 <Link
                   href={viewAllHref}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--c-border)] bg-[var(--c-card)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)]"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-sand/50 px-4 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-midnight"
                 >
                   {ctaText} ({list.length}) <span>→</span>
                 </Link>
               </div>
 
-              <div className="pt-4 mt-3 border-t border-[var(--c-border)]">
-                <Link href={href} className="inline-flex items-center text-base font-bold tracking-wide">
+              <div className="mt-3 border-t border-gold/45 pt-4">
+                <Link href={href} className="group/cta inline-flex items-center text-base font-bold tracking-wide text-gold">
                   <span>Explore {country} {ctaNoun}</span>
-                  <span className="ml-2">→</span>
+                  <span className="ml-2 inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
                 </Link>
               </div>
             </div>
@@ -406,7 +403,7 @@ function FeatureList({
           <div
             role="search"
             aria-label="Country filters"
-            className="rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-3 mb-4"
+            className="mb-4 rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-3"
           >
             <div className="grid grid-cols-1 gap-3">
               {showSearch && (
@@ -423,7 +420,7 @@ function FeatureList({
                       id="country-search"
                       aria-describedby="country-search-hint"
                       placeholder="Search countries by name…"
-                      className="w-full rounded-xl border border-[var(--c-border)] bg-[var(--c-input-bg)] pl-9 pr-9 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--c-secondary)]"
+                      className="w-full rounded-xl border border-gold/45 bg-sand/60 pl-9 pr-9 py-2 text-sm text-ink placeholder:text-ink/40 outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       onKeyDown={(e) => {
@@ -437,7 +434,7 @@ function FeatureList({
                         type="button"
                         onClick={clearQuery}
                         aria-label="Clear search"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--c-border)] hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)] transition"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-6 w-6 items-center justify-center rounded-full border border-gold/45 bg-sand/60 text-ink/70 transition-colors hover:border-gold/65 hover:text-gold"
                       >
                         <X className="h-3.5 w-3.5" />
                       </button>
@@ -445,13 +442,13 @@ function FeatureList({
                   </div>
 
                   <div className="mt-1 flex items-center justify-between">
-                    <p id="country-search-hint" className="text-[11px] tracking-wide opacity-75">
+                    <p id="country-search-hint" className="text-[11px] tracking-wide text-ink/50">
                       Tip: type a few letters (e.g., “gre” for Grenada).
                     </p>
-                    <div aria-hidden className="hidden sm:flex items-center gap-1 text-[11px] opacity-80">
-                      <span className="rounded-md border border-[var(--c-border)] px-1.5 py-[2px]">Ctrl</span>
+                    <div aria-hidden className="hidden sm:flex items-center gap-1 text-[11px] text-ink/55">
+                      <span className="rounded-md border border-gold/45 px-1.5 py-[2px]">Ctrl</span>
                       <span>+</span>
-                      <span className="rounded-md border border-[var(--c-border)] px-1.5 py-[2px]">K</span>
+                      <span className="rounded-md border border-gold/45 px-1.5 py-[2px]">K</span>
                       <span className="ml-1">to focus</span>
                     </div>
                   </div>
@@ -463,7 +460,7 @@ function FeatureList({
                   <label className="sr-only" htmlFor="country-region">Filter by region</label>
                   <select
                     id="country-region"
-                    className="w-full rounded-xl border border-[var(--c-border)] bg-[var(--c-input-bg)] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--c-secondary)]"
+                    className="w-full rounded-xl border border-gold/45 bg-sand/60 px-3 py-2 text-sm text-ink outline-none focus:border-gold focus:ring-1 focus:ring-gold [&>option]:bg-white [&>option]:text-ink"
                     value={region}
                     onChange={(e) => setRegion(e.target.value)}
                   >
@@ -479,7 +476,7 @@ function FeatureList({
           </div>
 
           {rightItems.length === 0 ? (
-            <div className="rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-6 text-sm">
+            <div className="rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] p-6 text-sm text-ink/70">
               No countries match your search.
             </div>
           ) : (
@@ -494,7 +491,7 @@ function FeatureList({
           <div className="mt-4 md:hidden">
             <Link
               href={viewAllHref}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[var(--c-border)] bg-[var(--c-card)] px-4 py-2.5 text-sm font-semibold hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-sand/50 px-4 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-midnight"
             >
               {ctaText} ({list.length}) <span>→</span>
             </Link>
@@ -603,15 +600,15 @@ export default function CountryCarousel({
 
   // ====== Carousel (unchanged) ======
   return (
-    <section className="py-8 container lg:max-w-screen-2xl bg-[var(--c-bg)] text-[var(--c-text)]">
+    <section className="py-8 container lg:max-w-screen-2xl bg-[var(--c-bg)] text-ink">
       <ThemeVars />
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
         <div className="max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-4 tracking-tight">{title}</h2>
-          <p className="text-base md:text-lg mb-6 leading-relaxed">{description}</p>
+          <h2 className="mb-4 font-sora text-2xl md:text-3xl font-semibold tracking-tight text-ink">{title}</h2>
+          <p className="mb-6 text-base md:text-lg leading-relaxed text-ink/55">{description}</p>
           <Link
             href={ctaHref || derivedBase}
-            className="inline-block px-6 py-2.5 rounded-xl border border-[var(--c-border)] bg-[var(--c-card)] hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)] transition text-sm md:text-base font-semibold shadow-sm"
+            className="inline-block rounded-xl border border-gold/40 bg-sand/50 px-6 py-2.5 text-sm md:text-base font-semibold text-gold transition-colors hover:bg-gold hover:text-midnight"
           >
             {ctaText}
           </Link>
@@ -621,14 +618,14 @@ export default function CountryCarousel({
           <button
             onClick={() => scrollOne(-1)}
             aria-label="Scroll countries left"
-            className="w-12 h-12 flex items-center justify-center rounded-full shadow-md border border-[var(--c-border)] bg-[var(--c-card)] hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)] transition"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-white text-ink transition-colors hover:border-gold/65 hover:text-gold"
           >
             <ChevronLeft size={22} />
           </button>
           <button
             onClick={() => scrollOne(1)}
             aria-label="Scroll countries right"
-            className="w-12 h-12 flex items-center justify-center rounded-full shadow-md border border-[var(--c-border)] bg-[var(--c-card)] hover:bg-[var(--c-primary)] hover:text-[var(--c-invert)] transition"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-white text-ink transition-colors hover:border-gold/65 hover:text-gold"
           >
             <ChevronRight size={22} />
           </button>
@@ -654,30 +651,31 @@ export default function CountryCarousel({
 
           return (
             <div key={`${countrySlug}-${idx}`} data-card className="flex-none snap-start basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-              <article className="h-full flex flex-col rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] shadow-sm">
+              <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--c-border)] bg-[var(--c-card)] transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/65 motion-reduce:transform-none">
                 <Link href={href} aria-label={`${country} ${ctaNoun}`}>
-                  <div className={`relative ${imgHeight} rounded-t-2xl overflow-hidden`}>
+                  <div className={`relative ${imgHeight} overflow-hidden bg-sand`}>
                     <Image
                       src={normalizeImageSrc(heroImage, `/images/${countrySlug}.jpg`)}
                       alt={`${country} image`}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                       loading={idx === 0 ? "eager" : "lazy"}
                       unoptimized
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                    <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+                    <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
                   </div>
                 </Link>
 
                 <div className="flex flex-1 flex-col px-4 py-3">
-                  <h3 className="text-base sm:text-lg font-semibold leading-tight">
-                    <Link href={href} className="hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--c-secondary)] rounded">
+                  <h3 className="font-sora text-base sm:text-lg font-semibold leading-tight text-ink">
+                    <Link href={href} className="rounded hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold">
                       {country}
                     </Link>
                   </h3>
 
-                  <p className="mt-1 text-sm leading-6 line-clamp-2 min-h-[44px]">
+                  <p className="mt-1 min-h-[44px] text-sm leading-6 text-ink/55 line-clamp-2">
                     {truncateWords(summary || `${ctaNoun} pathways in ${country}.`, 20)}
                   </p>
 
@@ -685,7 +683,8 @@ export default function CountryCarousel({
                     {!!chips.length && (
                       <div className="flex flex-wrap gap-2">
                         {chips.map((t, i) => (
-                          <span key={i} className="rounded-full border border-[var(--c-border)] px-3 py-1 text-xs font-medium">
+                          <span key={i} className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-xs font-medium text-ink/70">
+                            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
                             {t}
                           </span>
                         ))}
@@ -693,10 +692,10 @@ export default function CountryCarousel({
                     )}
                   </div>
 
-                  <div className="pt-4 mt-auto w-full border-t border-[var(--c-border)]">
-                    <Link href={href} className="group w-full flex items-center text-base font-bold tracking-wide">
+                  <div className="mt-auto w-full border-t border-gold/45 pt-4">
+                    <Link href={href} className="group/cta flex w-full items-center text-base font-bold tracking-wide text-gold">
                       <span>Explore {country} {ctaNoun}</span>
-                      <span className="ml-2 inline-block transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                      <span className="ml-2 inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>

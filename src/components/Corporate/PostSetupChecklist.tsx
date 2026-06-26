@@ -17,14 +17,14 @@ export default function PostSetupChecklist({
 }: PostSetupChecklistProps) {
   return (
     <section
-      className={`rounded-2xl ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 bg-white/70 dark:bg-neutral-900/40 p-5 ${className || ""}`}
+      className={`rounded-2xl border border-gold/45 bg-white p-5 font-sora ${className || ""}`}
       aria-labelledby="post-setup-title"
     >
       <header className="mb-4">
-        <h2 id="post-setup-title" className="text-lg font-semibold">
+        <h2 id="post-setup-title" className="text-lg font-semibold text-ink">
           {title}
         </h2>
-        <p className="text-sm opacity-70">
+        <p className="text-sm text-ink/55">
           Typical actions after license & visas are issued.
         </p>
       </header>
@@ -33,12 +33,12 @@ export default function PostSetupChecklist({
         {items.map((item, idx) => (
           <li
             key={idx}
-            className="flex items-start gap-3 rounded-xl ring-1 ring-neutral-200 dark:ring-neutral-800 p-3 bg-black/5 dark:bg-white/10"
+            className="flex items-start gap-3 rounded-xl border border-gold/45 bg-sand/50 p-3"
           >
             <div className="mt-0.5">
-              <CheckCircle2 className="h-5 w-5 opacity-80" aria-hidden="true" />
+              <CheckCircle2 className="h-5 w-5 text-gold" aria-hidden="true" />
             </div>
-            <div className="text-sm leading-6">{item}</div>
+            <div className="text-sm leading-6 text-ink/70">{item}</div>
           </li>
         ))}
       </ol>

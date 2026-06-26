@@ -76,8 +76,8 @@ export default function StickyInquiryDock({
           "mx-auto max-w-4xl pointer-events-auto",
           // container
           "rounded-2xl p-3 sm:p-4",
-          "bg-white/95 dark:bg-neutral-900/90 backdrop-blur",
-          "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-lg",
+          "bg-white/95 backdrop-blur",
+          "border border-gold/45 shadow-[0_18px_50px_-20px_rgba(15,23,42,0.08)]",
           // slide up
           "translate-y-2 opacity-0 animate-[dockIn_250ms_ease-out_forwards]",
           "motion-reduce:animate-none motion-reduce:translate-y-0 motion-reduce:opacity-100",
@@ -88,8 +88,8 @@ export default function StickyInquiryDock({
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-2xl overflow-hidden"
         >
-          <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-blue-400/10 blur-2xl" />
-          <svg className="absolute inset-0 h-full w-full opacity-[0.04] dark:opacity-[0.06]">
+          <div className="absolute -top-10 -right-10 h-28 w-28 rounded-full bg-gold/10 blur-2xl" />
+          <svg className="absolute inset-0 h-full w-full opacity-[0.05]">
             <defs>
               <pattern
                 id="dock-grid"
@@ -109,14 +109,14 @@ export default function StickyInquiryDock({
               width="100%"
               height="100%"
               fill="url(#dock-grid)"
-              className="text-neutral-700 dark:text-neutral-300"
+              className="text-ink/40"
             />
           </svg>
         </div>
 
         <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           {/* Message */}
-          <p className="text-sm sm:text-[15px] text-neutral-900 dark:text-neutral-100">
+          <p className="text-sm sm:text-[15px] text-ink/70">
             {text}
           </p>
 
@@ -126,14 +126,14 @@ export default function StickyInquiryDock({
               href={bookingUrl}
               className={[
                 "inline-flex items-center justify-center rounded-xl px-4 py-2",
-                "bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-none",
-                "focus-visible:ring-2 focus-visible:ring-blue-400/70",
+                "bg-gold text-midnight font-semibold hover:bg-gold_bright focus-visible:outline-none",
+                "focus-visible:ring-2 focus-visible:ring-gold/70",
                 "shadow-sm",
               ].join(" ")}
               ariaLabel="Book a call"
             >
               <span
-                className="mr-1.5 inline-block h-2 w-2 rounded-full bg-white/90"
+                className="mr-1.5 inline-block h-2 w-2 rounded-full bg-sand/70"
                 aria-hidden
               />
               Book a call
@@ -144,9 +144,8 @@ export default function StickyInquiryDock({
               download
               className={[
                 "inline-flex items-center justify-center rounded-xl px-4 py-2",
-                "bg-white text-neutral-900 ring-1 ring-neutral-200 hover:bg-neutral-50",
-                "dark:bg-neutral-900 dark:text-neutral-100 dark:ring-neutral-800 dark:hover:bg-neutral-800",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70",
+                "bg-sand/50 text-ink border border-gold/45 hover:border-gold/65",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70",
               ].join(" ")}
               aria-label="Download program guide PDF"
               rel={isExternal(brochureUrl) ? "noopener" : undefined}
@@ -172,7 +171,7 @@ export default function StickyInquiryDock({
             <button
               type="button"
               onClick={dismiss}
-              className="ml-0 sm:ml-1 inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70"
+              className="ml-0 sm:ml-1 inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs text-ink/55 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               aria-label={`Hide this bar for ${hideForDays} day${hideForDays === 1 ? "" : "s"}`}
             >
               <svg

@@ -197,8 +197,8 @@ export default function ShareBar({
         {/* Share (mobile-native, desktop-modal) */}
         <button
           onClick={share}
-          className={`${pad} inline-flex items-center ${gap} rounded-full bg-primary text-white ${text} font-medium shadow hover:shadow-md transition
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/80`}
+          className={`${pad} inline-flex items-center ${gap} rounded-full bg-gold text-midnight ${text} font-medium shadow hover:brightness-110 transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sand focus-visible:ring-gold`}
           aria-label="Share"
         >
           <Share2 className={icon} aria-hidden />
@@ -208,8 +208,8 @@ export default function ShareBar({
         {/* Copy link */}
         <button
           onClick={copy}
-          className={`${pad} inline-flex items-center ${gap} rounded-full border border-slate-300/70 dark:border-slate-600/60 bg-white/70 dark:bg-slate-800/70 text-slate-800 dark:text-slate-100 ${text} shadow-sm hover:bg-white/90 dark:hover:bg-slate-800/90 transition
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300`}
+          className={`${pad} inline-flex items-center ${gap} rounded-full border border-gold/45 bg-white text-ink ${text} hover:border-gold/65 transition
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sand focus-visible:ring-gold`}
           aria-label="Copy link"
         >
           {copied ? <Check className={icon} aria-hidden /> : <LinkIcon className={icon} aria-hidden />}
@@ -221,21 +221,21 @@ export default function ShareBar({
       {open && (
         <div
           ref={overlayRef}
-          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-6"
           aria-modal="true"
           role="dialog"
           aria-labelledby="share-title"
         >
-          <div className="w-full sm:w-[520px] rounded-t-2xl sm:rounded-2xl bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-slate-700">
+          <div className="w-full sm:w-[520px] rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl border border-gold/45">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-slate-200 dark:border-slate-700">
-              <h3 id="share-title" className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-gold/45">
+              <h3 id="share-title" className="font-sora text-base sm:text-lg font-semibold text-ink">
                 Share “{title}”
               </h3>
               <button
                 ref={closeBtnRef}
                 onClick={closeModal}
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300"
+                className="p-2 rounded-full text-ink/70 hover:bg-white/[0.04] hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sand focus-visible:ring-gold"
                 aria-label="Close share dialog"
               >
                 <CloseIcon className="h-5 w-5" />
@@ -251,7 +251,7 @@ export default function ShareBar({
                     href={p.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex flex-col items-center gap-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300"
+                    className="group flex flex-col items-center gap-2 p-3 rounded-xl border border-gold/45 bg-sand/50 hover:border-gold/65 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sand focus-visible:ring-gold"
                     aria-label={`Share on ${p.name}`}
                     title={`Share on ${p.name}`}
                     onClick={() => setTimeout(closeModal, 50)}
@@ -262,7 +262,7 @@ export default function ShareBar({
                     >
                       <p.icon className="h-5 w-5" style={{ color: p.color }} />
                     </div>
-                    <span className="text-[11px] leading-none text-slate-700 dark:text-slate-200">
+                    <span className="text-[11px] leading-none text-ink/70">
                       {p.name}
                     </span>
                   </a>
@@ -272,13 +272,13 @@ export default function ShareBar({
               {/* Copy row inside modal */}
               <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-3">
                 <div className="flex-1 min-w-0">
-                  <div className="w-full text-xs sm:text-sm px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 truncate">
+                  <div className="w-full text-xs sm:text-sm px-3 py-2 rounded-lg bg-sand/50 text-ink/70 border border-gold/45 truncate">
                     {absoluteUrl}
                   </div>
                 </div>
                 <button
                   onClick={copy}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-sm hover:opacity-90 dark:bg-white dark:text-slate-900 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-slate-300"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold text-midnight text-sm hover:brightness-110 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sand focus-visible:ring-gold"
                 >
                   {copied ? <Check className="h-4 w-4" /> : <LinkIcon className="h-4 w-4" />}
                   {copied ? "Copied" : "Copy"}

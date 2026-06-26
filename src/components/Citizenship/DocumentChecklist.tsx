@@ -45,20 +45,19 @@ export default function DocumentChecklistNeo({
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-5 md:p-6 lg:p-8",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800",
-        "shadow-sm print:shadow-none",
+        "bg-white border border-gold/45",
+        "print:shadow-none",
         className,
       ].join(" ")}
     >
-      {/* --- Background: ultra-light grid + neutral glows (keeps text crisp) --- */}
+      {/* --- Background: gold grid + glows --- */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
-        {/* neutral soft glows */}
-        <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-300/15 blur-3xl" />
-        <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-neutral-400/10 blur-3xl" />
+        {/* gold soft glows */}
+        <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+        <div className="absolute -bottom-24 -right-20 h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
         {/* faint grid */}
         <svg
-          className="absolute inset-0 h-full w-full opacity-[0.035] dark:opacity-[0.06]"
+          className="absolute inset-0 h-full w-full opacity-[0.04]"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
@@ -71,7 +70,7 @@ export default function DocumentChecklistNeo({
               <path
                 d="M24 0H0v24"
                 fill="none"
-                stroke="#111827"
+                stroke="#d4af37"
                 strokeWidth="1"
               />
             </pattern>
@@ -82,14 +81,14 @@ export default function DocumentChecklistNeo({
 
       {/* --- Header --- */}
       <header className="relative mb-5 md:mb-6">
-        <div className="flex items-center gap-2 text-[12px] text-blue-700 dark:text-blue-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-          <span className="font-medium">Checklist</span>
+        <div className="flex items-center gap-2 text-[12px] text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+          <span className="font-medium uppercase tracking-[0.2em]">Checklist</span>
         </div>
 
         <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-sm ring-1 ring-blue-500/30">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-sand/50 text-gold border border-gold/45">
               {/* file icon */}
               <svg
                 aria-hidden
@@ -107,14 +106,14 @@ export default function DocumentChecklistNeo({
             </span>
             <h2
               id={sectionId + "-title"}
-              className="text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+              className="font-sora text-xl md:text-2xl font-semibold tracking-tight text-ink"
             >
               {title}
             </h2>
           </div>
 
           <p
-            className="text-xs sm:text-[13px] font-medium px-2 py-1 rounded-lg bg-blue-50 text-blue-800 ring-1 ring-blue-100 self-start dark:bg-blue-950/40 dark:text-blue-200 dark:ring-blue-900/40"
+            className="text-xs sm:text-[13px] font-medium px-2 py-1 rounded-lg border border-gold/45 bg-sand/50 text-gold self-start"
             aria-label="Total items in the checklist"
           >
             {total} total item{total === 1 ? "" : "s"}
@@ -122,7 +121,7 @@ export default function DocumentChecklistNeo({
         </div>
 
         {note ? (
-          <p className="mt-2 text-sm md:text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300 max-w-3xl">
+          <p className="mt-2 text-sm md:text-[15px] leading-relaxed text-ink/55 max-w-3xl">
             {note}
           </p>
         ) : null}
@@ -137,9 +136,8 @@ export default function DocumentChecklistNeo({
                 <a
                   href={`#${groupIds[i]}`}
                   className="inline-flex items-center gap-2 rounded-xl px-3 py-1.5 text-[13px]
-                             ring-1 ring-blue-100 bg-blue-50 text-blue-800 hover:bg-blue-100/70
-                             dark:ring-blue-900/40 dark:bg-blue-950/30 dark:text-blue-200
-                             focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70
+                             border border-gold/45 bg-sand/50 text-ink/70 hover:border-gold/65 hover:text-ink
+                             focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70
                              transition motion-reduce:transition-none"
                 >
                   {/* hash icon */}
@@ -158,7 +156,7 @@ export default function DocumentChecklistNeo({
                   <span className="truncate max-w-[14ch] md:max-w-[22ch]">
                     {g.group}
                   </span>
-                  <span className="ml-1 text-[11px] px-1.5 py-0.5 rounded-md bg-white/70 ring-1 ring-blue-200 dark:bg-blue-900/40 dark:ring-blue-800">
+                  <span className="ml-1 text-[11px] px-1.5 py-0.5 rounded-md border border-gold/45 bg-sand/50 text-gold">
                     {g.documents.length}
                   </span>
                 </a>
@@ -175,20 +173,20 @@ export default function DocumentChecklistNeo({
             key={groupIds[idx]}
             id={groupIds[idx]}
             open={idx === 0}
-            className="group overflow-hidden rounded-xl bg-white dark:bg-neutral-900
-                       ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm
-                       focus-within:ring-2 focus-within:ring-blue-300/70 dark:focus-within:ring-blue-700/60"
+            className="group overflow-hidden rounded-xl bg-sand/50
+                       border border-gold/45 open:border-gold/45
+                       focus-within:border-gold/60"
           >
             <summary
               className="list-none cursor-pointer select-none"
               // native summary receives focus; ensure visible ring
             >
-              <div className="flex items-center justify-between gap-3 px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70">
+              <div className="flex items-center justify-between gap-3 px-4 py-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70">
                 <div className="flex items-center gap-2.5">
                   {/* chevron */}
                   <span
                     aria-hidden
-                    className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-blue-50 text-blue-700 ring-1 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:ring-blue-900/40"
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-sand/50 text-gold border border-gold/40"
                   >
                     <svg
                       className="h-3.5 w-3.5 transition-transform duration-200 ease-out group-open:rotate-180 motion-reduce:transition-none"
@@ -202,11 +200,11 @@ export default function DocumentChecklistNeo({
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </span>
-                  <span className="font-medium text-[15px] md:text-base leading-tight text-neutral-900 dark:text-neutral-100">
+                  <span className="font-medium text-[15px] md:text-base leading-tight text-ink">
                     {g.group}
                   </span>
                 </div>
-                <span className="text-[11px] md:text-xs px-2 py-1 rounded-lg bg-blue-50 text-blue-800 ring-1 ring-blue-100 dark:bg-blue-950/30 dark:text-blue-200 dark:ring-blue-900/40">
+                <span className="text-[11px] md:text-xs px-2 py-1 rounded-lg border border-gold/45 bg-sand/50 text-gold">
                   {g.documents.length} item{g.documents.length === 1 ? "" : "s"}
                 </span>
               </div>
@@ -223,7 +221,7 @@ export default function DocumentChecklistNeo({
                     {/* check bullet */}
                     <span
                       aria-hidden
-                      className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-50 text-blue-700 ring-1 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:ring-blue-900/50"
+                      className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sand/50 text-gold border border-gold/40"
                     >
                       <svg
                         viewBox="0 0 20 20"
@@ -239,14 +237,14 @@ export default function DocumentChecklistNeo({
                         />
                       </svg>
                     </span>
-                    <span className="text-sm md:text-[15px] leading-relaxed text-neutral-800 dark:text-neutral-200">
+                    <span className="text-sm md:text-[15px] leading-relaxed text-ink/70">
                       {d}
                     </span>
                   </li>
                 ))}
               </ul>
               {g.notes ? (
-                <p className="mt-3 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
+                <p className="mt-3 text-sm leading-relaxed text-ink/55">
                   {g.notes}
                 </p>
               ) : null}

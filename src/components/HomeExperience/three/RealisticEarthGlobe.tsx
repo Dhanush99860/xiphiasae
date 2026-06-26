@@ -83,7 +83,7 @@ function EarthWithTextures({
   );
 }
 
-interface SceneProps extends EarthProps { /* same */ }
+type SceneProps = EarthProps;
 
 function GlobeScene({
   selectedTrack, showAllRoutes, activeDestinationId,

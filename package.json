@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev-server.mjs --webpack --port 4000",
-    "dev:turbo": "node scripts/dev-server.mjs --turbopack --port 4000",
+    "dev": "node scripts/dev-server.mjs --webpack --port 5000",
+    "dev:turbo": "node scripts/dev-server.mjs --turbopack --port 5000",
     "build": "node scripts/build-search-index.mjs && next build --webpack",
-    "start": "next start",
+    "start": "next start -p 5000",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run lint && npm run build",

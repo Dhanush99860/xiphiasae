@@ -35,16 +35,16 @@ export default function GuideSidebar({
       {extraGroups?.length ? (
         <section
           aria-labelledby="shortcuts-title"
-          className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+          className="rounded-xl border border-gold/45 bg-white p-3"
         >
-          <h2 id="shortcuts-title" className="text-sm font-semibold text-black dark:text-white">
+          <h2 id="shortcuts-title" className="text-sm font-semibold text-ink">
             Shortcuts
           </h2>
 
           <div className="mt-2 space-y-3">
             {extraGroups.map((g) => (
               <div key={g.title}>
-                <div className="text-xs uppercase tracking-wide text-black dark:text-white">
+                <div className="text-xs uppercase tracking-[0.18em] text-ink/40">
                   {g.title}
                 </div>
                 <ul className="mt-1 space-y-1.5">
@@ -52,7 +52,7 @@ export default function GuideSidebar({
                     <li key={l.href}>
                       <Link
                         href={l.href}
-                        className="group inline-flex w-full items-center justify-between rounded-md px-2 py-1.5 text-sm text-blue-700 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-950/30"
+                        className="group inline-flex w-full items-center justify-between rounded-md px-2 py-1.5 text-sm text-ink/70 transition-colors hover:bg-pearl hover:text-gold_deep"
                         aria-label={l.label}
                       >
                         <span className="inline-flex items-center gap-2">
@@ -60,7 +60,7 @@ export default function GuideSidebar({
                           {l.label}
                         </span>
                         {l.badge ? (
-                          <span className="ml-2 rounded-md bg-blue-100 px-1.5 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-900/40 dark:text-blue-200">
+                          <span className="ml-2 rounded-md border border-gold/45 bg-gold/10 px-1.5 py-0.5 text-[10px] font-medium text-gold">
                             {l.badge}
                           </span>
                         ) : null}
@@ -76,11 +76,11 @@ export default function GuideSidebar({
 
       {/* Sitemap — accordion with large, clickable rows; child programs as chips */}
       <nav
-        className="rounded-xl border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-900"
+        className="rounded-xl border border-gold/45 bg-white p-3"
         aria-labelledby="sitemap-title"
         role="navigation"
       >
-        <h2 id="sitemap-title" className="text-sm font-semibold text-black dark:text-white">
+        <h2 id="sitemap-title" className="text-sm font-semibold text-ink">
           Site map
         </h2>
 
@@ -88,15 +88,15 @@ export default function GuideSidebar({
           {sitemap.map((group) => (
             <details
               key={group.title}
-              className="group rounded-lg bg-white open:shadow-sm dark:bg-zinc-900"
+              className="group rounded-lg"
               open
             >
-              <summary className="flex cursor-pointer select-none items-center justify-between rounded-lg px-2 py-2 text-sm font-medium text-black hover:bg-zinc-50 dark:text-white dark:hover:bg-zinc-800">
-                <span className="inline-flex items-center gap-2">
+              <summary className="flex cursor-pointer select-none items-center justify-between rounded-lg px-2 py-2 text-sm font-medium text-ink transition-colors hover:bg-pearl">
+                <span className="inline-flex items-center gap-2 text-gold/80">
                   <IconFolder />
-                  {group.title}
+                  <span className="text-ink">{group.title}</span>
                 </span>
-                <IconChevron className="transition group-open:rotate-180" />
+                <IconChevron className="text-ink/40 transition group-open:rotate-180" />
               </summary>
 
               <ul className="px-1 pb-2">
@@ -104,22 +104,24 @@ export default function GuideSidebar({
                   const hasChildren = (country.children?.length ?? 0) > 0;
                   return (
                     <li key={country.href} className="py-1">
-                      <div className="rounded-md hover:bg-zinc-50 dark:hover:bg-zinc-800">
+                      <div className="rounded-md transition-colors hover:bg-pearl">
                         <div className="flex items-center justify-between">
                           <Link
                             href={country.href}
-                            className="flex-1 px-2 py-2 text-sm font-medium text-blue-700 hover:underline dark:text-blue-300"
+                            className="flex-1 px-2 py-2 text-sm font-medium text-ink/70 transition-colors hover:text-gold"
                             aria-label={`Open ${country.label}`}
                           >
                             <span className="inline-flex items-center gap-2">
-                              <IconFlag />
+                              <span className="text-gold/70">
+                                <IconFlag />
+                              </span>
                               {country.label}
                             </span>
                           </Link>
 
                           {hasChildren ? (
                             <details className="mr-1 inline-block">
-                              <summary className="list-none rounded-md px-2 py-1 text-xs text-black underline-offset-2 hover:underline dark:text-white cursor-pointer">
+                              <summary className="list-none rounded-md px-2 py-1 text-xs text-ink/55 underline-offset-2 hover:text-gold hover:underline cursor-pointer">
                                 Programs
                               </summary>
                               <div className="px-2 pb-2 pt-1">
@@ -128,7 +130,7 @@ export default function GuideSidebar({
                                     <Link
                                       key={p.href}
                                       href={p.href}
-                                      className="rounded-full border border-zinc-300 bg-white px-2.5 py-1 text-[12px] text-black hover:bg-blue-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white dark:hover:bg-blue-950/30"
+                                      className="rounded-full border border-gold/45 bg-pearl px-2.5 py-1 text-[12px] text-ink/70 transition-colors hover:border-gold/65 hover:text-gold_deep"
                                       aria-label={`Open ${p.label}`}
                                     >
                                       {p.label}
@@ -216,7 +218,7 @@ function CTA({ href, label, icon }: { href: string; label: string; icon: React.R
     <Link
       href={href}
       aria-label={label}
-      className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-center text-sm font-medium text-white ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+      className="inline-flex items-center justify-center gap-2 rounded-lg bg-gold px-3 py-2 text-center text-sm font-medium text-[#0a1733] ring-1 ring-gold/40 hover:bg-gold/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
     >
       {icon}
       <span>{label}</span>

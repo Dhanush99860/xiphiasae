@@ -37,6 +37,16 @@ type AnyProgram =
 import CountryCard from "./CountryCard";
 import TopPrograms from "@/components/Residency/TopPrograms";
 import ContactForm from "@/components/ContactForm";
+import { Eyebrow } from "@/components/ui";
+import {
+  Reveal,
+  SandReveal,
+  ShinyText,
+  Stagger,
+  StaggerItem,
+  DrawLine,
+  TiltCard,
+} from "@/components/motion";
 import { ca } from "date-fns/locale"; // (tree-shaken; safe if unused)
 
 // ---------------- helpers ----------------
@@ -141,27 +151,57 @@ export default function ResidencyLanding({
 
   return (
     <section
-      className="relative grid grid-cols-1 gap-8 lg:grid-cols-3 pt-4"
+      className="relative mt-12 overflow-hidden rounded-3xl border border-gold/45 bg-sand px-5 py-10 text-ink md:px-8 md:py-12"
       aria-labelledby="explore-heading"
       itemScope
       itemType="https://schema.org/ItemList"
     >
-      {/* Subtle neutral background pattern */}
+      {/* Subtle gold/lattice background */}
       <Background />
 
+      {/* ---- Section header ---- */}
+      <div className="relative z-10 mb-10 max-w-3xl">
+        <Reveal>
+          <Eyebrow tone="gold" arabic="الوجهات">
+            Explore by country
+          </Eyebrow>
+        </Reveal>
+        <SandReveal delay={0.05} y={32} blur={10}>
+          <h2 className="mt-5 text-balance font-sora text-[clamp(1.6rem,3.6vw,2.6rem)] font-semibold leading-[1.08] tracking-tight text-ink">
+            Residency routes,{" "}
+            <ShinyText
+              baseColor="#a87d1f"
+              shineColor="#f3d98a"
+              className="font-sora"
+            >
+              mapped across the world.
+            </ShinyText>
+          </h2>
+        </SandReveal>
+        <DrawLine
+          d="M0 1 L120 1"
+          viewBox="0 0 120 2"
+          preserveAspectRatio="none"
+          strokeWidth={1.5}
+          delay={0.35}
+          className="mt-5 h-px w-28"
+        />
+      </div>
+
+      <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
       {/* ---- Left/Main: Countries ---- */}
       <div className="order-1 lg:order-1 lg:col-span-2 space-y-4">
         {/* Title row (desktop) */}
         <div className="hidden md:flex items-center justify-between">
           <h2
             id="explore-heading"
-            className="text-xl font-semibold text-neutral-900 dark:text-neutral-50"
+            className="text-base font-semibold uppercase tracking-[0.18em] text-ink/70"
           >
-            Explore by country
+            Destinations
           </h2>
           <Link
             href="/personal-booking"
-            className="text-sm font-medium text-neutral-900 dark:text-neutral-50 underline underline-offset-2 hover:opacity-90"
+            className="text-sm font-medium text-gold underline-offset-4 hover:underline"
           >
             Need advice?
           </Link>
@@ -170,7 +210,7 @@ export default function ResidencyLanding({
         {/* Mobile sticky search */}
         <div
           role="search"
-          className="md:hidden sticky top-0 z-40 -mx-4 px-4 py-3 bg-white/95 dark:bg-neutral-950/95 backdrop-blur border-b border-neutral-200/70 dark:border-neutral-800/70"
+          className="md:hidden sticky top-0 z-40 -mx-5 px-5 py-3 bg-sand/95 backdrop-blur border-b border-gold/45"
           aria-label="Search countries"
         >
           <SearchField
@@ -183,35 +223,41 @@ export default function ResidencyLanding({
           <CountBar current={filtered.length} total={countries.length} />
         </div>
 
-        {/* Country Grid */}
-        <ul
-          id="country-grid"
-          role="list"
-          className="grid gap-4 sm:grid-cols-2"
-          aria-live="polite"
-        >
-          {filtered.map((c) => (
-            <li key={c.countrySlug} className="min-w-0">
-              {/* CountryCard already handles category-aware links */}
-              <CountryCard country={c as any} variant="compact" />
-            </li>
-          ))}
-          {filtered.length === 0 && (
-            <li className="sm:col-span-2">
-              <EmptyState query={q} onClear={() => setQ("")} />
-            </li>
-          )}
-        </ul>
+        {/* Country Grid — sequenced reveal */}
+        <Stagger amount={0.12}>
+          <ul
+            id="country-grid"
+            role="list"
+            className="grid items-stretch gap-4 sm:grid-cols-2"
+            aria-live="polite"
+          >
+            {filtered.map((c) => (
+              <li key={c.countrySlug} className="flex min-w-0">
+                {/* CountryCard already handles category-aware links */}
+                <StaggerItem className="flex min-w-0 flex-1">
+                  <TiltCard max={6} className="flex min-w-0 flex-1 [transform-style:preserve-3d]">
+                    <CountryCard country={c as any} variant="compact" />
+                  </TiltCard>
+                </StaggerItem>
+              </li>
+            ))}
+            {filtered.length === 0 && (
+              <li className="sm:col-span-2">
+                <EmptyState query={q} onClear={() => setQ("")} />
+              </li>
+            )}
+          </ul>
+        </Stagger>
       </div>
 
       {/* ---- Right/Aside (sticky) ---- */}
       <aside className="order-2 lg:order-2 lg:sticky lg:top-6 h-max">
-        <div className="rounded-2xl bg-white dark:bg-neutral-950 ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 shadow-sm p-5">
+        <div className="rounded-2xl border border-gold/45 bg-dune/40 p-5 backdrop-blur-sm">
           {/* Desktop search */}
           <div className="hidden md:block" role="search">
             <label
               htmlFor="countrySearch"
-              className="text-lg font-semibold text-neutral-900 dark:text-neutral-50"
+              className="text-lg font-semibold text-ink"
             >
               Search countries
             </label>
@@ -226,20 +272,35 @@ export default function ResidencyLanding({
               />
             </div>
             <CountBar current={filtered.length} total={countries.length} />
-            <p className="mt-2 text-[12px] text-neutral-600 dark:text-neutral-400">
-              Tip: press <kbd className="rounded border px-1">/</kbd> to focus
-              the search.
+            <p className="mt-2 text-[12px] text-ink/60">
+              Tip: press{" "}
+              <kbd className="rounded border border-gold/40 px-1 text-ink/70">
+                /
+              </kbd>{" "}
+              to focus the search.
             </p>
           </div>
 
           {/* Top programs (horizontal cards for sidebars) */}
           {topPrograms && topPrograms.length > 0 ? (
             <div className="mt-6">
-              <header className="mb-2">
-                <h3 className="text-base md:text-lg font-semibold text-neutral-900 dark:text-neutral-50">
-                  {derivedHeading}
-                </h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+              <header className="mb-3">
+                <span className="flex items-center gap-3">
+                  <DrawLine
+                    d="M0 1 L36 1"
+                    viewBox="0 0 36 2"
+                    preserveAspectRatio="none"
+                    strokeWidth={1.5}
+                    delay={0.15}
+                    className="h-px w-6 shrink-0"
+                  />
+                  <Reveal y={8} delay={0.05}>
+                    <h3 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-gold_deep">
+                      {derivedHeading}
+                    </h3>
+                  </Reveal>
+                </span>
+                <p className="mt-2 text-sm text-ink/60">
                   Popular, fast-moving options across countries.
                 </p>
               </header>
@@ -253,6 +314,7 @@ export default function ResidencyLanding({
           <ContactForm />
         </div>
       </aside>
+      </div>
 
       {/* SEO: JSON-LD for the country grid */}
       <script
@@ -286,7 +348,7 @@ function SearchField({
         {srLabel}
       </label>
       <Search
-        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500"
+        className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gold_deep/70"
         aria-hidden
       />
       <input
@@ -299,19 +361,19 @@ function SearchField({
         autoComplete="off"
         className={[
           "w-full rounded-xl",
-          "bg-white dark:bg-neutral-950",
-          "ring-1 ring-neutral-300 dark:ring-neutral-700",
-          "px-9 pr-9 py-3 text-sm md:text-base",
-          "text-neutral-900 dark:text-neutral-50",
-          "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
-          "focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-neutral-200",
+          "bg-sand/60",
+          "border border-gold/45",
+          "px-9 py-3 text-sm md:text-base",
+          "text-ink",
+          "placeholder:text-ink/55",
+          "focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold",
         ].join(" ")}
       />
       {value ? (
         <button
           type="button"
           onClick={() => onChange("")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15"
+          className="absolute end-2 top-1/2 -translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-full border border-gold/45 bg-sand/60 text-ink/70 transition-colors hover:border-gold/65 hover:text-gold"
           aria-label="Clear search"
         >
           <X className="h-4 w-4" />
@@ -324,12 +386,13 @@ function SearchField({
 function CountBar({ current, total }: { current: number; total: number }) {
   return (
     <div
-      className="mt-2 text-xs text-neutral-600 dark:text-neutral-400"
+      className="mt-2 text-xs text-ink/60"
       aria-live="polite"
       role="status"
     >
-      Showing <strong className="tabular-nums">{current}</strong> of{" "}
-      <span className="tabular-nums">{total}</span>
+      Showing{" "}
+      <strong className="tabular-nums text-gold_deep">{current}</strong> of{" "}
+      <span className="tabular-nums text-ink/70">{total}</span>
     </div>
   );
 }
@@ -342,21 +405,21 @@ function EmptyState({
   onClear: () => void;
 }) {
   return (
-    <div className="rounded-2xl bg-white dark:bg-neutral-950 ring-1 ring-neutral-200 dark:ring-neutral-800 p-6 text-center">
-      <p className="text-sm text-neutral-700 dark:text-neutral-300">
+    <div className="rounded-2xl border border-gold/45 bg-dune/40 p-6 text-center backdrop-blur-sm">
+      <p className="text-sm text-ink/70">
         No countries match{" "}
-        <span className="font-semibold">&ldquo;{query}&rdquo;</span>.
+        <span className="font-semibold text-ink">&ldquo;{query}&rdquo;</span>.
       </p>
       <div className="mt-3 flex items-center justify-center gap-2">
         <button
           onClick={onClear}
-          className="rounded-lg bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-3 py-1.5 text-sm font-medium"
+          className="rounded-full bg-gold px-4 py-1.5 text-sm font-semibold text-midnight transition-colors hover:shadow-[0_8px_30px_-8px_rgba(212,175,55,0.6)]"
         >
           Clear search
         </button>
         <Link
           href="/contact"
-          className="rounded-lg ring-1 ring-neutral-300 dark:ring-neutral-700 px-3 py-1.5 text-sm"
+          className="rounded-full border border-gold/40 px-4 py-1.5 text-sm text-ink transition-colors hover:border-gold/60"
         >
           Get help
         </Link>
@@ -369,36 +432,30 @@ function EmptyState({
 function Background() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      {/* very faint grid */}
+      {/* top hairline */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      {/* warm dune band so the flat sand reads as layered, not empty */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-dune/45 to-transparent" />
+      {/* faint gold dot-grid — readable on sand (gold_deep for contrast) */}
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.035] dark:opacity-[0.06]"
+        className="absolute inset-0 h-full w-full text-gold_deep opacity-[0.22]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
           <pattern
-            id="grid-bw"
-            width="24"
-            height="24"
+            id="grid-gold"
+            width="30"
+            height="30"
             patternUnits="userSpaceOnUse"
           >
-            <path
-              d="M24 0H0V24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.75"
-            />
+            <circle cx="2" cy="2" r="1" fill="currentColor" />
           </pattern>
         </defs>
-        <rect
-          width="100%"
-          height="100%"
-          fill="url(#grid-bw)"
-          className="text-neutral-900 dark:text-neutral-300"
-        />
+        <rect width="100%" height="100%" fill="url(#grid-gold)" />
       </svg>
-      {/* soft neutral glows */}
-      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-400/15 blur-3xl" />
-      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-neutral-500/10 blur-3xl" />
+      {/* soft gold underglows */}
+      <div className="absolute -top-24 -start-20 h-56 w-56 rounded-full bg-gold/20 blur-3xl" />
+      <div className="absolute -bottom-24 -end-16 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
     </div>
   );
 }

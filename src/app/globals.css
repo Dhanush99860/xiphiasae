@@ -3,6 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile LCP: show the hero copy immediately (override framer's inline
+   opacity/transform from SSR) so the largest text paints at FCP instead of
+   waiting for hydration on a throttled mobile CPU. Desktop keeps the entrance. */
+@media (max-width: 767px) {
+  .lcp-instant [style*="opacity"],
+  .lcp-instant [style*="translate"],
+  .lcp-instant [style*="115%"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Root vars */
 :root {
   --bg-header: #ffffff;
@@ -25,6 +37,18 @@ body {
   overscroll-behavior-y: none; /* stops pull-to-refresh rubber band */
 }
 
+/* Hide scrollbars site-wide (scrolling still works) — owner preference: no
+   visible scrollbar strips anywhere, including overflow panels like the menu. */
+* {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* legacy Edge/IE */
+}
+*::-webkit-scrollbar {         /* Chromium / Safari */
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 /* Mobile carousel utility (keeps TopPrograms server-side) */
 .no-scrollbar {
   -ms-overflow-style: none; /* IE/Edge */
@@ -37,21 +61,22 @@ body {
 /* ✅ Use @layer base so Tailwind generates custom colors */
 @layer base {
   html {
-    @apply bg-light_bg text-dark_text;
+    @apply bg-sand text-ink;
   }
 
   html.dark {
     @apply bg-dark_bg text-dark_text;
   }
 
-  section {
-    @apply bg-white dark:bg-darkmode;
-  }
+  /* NOTE: the legacy `section { @apply bg-sand }` rule was removed — it painted
+     EVERY <section> cream and leaked sand into the navy/gold redesign. Sections
+     now inherit their page background (navy on redesigned pages); old pages fall
+     back to the body's bg-sand, so they are unaffected. */
 }
 
 /* ✅ Improve focus styles for accessibility */
 :focus-visible {
-  @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-white dark:ring-offset-darkmode;
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-white dark:ring-offset-darkmode;
 }
 
 /* ── Homepage-only immersive header treatment ──────────────────────────────
@@ -60,10 +85,10 @@ body {
    Removed on route change (component unmount). Only affects homepage.
    ──────────────────────────────────────────────────────────────────────── */
 html[data-hero-immersive] header .rounded-2xl {
-  background-color: rgba(2, 8, 24, 0.68) !important;
-  backdrop-filter: blur(20px) saturate(1.5) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
-  box-shadow: 0 2px 28px rgba(0, 0, 0, 0.60), 0 0 0 0.5px rgba(255, 255, 255, 0.045) !important;
+  background-color: rgba(251, 250, 247, 0.78) !important;
+  backdrop-filter: blur(20px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.3) !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08), 0 0 0 0.5px rgba(212, 175, 55, 0.18) !important;
 }
 
 /* Hero quick-contact inputs use a custom gold bottom-line indicator instead */
@@ -251,6 +276,18 @@ html[data-hero-immersive] header .rounded-2xl {
   to   { opacity: 1; transform: translateY(0)   scale(1); }
 }
 .mega-panel-enter { animation: megaFadeIn 0.14s ease-out both; }
+
+/* Motion-toolkit keyframes (ShinyText gold sweep + GradientText shift).
+   Referenced by src/components/motion/ShinyText.tsx & GradientText.tsx —
+   without these the effects render as static text. */
+@keyframes xg-shine {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+@keyframes xg-gradient {
+  from { background-position: 0% 50%; }
+  to   { background-position: 200% 50%; }
+}
 
 @layer utilities {
   /* Right→Left marquee for all rows (duration via CSS var) */

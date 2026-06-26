@@ -66,7 +66,7 @@ export default function Video({
     return (
       <figure className={["my-6", className].filter(Boolean).join(" ")}>
         <div
-          className="relative w-full overflow-hidden rounded-xl border border-black/10 dark:border-white/10 bg-black"
+          className="relative w-full overflow-hidden rounded-xl border border-black/10 dark:border-gold/45 bg-black"
           style={style}
         >
           <video
@@ -117,7 +117,7 @@ export default function Video({
   return (
     <figure className={["my-6", className].filter(Boolean).join(" ")}>
       <div
-        className="relative w-full overflow-hidden rounded-xl border border-black/10 dark:border-white/10 bg-black"
+        className="relative w-full overflow-hidden rounded-xl border border-black/10 dark:border-gold/45 bg-black"
         style={style}
       >
         {embedLoaded || !ytId ? (

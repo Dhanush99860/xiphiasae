@@ -68,10 +68,9 @@ export default function MetricsTiles(props: Props) {
             key={`${t.label}-${i}`}
             className={[
               "group relative h-full overflow-hidden rounded-2xl p-4",
-              "bg-white dark:bg-neutral-900",
-              "ring-1 ring-neutral-200 dark:ring-neutral-800",
-              "shadow-sm hover:shadow-md transition-shadow",
-              "focus-within:ring-2 focus-within:ring-blue-400/70 dark:focus-within:ring-blue-700/60",
+              "bg-white border border-gold/45",
+              "transition-colors hover:border-gold/65",
+              "focus-within:border-gold/60",
             ].join(" ")}
             aria-label={`${t.label}: ${val}`}
             itemScope
@@ -99,11 +98,11 @@ export default function MetricsTiles(props: Props) {
                 </span>
 
                 <div className="min-w-0">
-                  <dt className="text-[11px] uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
+                  <dt className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                     {t.label}
                   </dt>
                   <dd
-                    className="mt-1 text-[15px] font-semibold leading-6 text-neutral-900 dark:text-neutral-100 truncate tabular-nums"
+                    className="mt-1 text-[15px] font-semibold leading-6 text-gold truncate tabular-nums"
                     itemProp="value"
                     title={String(val)}
                   >
@@ -139,46 +138,13 @@ function formatValue(v: string | number) {
   return v;
 }
 
-/** Choose gentle accent based on common labels */
-function tokenFromLabel(label: string) {
-  const l = label.toLowerCase();
-  if (/\binvest|donation|amount|price|cost/.test(l)) {
-    return {
-      bubbleBg: "bg-amber-50 dark:bg-amber-900/30",
-      bubbleRing: "ring-amber-100/70 dark:ring-amber-800/50",
-      iconText: "text-amber-700 dark:text-amber-300",
-      arc: "bg-gradient-to-br from-amber-500 to-orange-600",
-    };
-  }
-  if (/\btimeline|time|month|processing/.test(l)) {
-    return {
-      bubbleBg: "bg-sky-50 dark:bg-sky-900/30",
-      bubbleRing: "ring-sky-100/70 dark:ring-sky-800/50",
-      iconText: "text-sky-700 dark:text-sky-300",
-      arc: "bg-gradient-to-br from-sky-500 to-blue-600",
-    };
-  }
-  if (/\bvisa|travel|countries/.test(l)) {
-    return {
-      bubbleBg: "bg-emerald-50 dark:bg-emerald-900/30",
-      bubbleRing: "ring-emerald-100/70 dark:ring-emerald-800/50",
-      iconText: "text-emerald-700 dark:text-emerald-300",
-      arc: "bg-gradient-to-br from-emerald-500 to-green-600",
-    };
-  }
-  if (/\bpassport|rank|strength/.test(l)) {
-    return {
-      bubbleBg: "bg-violet-50 dark:bg-violet-900/30",
-      bubbleRing: "ring-violet-100/70 dark:ring-violet-800/50",
-      iconText: "text-violet-700 dark:text-violet-300",
-      arc: "bg-gradient-to-br from-violet-500 to-fuchsia-600",
-    };
-  }
+/** Single gold accent on the midnight ground for every metric. */
+function tokenFromLabel(_label: string) {
   return {
-    bubbleBg: "bg-neutral-50 dark:bg-neutral-800/60",
-    bubbleRing: "ring-neutral-200/70 dark:ring-neutral-700/50",
-    iconText: "text-neutral-700 dark:text-neutral-300",
-    arc: "bg-gradient-to-br from-neutral-400 to-neutral-600",
+    bubbleBg: "bg-sand/50",
+    bubbleRing: "ring-gold/20",
+    iconText: "text-gold",
+    arc: "bg-gold",
   };
 }
 

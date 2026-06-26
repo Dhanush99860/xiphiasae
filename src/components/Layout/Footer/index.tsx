@@ -134,13 +134,13 @@ const SOCIALS = [
   { href: "https://x.com/XiphiasInfo", label: "X (Twitter)", icon: "mdi:twitter" },
 ] as const;
 
-// Hover styles per network (kept from your UI)
+// Hover styles per network — unified gold accent (one-accent law)
 const HOVER: Record<string, string> = {
-  YouTube: "hover:bg-red-500/15 hover:ring-red-400/40 hover:text-red-300",
-  LinkedIn: "hover:bg-sky-500/15 hover:ring-sky-400/40 hover:text-sky-200",
-  Facebook: "hover:bg-blue-500/15 hover:ring-blue-400/40 hover:text-blue-200",
-  Instagram: "hover:bg-pink-500/15 hover:ring-pink-400/40 hover:text-pink-200",
-  "X (Twitter)": "hover:bg-slate-300/15 hover:ring-slate-300/40 hover:text-slate-100",
+  YouTube: "hover:bg-gold/15 hover:ring-gold/40 hover:text-gold",
+  LinkedIn: "hover:bg-gold/15 hover:ring-gold/40 hover:text-gold",
+  Facebook: "hover:bg-gold/15 hover:ring-gold/40 hover:text-gold",
+  Instagram: "hover:bg-gold/15 hover:ring-gold/40 hover:text-gold",
+  "X (Twitter)": "hover:bg-gold/15 hover:ring-gold/40 hover:text-gold",
 };
 
 // CTA text per network
@@ -171,11 +171,11 @@ function Collapsible({
   const panelId = `footer-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`;
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-white/15 md:border-none" aria-label={title}>
+    <div className="border-b border-gold/45 md:border-none" aria-label={title}>
       <h3 className="md:mb-2.5 lg:mb-3">
         <button
           type="button"
-          className="w-full flex items-center justify-between py-3 md:py-0 text-left text-white font-semibold text-[15px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 md:cursor-default"
+          className="w-full flex items-center justify-between py-3 md:py-0 text-left text-[#eef3fb] font-semibold text-[15px] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 md:cursor-default"
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
@@ -278,26 +278,28 @@ export default function Footer() {
   } as const;
 
   return (
-    <footer role="contentinfo" aria-label="Site footer" className="relative text-white">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 dark:from-blue-900 dark:via-indigo-800 dark:to-black" />
+    <footer role="contentinfo" aria-label="Site footer" className="relative text-[#eef3fb]">
+      {/* Thin gold top hairline */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+      {/* Background — midnight ground */}
+      <div className="absolute inset-0 bg-[#0a1733]" />
 
       <div className="relative container mx-auto px-4 md:px-6 lg:max-w-screen-4xl">
         {/* ===== Conversion Bar ===== */}
         <div className="pt-8">
-          <div className="rounded-xl bg-white/10 border border-white/20 backdrop-blur-md p-3.5">
+          <div className="rounded-xl bg-white/[0.04] border border-gold/45 p-3.5">
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <Link
                   href="/eligibility"
-                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-md text-sm font-medium bg-white text-blue-700 hover:bg-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-md text-sm font-bold bg-gold text-[#0a1733] hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 transition-colors duration-150"
                 >
                   <Icon icon="mdi:clipboard-check-outline" className="h-5 w-5 mr-2" />
                   Free Eligibility Assessment
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-md text-sm font-medium bg-white/15 hover:bg-white/25 border border-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                  className="inline-flex items-center justify-center px-3.5 py-2.5 rounded-md text-sm font-medium bg-white/[0.04] text-[#eef3fb] hover:border-gold/65 hover:text-gold border border-gold/45 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 transition-colors duration-150"
                 >
                   <Icon icon="mdi:calendar-clock" className="h-5 w-5 mr-2" />
                   Book free Consultation
@@ -315,7 +317,7 @@ export default function Footer() {
                     href={href}
                     target={ext ? "_blank" : undefined}
                     rel={ext ? "noopener noreferrer" : undefined}
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] bg-white/15 hover:bg-white/25 border border-white/20"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] text-[#eef3fb]/85 bg-white/[0.04] hover:text-gold hover:border-gold/65 border border-gold/45 transition-colors duration-150"
                   >
                     <Icon icon={icon} className="w-4 h-4" /> {label}
                   </Link>
@@ -326,39 +328,39 @@ export default function Footer() {
         </div>
 
         {/* ===== Brand + ONE Newsletter ===== */}
-        <div className="py-6 border-b border-white/15">
+        <div className="py-6 border-b border-gold/45">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
             <div className="md:col-span-7">
               <LogoWhite />
-              <p className="mt-3 text-white/85 text-[13.5px] lg:text-sm max-w-2xl">
+              <p className="mt-3 text-[#eef3fb]/60 text-[13.5px] lg:text-sm max-w-2xl">
                 Advisory for global mobility, corporate setup, and skilled migration with transparent
                 processes, timelines, and support.
               </p>
-              <ul className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-white/90 text-[12px]">
+              <ul className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[#eef3fb]/70 text-[12px]">
                 <li className="inline-flex items-center gap-1">
-                  <Icon icon="mdi:star" className="w-4 h-4" />
-                  <strong>4.8/5</strong> · 10,000+ reviews{" "}
-                  <Link href="https://g.page/r/CTH8DQwm1lYnEAE/review" className="underline underline-offset-4 hover:text-white">
+                  <Icon icon="mdi:star" className="w-4 h-4 text-gold" />
+                  <strong className="text-gold">4.8/5</strong> · 10,000+ reviews{" "}
+                  <Link href="https://g.page/r/CTH8DQwm1lYnEAE/review" className="underline underline-offset-4 hover:text-gold">
                     (Google)
                   </Link>
                 </li>
-                <li className="opacity-75">•</li>
+                <li className="opacity-40">•</li>
                 <li className="inline-flex items-center gap-1">
-                  <Icon icon="mdi:shield-check" className="w-4 h-4" /> Secure payments
+                  <Icon icon="mdi:shield-check" className="w-4 h-4 text-gold" /> Secure payments
                 </li>
               </ul>
             </div>
 
             {/* Single newsletter (only here) */}
             <div className="md:col-span-5 md:flex md:justify-end">
-              <div aria-label="Subscribe" className="w-full md:max-w-sm rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-3.5">
-                <h3 className="text-white/95 text-sm font-semibold mb-2">Subscribe</h3>
+              <div aria-label="Subscribe" className="w-full md:max-w-sm rounded-xl border border-gold/45 bg-white/[0.04] p-3.5">
+                <h3 className="text-[#eef3fb] text-sm font-semibold mb-2">Subscribe</h3>
                 <form onSubmit={handleNewsletterSubmit} noValidate>
                   <label htmlFor="footer-email" className="sr-only">
                     Email address
                   </label>
 
-                  <div className="flex items-stretch rounded-full overflow-hidden ring-1 ring-white/20 focus-within:ring-2 focus-within:ring-white/40">
+                  <div className="flex items-stretch rounded-full overflow-hidden ring-1 ring-gold/15 focus-within:ring-2 focus-within:ring-gold/40 bg-white/[0.05]">
                     <input
                       id="footer-email"
                       name="email"
@@ -366,7 +368,7 @@ export default function Footer() {
                       inputMode="email"
                       placeholder="you@email.com"
                       required
-                      className="flex-1 min-w-0 px-3 h-10 bg-transparent text-white placeholder-white/70 outline-none"
+                      className="flex-1 min-w-0 px-3 h-10 bg-transparent text-[#eef3fb] placeholder-[#eef3fb]/40 outline-none"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
@@ -380,7 +382,7 @@ export default function Footer() {
 
                     <button
                       type="submit"
-                      className="px-4 h-10 text-sm font-medium text-black bg-secondary focus-visible:outline-none disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="px-4 h-10 text-sm font-bold text-[#0a1733] bg-gold hover:bg-gold_bright transition-colors duration-150 focus-visible:outline-none disabled:opacity-70 disabled:cursor-not-allowed"
                       disabled={!email || status === "loading"}
                     >
                       {status === "loading" ? "Subscribing..." : "Subscribe"}
@@ -398,9 +400,9 @@ export default function Footer() {
                     autoComplete="off"
                   />
 
-                  <p className="mt-1.5 text-[11px] text-white/75">
+                  <p className="mt-1.5 text-[11px] text-[#eef3fb]/45">
                     Weekly insights. No spam. By subscribing, you consent to our{" "}
-                    <Link href="/privacy-policy" className="underline">
+                    <Link href="/privacy-policy" className="underline hover:text-gold">
                       Privacy Policy
                     </Link>.
                   </p>
@@ -408,7 +410,7 @@ export default function Footer() {
                   {statusMessage && (
                     <p
                       className={`mt-1 text-[11px] ${
-                        status === "success" ? "text-emerald-200" : "text-red-200"
+                        status === "success" ? "text-gold" : "text-error"
                       }`}
                     >
                       {statusMessage}
@@ -422,14 +424,14 @@ export default function Footer() {
         </div>
 
         {/* ===== Link Columns (Explore + Resources + Company + Legal) ===== */}
-        <div className="py-6 border-b border-white/15">
+        <div className="py-6 border-b border-gold/45">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
               <Collapsible title="Explore">
                 <ul className="space-y-1.5">
                   {EXPLORE.map((l) => (
                     <li key={l.label}>
-                      <Link className="text-[13.5px] lg:text-[14px] text-white/85 hover:text-white underline-offset-4 hover:underline" href={l.href}>
+                      <Link className="text-[13.5px] lg:text-[14px] text-[#eef3fb]/60 hover:text-gold underline-offset-4 hover:underline transition-colors duration-150" href={l.href}>
                         {l.label}
                       </Link>
                     </li>
@@ -444,7 +446,7 @@ export default function Footer() {
                   {RESOURCES.map((l) => (
                     <li key={l.href}>
                       <Link
-                        className="text-[13.5px] lg:text-[14px] text-white/85 hover:text-white underline-offset-4 hover:underline"
+                        className="text-[13.5px] lg:text-[14px] text-[#eef3fb]/60 hover:text-gold underline-offset-4 hover:underline transition-colors duration-150"
                         href={l.href}
                       >
                         {l.label}
@@ -461,7 +463,7 @@ export default function Footer() {
                 <ul className="space-y-1.5">
                   {COMPANY.map((l) => (
                     <li key={l.label}>
-                      <Link className="text-[13.5px] lg:text-[14px] text-white/85 hover:text-white underline-offset-4 hover:underline" href={l.href}>
+                      <Link className="text-[13.5px] lg:text-[14px] text-[#eef3fb]/60 hover:text-gold underline-offset-4 hover:underline transition-colors duration-150" href={l.href}>
                         {l.label}
                       </Link>
                     </li>
@@ -475,7 +477,7 @@ export default function Footer() {
                 <ul className="space-y-1.5">
                   {LEGAL.map((l) => (
                     <li key={l.label}>
-                      <Link className="text-[13.5px] lg:text-[14px] text-white/85 hover:text-white underline-offset-4 hover:underline" href={l.href}>
+                      <Link className="text-[13.5px] lg:text-[14px] text-[#eef3fb]/60 hover:text-gold underline-offset-4 hover:underline transition-colors duration-150" href={l.href}>
                         {l.label}
                       </Link>
                     </li>
@@ -488,18 +490,18 @@ export default function Footer() {
         </div>
 
         {/* ===== Utility Strip: App QR (kept) + Contact ===== */}
-        <div className="py-6 border-b border-white/10">
+        <div className="py-6 border-b border-gold/45">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
             {/* App QR card (improved links + a11y) */}
             <div
               aria-label="Mobile app"
-              className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-3.5"
+              className="rounded-xl border border-gold/45 bg-white/[0.04] p-3.5"
             >
               <div className="flex items-center gap-3">
                 {/* Make QR clickable → app landing */}
                 <a
                   href="/contact"
-                  className="h-16 w-16 shrink-0 rounded-lg bg-white/20 flex items-center justify-center ring-1 ring-white/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                  className="h-16 w-16 shrink-0 rounded-lg bg-white/[0.04] flex items-center justify-center ring-1 ring-gold/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50"
                   aria-label="Open the XIPHIAS app landing page"
                   title="Open the XIPHIAS app landing page"
                 >
@@ -515,14 +517,14 @@ export default function Footer() {
                 </a>
 
                 <div className="min-w-0">
-                  <p className="text-sm text-white/95 font-medium">
+                  <p className="text-sm text-[#eef3fb] font-medium">
                     XIPHIAS App — track docs &amp; case status
                   </p>
 
-                  <div className="mt-1 flex items-center gap-1 text-[12px] text-white/90">
-                    <Icon icon="mdi:star" className="w-4 h-4" />
-                    <strong>4.8</strong>
-                    <span className="text-white/70">· 10,000+ reviews</span>
+                  <div className="mt-1 flex items-center gap-1 text-[12px] text-[#eef3fb]/70">
+                    <Icon icon="mdi:star" className="w-4 h-4 text-gold" />
+                    <strong className="text-gold">4.8</strong>
+                    <span className="text-[#eef3fb]/45">· 10,000+ reviews</span>
                   </div>
 
                   {/* Store badges (open in new tab) */}
@@ -533,7 +535,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       aria-label="Download on the App Store"
                       title="Download on the App Store"
-                      className="focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 rounded"
+                      className="focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
                       data-store="apple"
                     >
                       <img
@@ -553,7 +555,7 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       aria-label="Get it on Google Play"
                       title="Get it on Google Play"
-                      className="focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 rounded"
+                      className="focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 rounded"
                       data-store="google-play"
                     >
                       <img
@@ -574,8 +576,8 @@ export default function Footer() {
 
 
             {/* Contact chips + address (primary contact card) */}
-            <div aria-label="Get in touch" className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-3.5">
-              <h3 className="text-white/95 text-sm font-semibold mb-2">Get in touch</h3>
+            <div aria-label="Get in touch" className="rounded-xl border border-gold/45 bg-white/[0.04] p-3.5">
+              <h3 className="text-[#eef3fb] text-sm font-semibold mb-2">Get in touch</h3>
               <div className="flex flex-wrap gap-2 mb-2">
                 {[
                   { href: "tel:+919021335577", icon: "mdi:phone", label: "Call" },
@@ -588,40 +590,40 @@ export default function Footer() {
                     href={href}
                     target={ext ? "_blank" : undefined}
                     rel={ext ? "noopener noreferrer" : undefined}
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] bg-white/15 hover:bg-white/25 border border-white/20 text-white"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] bg-white/[0.04] hover:text-gold hover:border-gold/65 border border-gold/45 text-[#eef3fb]/85 transition-colors duration-150"
                   >
                     <Icon icon={icon} className="w-4 h-4" /> {label}
                   </Link>
                 ))}
               </div>
-              <address className="not-italic text-white/85 text-[13px]" itemScope itemType="https://schema.org/PostalAddress">
-                <span className="block text-white/70 text-[12px] mt-1">Mon–Sat, 9:30–6:30</span>
+              <address className="not-italic text-[#eef3fb]/60 text-[13px]" itemScope itemType="https://schema.org/PostalAddress">
+                <span className="block text-[#eef3fb]/45 text-[12px] mt-1">Mon–Sat, 9:30–6:30</span>
               </address>
             </div>
           </div>
         </div>
 
         {/* ===== Offices (multi) + Trust & Compliance ===== */}
-        <div className="py-6 border-b border-white/15">
+        <div className="py-6 border-b border-gold/45">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
             {/* Offices — auto-wrap for any number */}
-            <div className="lg:col-span-7 rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-3.5" aria-label="Offices">
-              <h3 className="text-white/95 text-sm font-semibold mb-2">Offices</h3>
+            <div className="lg:col-span-7 rounded-xl border border-gold/45 bg-white/[0.04] p-3.5" aria-label="Offices">
+              <h3 className="text-[#eef3fb] text-sm font-semibold mb-2">Offices</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {OFFICES.map((o) => (
-                  <div key={o.name} className="not-italic rounded-lg border border-white/10 bg-white/5 p-3">
-                    <strong className="block text-[13.5px]">{o.name}</strong>
-                    <div className="text-[13px] text-white/90">
+                  <div key={o.name} className="not-italic rounded-lg border border-gold/45 bg-white/[0.03] p-3">
+                    <strong className="block text-[13.5px] text-[#eef3fb]">{o.name}</strong>
+                    <div className="text-[13px] text-[#eef3fb]/60">
                       <span className="block">{o.street}</span>
                       <span className="block">{o.city} {o.postal}{o.postal ? ", " : ""}{o.country}</span>
-                      <span className="block text-white/70 text-[12px] mt-1">{o.hours}</span>
+                      <span className="block text-[#eef3fb]/45 text-[12px] mt-1">{o.hours}</span>
                       <span className="block text-[13px] mt-1">
-                        <Link href={`tel:${o.phone.replace(/\s/g, "")}`} className="underline underline-offset-4 hover:text-white">
+                        <Link href={`tel:${o.phone.replace(/\s/g, "")}`} className="underline underline-offset-4 hover:text-gold">
                           <Icon icon="mdi:phone" className="inline h-4 w-4 mr-1" />{o.phone}
                         </Link>
                       </span>
                       <span className="block text-[13px] mt-1">
-                        <Link href={o.maps} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-white">
+                        <Link href={o.maps} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-gold">
                           <Icon icon="mdi:map-marker-outline" className="inline h-4 w-4 mr-1" />Open in Maps
                         </Link>
                       </span>
@@ -632,36 +634,36 @@ export default function Footer() {
             </div>
 
             {/* Trust & Compliance */}
-            <div className="lg:col-span-5 rounded-xl border border-white/15 bg-white/10 backdrop-blur-md p-3.5" aria-label="Trust & compliance">
-              <h3 className="text-white/95 text-sm font-semibold mb-2">Trust & Compliance</h3>
+            <div className="lg:col-span-5 rounded-xl border border-gold/45 bg-white/[0.04] p-3.5" aria-label="Trust & compliance">
+              <h3 className="text-[#eef3fb] text-sm font-semibold mb-2">Trust & Compliance</h3>
               <ul className="grid grid-cols-1 gap-3">
-                <li className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <li className="rounded-lg border border-gold/45 bg-white/[0.03] p-3">
                   <div className="flex items-start gap-2">
-                    <Icon icon="mdi:certificate-outline" className="h-5 w-5 mt-0.5" />
+                    <Icon icon="mdi:certificate-outline" className="h-5 w-5 mt-0.5 text-gold" />
                     <div>
-                      <strong className="text-[13.5px]">Accreditations</strong>
-                      <p className="text-[13px] text-white/85">RCIC R516194 • MARA 1680615</p>
+                      <strong className="text-[13.5px] text-[#eef3fb]">Accreditations</strong>
+                      <p className="text-[13px] text-[#eef3fb]/60">RCIC R516194 • MARA 1680615</p>
                     </div>
                   </div>
                 </li>
 
-                <li className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <li className="rounded-lg border border-gold/45 bg-white/[0.03] p-3">
                   <div className="flex items-start gap-2">
-                    <Icon icon="mdi:star-circle-outline" className="h-5 w-5 mt-0.5" />
+                    <Icon icon="mdi:star-circle-outline" className="h-5 w-5 mt-0.5 text-gold" />
                     <div>
-                      <strong className="text-[13.5px]">Reviews</strong>
-                      <p className="text-[13px] text-white/85">4.8/5 on Google • <Link id="reviews" href="https://g.page/r/CTH8DQwm1lYnEAE/review" className="underline">Read reviews</Link></p>
+                      <strong className="text-[13.5px] text-[#eef3fb]">Reviews</strong>
+                      <p className="text-[13px] text-[#eef3fb]/60">4.8/5 on Google • <Link id="reviews" href="https://g.page/r/CTH8DQwm1lYnEAE/review" className="underline hover:text-gold">Read reviews</Link></p>
                     </div>
                   </div>
                 </li>
 
-                <li className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <li className="rounded-lg border border-gold/45 bg-white/[0.03] p-3">
                   <div className="flex items-center gap-3">
-                    <Icon icon="mdi:lock-check" className="h-5 w-5" />
-                    <span className="text-[13.5px]">Secure payments</span>
+                    <Icon icon="mdi:lock-check" className="h-5 w-5 text-gold" />
+                    <span className="text-[13.5px] text-[#eef3fb]">Secure payments</span>
                     <div aria-label="Payment methods" className="ml-auto flex items-center gap-3 overflow-x-auto pr-1">
                       {PAYMENTS.map((icon) => (
-                        <span key={icon.alt} className="bg-white/20 rounded-md p-1.5 shadow-sm">
+                        <span key={icon.alt} className="bg-pearl/90 rounded-md p-1.5 shadow-sm">
                           <span className="relative block h-7 w-14 lg:h-8 lg:w-16">
                             <Image src={icon.src} alt={icon.alt} fill sizes="(max-width:768px) 56px, 128px" className="object-contain" loading="lazy" />
                           </span>
@@ -671,9 +673,9 @@ export default function Footer() {
                   </div>
                 </li>
 
-                <li className="rounded-lg border border-white/10 bg-white/5 p-3">
-                  <p className="text-[12px] text-white/75 leading-relaxed">
-                    We provide immigration consulting and documentation support—<strong>not a law firm</strong>.
+                <li className="rounded-lg border border-gold/45 bg-white/[0.03] p-3">
+                  <p className="text-[12px] text-[#eef3fb]/45 leading-relaxed">
+                    We provide immigration consulting and documentation support—<strong className="text-[#eef3fb]/70">not a law firm</strong>.
                     Information is general guidance only and not legal advice. Availability, costs, and timelines may change.
                   </p>
                 </li>
@@ -684,7 +686,7 @@ export default function Footer() {
 
         {/* ===== Awards/Press + Socials (enhanced) ===== */}
         <div className="py-6">
-          <div className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-md px-3.5 py-4 lg:px-4 lg:py-4">
+          <div className="rounded-xl border border-gold/45 bg-white/[0.04] px-3.5 py-4 lg:px-4 lg:py-4">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
               {/* Press / awards strip */}
@@ -706,7 +708,7 @@ export default function Footer() {
                       className="object-contain h-full w-full opacity-90 contrast-125"
                     />
                     {/* soft glow on hover */}
-                    <span className="pointer-events-none absolute inset-0 rounded-md ring-0 hover:ring-2 hover:ring-white/20 transition" />
+                    <span className="pointer-events-none absolute inset-0 rounded-md ring-0 hover:ring-2 hover:ring-gold/20 transition" />
                   </span>
                 ))}
               </div>
@@ -725,8 +727,8 @@ export default function Footer() {
                       className={[
                         "group relative inline-flex items-center gap-2 rounded-full",
                         "px-3.5 py-2 text-[13px] leading-none",
-                        "bg-white/8 ring-1 ring-white/15 text-white/90",
-                        "transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80",
+                        "bg-white/[0.04] ring-1 ring-gold/15 text-[#eef3fb]/70",
+                        "transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50",
                         hover,
                       ].join(" ")}
                       title={label}
@@ -750,15 +752,15 @@ export default function Footer() {
 
 
         {/* ===== Bottom Legal Bar ===== */}
-        <div className="py-5 border-t border-white/15">
+        <div className="py-5 border-t border-gold/45">
           <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[11.5px] text-white/80">©2009–{year} XIPHIAS Immigration. All rights reserved.</p>
-            <p className="text-[11.5px] text-white/75">
+            <p className="text-[11.5px] text-[#eef3fb]/60">©2009–{year} XIPHIAS Immigration. All rights reserved.</p>
+            <p className="text-[11.5px] text-[#eef3fb]/45">
               Registered in India • CIN: U74900KA2015PTC078396 • Jurisdiction: Bengaluru, Karnataka
             </p>
             <Link
               href="/content-admin"
-              className="inline-flex w-fit items-center justify-center rounded-full border border-white/25 bg-white/12 px-3 py-1.5 text-[11.5px] font-semibold text-white hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+              className="inline-flex w-fit items-center justify-center rounded-full border border-gold/45 bg-white/[0.04] px-3 py-1.5 text-[11.5px] font-semibold text-[#eef3fb]/85 hover:text-gold hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 transition-colors duration-150"
             >
               Blog Admin Login
             </Link>

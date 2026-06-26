@@ -20,12 +20,12 @@ export default function Breadcrumb() {
   return (
     <nav className="w-full" aria-label="Breadcrumb">
       <div className="container mx-auto px-4 py-3">
-        <ol className="flex items-center flex-wrap gap-2 text-sm md:text-base text-gray-600 dark:text-gray-300">
+        <ol className="flex items-center flex-wrap gap-2 text-sm md:text-base text-ink/55">
           {/* Home link */}
           <li>
             <Link
               href="/"
-              className="hover:text-secondary font-medium transition-colors"
+              className="font-medium text-ink/70 transition-colors hover:text-gold"
             >
               Home
             </Link>
@@ -38,16 +38,16 @@ export default function Breadcrumb() {
             return (
               <li key={idx} className="flex items-center gap-2">
                 {/* Chevron */}
-                <ChevronRight className="w-4 h-4 text-gray-400" />
+                <ChevronRight className="w-4 h-4 text-gold/60" />
 
                 {isLast ? (
-                  <span className="bg-gray-100 dark:bg-neutral-800 px-2 py-1 rounded-md text-gray-900 dark:text-gray-100 font-semibold">
+                  <span className="rounded-md border border-gold/40 bg-white px-2 py-1 font-semibold text-gold">
                     {formatSegment(segment)}
                   </span>
                 ) : (
                   <Link
                     href={href}
-                    className="hover:text-secondary font-medium transition-colors"
+                    className="font-medium text-ink/70 transition-colors hover:text-gold"
                   >
                     {formatSegment(segment)}
                   </Link>

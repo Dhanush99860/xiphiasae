@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import InsightCard from "./InsightCard";
+import { Stagger, StaggerItem } from "@/components/motion";
 import type { InsightMeta } from "@/types/insights";
 
 type SortKey = "new" | "popular" | "az";
@@ -69,31 +70,36 @@ export default function InsightsList({
         />
       )}
 
-      <div
-        className={
-          view === "grid"
-            ? "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            : "divide-y divide-neutral-200 dark:divide-neutral-800 rounded-2xl ring-1 ring-neutral-200 dark:ring-neutral-800 overflow-hidden"
-        }
-      >
-        {isLoading
-          ? Array.from({ length: pageSize }).map((_, i) =>
-              view === "grid" ? <SkeletonCard key={i} /> : <SkeletonRow key={i} />,
-            )
-          : items.slice(0, visible).map((it) =>
-              view === "grid" ? (
-                <InsightCard key={it.url} item={it} />
-              ) : (
-                <Row key={it.url} item={it} />
-              ),
-            )}
-      </div>
+      {view === "grid" ? (
+        <Stagger
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          amount={0.05}
+        >
+          {isLoading
+            ? Array.from({ length: pageSize }).map((_, i) => (
+                <StaggerItem key={i} className="h-full">
+                  <SkeletonCard />
+                </StaggerItem>
+              ))
+            : items.slice(0, visible).map((it, i) => (
+                <StaggerItem key={it.url} className="h-full">
+                  <InsightCard item={it} priority={i < 3} />
+                </StaggerItem>
+              ))}
+        </Stagger>
+      ) : (
+        <div className="divide-y divide-gold/10 rounded-2xl ring-1 ring-gold/10 overflow-hidden bg-white">
+          {isLoading
+            ? Array.from({ length: pageSize }).map((_, i) => <SkeletonRow key={i} />)
+            : items.slice(0, visible).map((it) => <Row key={it.url} item={it} />)}
+        </div>
+      )}
 
       {!isLoading && visible < total && (
         <div className="mt-6 flex items-center justify-center">
           <button
             onClick={() => setPage((p) => p + 1)}
-            className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-black dark:text-white ring-1 ring-neutral-400 dark:ring-neutral-500 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+            className="inline-flex items-center gap-2 rounded-lg border border-gold/40 bg-gold/10 px-4 py-2 text-sm font-medium text-gold transition-colors hover:bg-gold/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand"
             aria-label="Load more insights"
           >
             <ArrowDown className="h-4 w-4" /> Load more
@@ -125,19 +131,17 @@ function Toolbar({
   onSortChangeAction?: (s: SortKey) => void;
 }) {
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl bg-white/70 dark:bg-neutral-900/50 px-3 py-2">
-      <span className="text-sm text-neutral-700 dark:text-neutral-300">
-        {countText}
-      </span>
+    <div className="mb-4 flex flex-wrap items-center gap-3 rounded-2xl border border-gold/45 bg-white/60 px-3 py-2">
+      <span className="text-sm text-ink/55">{countText}</span>
 
       <div className="ml-auto flex items-center gap-2">
         {onSortChangeAction && (
-          <label className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
+          <label className="inline-flex items-center gap-2 text-sm text-ink/60">
             <span className="whitespace-nowrap">Sort</span>
             <select
               value={sort}
               onChange={(e) => onSortChangeAction(e.target.value as SortKey)}
-              className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+              className="rounded-md border border-gold/45 bg-white px-2.5 py-1 text-sm text-ink focus:border-gold focus:outline-none"
               aria-label="Sort insights"
             >
               <option value="new">Newest</option>
@@ -147,12 +151,12 @@ function Toolbar({
           </label>
         )}
 
-        <div className="inline-flex overflow-hidden rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700">
+        <div className="inline-flex overflow-hidden rounded-md ring-1 ring-gold/15">
           <button
             className={`px-2.5 py-1.5 text-sm ${
               view === "grid"
-                ? "bg-secondary text-white"
-                : "bg-white dark:bg-neutral-900"
+                ? "bg-gold text-midnight"
+                : "bg-white text-ink/60 hover:text-ink"
             }`}
             aria-pressed={view === "grid"}
             onClick={() => onViewChange("grid")}
@@ -163,8 +167,8 @@ function Toolbar({
           <button
             className={`px-2.5 py-1.5 text-sm ${
               view === "list"
-                ? "bg-primary text-white"
-                : "bg-white dark:bg-neutral-900"
+                ? "bg-gold text-midnight"
+                : "bg-white text-ink/60 hover:text-ink"
             }`}
             aria-pressed={view === "list"}
             onClick={() => onViewChange("list")}
@@ -189,15 +193,14 @@ function Row({ item }: { item: InsightMeta }) {
     <a
       href={item.url}
       className="
-        grid grid-cols-[112px_minmax(0,1fr)] gap-3 p-3 transition-colors
-        hover:bg-neutral-50 focus:bg-neutral-50
-        dark:hover:bg-neutral-900/40 dark:focus:bg-neutral-900/40
+        group grid grid-cols-[112px_minmax(0,1fr)] gap-3 p-3 transition-colors
+        hover:bg-sand/40 focus:bg-sand/40
         outline-none
       "
       aria-label={item.title}
     >
       {/* thumbnail */}
-      <div className="relative h-24 w-[112px] overflow-hidden rounded-md ring-1 ring-neutral-200 dark:ring-neutral-800">
+      <div className="relative h-24 w-[112px] overflow-hidden rounded-md ring-1 ring-gold/10 bg-sand">
         {cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -208,34 +211,37 @@ function Row({ item }: { item: InsightMeta }) {
             decoding="async"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-800 dark:to-neutral-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-ink to-midnight" />
         )}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+        />
       </div>
 
       {/* content */}
       <div className="min-w-0">
         <div className="flex items-start gap-2">
           <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] ring-1 ${badgeClasses(
-              type,
-            )}`}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-[11px] text-gold"
             aria-label={`Content type: ${type}`}
           >
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
             {type}
           </span>
 
-          <h3 className="text-[15px] font-semibold leading-5 text-neutral-900 dark:text-neutral-100 line-clamp-2">
+          <h3 className="font-sora text-[15px] font-semibold leading-5 text-ink line-clamp-2">
             {item.title}
           </h3>
         </div>
 
         {(any.excerpt || any.summary) && (
-          <p className="mt-1 text-[13px] leading-5 text-neutral-700 dark:text-neutral-300 line-clamp-2">
+          <p className="mt-1 text-[13px] leading-5 text-ink/55 line-clamp-2">
             {any.excerpt ?? any.summary}
           </p>
         )}
 
-        <p className="mt-1 text-[11px] text-neutral-500 dark:text-neutral-400">
+        <p className="mt-1 text-[11px] text-ink/40">
           {readStr ? `${readStr} · ` : ""}
           {any.date ?? ""}
         </p>
@@ -255,21 +261,19 @@ function EmptyState({
     <div
       role="status"
       aria-live="polite"
-      className="rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 p-10 text-center"
+      className="rounded-2xl border border-dashed border-gold/45 p-10 text-center"
     >
-      <div className="mx-auto mb-3 h-12 w-12 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300 flex items-center justify-center">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-gold/10 text-gold">
         <SearchIcon className="h-5 w-5" />
       </div>
-      <p className="text-sm text-neutral-700 dark:text-neutral-300">
-        No results
-      </p>
-      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+      <p className="text-sm text-ink/70">No results</p>
+      <p className="mt-1 text-xs text-ink/40">
         Try different keywords or adjust filters.
       </p>
       {onResetFiltersAction && (
         <button
           onClick={onResetFiltersAction}
-          className="mt-4 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm ring-1 ring-neutral-300 hover:bg-neutral-50 dark:ring-neutral-700 dark:hover:bg-neutral-800"
+          className="mt-4 inline-flex items-center gap-2 rounded-lg border border-gold/45 px-3 py-1.5 text-sm text-ink/70 transition-colors hover:border-gold/65 hover:text-ink"
         >
           <RotateIcon className="h-4 w-4" /> Clear filters
         </button>
@@ -280,22 +284,22 @@ function EmptyState({
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse rounded-2xl ring-1 ring-neutral-200 dark:ring-neutral-800 p-4">
-      <div className="h-36 rounded-xl bg-neutral-200/80 dark:bg-neutral-800" />
-      <div className="mt-3 h-4 w-3/4 rounded bg-neutral-200/80 dark:bg-neutral-800" />
-      <div className="mt-2 h-3 w-5/6 rounded bg-neutral-200/70 dark:bg-neutral-800" />
-      <div className="mt-2 h-3 w-2/3 rounded bg-neutral-200/70 dark:bg-neutral-800" />
+    <div className="animate-pulse rounded-2xl border border-gold/45 bg-white p-4">
+      <div className="h-36 rounded-xl bg-pearl/10" />
+      <div className="mt-3 h-4 w-3/4 rounded bg-pearl/10" />
+      <div className="mt-2 h-3 w-5/6 rounded bg-pearl/5" />
+      <div className="mt-2 h-3 w-2/3 rounded bg-pearl/5" />
     </div>
   );
 }
 function SkeletonRow() {
   return (
     <div className="grid grid-cols-[112px_minmax(0,1fr)] gap-3 p-3 animate-pulse">
-      <div className="h-24 w-[112px] rounded-md bg-neutral-200/80 dark:bg-neutral-800" />
+      <div className="h-24 w-[112px] rounded-md bg-pearl/10" />
       <div className="space-y-2">
-        <div className="h-4 w-3/4 rounded bg-neutral-200/80 dark:bg-neutral-800" />
-        <div className="h-3 w-5/6 rounded bg-neutral-200/70 dark:bg-neutral-800" />
-        <div className="h-3 w-2/3 rounded bg-neutral-200/70 dark:bg-neutral-800" />
+        <div className="h-4 w-3/4 rounded bg-pearl/10" />
+        <div className="h-3 w-5/6 rounded bg-pearl/5" />
+        <div className="h-3 w-2/3 rounded bg-pearl/5" />
       </div>
     </div>
   );
@@ -350,19 +354,6 @@ function getTypeBadge(any: any): "news" | "blog" | "media" | "article" {
     return "article";
 
   return "article"; // default – ensures badge renders
-}
-
-function badgeClasses(type: string): string {
-  switch (type) {
-    case "news":
-      return "bg-sky-50 text-sky-700 ring-sky-200 dark:bg-sky-900/20 dark:text-sky-300 dark:ring-sky-800";
-    case "blog":
-      return "bg-rose-50 text-rose-700 ring-rose-200 dark:bg-rose-900/20 dark:text-rose-300 dark:ring-rose-800";
-    case "media":
-      return "bg-violet-50 text-violet-700 ring-violet-200 dark:bg-violet-900/20 dark:text-violet-300 dark:ring-violet-800";
-    default:
-      return "bg-emerald-50 text-emerald-700 ring-emerald-200 dark:bg-emerald-900/20 dark:text-emerald-300 dark:ring-emerald-800";
-  }
 }
 
 function getReadTime(item: InsightMeta): string | undefined {

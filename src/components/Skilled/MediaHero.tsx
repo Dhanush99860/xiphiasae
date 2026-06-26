@@ -143,28 +143,29 @@ export default function SkilledHero({
             sizes="(min-width: 1024px) 1024px, 100vw"
           />
         ) : (
-          <div className="absolute inset-0 bg-slate-200 dark:bg-slateGray" />
+          <div className="absolute inset-0 bg-sand" />
         )}
       </div>
 
       {/* Desktop-only overlay & CTAs */}
-      <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/65 via-black/35 to-black/10 md:block" />
+      <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-midnight via-midnight/55 to-transparent md:block" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent md:block" />
       <div className="absolute inset-0 hidden items-end md:flex">
         <div className="p-6 md:p-10">
-          <div className="max-w-3xl text-white">
-            <h1 className="text-3xl font-bold leading-tight md:text-4xl">
+          <div className="max-w-3xl text-ink">
+            <h1 className="font-sora text-3xl font-bold leading-tight md:text-4xl">
               {title}
             </h1>
-            {subtitle && <p className="mt-2 text-white/90">{subtitle}</p>}
+            {subtitle && <p className="mt-2 text-ink/70">{subtitle}</p>}
             {!!actions.length && (
               <div className="mt-6 flex flex-wrap items-end gap-3 sm:gap-4">
                 {actions.map((a) => {
                   const base =
-                    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+                    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition transform hover:scale-105 motion-reduce:transform-none focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand";
                   const styles =
                     a.variant === "ghost"
-                      ? "bg-white/20 text-white backdrop-blur ring-1 ring-inset ring-white/30 hover:bg-white/30"
-                      : "bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600 text-white shadow-lg";
+                      ? "bg-white/60 text-ink backdrop-blur ring-1 ring-inset ring-gold/20 hover:ring-gold/40"
+                      : "bg-white text-gold ring-1 ring-inset ring-gold/40 hover:bg-gold hover:text-midnight";
                   return (
                     <Link
                       key={a.label}

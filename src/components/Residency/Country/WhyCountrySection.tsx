@@ -84,7 +84,7 @@ export default function WhyCountrySection({
           aria-label={`Top key points of ${country}`}
           className={[
             "relative z-10 mt-4 divide-y",
-            "divide-neutral-200 dark:divide-neutral-800",
+            "divide-gold/5",
           ].join(" ")}
           itemProp="itemListElement"
         >
@@ -101,7 +101,7 @@ export default function WhyCountrySection({
                 <div className="min-w-0">
                   <h3
                     className={[
-                      "font-medium text-neutral-900 dark:text-neutral-100",
+                      "font-sora font-medium text-ink",
                       txtSize,
                     ].join(" ")}
                     title={it.title}
@@ -111,7 +111,7 @@ export default function WhyCountrySection({
                   </h3>
                   {it.detail ? (
                     <p
-                      className="mt-1 text-[13px] leading-6 text-neutral-600 dark:text-neutral-300 whitespace-pre-wrap hyphens-auto"
+                      className="mt-1 text-[13px] leading-6 text-ink/55 whitespace-pre-wrap hyphens-auto"
                       itemProp="description"
                     >
                       {it.detail}
@@ -152,7 +152,7 @@ export default function WhyCountrySection({
                     <div className="min-w-0">
                       <h3
                         className={[
-                          "font-medium text-neutral-900 dark:text-neutral-100",
+                          "font-sora font-medium text-ink",
                           txtSize,
                         ].join(" ")}
                         title={it.title}
@@ -162,7 +162,7 @@ export default function WhyCountrySection({
                       </h3>
                       {it.detail ? (
                         <p
-                          className="mt-1 text-[13px] leading-6 text-neutral-600 dark:text-neutral-300 whitespace-pre-wrap hyphens-auto"
+                          className="mt-1 text-[13px] leading-6 text-ink/55 whitespace-pre-wrap hyphens-auto"
                           itemProp="description"
                         >
                           {it.detail}
@@ -192,12 +192,10 @@ export default function WhyCountrySection({
 /* ---------- Decorative background (subtle, professional) ---------- */
 
 function DecorativeBackground({ tone }: { tone: "blue" | "green" }) {
-  const glowA = tone === "blue" ? "bg-sky-400/15" : "bg-emerald-400/15";
-  const glowB = tone === "blue" ? "bg-blue-500/15" : "bg-green-600/15";
-  const gridColor =
-    tone === "blue"
-      ? "text-sky-700 dark:text-sky-300"
-      : "text-emerald-700 dark:text-emerald-300";
+  void tone;
+  const glowA = "bg-gold/10";
+  const glowB = "bg-gold/5";
+  const gridColor = "text-gold/60";
 
   return (
     <>
@@ -211,7 +209,7 @@ function DecorativeBackground({ tone }: { tone: "blue" | "green" }) {
       />
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06] dark:opacity-[0.08]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.05]"
       >
         <defs>
           <pattern
@@ -252,7 +250,7 @@ function DecorativeBackground({ tone }: { tone: "blue" | "green" }) {
       {/* top gloss for legibility on mobile */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white/60 to-transparent dark:from-white/10"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-pearl/[0.04] to-transparent"
       />
     </>
   );
@@ -283,24 +281,14 @@ function normalize(p: Benefit): { title: string; detail?: string } {
 }
 
 function getAccent(a: "green" | "blue") {
-  if (a === "blue") {
-    return {
-      topline: "bg-gradient-to-r from-sky-500 via-sky-300/40 to-sky-500",
-      iconBg: "bg-sky-100/60 dark:bg-sky-900/30",
-      iconRing: "ring-1 ring-sky-300/50 dark:ring-sky-800/60",
-      icon: "text-sky-600 dark:text-sky-400",
-      leftBar: "bg-sky-400/50 dark:bg-sky-600/50",
-      patternTone: "blue" as const,
-    };
-  }
+  // Midnight Embassy — single gold accent regardless of legacy hue.
   return {
-    topline:
-      "bg-gradient-to-r from-emerald-500 via-emerald-300/40 to-emerald-500",
-    iconBg: "bg-emerald-100/60 dark:bg-emerald-900/30",
-    iconRing: "ring-1 ring-emerald-300/50 dark:ring-emerald-800/60",
-    icon: "text-emerald-600 dark:text-emerald-400",
-    leftBar: "bg-emerald-400/50 dark:bg-emerald-600/50",
-    patternTone: "green" as const,
+    topline: "bg-gradient-to-r from-transparent via-gold to-transparent",
+    iconBg: "bg-sand/50",
+    iconRing: "ring-1 ring-gold/30",
+    icon: "text-gold",
+    leftBar: "bg-gold/50",
+    patternTone: a === "blue" ? ("blue" as const) : ("green" as const),
   };
 }
 

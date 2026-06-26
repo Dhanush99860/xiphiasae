@@ -38,11 +38,12 @@ export default function RelatedCountriesSection({
   return (
     <section className="mt-12">
       <header className="mb-5">
-        <div className="inline-flex items-center rounded-md bg-slate-600/10 px-2 py-1 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           Related
         </div>
-        <h2 className="mt-2 text-xl font-semibold">{title}</h2>
-        <p className="text-sm opacity-70">{subtitle}</p>
+        <h2 className="mt-2 font-sora text-xl font-semibold text-ink">{title}</h2>
+        <p className="text-sm text-ink/55">{subtitle}</p>
       </header>
 
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -54,10 +55,10 @@ export default function RelatedCountriesSection({
             <li key={c.countrySlug}>
               <Link
                 href={href}
-                className="group block overflow-hidden rounded-2xl ring-1 ring-neutral-200/80 dark:ring-neutral-800/80 bg-white/80 dark:bg-neutral-900/40 hover:-translate-y-0.5 hover:shadow-md transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                className="group block overflow-hidden rounded-2xl border border-gold/45 bg-white hover:-translate-y-0.5 hover:border-gold/65 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label={`View ${c.country}`}
               >
-                <div className="relative aspect-[16/9] overflow-hidden">
+                <div className="relative aspect-[16/9] overflow-hidden bg-sand">
                   {img ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -68,19 +69,20 @@ export default function RelatedCountriesSection({
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                   ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-slate-200 to-slate-100 dark:from-neutral-800 dark:to-neutral-700 grid place-items-center">
-                      <span className="text-xs opacity-70">{c.country}</span>
+                    <div className="h-full w-full bg-sand grid place-items-center">
+                      <span className="text-xs text-ink/40">{c.country}</span>
                     </div>
                   )}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 to-transparent" />
+                  <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
                 </div>
 
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-base font-semibold leading-6">
+                  <h3 className="font-sora text-base font-semibold leading-6 text-ink">
                     {c.title || c.country}
                   </h3>
                   {c.summary ? (
-                    <p className="mt-1 text-sm opacity-70 line-clamp-2">
+                    <p className="mt-1 text-sm text-ink/55 line-clamp-2">
                       {c.summary}
                     </p>
                   ) : null}

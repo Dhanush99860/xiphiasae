@@ -2,9 +2,9 @@
 import React from "react";
 
 /**
- * InvestmentRoutes — professional, readable blue-accent list
+ * InvestmentRoutes — Midnight Embassy route list
  * - Server-component friendly (no hooks, no client-only libs)
- * - White cards on ultra-light grid; blue only for emphasis
+ * - Dark ink cards; gold only for emphasis
  * - 100% responsive (1 → 2 → 3 columns), print-friendly
  * - A11y: semantic <section>/<header>, dl pairs, focus states
  * - SEO: ItemList JSON-LD with Offer rows
@@ -38,8 +38,7 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-5 md:p-6 lg:p-8",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm print:shadow-none",
+        "bg-white border border-gold/45 print:shadow-none",
         className,
       ].join(" ")}
     >
@@ -47,17 +46,17 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
 
       {/* Header */}
       <header className="relative mb-4 md:mb-5">
-        <div className="flex items-center gap-2 text-[12px] text-blue-700 dark:text-blue-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-          <span className="font-medium">Routes</span>
+        <div className="flex items-center gap-2 text-[12px] text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+          <span className="font-medium uppercase tracking-[0.2em]">Routes</span>
         </div>
         <h2
           id={`${id}-title`}
-          className="mt-2 text-lg md:text-xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+          className="mt-2 font-sora text-lg md:text-xl font-semibold tracking-tight text-ink"
         >
           Investment routes
         </h2>
-        <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-300">
+        <p className="mt-1 text-sm text-ink/55">
           Thresholds, holding periods and indicative timelines.
         </p>
 
@@ -85,10 +84,9 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
               <article
                 className={[
                   "relative h-full rounded-xl p-4",
-                  "bg-white dark:bg-neutral-900",
-                  "ring-1 ring-neutral-200 dark:ring-neutral-800",
-                  "hover:shadow-md transition-shadow",
-                  "focus-within:ring-2 focus-within:ring-blue-400/70 dark:focus-within:ring-blue-700/60",
+                  "bg-sand/50 border border-gold/45",
+                  "transition-colors hover:border-gold/65",
+                  "focus-within:border-gold/60",
                 ].join(" ")}
                 itemScope
                 itemType="https://schema.org/Offer"
@@ -118,7 +116,7 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
 
                   <div className="min-w-0">
                     <h3
-                      className="text-sm font-semibold text-neutral-900 dark:text-neutral-100"
+                      className="font-sora text-sm font-semibold text-ink"
                       itemProp="category"
                     >
                       {r.title}
@@ -127,27 +125,27 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
                     {/* Small chips */}
                     <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                       {isFiniteNum(r.minInvestment) ? (
-                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] ring-1 ring-neutral-200 dark:ring-neutral-700">
+                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] border border-gold/45 text-ink/70">
                           <span
-                            className="h-1.5 w-1.5 rounded-full bg-blue-600"
+                            className="h-1.5 w-1.5 rounded-full bg-gold"
                             aria-hidden
                           />
                           {fmtCurrency(r.minInvestment!, r.currency)}
                         </small>
                       ) : null}
                       {isFiniteNum(r.timeline) ? (
-                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] ring-1 ring-neutral-200 dark:ring-neutral-700">
+                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] border border-gold/45 text-ink/70">
                           <span
-                            className="h-1.5 w-1.5 rounded-full bg-neutral-500"
+                            className="h-1.5 w-1.5 rounded-full bg-gold"
                             aria-hidden
                           />
                           {plural(r.timeline!, "mo")}
                         </small>
                       ) : null}
                       {isFiniteNum(r.count) ? (
-                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] ring-1 ring-neutral-200 dark:ring-neutral-700">
+                        <small className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] border border-gold/45 text-ink/70">
                           <span
-                            className="h-1.5 w-1.5 rounded-full bg-emerald-600"
+                            className="h-1.5 w-1.5 rounded-full bg-gold"
                             aria-hidden
                           />
                           {plural(r.count!, "program")}
@@ -217,8 +215,8 @@ export default function InvestmentRoutes({ routes, className = "" }: Props) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex justify-between gap-3">
-      <dt className="text-neutral-600 dark:text-neutral-400">{label}</dt>
-      <dd className="font-medium text-neutral-900 dark:text-neutral-100">
+      <dt className="text-ink/45">{label}</dt>
+      <dd className="font-medium text-ink">
         {value}
       </dd>
     </div>
@@ -229,13 +227,12 @@ function Chip({ label, value }: { label: string; value: string }) {
   return (
     <span
       className="
-        inline-flex items-center gap-1 rounded-md bg-white text-neutral-900 ring-1 ring-neutral-200
-        dark:bg-neutral-900 dark:text-neutral-100 dark:ring-neutral-700
+        inline-flex items-center gap-1 rounded-md border border-gold/45 bg-sand/50 text-ink/70
         px-2 py-0.5 text-[12px] font-medium
       "
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-blue-600" aria-hidden />
-      {label}: <span className="tabular-nums">{value}</span>
+      <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
+      {label}: <span className="tabular-nums text-gold">{value}</span>
     </span>
   );
 }
@@ -247,10 +244,10 @@ function BackgroundGraphics() {
       aria-hidden
       className="pointer-events-none absolute inset-0 print:hidden"
     >
-      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-neutral-300/15 blur-3xl" />
-      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-neutral-400/10 blur-3xl" />
+      <div className="absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <div className="absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-gold/5 blur-3xl" />
       <svg
-        className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]"
+        className="absolute inset-0 h-full w-full opacity-[0.04]"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
@@ -263,7 +260,7 @@ function BackgroundGraphics() {
             <path
               d="M24 0H0v24"
               fill="none"
-              stroke="#111827"
+              stroke="#d4af37"
               strokeWidth="0.75"
             />
           </pattern>
@@ -288,45 +285,12 @@ function iconFor(title: string) {
   return <StarIcon className="h-4 w-4" />;
 }
 
-function colorToken(title: string) {
-  const t = title.toLowerCase();
-  if (/\bdonation|contribution|fund/.test(t)) {
-    return {
-      bubbleBg: "bg-amber-50 dark:bg-amber-900/30",
-      bubbleRing: "ring-amber-100/70 dark:ring-amber-800/50",
-      iconText: "text-amber-700 dark:text-amber-300",
-      arc: "bg-gradient-to-br from-amber-500 to-orange-600",
-    };
-  }
-  if (/\breal ?estate|property/.test(t)) {
-    return {
-      bubbleBg: "bg-blue-50 dark:bg-blue-900/30",
-      bubbleRing: "ring-blue-100/70 dark:ring-blue-800/50",
-      iconText: "text-blue-700 dark:text-blue-300",
-      arc: "bg-gradient-to-br from-sky-500 to-blue-600",
-    };
-  }
-  if (/\bbond/.test(t)) {
-    return {
-      bubbleBg: "bg-violet-50 dark:bg-violet-900/30",
-      bubbleRing: "ring-violet-100/70 dark:ring-violet-800/50",
-      iconText: "text-violet-700 dark:text-violet-300",
-      arc: "bg-gradient-to-br from-violet-500 to-fuchsia-600",
-    };
-  }
-  if (/\bbusiness|enterprise|startup|fund/.test(t)) {
-    return {
-      bubbleBg: "bg-emerald-50 dark:bg-emerald-900/30",
-      bubbleRing: "ring-emerald-100/70 dark:ring-emerald-800/50",
-      iconText: "text-emerald-700 dark:text-emerald-300",
-      arc: "bg-gradient-to-br from-emerald-500 to-green-600",
-    };
-  }
+function colorToken(_title: string) {
   return {
-    bubbleBg: "bg-neutral-50 dark:bg-neutral-800/60",
-    bubbleRing: "ring-neutral-200/70 dark:ring-neutral-700/50",
-    iconText: "text-neutral-700 dark:text-neutral-300",
-    arc: "bg-gradient-to-br from-neutral-400 to-neutral-600",
+    bubbleBg: "bg-sand/50",
+    bubbleRing: "ring-gold/20",
+    iconText: "text-gold",
+    arc: "bg-gold",
   };
 }
 

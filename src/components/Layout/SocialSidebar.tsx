@@ -48,7 +48,7 @@ export default function SocialSidebar() {
             /* Fixed size — never changes, so siblings never jump */
             'group relative flex h-10 w-10 items-center justify-center',
             /* Colours */
-            'bg-primary/80 text-white hover:bg-primary',
+            'bg-white/90 text-ink/80 ring-1 ring-gold/10 hover:bg-white hover:text-gold',
             /* Only transform + bg transition — no width/layout changes */
             'transition-[background-color,transform,box-shadow] duration-200 ease-out',
             /* Slide 3 px left on hover — smooth, affects only this element */
@@ -58,7 +58,7 @@ export default function SocialSidebar() {
             /* Rounded corners only on the exposed edge */
             i === 0 ? 'rounded-tl-lg' : '',
             i === SOCIALS.length - 1 ? 'rounded-bl-lg' : '',
-            'border-b border-white/10 last:border-b-0',
+            'border-b border-gold/45 last:border-b-0',
           ].join(' ')}
         >
           <Icon

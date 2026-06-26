@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
@@ -153,6 +154,12 @@ export type ProgramSections = Record<string, ReactNode>;
  * Constants & tiny utils
  * =======================*/
 const ROOT = path.join(process.cwd(), "content", "corporate");
+
+// Missing content file → 404 (not an ENOENT 500).
+function readContentFileOr404(file: string): string {
+  if (!fs.existsSync(file)) notFound();
+  return fs.readFileSync(file, "utf8");
+}
 
 const exists = (p: string) => {
   try {
@@ -504,7 +511,7 @@ export function getCorporatePrograms(countrySlug?: string): ProgramMeta[] {
   for (const c of countries) {
     for (const p of getCorporateProgramSlugs(c)) {
       const f = path.join(ROOT, c, `${p}.mdx`);
-      const { data } = matter(fs.readFileSync(f, "utf8"));
+      const { data } = matter(readContentFileOr404(f));
       const meta = normalizeProgram(data as Partial<ProgramMeta>, c, p);
       if (!meta?.draft) out.push(meta);
     }
@@ -526,7 +533,7 @@ export function getCorporatePrograms(countrySlug?: string): ProgramMeta[] {
  * =======================*/
 export async function loadCountryPage(countrySlug: string) {
   const f = path.join(ROOT, countrySlug, "_country.mdx");
-  const source = fs.readFileSync(f, "utf8");
+  const source = readContentFileOr404(f);
   const { content, frontmatter } = await compileMDX<CountryMeta>({
     source,
     options: { parseFrontmatter: true, mdxOptions: baseMdxOptions as any },
@@ -538,7 +545,7 @@ export async function loadCountryPage(countrySlug: string) {
 
 export async function loadProgramPage(countrySlug: string, programSlug: string) {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const source = fs.readFileSync(f, "utf8");
+  const source = readContentFileOr404(f);
   const { content, frontmatter } = await compileMDX<ProgramMeta>({
     source,
     options: { parseFrontmatter: true, mdxOptions: baseMdxOptions as any },
@@ -554,7 +561,7 @@ export async function loadProgramPageSections(
   programSlug: string,
 ): Promise<{ meta: ProgramMeta; sections: ProgramSections }> {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const raw = fs.readFileSync(f, "utf8");
+  const raw = readContentFileOr404(f);
   const { data, content: body } = matter(raw);
 
   const meta = normalizeProgram(data as Partial<ProgramMeta>, countrySlug, programSlug);
@@ -584,13 +591,13 @@ export async function loadProgramPageSections(
  * =======================*/
 export function getProgramFrontmatter(countrySlug: string, programSlug: string) {
   const f = path.join(ROOT, countrySlug, `${programSlug}.mdx`);
-  const { data } = matter(fs.readFileSync(f, "utf8"));
+  const { data } = matter(readContentFileOr404(f));
   return normalizeProgram(data as Partial<ProgramMeta>, countrySlug, programSlug);
 }
 
 export function getCountryFrontmatter(countrySlug: string) {
   const f = path.join(ROOT, countrySlug, "_country.mdx");
-  const { data } = matter(fs.readFileSync(f, "utf8"));
+  const { data } = matter(readContentFileOr404(f));
   return normalizeCountry(data as Partial<CountryMeta>, countrySlug);
 }
 

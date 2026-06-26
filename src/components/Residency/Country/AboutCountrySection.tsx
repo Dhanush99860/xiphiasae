@@ -71,7 +71,7 @@ export default function AboutCountrySection({
           <SectionHeader eyebrow="Overview" title={`About ${country}`} />
           {flagSrc ? (
             <span
-              className="mt-1 inline-flex h-6 w-9 overflow-hidden rounded-md ring-1 ring-neutral-200 dark:ring-neutral-800"
+              className="mt-1 inline-flex h-6 w-9 overflow-hidden rounded-md border border-gold/45"
               aria-hidden
             >
               <img
@@ -89,7 +89,7 @@ export default function AboutCountrySection({
 
         {overview ? (
           <p
-            className="mt-3 text-[15px] sm:text-[16px] leading-7 text-neutral-800 dark:text-neutral-200 text-pretty"
+            className="mt-3 text-[15px] sm:text-[16px] leading-7 text-ink/70 text-pretty"
             itemProp="description"
           >
             {overview}
@@ -127,9 +127,8 @@ export default function AboutCountrySection({
           <div
             className="
               mt-6 rounded-2xl p-4 sm:p-5
-              bg-gradient-to-br from-sky-50/80 via-white/85 to-blue-50/70
-              dark:from-[rgba(2,6,23,0.7)] dark:via-[rgba(2,6,23,0.6)] dark:to-[rgba(30,41,59,0.5)]
-              ring-1 ring-neutral-200 dark:ring-neutral-800 backdrop-blur
+              bg-white
+              border border-gold/45
             "
             itemProp="isPartOf"
             itemScope
@@ -141,8 +140,8 @@ export default function AboutCountrySection({
                 aria-hidden
                 className="
                   grid h-10 w-10 shrink-0 place-items-center rounded-lg
-                  bg-gradient-to-b from-white to-slate-50 dark:from-neutral-900 dark:to-neutral-800
-                  ring-1 ring-sky-200/60 dark:ring-sky-900/50 text-sky-700 dark:text-sky-300
+                  bg-sand/50
+                  border border-gold/45 text-gold
                 "
               >
                 <svg
@@ -158,11 +157,11 @@ export default function AboutCountrySection({
               </span>
 
               <div className="min-w-0">
-                <div className="text-[13px] uppercase tracking-wide text-neutral-700/90 dark:text-neutral-300">
+                <div className="text-[13px] uppercase tracking-[0.14em] text-ink/40">
                   Official source
                 </div>
                 <div
-                  className="mt-0.5 text-[15px] font-semibold leading-6 text-neutral-900 dark:text-neutral-100"
+                  className="mt-0.5 font-sora text-[15px] font-semibold leading-6 text-ink"
                   itemProp="name"
                 >
                   {officialAgencyName || "Official government site"}
@@ -174,10 +173,10 @@ export default function AboutCountrySection({
                     rel="noopener nofollow"
                     className="
                       inline-flex items-center gap-2 rounded-md px-2.5 py-1.5
-                      bg-white/90 hover:bg-white dark:bg-neutral-900/70 dark:hover:bg-neutral-900
-                      ring-1 ring-neutral-200 dark:ring-neutral-800
-                      text-[13px] font-medium text-sky-700 dark:text-sky-300
-                      focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60
+                      bg-sand/50 hover:border-gold/65
+                      border border-gold/45
+                      text-[13px] font-medium text-gold
+                      focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
                       transition
                     "
                     itemProp="url"
@@ -221,19 +220,19 @@ export default function AboutCountrySection({
 function ImmigrationGraphics() {
   return (
     <>
-      {/* Soft radial glows */}
+      {/* Soft gold glows */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-sky-400/15 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 -right-16 h-64 w-64 rounded-full bg-gold/5 blur-3xl"
       />
       {/* Blueprint/grid + subtle motifs */}
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06] dark:opacity-[0.08]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.05]"
       >
         <defs>
           <pattern
@@ -323,9 +322,9 @@ function ImmigrationGraphics() {
           width="100%"
           height="100%"
           fill="url(#imm-grid)"
-          className="text-sky-700 dark:text-sky-300"
+          className="text-gold/60"
         />
-        <g className="text-sky-800 dark:text-sky-300" opacity="0.06">
+        <g className="text-gold/60" opacity="0.06">
           <use href="#visa-stamp" x="40" y="40" />
           <use href="#passport" x="260" y="120" />
           <use href="#globe" x="520" y="40" />
@@ -334,7 +333,7 @@ function ImmigrationGraphics() {
       {/* Top gloss for legibility on mobile */}
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-white/60 to-transparent dark:from-white/10"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-pearl/[0.04] to-transparent"
       />
     </>
   );
@@ -351,19 +350,14 @@ function Chip({
   value: React.ReactNode;
   color: Accent;
 }) {
-  const c = accent(color);
+  void color;
   return (
     <span
-      className={[
-        "inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] ring-1",
-        c.chipBg,
-        c.chipText,
-        c.chipRing,
-      ].join(" ")}
+      className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] border border-gold/45 bg-sand/50 text-ink/70"
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${c.dot}`} />
-      <span className="font-semibold">{label}:</span>
-      <span className="font-medium">{value}</span>
+      <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+      <span className="font-semibold text-ink/55">{label}:</span>
+      <span className="font-medium text-ink">{value}</span>
     </span>
   );
 }
@@ -376,34 +370,33 @@ type FactItem = {
 };
 
 function StatCard({ item }: { item: FactItem }) {
-  const c = accent(item.accent);
   const IconCmp = item.Icon as React.ComponentType<{ className?: string }>;
 
   return (
     <div
-      className="group relative h-full overflow-hidden rounded-2xl p-4 bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-950 dark:to-neutral-900/40 ring-1 ring-neutral-200 dark:ring-neutral-800 transition shadow-sm hover:shadow-md"
+      className="group relative h-full overflow-hidden rounded-2xl p-4 bg-white border border-gold/45 transition hover:border-gold/65"
       itemProp="additionalProperty"
       itemScope
       itemType="https://schema.org/PropertyValue"
     >
       <div
         aria-hidden
-        className={`pointer-events-none absolute -right-12 -top-10 h-28 w-28 rounded-full ${c.accentArc} opacity-10 blur-2xl`}
+        className="pointer-events-none absolute -right-12 -top-10 h-28 w-28 rounded-full bg-gold opacity-[0.06] blur-2xl"
       />
       <meta itemProp="name" content={item.label} />
       <div className="flex items-start gap-3">
         <span
           aria-hidden
-          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${c.bubbleBg} ${c.iconText} ring-1 ring-inset ${c.bubbleRing}`}
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-sand/50 text-gold border border-gold/45"
         >
           <IconCmp className="h-4 w-4" />
         </span>
         <div className="min-w-0">
-          <dt className="text-[11px] uppercase tracking-wide text-neutral-600 dark:text-neutral-400">
+          <dt className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
             {item.label}
           </dt>
           <dd
-            className="mt-0.5 text-[15px] font-semibold leading-6 text-neutral-900 dark:text-neutral-100 break-words hyphens-auto"
+            className="mt-0.5 font-sora text-[15px] font-semibold leading-6 text-ink break-words hyphens-auto"
             itemProp="value"
           >
             {item.value}
@@ -497,74 +490,3 @@ function factsToLd(country: string, f?: CountryFacts) {
   };
 }
 
-/* ----------------- Accent tokens ----------------- */
-function accent(k: Accent) {
-  switch (k) {
-    case "blue":
-      return {
-        chipBg: "bg-blue-50 dark:bg-blue-900/20",
-        chipText: "text-blue-800 dark:text-blue-300",
-        chipRing: "ring-blue-100 dark:ring-blue-800/60",
-        bubbleBg: "bg-blue-50 dark:bg-blue-900/30",
-        bubbleRing: "ring-blue-100/70 dark:ring-blue-800/50",
-        iconText: "text-blue-700 dark:text-blue-300",
-        dot: "bg-blue-600 dark:bg-blue-400",
-        accentArc: "bg-gradient-to-br from-sky-500 to-blue-600",
-      };
-    case "emerald":
-      return {
-        chipBg: "bg-emerald-50 dark:bg-emerald-900/20",
-        chipText: "text-emerald-800 dark:text-emerald-300",
-        chipRing: "ring-emerald-100 dark:ring-emerald-800/60",
-        bubbleBg: "bg-emerald-50 dark:bg-emerald-900/30",
-        bubbleRing: "ring-emerald-100/70 dark:ring-emerald-800/50",
-        iconText: "text-emerald-700 dark:text-emerald-300",
-        dot: "bg-emerald-600 dark:bg-emerald-400",
-        accentArc: "bg-gradient-to-br from-emerald-500 to-green-600",
-      };
-    case "violet":
-      return {
-        chipBg: "bg-violet-50 dark:bg-violet-900/20",
-        chipText: "text-violet-800 dark:text-violet-300",
-        chipRing: "ring-violet-100 dark:ring-violet-800/60",
-        bubbleBg: "bg-violet-50 dark:bg-violet-900/30",
-        bubbleRing: "ring-violet-100/70 dark:ring-violet-800/50",
-        iconText: "text-violet-700 dark:text-violet-300",
-        dot: "bg-violet-600 dark:bg-violet-400",
-        accentArc: "bg-gradient-to-br from-violet-500 to-fuchsia-600",
-      };
-    case "amber":
-      return {
-        chipBg: "bg-amber-50 dark:bg-amber-900/20",
-        chipText: "text-amber-800 dark:text-amber-300",
-        chipRing: "ring-amber-100 dark:ring-amber-800/60",
-        bubbleBg: "bg-amber-50 dark:bg-amber-900/30",
-        bubbleRing: "ring-amber-100/70 dark:ring-amber-800/50",
-        iconText: "text-amber-700 dark:text-amber-300",
-        dot: "bg-amber-600 dark:bg-amber-400",
-        accentArc: "bg-gradient-to-br from-amber-500 to-orange-600",
-      };
-    case "sky":
-      return {
-        chipBg: "bg-sky-50 dark:bg-sky-900/20",
-        chipText: "text-sky-800 dark:text-sky-300",
-        chipRing: "ring-sky-100 dark:ring-sky-800/60",
-        bubbleBg: "bg-sky-50 dark:bg-sky-900/30",
-        bubbleRing: "ring-sky-100/70 dark:ring-sky-800/50",
-        iconText: "text-sky-700 dark:text-sky-300",
-        dot: "bg-sky-600 dark:bg-sky-400",
-        accentArc: "bg-gradient-to-br from-sky-500 to-blue-600",
-      };
-    case "rose":
-      return {
-        chipBg: "bg-rose-50 dark:bg-rose-900/20",
-        chipText: "text-rose-800 dark:text-rose-300",
-        chipRing: "ring-rose-100 dark:ring-rose-800/60",
-        bubbleBg: "bg-rose-50 dark:bg-rose-900/30",
-        bubbleRing: "ring-rose-100/70 dark:ring-rose-800/50",
-        iconText: "text-rose-700 dark:text-rose-300",
-        dot: "bg-rose-600 dark:bg-rose-400",
-        accentArc: "bg-gradient-to-br from-rose-500 to-pink-600",
-      };
-  }
-}

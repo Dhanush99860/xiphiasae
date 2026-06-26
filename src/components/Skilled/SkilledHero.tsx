@@ -1,6 +1,22 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import { Eyebrow } from "@/components/ui";
+import {
+  KenBurns,
+  ParallaxLayer,
+  DrawLine,
+  LatticeOverlay,
+  SandReveal,
+  Reveal,
+  SplitText,
+  Stagger,
+  StaggerItem,
+  Magnetic,
+  Counter,
+} from "@/components/motion";
 
 type Props = {
   title?: string;
@@ -27,7 +43,7 @@ type Props = {
 
 export default function SkilledHero({
   title = "Discover Skilled Migration & Work Permits",
-  subtitle = "Points-tested PR, employer sponsorships, and priority talent visas across top destinations.",
+  subtitle = "Points-tested PR, employer sponsorships, and priority talent visas across the Emirates and top destinations worldwide.",
   primaryHref = "/contact",
   primaryText = "Book a Free Consultation",
   secondaryHref = "/images/residency/xiphias-corporate-mobility.pdf",
@@ -51,87 +67,150 @@ export default function SkilledHero({
   const heroId = "skilled-hero-title";
 
   const alignClasses =
-    align === "center" ? "text-center md:max-w-3xl mx-auto" : "text-left";
+    align === "center" ? "text-center md:max-w-3xl mx-auto" : "text-start";
+
+  // Cinematic stat strip — confident, content-first proof on the dark ground.
+  const stats: { to: number; suffix: string; label: string }[] = [
+    { to: 7, suffix: "", label: "Destinations" },
+    { to: 20, suffix: "+", label: "Years advising" },
+    { to: 24, suffix: "h", label: "Response time" },
+  ];
 
   return (
     <>
       <section
         aria-labelledby={heroId}
         className={[
-          "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-          "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-          "text-black dark:text-white",
+          "relative isolate overflow-hidden rounded-3xl",
+          "bg-midnight text-pearl",
+          "border border-gold/30",
+          "min-h-[460px] md:min-h-[560px] lg:min-h-[640px]",
+          "flex items-end",
           className,
         ].join(" ")}
       >
-        {/* Decorative background accents (subtle, non-intrusive) */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-          <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-          <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-          </div>
+        {/* ── Cinematic full-bleed media: real skilled destination, slow KenBurns ── */}
+        <div className="absolute inset-0 -z-10">
+          <KenBurns
+            src="/images/skilled/canada/canada-express-entry.webp"
+            alt="Skyline of a leading skilled-migration destination at dusk"
+            priority
+            sizes="100vw"
+            position="center 35%"
+            className="h-full w-full"
+          />
+          {/* Cinematic scrim — readable text, gold-warmed shadow at the base */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/80 to-midnight/35"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-midnight/85 via-midnight/40 to-transparent"
+          />
         </div>
 
-        <div className={`relative ${alignClasses}`}>
-          {/* Badge / Eyebrow */}
+        {/* Ambient depth layers — parallax decor (cheap transforms) */}
+        <ParallaxLayer speed={40} className="pointer-events-none absolute inset-0 -z-10">
+          <LatticeOverlay opacity={0.08} />
+        </ParallaxLayer>
+
+        {/* Top hairline */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+        />
+
+        {/* Guiding golden stroke — sweeps in from the corner */}
+        <DrawLine
+          aria-hidden="true"
+          d="M2 92 C 28 72, 40 56, 70 40 S 96 18, 98 8"
+          viewBox="0 0 100 100"
+          className="pointer-events-none absolute inset-0 h-full w-full opacity-50"
+          strokeWidth={0.8}
+          delay={0.2}
+        />
+
+        {/* Decorative ghost glyph — gold on the dark ground, anchors the corner */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-8 end-3 select-none font-sora text-[9rem] leading-none text-gold/20 md:text-[13rem]"
+        >
+          ↗
+        </span>
+
+        <div className={`relative z-10 w-full p-6 md:p-10 lg:p-14 ${alignClasses}`}>
+          {/* Eyebrow */}
           {badge ? (
-            <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-              <Dot className="mr-1.5" />
-              {badge}
-            </span>
+            <Reveal>
+              <Eyebrow
+                tone="gold"
+                arabic="الهجرة المهنية"
+                className={align === "center" ? "justify-center" : ""}
+              >
+                {badge}
+              </Eyebrow>
+            </Reveal>
           ) : null}
 
-          {/* Title */}
-          <h1
-            id={heroId}
-            className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight"
-          >
-            {title}
-          </h1>
+          {/* Title — rises out of the dark */}
+          <SandReveal delay={0.05}>
+            <h1
+              id={heroId}
+              className="mt-6 max-w-3xl font-sora text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-pearl"
+            >
+              <SplitText text={title} />
+            </h1>
+          </SandReveal>
 
           {/* Subtitle */}
-          <p className="mt-3 text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 md:text-base">
-            {subtitle}
-          </p>
+          <Reveal delay={0.12}>
+            <p className="mt-5 max-w-xl text-[15px] leading-7 text-pearl/75 md:text-base">
+              {subtitle}
+            </p>
+          </Reveal>
 
           {/* Feature chips */}
           {features?.length ? (
-            <ul className="mt-5 flex flex-wrap gap-2.5 text-xs">
+            <Stagger
+              className={`mt-6 flex flex-wrap gap-2.5 text-xs ${
+                align === "center" ? "justify-center" : ""
+              }`}
+            >
               {features.map((f) => (
-                <li
-                  key={f}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800"
-                >
-                  <Check />
-                  <span>{f}</span>
-                </li>
+                <StaggerItem key={f}>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-pearl/85 ring-1 ring-gold/40 backdrop-blur-sm">
+                    <Check />
+                    <span>{f}</span>
+                  </span>
+                </StaggerItem>
               ))}
-            </ul>
+            </Stagger>
           ) : null}
 
           {/* CTAs */}
           <div
-            className={`mt-6 flex flex-wrap items-center gap-3 ${
+            className={`mt-8 flex flex-wrap items-center gap-3 ${
               align === "center" ? "justify-center" : ""
             }`}
           >
-            <Link
-              href={primaryHref}
-              prefetch={false}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition"
-              aria-label={primaryText}
-            >
-              {primaryText}
-              <ArrowRight />
-            </Link>
+            <Magnetic>
+              <Link
+                href={primaryHref}
+                prefetch={false}
+                className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-semibold text-midnight transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-8px_rgba(212,175,55,0.65)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
+                aria-label={primaryText}
+              >
+                {primaryText}
+                <ArrowRight />
+              </Link>
+            </Magnetic>
 
             {isPdf ? (
               <a
                 href={secondaryHref}
                 download
-                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-6 py-3 text-pearl backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label={secondaryText}
               >
                 <Download />
@@ -141,7 +220,7 @@ export default function SkilledHero({
               <Link
                 href={secondaryHref}
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-6 py-3 text-pearl backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label={secondaryText}
               >
                 <Open />
@@ -155,7 +234,7 @@ export default function SkilledHero({
                   <a
                     href={brochureHref}
                     download
-                    className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                    className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-6 py-3 text-pearl backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                     aria-label={brochureText}
                   >
                     <Download />
@@ -165,7 +244,7 @@ export default function SkilledHero({
                   <Link
                     href={brochureHref}
                     prefetch={false}
-                    className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                    className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-6 py-3 text-pearl backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                     aria-label={brochureText}
                   >
                     <Open />
@@ -179,7 +258,7 @@ export default function SkilledHero({
               <Link
                 href={eligibilityHref}
                 prefetch={false}
-                className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-6 py-3 text-pearl backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                 aria-label={eligibilityText}
               >
                 <Open />
@@ -188,10 +267,32 @@ export default function SkilledHero({
             ) : null}
 
             {/* Micro reassurance */}
-            <span className="ml-0 md:ml-2 text-xs text-zinc-500 dark:text-zinc-400">
+            <span className="ms-0 md:ms-2 text-xs text-pearl/65">
               No obligation · Response within 24 hours
             </span>
           </div>
+
+          {/* Count-up proof strip — content-first credibility on the dark ground */}
+          <Stagger
+            className={`mt-9 flex flex-wrap gap-x-10 gap-y-4 border-t border-gold/15 pt-6 ${
+              align === "center" ? "justify-center" : ""
+            }`}
+          >
+            {stats.map((s) => (
+              <StaggerItem key={s.label}>
+                <div className="flex flex-col">
+                  <Counter
+                    to={s.to}
+                    suffix={s.suffix}
+                    className="font-sora text-3xl font-semibold leading-none tracking-tight text-gold"
+                  />
+                  <span className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-pearl/60">
+                    {s.label}
+                  </span>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
         </div>
       </section>
       <div className="mt-3">
@@ -208,7 +309,7 @@ function Check() {
     <svg
       aria-hidden="true"
       viewBox="0 0 20 20"
-      className="h-3.5 w-3.5 fill-blue-600 dark:fill-blue-400"
+      className="h-3.5 w-3.5 fill-gold"
     >
       <path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7.25 7.25a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 5.457 8.543l3.293 3.293 6.543-6.543a1 1 0 0 1 1.414 0z" />
     </svg>
@@ -246,12 +347,5 @@ function Open() {
         d="M5 6a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-4a1 1 0 1 0-2 0v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h4a1 1 0 1 0 0-2H5z"
       />
     </svg>
-  );
-}
-function Dot({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`}
-    />
   );
 }

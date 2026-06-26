@@ -70,9 +70,8 @@ export default function SocialStrip({
     <section
       aria-labelledby="contact-strip"
       className={[
-        "rounded-3xl bg-white ring-1 ring-blue-100/80 p-6",
-        "dark:bg-white/5 dark:ring-blue-900/30",
-        "text-black dark:text-white",
+        "rounded-3xl bg-white border border-gold/45 p-6",
+        "text-ink",
         className,
       ].join(" ")}
     >
@@ -106,15 +105,15 @@ export default function SocialStrip({
       <div className="mt-4 grid gap-6 md:mt-0 md:grid-cols-3">
         {/* Contact */}
         <div>
-          <h3 className="text-lg font-semibold">Contact</h3>
-          <ul className="mt-3 space-y-2 text-sm">
+          <h3 className="font-sora text-lg font-semibold text-ink">Contact</h3>
+          <ul className="mt-3 space-y-2 text-sm text-ink/70">
             {phone && (
               <li className="flex items-start gap-2">
-                <PhoneIcon className="mt-0.5 h-4 w-4" />
+                <PhoneIcon className="mt-0.5 h-4 w-4 text-gold" />
                 <div>
-                  <span className="font-medium">Phone: </span>
+                  <span className="font-medium text-ink">Phone: </span>
                   <a
-                    className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600"
+                    className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                     href={telHref}
                     aria-label={`Call ${normalizeDigits(phone)}`}
                   >
@@ -124,7 +123,7 @@ export default function SocialStrip({
                     <>
                       {" "}/{" "}
                       <a
-                        className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600"
+                        className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                         href={altTelHref}
                         aria-label={`Call ${normalizeDigits(altPhone)}`}
                       >
@@ -137,11 +136,11 @@ export default function SocialStrip({
             )}
             {email && (
               <li className="flex items-start gap-2">
-                <MailIcon className="mt-0.5 h-4 w-4" />
+                <MailIcon className="mt-0.5 h-4 w-4 text-gold" />
                 <div>
-                  <span className="font-medium">Email: </span>
+                  <span className="font-medium text-ink">Email: </span>
                   <a
-                    className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600"
+                    className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                     href={`mailto:${email}`}
                     aria-label={`Email ${email}`}
                   >
@@ -152,11 +151,11 @@ export default function SocialStrip({
             )}
             {whatsapp && (
               <li className="flex items-start gap-2">
-                <WhatsAppIcon className="mt-0.5 h-4 w-4" />
+                <WhatsAppIcon className="mt-0.5 h-4 w-4 text-gold" />
                 <div>
-                  <span className="font-medium">WhatsApp: </span>
+                  <span className="font-medium text-ink">WhatsApp: </span>
                   <a
-                    className="underline decoration-green-400 underline-offset-2 hover:decoration-green-600"
+                    className="underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                     href={waHref}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -171,18 +170,18 @@ export default function SocialStrip({
 
         {/* Address & hours */}
         <div>
-          <h3 className="text-lg font-semibold">Head office</h3>
-          <address className="mt-3 not-italic text-sm text-black/80 dark:text-white/80">
+          <h3 className="font-sora text-lg font-semibold text-ink">Head office</h3>
+          <address className="mt-3 not-italic text-sm text-ink/55">
             {address.map((l, i) => (
               <div key={i}>{l}</div>
             ))}
           </address>
 
           {hours ? (
-            <div className="mt-2 flex items-start gap-2 text-sm text-black/80 dark:text-white/80">
-              <ClockIcon className="mt-0.5 h-4 w-4" />
+            <div className="mt-2 flex items-start gap-2 text-sm text-ink/55">
+              <ClockIcon className="mt-0.5 h-4 w-4 text-gold" />
               <div>
-                <span className="font-medium">Hours: </span>
+                <span className="font-medium text-ink">Hours: </span>
                 {hours}
               </div>
             </div>
@@ -194,7 +193,7 @@ export default function SocialStrip({
                 href={mapHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-sm underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600"
+                className="inline-flex items-center gap-1 text-sm text-ink/70 underline decoration-gold/40 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
                 aria-label="Open address in Google Maps"
               >
                 <ExternalIcon />
@@ -206,7 +205,7 @@ export default function SocialStrip({
 
         {/* Socials */}
         <div>
-          <h3 className="text-lg font-semibold">Connect</h3>
+          <h3 className="font-sora text-lg font-semibold text-ink">Connect</h3>
           <div className="mt-3 flex flex-wrap gap-2">
             {socials.map((s) => (
               <a
@@ -214,7 +213,7 @@ export default function SocialStrip({
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-sm ring-1 ring-blue-200 backdrop-blur transition hover:bg-blue-50 dark:bg-white/5 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                className="inline-flex items-center gap-2 rounded-full bg-sand/50 px-3 py-1.5 text-sm text-ink/70 border border-gold/45 backdrop-blur transition hover:border-gold/65 hover:text-ink"
                 aria-label={`Open ${s.label}`}
               >
                 <SocialDot />
@@ -252,7 +251,7 @@ function StickyMobileBar({
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 12px)" }}
     >
       <div className="mx-auto max-w-screen-sm px-3">
-        <div className="flex w-full items-center gap-3 rounded-2xl border border-black/10 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] p-2">
+        <div className="flex w-full items-center gap-3 rounded-2xl border border-gold/45 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.5)] p-2">
           {barActions.map((a) => (
             <Link
               key={`cta-${a.label}`}
@@ -263,8 +262,8 @@ function StickyMobileBar({
               className={[
                 "inline-flex flex-1 basis-1/2 items-center justify-center rounded-xl h-12 px-4 text-sm font-semibold transition",
                 a.label === "Enquire"
-                  ? "bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600 text-white shadow-lg hover:brightness-110"
-                  : "bg-white text-black ring-1 ring-blue-200 hover:bg-blue-50",
+                  ? "bg-gold text-ink border border-gold/60 hover:bg-gold_bright"
+                  : "bg-sand/60 text-ink border border-gold/45 hover:border-gold/65",
               ].join(" ")}
             >
               {a.label}
@@ -297,9 +296,8 @@ function QuickAction({
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={[
         "flex h-12 items-center justify-center gap-2 rounded-xl",
-        "bg-white text-black ring-1 ring-blue-200 hover:bg-blue-50",
-        "dark:bg-white/5 dark:text-white dark:ring-blue-800/60 dark:hover:bg-blue-950/20",
-        "transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:scale-[0.985]",
+        "bg-sand/60 text-ink border border-gold/45 hover:border-gold/65",
+        "transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold active:scale-[0.985]",
       ].join(" ")}
     >
       {children}
@@ -379,5 +377,5 @@ function ExternalIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 function SocialDot({ className = "h-2 w-2" }: { className?: string }) {
-  return <span aria-hidden className={`inline-block rounded-full bg-blue-500 ${className}`} />;
+  return <span aria-hidden className={`inline-block rounded-full bg-gold ${className}`} />;
 }

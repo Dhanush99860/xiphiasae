@@ -54,20 +54,23 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
     <section
       role="region"
       aria-label="Frequently asked questions"
-      className="pt-3 sm:pt-4 text-light_text dark:text-dark_text"
+      className="pt-3 sm:pt-4 text-ink"
     >
       <header className="mb-3">
-        <h2 className="text-xl font-semibold">Frequently asked questions</h2>
+        <h2 className="font-sora text-xl font-semibold text-ink">Frequently asked questions</h2>
       </header>
 
-      <div className="overflow-visible rounded-xl ring-1 ring-inset ring-border dark:ring-dark_border divide-y divide-border/70 dark:divide-dark_border/70 bg-transparent">
+      <div className="overflow-visible rounded-2xl border border-gold/45 divide-y divide-gold/5 bg-white">
         {items.map((f, i) => {
           const isOpen = openIndex === i;
           const panelId = `faq-panel-${i}-${slugs[i]}`;
           const buttonId = `faq-button-${i}-${slugs[i]}`;
 
           return (
-            <div key={panelId} className="px-3 sm:px-4">
+            <div
+              key={panelId}
+              className={`px-3 sm:px-4 border-l-2 transition-colors ${isOpen ? "border-gold" : "border-transparent"}`}
+            >
               <h3 className="sr-only" id={`${panelId}-title`}>
                 Question {i + 1}
               </h3>
@@ -77,15 +80,15 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => onToggle(i)}
-                  className="group flex w-full items-center justify-between gap-3 py-3 sm:py-3.5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg"
+                  className="group flex w-full items-center justify-between gap-3 py-3 sm:py-3.5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded-lg"
                 >
                   <span className="flex-1">
-                    <span className="block text-15 sm:text-16 font-semibold leading-6">
+                    <span className={`block text-15 sm:text-16 font-semibold leading-6 ${isOpen ? "text-gold" : "text-ink"}`}>
                       {f.q}
                     </span>
                   </span>
                   <span
-                    className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-light_bg dark:bg-dark_bg ring-1 ring-inset ring-border dark:ring-dark_border text-light_text dark:text-dark_text transition-transform duration-300 group-aria-expanded:rotate-180"
+                    className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sand/50 border border-gold/45 text-gold transition-transform duration-300 group-aria-expanded:rotate-180"
                     aria-hidden
                     aria-expanded={isOpen}
                   >
@@ -105,7 +108,7 @@ export default function FAQSection({ faqs }: { faqs?: FAQ[] }) {
                 }`}
               >
                 <div className="min-h-0 overflow-hidden">
-                  <div className="pb-4 text-[15px] leading-7">{f.a}</div>
+                  <div className="pb-4 text-[15px] leading-7 text-ink/55">{f.a}</div>
                 </div>
               </div>
             </div>

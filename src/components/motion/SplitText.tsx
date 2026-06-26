@@ -1,6 +1,11 @@
 "use client";
 
+import { createElement } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+
+/** Tags this headline may render as (avoids `keyof JSX.IntrinsicElements`,
+ *  which resolves to the global custom-element augmentation under React 19). */
+type SplitTag = "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4";
 
 type Props = {
   text: string;
@@ -8,6 +13,8 @@ type Props = {
   /** Seconds before the first word animates. */
   delay?: number;
   once?: boolean;
+  /** Element to render as. Defaults to "span". */
+  as?: SplitTag;
 };
 
 const container: Variants = {
@@ -27,14 +34,16 @@ const word: Variants = {
  * framer-motion. Falls back to plain text under reduced motion. Keeps the full
  * string available to screen readers via aria-label.
  */
-export default function SplitText({ text, className, delay = 0, once = true }: Props) {
+export default function SplitText({ text, className, delay = 0, once = true, as = "span" }: Props) {
   const reduce = useReducedMotion();
   const words = text.split(" ");
 
-  if (reduce) return <span className={className}>{text}</span>;
+  const MotionTag = motion[as] as typeof motion.span;
+
+  if (reduce) return createElement(as, { className }, text);
 
   return (
-    <motion.span
+    <MotionTag
       className={className}
       style={{ display: "inline-block" }}
       initial="hidden"
@@ -56,6 +65,6 @@ export default function SplitText({ text, className, delay = 0, once = true }: P
           </motion.span>
         </span>
       ))}
-    </motion.span>
+    </MotionTag>
   );
 }

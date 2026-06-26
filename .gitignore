@@ -39,6 +39,15 @@ Thumbs.db
 .codex/
 .xiphias-platform/
 
+# Large media — videos are too large to commit / push (kept local only)
+public/videos/
+public/images/personal/video/
+*.mp4
+*.webm
+*.mov
+*.m4v
+*.mkv
+
 # Misc
 .vercel
 *.tsbuildinfo

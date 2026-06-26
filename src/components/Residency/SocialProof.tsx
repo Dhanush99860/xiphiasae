@@ -1,88 +1,54 @@
 // components/Residency/SocialProof.tsx
 export default function SocialProof() {
   const items = [
-    {
-      label: "Designated Incubator",
-      icon: IncubatorIcon,
-      tint: "from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20",
-      ring: "ring-emerald-200/70 dark:ring-emerald-800/60",
-    },
-    {
-      label: "VC Network",
-      icon: NetworkIcon,
-      tint: "from-indigo-50 to-sky-50 dark:from-indigo-900/20 dark:to-sky-900/20",
-      ring: "ring-indigo-200/70 dark:ring-indigo-800/60",
-    },
-    {
-      label: "XIPHIAS Groups",
-      icon: AngelIcon,
-      tint: "from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20",
-      ring: "ring-cyan-200/70 dark:ring-cyan-800/60",
-    },
-    {
-      label: "Legal Partners",
-      icon: ScaleIcon,
-      tint: "from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
-      ring: "ring-amber-200/70 dark:ring-amber-800/60",
-    },
+    { label: "Designated Incubator", icon: IncubatorIcon },
+    { label: "VC Network", icon: NetworkIcon },
+    { label: "XIPHIAS Groups", icon: AngelIcon },
+    { label: "Legal Partners", icon: ScaleIcon },
   ];
 
   return (
     <section aria-labelledby="trust-title" className="space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <span className="inline-flex items-center rounded-md bg-emerald-600/10 px-2 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           Trust
         </span>
-        <h3 id="trust-title" className="text-lg font-semibold">
+        <h3 id="trust-title" className="font-sora text-lg font-semibold text-ink">
           Trusted by founders
         </h3>
       </div>
 
       {/* Badges */}
       <ul className="grid grid-cols-2 gap-3">
-        {items.map(({ label, icon: Icon, tint, ring }) => (
+        {items.map(({ label, icon: Icon }) => (
           <li key={label}>
-            <div
-              className={[
-                "group relative overflow-hidden rounded-xl p-3",
-                "bg-gradient-to-br",
-                tint,
-                "ring-1",
-                ring,
-                "transition-colors",
-              ].join(" ")}
-            >
+            <div className="group relative overflow-hidden rounded-xl p-3 bg-white border border-gold/45 hover:border-gold/65 transition-colors">
               <div className="flex items-center gap-2">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white/70 dark:bg-white/10 ring-1 ring-black/5 dark:ring-white/10">
-                  <Icon className="h-4 w-4 opacity-80" />
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-sand/50 border border-gold/45 text-gold">
+                  <Icon className="h-4 w-4" />
                 </span>
-                <span className="text-[14px] font-medium leading-tight">
+                <span className="text-[14px] font-medium leading-tight text-ink">
                   {label}
                 </span>
               </div>
               {/* subtle sheen on hover */}
-              <span className="pointer-events-none absolute -top-8 right-0 h-24 w-24 rotate-45 bg-white/20 blur-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <span className="pointer-events-none absolute -top-8 right-0 h-24 w-24 rotate-45 bg-gold/10 blur-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
           </li>
         ))}
       </ul>
 
       {/* Quote */}
-      <figure
-        className="
-          relative overflow-hidden rounded-2xl p-4
-          bg-gradient-to-br from-slate-50 to-white dark:from-neutral-900/60 dark:to-neutral-900/20
-          ring-1 ring-slate-200/70 dark:ring-neutral-800/70
-        "
-      >
-        <QuoteMark className="absolute -top-3 -left-2 h-16 w-16 opacity-10 dark:opacity-20" />
-        <blockquote className="relative text-[15px] leading-7">
+      <figure className="relative overflow-hidden rounded-2xl p-4 bg-white border border-gold/45">
+        <QuoteMark className="absolute -top-3 -left-2 h-16 w-16 text-gold opacity-15" />
+        <blockquote className="relative text-[15px] leading-7 text-ink/70">
           “We got our Letter of Support in 6 weeks. The team’s guidance was spot
           on.”
         </blockquote>
-        <figcaption className="mt-2 flex items-center gap-2 text-[13px] text-black/60 dark:text-gray-300">
-          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-600/15 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+        <figcaption className="mt-2 flex items-center gap-2 text-[13px] text-ink/55">
+          <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-sand/50 border border-gold/45 text-[11px] font-semibold text-gold">
             AS
           </span>
           — A. Sharma, SUV Founder
@@ -90,7 +56,7 @@ export default function SocialProof() {
       </figure>
 
       {/* Tiny reassurance row */}
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] opacity-80">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-ink/45">
         <span className="inline-flex items-center gap-1">
           <ShieldIcon className="h-3.5 w-3.5" /> Data kept confidential
         </span>

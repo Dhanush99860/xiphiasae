@@ -90,8 +90,7 @@ function Redacted({ w = "w-40" }: { w?: string }) {
       className={[
         "inline-block h-2 rounded",
         w,
-        "bg-gradient-to-r from-black/[0.08] via-black/[0.14] to-black/[0.08]",
-        "dark:from-white/10 dark:via-white/20 dark:to-white/10",
+        "bg-gradient-to-r from-gold/10 via-gold/25 to-gold/10",
         "animate-[shimmer_1.6s_ease_infinite]",
         "[background-size:200%_100%]",
       ].join(" ")}
@@ -176,37 +175,37 @@ export function LeadGate({
           aria-labelledby="lead-preview"
           className={[
             "relative overflow-hidden rounded-2xl",
-            "bg-white text-black dark:bg-black dark:text-white",
-            "ring-1 ring-black/10 dark:ring-white/10",
+            "bg-white text-ink",
+            "border border-gold/45",
             "p-4 sm:p-5 md:p-6",
           ].join(" ")}
         >
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-black/5 px-2 py-0.5 text-[11px] font-medium ring-1 ring-black/10 dark:bg-white/10 dark:ring-white/15">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-[11px] font-medium text-gold">
             <LockIcon /> Free preview
           </span>
 
-          <h3 id="lead-preview" className="mt-2 text-xl font-semibold">
+          <h3 id="lead-preview" className="mt-2 text-xl font-semibold text-ink">
             Your {track} assessment preview
           </h3>
 
-          <p className="mt-2 text-sm sm:text-base">
-            <span className="font-semibold">{result.tier}</span> - {result.summary}
+          <p className="mt-2 text-sm sm:text-base text-ink/70">
+            <span className="font-semibold text-ink">{result.tier}</span> - {result.summary}
           </p>
 
-          <div className="mt-4 group relative rounded-xl ring-1 ring-black/10 dark:ring-white/10 p-4">
-            <div className="font-medium">{programName}</div>
+          <div className="mt-4 group relative rounded-xl border border-gold/45 bg-sand/40 p-4">
+            <div className="font-medium text-ink">{programName}</div>
 
             <ul className="mt-2 space-y-2">
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-black/50 dark:bg-white/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 <Redacted w="w-44" />
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-black/50 dark:bg-white/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 <Redacted w="w-56" />
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-black/50 dark:bg-white/50" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 <Redacted w="w-36" />
               </li>
             </ul>
@@ -218,8 +217,8 @@ export function LeadGate({
               transition={reduceMotion ? undefined : { duration: 0.25 }}
               className="pointer-events-none absolute inset-0 flex items-center justify-center"
             >
-              <div className="absolute inset-0 bg-white/70 dark:bg-black/60 backdrop-blur-[2px]" />
-              <div className="relative z-10 inline-flex items-center gap-2 rounded-full bg-black/80 px-3 py-1.5 text-xs text-white ring-1 ring-white/10 dark:bg-white/10">
+              <div className="absolute inset-0 bg-sand/70 backdrop-blur-[2px]" />
+              <div className="relative z-10 inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/80 px-3 py-1.5 text-xs text-gold">
                 <motion.span
                   animate={reduceMotion ? undefined : { scale: [1, 1.08, 1] }}
                   transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
@@ -233,7 +232,7 @@ export function LeadGate({
           </div>
 
           {/* reassurance list */}
-          <ul className="mt-3 grid gap-1.5 text-xs text-black/70 dark:text-white/70">
+          <ul className="mt-3 grid gap-1.5 text-xs text-ink/70">
             <li className="inline-flex items-center gap-1.5"><DocIcon /> Email assessment trailer</li>
             <li className="inline-flex items-center gap-1.5"><ShieldIcon /> Advisor-ready profile notes</li>
             <li className="inline-flex items-center gap-1.5"><MailIcon /> Paid detailed report pathway</li>
@@ -245,27 +244,27 @@ export function LeadGate({
           aria-labelledby="lead-form"
           className={[
             "relative overflow-hidden rounded-2xl",
-            "bg-white text-black dark:bg-black dark:text-white",
-            "ring-1 ring-black/10 dark:ring-white/10",
+            "bg-white text-ink",
+            "border border-gold/45",
             "p-4 sm:p-5 md:p-6",
           ].join(" ")}
         >
-          <h3 id="lead-form" className="text-lg sm:text-xl font-semibold">
+          <h3 id="lead-form" className="text-lg sm:text-xl font-semibold text-ink">
             Where should we send your preview?
           </h3>
-          <p className="mt-1 text-sm text-black/70 dark:text-white/70">
+          <p className="mt-1 text-sm text-ink/70">
             Get a concise assessment trailer now. The complete personal report is unlocked after registration.
           </p>
 
           {/* trust chips */}
           <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px]">
-            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-1 ring-black/10 dark:ring-white/15">
+            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 border border-gold/45 bg-sand/50 text-ink/70">
               <ShieldIcon /> Private
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-1 ring-black/10 dark:ring-white/15">
+            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 border border-gold/45 bg-sand/50 text-ink/70">
               Trailer report
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 ring-1 ring-black/10 dark:ring-white/15">
+            <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 border border-gold/45 bg-sand/50 text-ink/70">
               No spam
             </span>
           </div>
@@ -282,15 +281,15 @@ export function LeadGate({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               {/* NAME */}
               <div className="flex flex-col">
-                <label htmlFor="lead-name" className="text-xs font-medium">Full name</label>
+                <label htmlFor="lead-name" className="text-xs font-medium text-ink/70">Full name</label>
                 <input
                   id="lead-name"
                   type="text"
                   autoComplete="name"
                   className={[
                     "mt-1 rounded-lg px-3 py-2.5",
-                    "bg-white text-black placeholder-black/40",
-                    "ring-1 ring-black/10 focus:ring-2 focus:ring-indigo-500 focus:outline-none",
+                    "bg-white text-ink placeholder-pearl/40",
+                    "border border-gold/45 focus:border-gold focus:ring-1 focus:ring-gold focus:outline-none",
                   ].join(" ")}
                   placeholder="Jane Doe"
                   value={name}
@@ -300,7 +299,7 @@ export function LeadGate({
                   aria-describedby="lead-name-err"
                 />
                 {touched.name && !nameOk && (
-                  <span id="lead-name-err" className="mt-1 text-xs text-red-600">
+                  <span id="lead-name-err" className="mt-1 text-xs text-error">
                     Please enter your full name.
                   </span>
                 )}
@@ -308,16 +307,18 @@ export function LeadGate({
 
               {/* EMAIL */}
               <div className="flex flex-col">
-                <label htmlFor="lead-email" className="text-xs font-medium">Email address</label>
+                <label htmlFor="lead-email" className="text-xs font-medium text-ink/70">Email address</label>
                 <input
                   id="lead-email"
                   type="email"
                   autoComplete="email"
                   className={[
                     "mt-1 rounded-lg px-3 py-2.5",
-                    "bg-white text-black placeholder-black/40",
-                    "ring-1 ring-black/10 focus:ring-2 focus:ring-indigo-500 focus:outline-none",
-                    touched.email && !emailOk ? "ring-red-500 focus:ring-red-500" : "",
+                    "bg-white text-ink placeholder-pearl/40",
+                    "border focus:ring-1 focus:outline-none",
+                    touched.email && !emailOk
+                      ? "border-error focus:border-error focus:ring-error"
+                      : "border-gold/45 focus:border-gold focus:ring-gold",
                   ].join(" ")}
                   placeholder="you@example.com"
                   value={email}
@@ -327,7 +328,7 @@ export function LeadGate({
                   aria-describedby="lead-email-err"
                 />
                 {touched.email && !emailOk && (
-                  <span id="lead-email-err" className="mt-1 text-xs text-red-600">
+                  <span id="lead-email-err" className="mt-1 text-xs text-error">
                     Enter a valid email like name@domain.com.
                   </span>
                 )}
@@ -335,15 +336,15 @@ export function LeadGate({
 
               {/* PHONE (optional) */}
               <div className="flex flex-col">
-                <label htmlFor="lead-phone" className="text-xs font-medium">Phone (optional)</label>
+                <label htmlFor="lead-phone" className="text-xs font-medium text-ink/70">Phone (optional)</label>
                 <input
                   id="lead-phone"
                   type="tel"
                   autoComplete="tel"
                   className={[
                     "mt-1 rounded-lg px-3 py-2.5",
-                    "bg-white text-black placeholder-black/40",
-                    "ring-1 ring-black/10 focus:ring-2 focus:ring-indigo-500 focus:outline-none",
+                    "bg-white text-ink placeholder-pearl/40",
+                    "border border-gold/45 focus:border-gold focus:ring-1 focus:ring-gold focus:outline-none",
                   ].join(" ")}
                   placeholder="+1 555 000 1234"
                   value={phone}
@@ -353,7 +354,7 @@ export function LeadGate({
             </div>
 
             {/* reassurance */}
-            <div className="mt-1 text-xs text-black/60 dark:text-white/60" aria-live="polite">
+            <div className="mt-1 text-xs text-ink/55" aria-live="polite">
               We keep your information confidential and never share it.
             </div>
 
@@ -365,12 +366,11 @@ export function LeadGate({
                 title={!valid ? "Enter name and a valid email" : ""}
                 className={[
                   "inline-flex items-center gap-2 rounded-lg px-4 py-2.5",
-                  "bg-gradient-to-r from-blue-600 to-indigo-500 text-white",
-                  "ring-1 ring-blue-700/20 enabled:hover:from-blue-700 enabled:hover:to-indigo-600",
-                  "enabled:active:from-blue-800 enabled:active:to-indigo-700",
+                  "bg-gold text-midnight font-semibold",
+                  "enabled:hover:bg-gold_bright enabled:active:bg-gold_deep",
                   "disabled:opacity-50 disabled:cursor-not-allowed",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
-                  "transition",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold",
+                  "transition-colors",
                 ].join(" ")}
               >
                 {submitting ? (

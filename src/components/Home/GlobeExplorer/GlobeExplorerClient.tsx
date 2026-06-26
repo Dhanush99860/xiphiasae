@@ -74,7 +74,7 @@ export default function GlobeExplorerClient({
         {/* globe + panel */}
         <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1.35fr_0.65fr]">
           {/* globe stage */}
-          <div className="relative min-h-[440px] overflow-hidden rounded-3xl border border-white/10 bg-[#05080f] shadow-2xl shadow-black/40 lg:min-h-[560px]">
+          <div className="relative min-h-[440px] overflow-hidden rounded-3xl border border-gold/45 bg-[#05080f] shadow-2xl shadow-black/40 lg:min-h-[560px]">
             <LazyGlobe
               className="absolute inset-0"
               markers={markers}
@@ -91,7 +91,7 @@ export default function GlobeExplorerClient({
           </div>
 
           {/* detail panel */}
-          <aside className="flex flex-col rounded-3xl border border-border bg-white p-5 shadow-lg dark:border-white/10 dark:bg-[#0b1322] sm:p-6">
+          <aside className="flex flex-col rounded-3xl border border-border bg-white p-5 shadow-lg dark:border-gold/45 dark:bg-[#0b1322] sm:p-6">
             {/* country chips */}
             <div className="-mx-1 flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {details.slice(0, 14).map((d) => {
@@ -106,7 +106,7 @@ export default function GlobeExplorerClient({
                     className={`shrink-0 rounded-full border px-3 py-1.5 text-[12px] font-semibold transition ${
                       active
                         ? "border-primary bg-primary text-white"
-                        : "border-border bg-white text-midnight_text hover:border-primary/50 dark:border-white/10 dark:bg-white/5 dark:text-white/80"
+                        : "border-border bg-white text-midnight_text hover:border-primary/50 dark:border-gold/45 dark:bg-white/5 dark:text-white/80"
                     }`}
                   >
                     {d.name}
@@ -126,7 +126,7 @@ export default function GlobeExplorerClient({
                   className="flex flex-1 flex-col"
                 >
                   <div className="mt-1 flex items-center gap-3">
-                    <span className="overflow-hidden rounded-md border border-border shadow-sm dark:border-white/10">
+                    <span className="overflow-hidden rounded-md border border-border shadow-sm dark:border-gold/45">
                       <Image
                         src={`https://flagcdn.com/w80/${selected.code.toLowerCase()}.png`}
                         alt=""
@@ -152,7 +152,7 @@ export default function GlobeExplorerClient({
                       <Link
                         key={t.track}
                         href={t.href}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-grey px-2.5 py-1.5 text-[12px] font-semibold text-midnight_text transition hover:border-primary/50 hover:text-primary dark:border-white/10 dark:bg-white/5 dark:text-white/80"
+                        className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-grey px-2.5 py-1.5 text-[12px] font-semibold text-midnight_text transition hover:border-primary/50 hover:text-primary dark:border-gold/45 dark:bg-white/5 dark:text-white/80"
                       >
                         <span className={`h-2 w-2 rounded-full ${TRACK_DOT[t.track] ?? "bg-primary"}`} />
                         {t.label}

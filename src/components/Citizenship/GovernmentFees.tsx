@@ -62,10 +62,10 @@ export default function GovernmentFees({
       itemType="https://schema.org/OfferCatalog"
     >
       <header className="mb-3 flex items-center gap-2">
-        <span className="inline-flex items-center rounded-md bg-indigo-600/10 px-2 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+        <span className="inline-flex items-center rounded-md border border-gold/45 bg-sand/50 px-2 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
           Official
         </span>
-        <h2 id={`${id}-title`} className="text-xl font-semibold">
+        <h2 id={`${id}-title`} className="font-sora text-xl font-semibold text-ink">
           {title}
         </h2>
       </header>
@@ -76,10 +76,10 @@ export default function GovernmentFees({
           {totals.map(({ currency, total }) => (
             <span
               key={currency}
-              className="inline-flex items-center gap-1 rounded-full bg-indigo-50 text-indigo-900 dark:bg-indigo-900/30 dark:text-indigo-200 ring-1 ring-indigo-200/70 dark:ring-indigo-800/60 px-2.5 py-0.5 text-[12px] font-medium"
+              className="inline-flex items-center gap-1 rounded-full border border-gold/45 bg-sand/50 text-ink/70 px-2.5 py-0.5 text-[12px] font-medium"
             >
               Total ({currency}):{" "}
-              <span className="tabular-nums">{fmt(total, currency)}</span>
+              <span className="tabular-nums text-gold">{fmt(total, currency)}</span>
             </span>
           ))}
         </div>
@@ -98,9 +98,7 @@ export default function GovernmentFees({
             key={`${row.label}-${i}`}
             className="
               rounded-xl p-3
-              bg-white/90 dark:bg-neutral-900/50
-              ring-1 ring-slate-200/70 dark:ring-neutral-800/70
-              shadow-sm
+              bg-white border border-gold/45
             "
             itemScope
             itemType="https://schema.org/Offer"
@@ -108,20 +106,20 @@ export default function GovernmentFees({
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div
-                  className="text-sm font-medium break-words"
+                  className="text-sm font-medium text-ink break-words"
                   title={row.label}
                 >
                   <span itemProp="name">{row.label}</span>
                 </div>
                 {row.notes ? (
-                  <p className="mt-1 text-[12.5px] leading-6 text-slate-700 dark:text-slate-300 break-words">
+                  <p className="mt-1 text-[12.5px] leading-6 text-ink/55 break-words">
                     {row.notes}
                   </p>
                 ) : (
-                  <p className="mt-1 text-[12.5px] leading-6 opacity-60">—</p>
+                  <p className="mt-1 text-[12.5px] leading-6 text-ink/40">—</p>
                 )}
               </div>
-              <div className="ml-2 shrink-0 text-[15px] font-semibold tabular-nums whitespace-nowrap">
+              <div className="ml-2 shrink-0 text-[15px] font-semibold text-gold tabular-nums whitespace-nowrap">
                 {typeof row.amount === "number" ? (
                   <>
                     <span itemProp="price">
@@ -145,23 +143,22 @@ export default function GovernmentFees({
       <div
         className="
           hidden sm:block overflow-hidden rounded-2xl
-          bg-gradient-to-br from-white to-slate-50 dark:from-neutral-900/60 dark:to-neutral-900/20
-          ring-1 ring-slate-200/70 dark:ring-neutral-800/70 shadow-sm
+          bg-white border border-gold/45
         "
         role="group"
         aria-label="Government fee breakdown"
       >
         <div className="px-4 pt-4 sm:px-6 sm:pt-6 flex items-center gap-2">
-          <Landmark className="h-4 w-4 opacity-80" aria-hidden />
-          <p className="text-sm font-medium">
+          <Landmark className="h-4 w-4 text-gold" aria-hidden />
+          <p className="text-sm font-medium text-ink">
             Official fees (payable to the government)
           </p>
         </div>
 
         <div className="px-4 sm:px-6 pb-4">
           <table className="w-full text-sm border-separate border-spacing-0">
-            <thead className="bg-slate-50/60 dark:bg-neutral-900/40">
-              <tr className="text-left text-[12px] uppercase tracking-wide text-slate-600 dark:text-slate-300">
+            <thead>
+              <tr className="text-left text-[12px] uppercase tracking-[0.14em] text-ink/45">
                 <th className="py-2.5 pr-4 font-semibold">Item</th>
                 <th className="py-2.5 pr-4 font-semibold">Amount</th>
                 <th className="py-2.5 pr-0 font-semibold">Notes</th>
@@ -171,17 +168,17 @@ export default function GovernmentFees({
               {fees.map((row, i) => (
                 <tr
                   key={`${row.label}-${i}`}
-                  className="border-t border-slate-200/70 dark:border-neutral-800/70"
+                  className="border-t border-gold/5 hover:bg-white/[0.03]"
                   itemScope
                   itemType="https://schema.org/Offer"
                 >
                   <td
-                    className="py-3 pr-4 font-medium align-top break-words"
+                    className="py-3 pr-4 font-medium text-ink align-top break-words"
                     title={row.label}
                   >
                     <span itemProp="name">{row.label}</span>
                   </td>
-                  <td className="py-3 pr-4 align-top tabular-nums whitespace-nowrap">
+                  <td className="py-3 pr-4 align-top tabular-nums text-gold whitespace-nowrap">
                     {typeof row.amount === "number" ? (
                       <>
                         <span itemProp="price">
@@ -199,7 +196,7 @@ export default function GovernmentFees({
                     )}
                   </td>
                   <td className="py-3 pr-0 align-top">
-                    <p className="text-[13px] leading-6 text-slate-700 dark:text-slate-300 break-words">
+                    <p className="text-[13px] leading-6 text-ink/55 break-words">
                       {row.notes || "—"}
                     </p>
                   </td>
@@ -208,7 +205,7 @@ export default function GovernmentFees({
             </tbody>
           </table>
 
-          <p className="mt-3 text-[12px] opacity-70">
+          <p className="mt-3 text-[12px] text-ink/45">
             Government fees are set by the issuing authority and may change
             without notice. We’ll confirm current rates during onboarding.
           </p>

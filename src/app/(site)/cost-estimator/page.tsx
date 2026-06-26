@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { getProgrammeExplorerData } from "@/lib/programme-explorer";
 import { toCostProgram, type CostProgram } from "@/lib/cost-estimator";
 import CostEstimatorClient from "@/components/CostEstimator/CostEstimatorClient";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Family Cost Estimator — XIA Intelligence",
@@ -16,5 +24,5 @@ export const revalidate = 86400;
 export default function CostEstimatorPage() {
   const { items } = getProgrammeExplorerData();
   const programs: CostProgram[] = items.map(toCostProgram);
-  return <CostEstimatorClient programs={programs} />;
+  return <CostEstimatorClient programs={programs} serifClass={serif.className} />;
 }

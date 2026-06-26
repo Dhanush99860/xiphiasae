@@ -1,0 +1,225 @@
+{
+  "signatureInteractions": [
+    "TRAVELLING-DAWN CURSOR + LIGHT-THROUGH-FRAME (global primary signature, ADDITIVE — never hides the native cursor). One fixed ~480px warm-gold radial motion.div (mixBlendMode 'soft-light', opacity capped ~0.5, pointer-events-none, z-[55]) spring-follows the pointer so the user literally CARRIES the sunrise across the night HorizonCanvas. The smoothed coords publish ONCE to :root as --dawn-x/--dawn-y. A small 10px augment dot (NOT mixBlendMode:difference — a solid gold-ringed dot at z-[60]) rides the exact point and scales 1.7x + fills 10% gold on [data-cursor='link']; the OS cursor stays visible (no cursor:none — conversion-safe). The payoff is NOT a second glow on frames: LightWindow uses the shared --dawn vars to locally LIFT THE NIGHT OVERLAY on the photo under the pointer (a masked exposure/saturation reveal via a radial mask on a dark overlay layer) — so the cursor reads as 'dawn revealing the place beneath your hand,' categorically different from the soft-light blob. Restricted to Hero + ONE Pathways window (not every frame). Idle proof so it is visible on a straight scroll-through WITHOUT pointer movement: when no pointermove for >1.2s the parked glow (at the canvas sun position) gently breathes/drifts, and on mount the Hero window runs ONE scripted --dawn-x sweep left→right so the signature demonstrates itself before any hover. GUARD: useReducedMotion() OR matchMedia('(pointer:coarse)') → render no glow/dot, restore native cursor, park --dawn-x/--dawn-y at the sun position (50%, scroll-driven 26-90%), freeze per-frame reveal.",
+    "PASSPORT-STAMP SEAL — the single OWNED repeated motif (elevated above one section, dialled back from theatrics). A quiet gold 'entry seal' (SVG ring + curved textPath) that appears ON DWELL (not a constantly-spinning ring on every hover) and is the brand's repeated signature across thresholds: (a) on Section 4 destination cards it snaps to the hovered card's CENTRE as an on-card element (NOT a second cursor) — textPath rewrites to the country ('PORTUGAL · ENTRADA · XIPHIAS'), rim arc-fills like a dwell dial; CLICK navigates IMMEDIATELY with at most a 90ms scale-press (NO 6deg rotation kick, NO ink-splat, NO deferred router.push — usability/trust first); (b) the SAME seal glyph re-appears as a small static section-threshold mark (a 1px gold seal that 'inks in' once on section enter) at the top of chapters, so one owned motif recurs as you cross into each part of the page. Thematically earned for an immigration brand, calm not kitsch. Touch: tap shows the on-card seal-press, no dwell ring."
+  ],
+  "newPrimitives": [
+    {
+      "name": "DawnCursor",
+      "file": "src/components/motion/DawnCursor.tsx",
+      "tech": "framer+css",
+      "purpose": "Global travelling-dawn signature: ADDITIVE warm soft-light radial that carries the sunrise + a native-cursor-augmenting gold dot + publishes --dawn-x/--dawn-y to :root so LightWindow can reveal the photo beneath the pointer from one shared source. Includes idle-breathe + a scripted mount demo sweep so it is legible on a straight scroll-through.",
+      "props": "{ size?:number=480; idleAfterMs?:number=1200 }",
+      "technique": "Mount once at top of LivingHorizonHome. mx/my=useMotionValue set on a window 'pointermove' (passive + rAF-throttled). sx=useSpring(mx,{stiffness:120,damping:24}), sy similar. Render TWO fixed pointer-events-none layers: (1) ~480px radial motion.div bg 'radial-gradient(circle, rgba(232,200,150,.5), transparent 70%)', mixBlendMode 'soft-light', opacity .5, x:sx,y:sy, translate -50%, z-55; (2) a 10px SOLID gold-ringed dot motion.div at z-60 (NOT mixBlendMode:difference), scale driven by CursorContext link flag. useMotionValueEvent(sx,'change') writes documentElement.style.setProperty('--dawn-x', v+'px') and same for --dawn-y. Expose CursorContext { setLink(bool) }. IDLE: a setTimeout reset on each pointermove; after idleAfterMs with no move, run a small looping breathe on the parked glow at the sun position. MOUNT DEMO: on mount (rAF), tween a CSS var on the Hero window once L→R then hand control back to the live --dawn vars. GUARD: if useReducedMotion() OR matchMedia('(pointer:coarse)').matches → render NOTHING, keep native cursor, set --dawn-x=50vw and --dawn-y to the scroll-driven sun position (26-90%). NO global 'cursor:none' — the OS cursor stays visible.",
+      "tech_note": "data-cursor='link' on all CTAs/links scales the dot via context."
+    },
+    {
+      "name": "LightWindow",
+      "file": "src/components/motion/LightWindow.tsx",
+      "tech": "css",
+      "purpose": "The signature payoff, RESTRICTED to Hero + one Pathways window: a framed image whose NIGHT OVERLAY is locally lifted under the cursor (an exposure/saturation reveal masked to the pointer) so dawn appears to reveal the city beneath your hand — distinct from the cursor's soft-light blob, not a second glow.",
+      "props": "{ children; className?; edgeGlow?:boolean=false }",
+      "technique": "Relatively-positioned rounded overflow-hidden wrapper; children = KenBurns/ParallaxLayer image. A FULL dark 'night' overlay div (bg rgba(7,10,18,.55) or a desaturating layer) sits over the photo; its mask is 'radial-gradient(26rem 26rem at var(--mx) var(--my), transparent 0%, transparent 30%, #000 62%)' so the masked hole REVEALS the brighter/saturated photo under the pointer (the overlay is erased where the cursor is). --mx/--my are LOCAL % set on wrapper pointermove for accuracy, falling back to the global --dawn-x/--dawn-y when not hovered. edgeGlow (Hero + 1 window ONLY, opt-in): a single-axis gold edge-glow box-shadow that brightens on the side the light passes — NOT a rotating conic-gradient rim (dropped: cliché + Safari mask-composite fragility). Optional pointer-parallax: translate inner image by useSpring of local offset (max 8px). Reduced-motion/coarse: overlay renders at a fixed low opacity (or removed), no mask tracking, no parallax."
+    },
+    {
+      "name": "PinnedVerbSwap",
+      "file": "src/components/motion/PinnedVerbSwap.tsx",
+      "tech": "gsap",
+      "purpose": "The ONE pinned 'infinite scroll where the text changes' centrepiece (Section 2) — the page's single scroll-PIN, so the pin reads as the signature scroll-moment, not a recurring trick. A centred headline whose verb rewrites LIVE→WORK→BELONG→ACT-ON on pure scroll-progress; scrubbing back reverses the text. Pathway names reveal one-per-state.",
+      "props": "{ states:{verb:string; name:string; href:string}[]; vh?:number=250 }",
+      "technique": "useGSAP(()=>{ ScrollTrigger.matchMedia({ '(min-width:1024px) and (prefers-reduced-motion:no-preference)':()=>{ const st=ScrollTrigger.create({ trigger:ref, start:'top top', end:'+=250%', pin:true, scrub:true, onUpdate:self=>{ const i=Math.min(states.length-1, Math.floor(self.progress*states.length)); setActive(i); progressMV.set(self.progress); } }); return ()=>st.kill(); } }) }). Verb words = absolutely-stacked motion.spans, per-index opacity+yPercent ONLY (gotcha#1: never animate clip-path on the swap). The four NAMES below reveal via a CSS-transition clip-path inset toggled by (active>=i) (clip-path by CSS class, mount-safe). NO separate left scrub-rail here (removed to avoid 3 left-edge meters) — the pin progress instead drives the GLOBAL DawnMeter's sun-dot brightness via shared MotionValue/context, AND a thin HORIZONTAL gold baseline UNDER the verb fills (scaleX) so the progress signal is horizontal, not another left rail. Fallback (mobile/<1024px/reduce): no pin — render the four as a static stacked list whose entrance is a per-line stagger mask-up (NOT SlideReveal — see entrance variety rule)."
+    },
+    {
+      "name": "VelocityMarquee",
+      "file": "src/components/motion/VelocityMarquee.tsx",
+      "tech": "framer",
+      "purpose": "The required velocity-aware infinite marquee (Section 4 credential ribbon) — drift speed AND direction follow the user's scroll energy. This is the ONLY velocity-reactive element on the page (card/block velocity-skew removed everywhere else).",
+      "props": "{ items:ReactNode[]; baseSpeed?:number=0.04; className? }",
+      "technique": "baseX=useMotionValue(0); {scrollY}=useScroll(); v=useVelocity(scrollY); smooth=useSpring(v,{stiffness:400,damping:60}); factor=useTransform(smooth,[-2000,0,2000],[-4,0,4]); directionRef=useRef(1). useAnimationFrame((t,delta)=>{ let moveBy=directionRef.current*baseSpeed*delta; const f=factor.get(); if(f!==0) directionRef.current=f<0?-1:1; moveBy+=f*(delta/1000); baseX.set(baseX.get()+moveBy); }). x=useTransform(baseX, vv=>`${wrap(-50,0,vv)}%`) (import wrap from 'framer-motion'). Render items EXACTLY 2x in the moving track for seamless loop. Optional skewX=useTransform(smooth,[-2000,2000],[2,-2]) springs to 0 at rest — kept ONLY on the ribbon itself (the one allowed velocity tell). Hover a token: factor→0 locally + token goes gold fill. TOUCH: keep base drift running (mobile gets a live signature) — only freeze under prefers-reduced-motion to one static centred row."
+    },
+    {
+      "name": "ScrubReveal3D",
+      "file": "src/components/motion/ScrubReveal3D.tsx",
+      "tech": "framer",
+      "purpose": "Gives Section 3 FOUR DISTINCT entrance grammars (kills the rejected alternating slide-in-once). A small per-block entrance utility offering selectable arrival modes so no two of the four Pathways blocks arrive the same way and none uses plain slide-from-side.",
+      "props": "{ mode:'curtain'|'shutter'|'blurscale'|'hpan'; children; className? }",
+      "technique": "Each block wraps in ScrubReveal3D with a different mode, all driven by the block's OWN useScroll({target, offset:['start 85%','start 35%']}) so they ARRIVE on scroll, not fade-once: (1) 'curtain' = vertical clip-path inset wipe via CSS transition toggled by useInView with a gold seam line riding the wipe edge (gotcha#1 + #3 mount-safe); (2) 'shutter' = 3 horizontal strips (venetian) that close into a full image — each strip a div with translateY staggered via transform on inView; (3) 'blurscale' = scale 0.92→1 + filter blur(12px)→blur(0) bound to the block's scrollYProgress (transform+filter only, never clip-path); (4) 'hpan' = the TEXT column scrubs horizontally past a held image using a local useTransform(scrollYProgress,[0,1],[40,-40]) x — a mini horizontal moment reusing the HorizontalScroll idea inline. Reduced-motion/mobile: all modes degrade to a simple opacity-in (no translate), each still visually distinct by layout. NOTE: only ONE of the four blocks (the chosen one) is wrapped additionally in LightWindow; the rest get the cheaper caption-slide hover (below)."
+    },
+    {
+      "name": "GoldSweepButton",
+      "file": "src/components/motion/GoldSweepButton.tsx",
+      "tech": "framer+css",
+      "purpose": "ONE canonical global button language wrapping the existing Magnetic — the cliché shine-WIPE is DROPPED as the primary tell. Primary tell = magnetic pull + arrow ride + a gold rim that 'inks in' like a stamp edge (ties to the passport-seal motif). Sheen reserved for focus-visible only.",
+      "props": "{ href?; children; variant?:'primary'|'ghost' }",
+      "technique": "Wrap children in existing Magnetic. Default hover: a 1px gold border that draws in from the leading edge (CSS transition on a pseudo-border via clip or background-position of a gold edge — NOT a full sweep), echoing a stamp rim inking in. Arrow <span> translate-x 4px on group-hover, rtl:rotate-180. Ghost: underline-draw via scaleX origin-left, no fill. focus-visible ONLY: a single gold sheen pass + gold ring (a11y). data-cursor='link' so DawnCursor's dot scales. Cheap CSS transitions, reliable (not framer clip-path)."
+    },
+    {
+      "name": "OdometerTally",
+      "file": "src/components/motion/OdometerTally.tsx",
+      "tech": "framer",
+      "purpose": "Section 6 distinct grammar AND it serves complaint B: a SCROLL-SCRUBBED tally (not a fire-once odometer) — each stat counts UP bound to the section's scrollYProgress so scrubbing BACK counts DOWN (numbers change as you scroll). NO hover re-roll (cut — a resetting credential erodes trust).",
+      "props": "{ to:number; suffix?; prefix?; className? }",
+      "technique": "Split target into digit chars; each digit = overflow-hidden span containing a vertical 0-9 strip; translateY=useSpring bound to the SECTION's useScroll progress mapped to the live value (so it tallies up on the way in and DOWN on scroll-back). A thin gold baseline DrawLine scaleX sweeps under the FULL row ONCE as the row first completes (DrawLine rationed — this is one of its two allowed page uses). Mount-latch guard (gotcha#3): rAF flag / already-in-view check so fast-scroll past still initialises. HOVER: calm only — label letter-spacing widens + a short static underline; NO re-roll, NO reset to 0. Reduced-motion: render final number statically, no scrub, no sweep."
+    },
+    {
+      "name": "DawnMeter",
+      "file": "src/components/motion/DawnMeter.tsx",
+      "tech": "framer",
+      "purpose": "The page's ONE left-edge vertical indicator (replaces ScrollProgress AND removes S2's separate scrub-rail — fixes the 'three competing left rails' problem). Made genuinely useful, not decorative chrome: fill colour mirrors the night→day ramp + a rising sun-dot + section tick labels + Lenis click-scroll.",
+      "props": "{ sections:{id:string; label:string}[] }",
+      "technique": "Fixed thin left-edge track (z-40). scaleY fill = useScroll scrollYProgress (origin-top). Fill COLOUR = useTransform(scrollYProgress, [same stops as HorizonCanvas], [night→day colours]) so the meter ramps with the sky. A small sun-dot rides the fill head; when PinnedVerbSwap is active its progress brightens this dot (shared context — the ONLY progress cross-talk, so S2 needs no own rail). Hover the rail: section tick-labels fade in; click a tick → lenis.scrollTo(#id). This is the ONLY 'gold dot on a vertical line' on the page (DawnCursor's dot is the augment dot, visually distinct: it rides the pointer, not a rail). Reduced-motion: static thin gradient bar, labels available on focus, click-scroll still works."
+    }
+  ],
+  "sections": [
+    {
+      "n": "1",
+      "title": "Hero [night]",
+      "canvas": "deep night #070a12, sun glow low ~90%, graticule visible",
+      "primaryEffect": "APERTURE IRIS + light-reveal-through-frame: the framed Dubai window opens via IrisReveal on mount (kept — the page's ONE allowed mount-iris), then becomes the signature LightWindow (edgeGlow ON) whose NIGHT OVERLAY is locally lifted under the cursor — dawn reveals the city beneath your hand. On mount it runs ONE scripted light-sweep L→R so the signature demonstrates itself before any hover. This is the signature's hero proof and is unique to this section.",
+      "secondaryEffects": [
+        "SplitText word-rise on H1 (kept — Hero is one of only TWO sections allowed mount word-rise, bookend rule) PAIRED with the iris so it is not a bare fade",
+        "TextType typewriter on the sub-line (kept — the only typewriter on the page)",
+        "ParallaxLayer + KenBurns inside the window drift a few px toward the cursor via useSpring"
+      ],
+      "hover": [
+        "Window: night overlay lifts under the cursor (exposure/saturation reveal), single-axis gold edge-glow on the side the light passes, photo parallaxes ~8px toward cursor",
+        "Primary CTA: GoldSweepButton (magnetic + arrow ride + stamp-rim ink-in; NO shine wipe)",
+        "Ghost 'Explore destinations': underline-draw"
+      ],
+      "changeFromCurrent": "Keep IrisReveal + SplitText + TextType + Magnetic. Wrap window in LightWindow(edgeGlow) for the night-overlay-lift reveal + parallax. Replace plain Button with GoldSweepButton. Mount DawnCursor + DawnMeter at page top."
+    },
+    {
+      "n": "2",
+      "title": "What we do [night→dawn]",
+      "canvas": "sky lifting toward dawn (#10203a→warm), glow warming, graticule fading",
+      "primaryEffect": "PINNED VERB-SWAP (PinnedVerbSwap) — the page's SINGLE scroll-PIN: ~250vh pinned, one centred headline rewrites its gold verb LIVE→WORK→BELONG→ACT-ON across scroll-progress slices; scrubbing back reverses the text (the true 'infinite/changing text' feel). The four pathway NAMES reveal one-per-state via CSS-transition clip-path wipe, releasing into a tappable list. THIS is the required pinned text-swap and the only pin on the page.",
+      "secondaryEffects": [
+        "Progress shown HORIZONTALLY (a thin gold baseline under the verb fills via scaleX) + it brightens the GLOBAL DawnMeter sun-dot — NO separate left scrub-rail (avoids competing left meters)",
+        "Verb swap uses opacity+yPercent transforms only (never clip-path)"
+      ],
+      "hover": [
+        "Each revealed pathway NAME: promote the formerly-fallback CursorFollowList behaviour to LIVE desktop — hovering a name spawns a framed image-preview that lazily chases the cursor while siblings drop to opacity .35 (a NON-gold, content-bearing hover; gives this text section an image-on-hover moment the client asked for)",
+        "Active verb word is scroll-owned (non-interactive)"
+      ],
+      "changeFromCurrent": "Replace the static SlideReveal list with PinnedVerbSwap. Current SplitText headline becomes the fixed shell whose verb-slot swaps. Mobile/reduce: no pin — names render as a per-line stagger mask-up list with simple underline-draw hover."
+    },
+    {
+      "n": "3",
+      "title": "Pathways [dawn]",
+      "canvas": "full dawn — warm horizon #cf9550, sun mid-rise",
+      "primaryEffect": "FOUR DISTINCT ENTRANCES (ScrubReveal3D modes) — the rejected alternating slide-in is GONE: block1 'curtain' (vertical clip-path wipe + gold seam), block2 'shutter' (venetian 3-strip close), block3 'blurscale' (scale .92→1 + blur12→0 on its own scrollYProgress), block4 'hpan' (text column scrubs horizontally past a held image). No two blocks arrive alike and none slides in from the side. Layout rhythm also varies (not 4 identical two-column flips): one full-width window with overlaid text, one offset/overlapping pair, two standard but mirrored.",
+      "secondaryEffects": [
+        "Per-block parallax-at-different-speeds (image vs text travel at different rates via each block's scrollYProgress) — this replaces the removed velocity-skew so S3 does NOT share S4's fling tell",
+        "ONLY block1's window is wrapped in LightWindow (the one extra signature instance); the others do NOT get light-spill (restraint — avoids 'one effect on every frame')"
+      ],
+      "hover": [
+        "block1 window: LightWindow night-overlay lift + max-2-transform rule = parallax-to-cursor only (3D TiltCard DROPPED — too 'generic dribbble card', and stacking tilt+parallax+rim was nauseating)",
+        "blocks 2-4 windows: NON-light hover — a caption/data-overlay (the route stat + timeline) slides up on hover (content-swap, not glow)",
+        "Opposite text column 'Explore' link: underline-draw",
+        "CTA: GoldSweepButton"
+      ],
+      "changeFromCurrent": "Remove SlideReveal alternating entrances entirely; wrap each block in ScrubReveal3D with its assigned mode + varied layout. Only block1 → LightWindow; blocks 2-4 → caption-slide hover. Add per-block parallax. Remove velocity-skew. CTAs → GoldSweepButton."
+    },
+    {
+      "n": "4",
+      "title": "Destinations [dawn→day]",
+      "canvas": "dawn lifting to day, horizon brightening to #ecdcc2",
+      "primaryEffect": "VELOCITY-AWARE infinite marquee (VelocityMarquee) credential ribbon above the rail — drift speed + direction follow scroll energy; the ONLY velocity-reactive element on the page (a 2deg ribbon skew at speed, springs flat). THIS is the required velocity marquee. The rail keeps native snap-swipe and gains the PASSPORT-SEAL on dwell. Cards ARRIVE on the marquee motion / a light stagger — NOT a Reveal heading fade.",
+      "secondaryEffects": [
+        "Spotlight + NEIGHBOUR-DESATURATE cards: radial highlight follows cursor inside each card via --mx/--my; neighbours filter:saturate(.6) so only the focused card is full colour (this is S4's distinct hover, kept DIFFERENT from Hero's light-spill)",
+        "Passport SEAL snaps to the hovered card CENTRE as an on-card element (NOT a second cursor), textPath rewrites to the country, rim arc-fills on dwell"
+      ],
+      "hover": [
+        "Card: spotlight tracks pointer; neighbours desaturate; on-card seal ring appears on dwell with country name + arc-fill dial; KenBurns speeds slightly; gold 'Explore →' wipes up",
+        "Card CLICK: navigate IMMEDIATELY (at most a 90ms scale-press; NO rotation kick, NO ink-splat, NO deferred navigation)",
+        "'All 35 destinations' link: arrow ride + underline-draw"
+      ],
+      "changeFromCurrent": "Add VelocityMarquee above the existing CollectionRail. Add per-card spotlight + neighbour-desaturate. Add the on-card passport SEAL (desktop/fine-pointer; dwell, not a cursor). Mobile: native swipe + on-tap seal-press, no dwell ring."
+    },
+    {
+      "n": "5",
+      "title": "How XIA works [day]",
+      "canvas": "daylight #b9c6d8 sky, light glass panel floats over it",
+      "primaryEffect": "DWELL/IN-VIEW STEP SEQUENCE (NOT a scroll-scrub — removed so there is exactly ONE pin/scrub on the page): the 3 steps auto-advance-light as the panel enters view (a staggered self-draw of the connector hairline via DrawLine on inView — this is DrawLine's SECOND and final allowed page use), each step number lighting gold in turn; thereafter steps are hover-interactive. A grammar deliberately different from S2 (no pin, no scrub) and from everything else.",
+      "secondaryEffects": [
+        "Glass panel scales 0.96→1 as it enters (transform only, not clip-path) — this is the panel's entrance grammar, distinct from neighbours",
+        "Panel is CALM: NO cursor light-spill here (it is the trust/clarity panel — let it be legible)"
+      ],
+      "hover": [
+        "Each step card: spotlight gold glow follows cursor via --mx/--my (set on pointermove) + number flips to gold_deep + card lifts 4px",
+        "Step card NON-gold variant for one step: a small content reveal (the step expands a one-line detail) so hover changes information, not just shine",
+        "CTA: GoldSweepButton"
+      ],
+      "changeFromCurrent": "Replace the static per-step DrawLines + Reveal with a single inView-staggered connector draw (no ScrollTrigger pin/scrub). Add spotlight + one content-expand hover. CTA → GoldSweepButton. Reduced-motion/mobile: connector renders fully drawn, all numbers lit, no sequence."
+    },
+    {
+      "n": "6",
+      "title": "Proof [day]",
+      "canvas": "near-full day, horizon #f5f0e6, glow fading out",
+      "primaryEffect": "SCRUB-TALLY counters (OdometerTally): digits are bound to the SECTION's scrollYProgress so the four stats count UP as you scroll in and DOWN if you scroll back — numbers that CHANGE on scroll (serves complaint B), not a fire-once odometer. The roll IS the entrance (no separate Reveal fade). Distinct from every other section.",
+      "secondaryEffects": [
+        "A single gold baseline DrawLine sweeps under the row ONCE as it first completes (one of DrawLine's two allowed uses)",
+        "Mount-latch guard so fast-scroll-past still initialises (gotcha#3)"
+      ],
+      "hover": [
+        "CALM only: label letter-spacing widens + a short static gold underline draws. NO re-roll, NO reset to 0 (cut — a resetting credential erodes trust)"
+      ],
+      "changeFromCurrent": "Replace Counter with OdometerTally bound to section scrollYProgress. Keep the 4-stat grid layout (drop the Reveal wrapper — the tally is the entrance). No CTA. No hover re-roll."
+    },
+    {
+      "n": "7",
+      "title": "Final CTA [day]",
+      "canvas": "full daylight arrival #e7edf3/#f5f0e6 — the night→day journey resolves",
+      "primaryEffect": "LIGHT-BLOOM ARRIVAL: a one-time gold radial light-bloom scales from the CTA outward on first in-view (CSS transition — full daybreak). Paired with SplitText rise (Hero+CTA are the only two mount word-rise sections — bookend rule) so it is not a bare fade. A grammar used by no other section.",
+      "secondaryEffects": [
+        "Keep ShinyText sweep on 'here' (entrance), paired with the bloom",
+        "Arabic line FADES/RISES in cleanly (lang/dir kept) — the calligraphic stroke-write is DROPPED (naive DrawLine on Arabic glyphs reads broken/disrespectful to native readers)",
+        "English resolves first, Arabic rises after, RTL-aware"
+      ],
+      "hover": [
+        "Hovering 'here' restarts the ShinyText sweep",
+        "Primary CTA: GoldSweepButton",
+        "Secondary 'Book a consultation': border draws gold on hover"
+      ],
+      "changeFromCurrent": "Keep SplitText + ShinyText. Add the one-time radial light-bloom behind the CTA. Arabic stays a clean fade/rise (NOT a stroke-write). Primary → GoldSweepButton; secondary gets border-draw hover."
+    }
+  ],
+  "globalInteractions": [
+    "DawnCursor mounted once at the top of LivingHorizonHome — ADDITIVE (never hides the OS cursor): warm soft-light radial follows the pointer + a small gold augment dot + publishes --dawn-x/--dawn-y to :root for LightWindow's night-overlay-lift. Idle-breathe + a scripted Hero mount-sweep make it visible on a straight scroll-through. Off on coarse-pointer/reduced-motion (native cursor, glow parks at the sun position).",
+    "GoldSweepButton as the single canonical button language on EVERY primary CTA — magnetic + arrow ride + stamp-rim ink-in. The shine-WIPE is dropped (it was the cliché); sheen is focus-visible only. Counted as ONE shared language, not section variety.",
+    "DawnMeter is the page's ONE left-edge vertical indicator (replaces ScrollProgress AND S2's scrub-rail). Fill colour mirrors the night→day ramp, a sun-dot rises, hover reveals section tick-labels, click smooth-scrolls via Lenis. The ONLY 'gold dot on a vertical line' on the page.",
+    "Passport SEAL is the single OWNED repeated motif: on-dwell on S4 cards (as an on-card element, not a 2nd cursor) AND as a small static 'inks-in-once' seal at section thresholds — one recurring brand mark, not two cursor systems.",
+    "Velocity reactivity is confined to ONE element only — the S4 VelocityMarquee ribbon. ALL card/block velocity-skew is removed (S3 uses parallax-at-different-speeds instead) so the fling tell does not appear in two sections. Do NOT refactor HorizonCanvas internals (its MotionValues are private — confirmed in HorizonCanvas.tsx).",
+    "Entrance-variety RULE (the core fix): no two adjacent sections share an entrance grammar; 'slide/fade-in-once' (SlideReveal) is used ZERO times; mount word-rise (SplitText) only in Hero + Final CTA (bookends); each middle section ARRIVES via its own scroll-driven grammar (verb-pin, 4 distinct ScrubReveal3D modes, glass scale-in + connector draw, scrub-tally).",
+    "HOVER-family variety RULE: not all gold. Required NON-gold hovers present: S2 cursor-follow image-preview + sibling-dim, S3 caption/data content-slide, S4 neighbour-desaturate spotlight, S5 one content-expand step. Gold hovers (underline-draw/edge-glow/spotlight) are spread, never the only family.",
+    "data-cursor='link' on all links/buttons so DawnCursor's augment dot scales 1.7x + 10% gold fill on interactive elements. Keyboard focusability never removed; focus-visible gold rings on all CTAs."
+  ],
+  "buildOrder": [
+    "1. DawnCursor (ADDITIVE, no cursor:none) + CursorContext + :root --dawn-x/--dawn-y publishing + idle-breathe + scripted Hero mount-sweep. Verify glow follows pointer over HorizonCanvas, OS cursor visible, parks correctly under reduced-motion/coarse.",
+    "2. LightWindow primitive (night-overlay-LIFT reveal, NOT a 2nd glow; edgeGlow single-axis). Wrap the Hero window FIRST to prove the signature end-to-end; confirm it differs visually from the cursor blob.",
+    "3. GoldSweepButton (stamp-rim ink-in, no shine wipe); swap into all 4 CTAs — quick site-wide consistency win.",
+    "4. DawnMeter (replaces ScrollProgress AND removes any per-section left rail). Wire Lenis click-scroll + tick labels + night→day colour ramp + shared progress context for S2.",
+    "5. PinnedVerbSwap for Section 2 (the page's ONE pin / required text-swap). Build desktop pin + mobile/reduce static stagger-mask-up fallback together; test scrub-backward reverses text; verify it feeds the DawnMeter dot (no own rail).",
+    "6. VelocityMarquee for Section 4 (required velocity marquee). Test direction-flip on scroll sign + exact 2x wrap seam; keep base drift on touch.",
+    "7. S4 passport SEAL (on-card, dwell) + spotlight + neighbour-desaturate. Click navigates immediately (90ms press max). Confirm it is NOT a second cursor and degrades to tap-press on touch.",
+    "8. ScrubReveal3D — Section 3 four distinct entrances (curtain/shutter/blurscale/hpan) + varied layout + parallax-at-different-speeds. Only block1 → LightWindow; blocks 2-4 → caption content-slide hover. Remove velocity-skew + 3D tilt.",
+    "9. Section 5 glass scale-in + inView-staggered connector draw (NO pin/scrub) + spotlight steps + one content-expand hover.",
+    "10. OdometerTally (S6) scrub-bound to section progress (counts down on scroll-back) + mount-latch guard + calm hover (no re-roll).",
+    "11. S7 light-bloom + SplitText/ShinyText (kept) + clean Arabic fade/rise (NO stroke-write). Section-threshold seal marks. Final pass: reduced-motion + coarse-pointer audit + WCAG contrast check on every headline that sits over the dawn glow."
+  ],
+  "mobileAndA11y": "\"Coarse-pointer (touch) + prefers-reduced-motion are first-class degrade paths, gated at the source in each primitive via useReducedMotion() and matchMedia('(pointer:coarse)'). DawnCursor renders NOTHING on touch/reduce and NEVER hides the OS cursor even on desktop (no global cursor:none — conversion/findability safe); the dawn glow parks at HorizonCanvas's scroll-driven sun position, per-frame reveal freezes. The passport SEAL is an on-card element (not a 2nd cursor); on touch it degrades to a tap scale-press, no dwell ring. CRITICAL — mobile is NOT the rejected page: VelocityMarquee KEEPS its base drift on touch (a live signature), S4 cards keep tap-seal-press, and framed windows get an in-view light-sweep on first appearance so phones still show the dawn-reveal idea. PinnedVerbSwap uses ScrollTrigger.matchMedia('(min-width:1024px) and (prefers-reduced-motion:no-preference)') — below 1024px/under reduce it becomes a static stagger-mask-up list (NOT SlideReveal); S5's connector renders fully drawn, all numbers lit. OdometerTally renders the final number statically under reduce. LightWindow drops the mask-tracking + parallax (overlay fixed-low or removed). GoldSweepButton keeps a simple colour/border hover. All clip-path reveals are CSS-transition-toggled (gotcha#1), above-the-fold/fast-scroll reveals use rAF mount-latch (gotcha#3), sections stay bg-transparent so the canvas shows (gotcha#2). A11y: focus-visible gold rings on all CTAs; data-cursor never removes keyboard focusability; Arabic lines carry lang/dir and FADE in (never 'handwritten'); soft-light/spotlight opacity hard-capped and body/headline contrast verified WCAG-AA over the moving glow; motion is small + spring-damped (trust-first, not a circus).\"",
+  "risks": [
+    "HorizonCanvas exposes NO external MotionValue (sunY/glow are private — confirmed lines 50-60). Any 'cursor advances the sky' idea would require refactoring it and was REJECTED. DawnCursor only ADDS a soft-light div + :root vars over the canvas, touching nothing inside.",
+    "Hiding the OS cursor was the single highest-risk call across all critiques — REMOVED. DawnCursor is additive; the augment dot rides alongside the native pointer. No cursor:none anywhere.",
+    "Two cursor systems risk — RESOLVED: the passport seal is demoted from a scoped cursor to an on-card dwell element, so there is exactly ONE bespoke cursor (DawnCursor).",
+    "Three competing left-edge meters (DawnMeter + S2 scrub-rail + ScrollProgress) — RESOLVED: DawnMeter is the only vertical indicator; S2 shows progress horizontally + via the DawnMeter dot; ScrollProgress is replaced.",
+    "Two scrub/pin sections reading same-y — RESOLVED: S5 is no longer a pin/scrub (in-view connector draw instead), so there is exactly ONE pin (S2). Verify visually that S5 reads as a calm sequence, not a scroll move.",
+    "DrawLine becoming the page's default texture — RATIONED to exactly two uses (S5 connector, S6 baseline). S2 hairlines/S3 underline/S7 Arabic-stroke removed.",
+    "LightWindow over-application — RESTRICTED to Hero + S3 block1 only; all other frames use non-light hovers (caption-slide, neighbour-desaturate, spotlight) so no 'one effect on every frame' complaint at the hover layer.",
+    "mix-blend-mode soft-light + masked overlay can be GPU-heavy / wash text contrast — throttle pointermove with rAF, cap glow at one element + one capped overlay, disable on coarse, and WCAG-verify every headline over the glow. Conic gold rim DROPPED (Safari mask-composite fragility + cliché) in favour of a single-axis edge-glow.",
+    "Trust-eroding gimmicks REMOVED: ink-splat, 6deg stamp rotation kick, deferred navigation, odometer hover-re-roll, Arabic stroke-write, and all card/block velocity-skew. Click on S4 cards navigates immediately.",
+    "ScrollTrigger pin + Lenis can fight if refresh isn't called after layout — call ScrollTrigger.refresh() on resize; Lenis already drives ScrollTrigger (wired in gsap.ts). Only ONE pin now, lowering this risk.",
+    "VelocityMarquee wrap() seam can jump if duplicated track width isn't exact — render items exactly 2x and use wrap(-50,0).",
+    "Entrance-variety is the make-or-break: enforce 'SlideReveal used zero times, word-rise only in bookends' in code review; the first straight scroll-through (no hover) must already show iris → verb-pin → 4 distinct arrivals → marquee → glass+draw → scrub-tally → bloom."
+  ]
+}

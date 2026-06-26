@@ -10,7 +10,7 @@ import { motion, useReducedMotion } from "framer-motion";
 export function MeterBar({
   value,
   max = 100,
-  color = "#4f8cff",
+  color = "#d4af37",
   height = "h-2",
   className = "",
 }: {
@@ -24,7 +24,7 @@ export function MeterBar({
   const pct = Math.max(0, Math.min(100, max ? (value / max) * 100 : 0));
 
   return (
-    <div className={`${height} overflow-hidden rounded-full bg-white/10 ${className}`}>
+    <div className={`${height} overflow-hidden rounded-full bg-pearl/10 ${className}`}>
       <motion.div
         className="h-full origin-left rounded-full"
         style={{ width: `${pct}%`, backgroundColor: color }}

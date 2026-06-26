@@ -1,9 +1,11 @@
 // src/app/(site)/gallery/page.tsx
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import GalleryGrid from "@/components/Gallery/GalleryGrid";
+import { Cormorant_Garamond } from "next/font/google";
+import GalleryView from "@/components/Gallery/GalleryView";
 import { getGallery } from "@/lib/gallery";
-import Breadcrumb from "@/components/Common/Breadcrumb";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
 
 export const revalidate = 600; // cache at the edge for 10 mins
 
@@ -108,39 +110,8 @@ export default async function GalleryPage() {
   };
 
   return (
-    <section className="mx-auto max-w-screen-2xl px-4 pb-16 pt-6 md:px-6 md:pt-8">
-      {/* Breadcrumb */}
-      <Breadcrumb />
-
-      {/* Header matches your Hero/slider styling */}
-      <div
-        className={[
-          "relative overflow-hidden rounded-3xl p-5 lg:p-6 mb-5 md:mb-8 mt-3",
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-          "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-          "text-black dark:text-white",
-        ].join(" ")}
-      >
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-          <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-          <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-          </div>
-        </div>
-
-        <div className="relative flex items-center gap-2">
-          <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-            <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400" />
-            Gallery
-          </span>
-          <p className="text-[12px] text-slate-700 dark:text-slate-200">
-            Events • Team • Office • CSR — mobile-first & fast
-          </p>
-        </div>
-      </div>
-
-      <GalleryGrid items={items} />
+    <>
+      <GalleryView items={items} serifClass={serif.className} />
 
       {/* JSON-LD for SEO */}
       <script
@@ -153,6 +124,6 @@ export default async function GalleryPage() {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD needs raw string
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLD) }}
       />
-    </section>
+    </>
   );
 }

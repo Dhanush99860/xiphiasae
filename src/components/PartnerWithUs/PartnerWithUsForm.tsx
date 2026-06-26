@@ -133,26 +133,26 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
     <aside
       id={id}
       className={[
-        "relative overflow-hidden rounded-[28px] border border-blue-100/80 bg-white/90 p-5 shadow-[0_18px_55px_rgba(15,58,132,0.12)] backdrop-blur",
-        "dark:border-blue-900/50 dark:bg-slate-950/75",
+        "relative overflow-hidden rounded-[28px] border border-gold/45 bg-white p-5",
         className,
       ].join(" ")}
       aria-labelledby="partner-form-title"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-16 top-6 h-40 w-40 rounded-full bg-sky-200/30 blur-3xl dark:bg-sky-700/15" />
-        <div className="absolute -left-10 bottom-10 h-40 w-40 rounded-full bg-indigo-200/30 blur-3xl dark:bg-indigo-700/15" />
+        <div className="absolute -right-16 top-6 h-40 w-40 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute -left-10 bottom-10 h-40 w-40 rounded-full bg-gold/[0.06] blur-3xl" />
       </div>
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
       <div className="relative">
-        <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-800 ring-1 ring-blue-100 dark:bg-blue-950/40 dark:text-blue-100 dark:ring-blue-900/50">
+        <div className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-xs font-semibold text-gold">
           <ShieldCheck className="h-3.5 w-3.5" />
           Partner enquiry
         </div>
-        <h2 id="partner-form-title" className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
+        <h2 id="partner-form-title" className="mt-3 font-sora text-2xl font-semibold tracking-tight text-ink">
           Start the conversation
         </h2>
-        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+        <p className="mt-2 text-sm leading-6 text-ink/55">
           Tell us who you are and the kind of partnership you have in mind. We will take it from there.
         </p>
 
@@ -236,17 +236,17 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
             rows={4}
           />
 
-          <div className="md:col-span-2 rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4 text-sm leading-6 text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-100">
+          <div className="md:col-span-2 rounded-2xl border border-gold/40 bg-sand/50 p-4 text-sm leading-6 text-ink/70">
             <label className="flex items-start gap-3">
               <input
                 type="checkbox"
                 checked={form.consent}
                 onChange={(event) => setField("consent", event.target.checked)}
-                className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                className="mt-1 h-4 w-4 rounded border-gold/45 bg-sand/60 text-gold focus:ring-gold"
               />
               <span>I consent to XIPHIAS contacting me regarding this partnership enquiry.</span>
             </label>
-            {errors.consent ? <p className="mt-2 text-xs font-medium text-red-700 dark:text-red-300">{errors.consent}</p> : null}
+            {errors.consent ? <p className="mt-2 text-xs font-medium text-red-400">{errors.consent}</p> : null}
           </div>
 
           {serverMessage ? (
@@ -254,8 +254,8 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
               className={[
                 "md:col-span-2 rounded-2xl px-4 py-3 text-sm",
                 status === "success"
-                  ? "border border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-900/50 dark:bg-emerald-950/20 dark:text-emerald-100"
-                  : "border border-red-200 bg-red-50 text-red-900 dark:border-red-900/50 dark:bg-red-950/20 dark:text-red-100",
+                  ? "border border-gold/45 bg-sand/50 text-ink"
+                  : "border border-red-500/40 bg-red-950/20 text-red-200",
               ].join(" ")}
             >
               {serverMessage}
@@ -266,12 +266,12 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm ring-1 ring-blue-700/20 transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+              className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 font-semibold text-ink transition hover:bg-gold_bright focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-sand disabled:cursor-not-allowed disabled:opacity-70"
             >
               {status === "submitting" ? "Submitting..." : "Send enquiry"}
               <ArrowRight className="h-4 w-4" />
             </button>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-ink/45">
               We usually respond within 1 business day.
             </p>
           </div>
@@ -310,18 +310,18 @@ function InputField({
 }) {
   return (
     <label className={["block", className].join(" ")}>
-      <span className="mb-1.5 block text-sm font-medium text-slate-800 dark:text-slate-100">
-        {label} {required ? <span className="text-red-600">*</span> : null}
+      <span className="mb-1.5 block text-sm font-medium text-ink/80">
+        {label} {required ? <span className="text-red-400">*</span> : null}
       </span>
       <span
         className={[
-          "flex items-center gap-3 rounded-2xl border bg-white px-4 py-3 text-sm shadow-sm transition",
+          "flex items-center gap-3 rounded-2xl border bg-sand/60 px-4 py-3 text-sm transition",
           error
-            ? "border-red-300 ring-2 ring-red-100 dark:border-red-800 dark:ring-red-900/40"
-            : "border-slate-200 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 dark:border-white/10 dark:bg-slate-950/60 dark:focus-within:border-blue-800 dark:focus-within:ring-blue-900/40",
+            ? "border-red-500/40 ring-2 ring-red-500/20"
+            : "border-gold/45 focus-within:border-gold focus-within:ring-1 focus-within:ring-gold",
         ].join(" ")}
       >
-        {icon ? <span className="text-slate-400 dark:text-slate-500">{icon}</span> : null}
+        {icon ? <span className="text-ink/40">{icon}</span> : null}
         <input
           type={type}
           name={name}
@@ -330,10 +330,10 @@ function InputField({
           placeholder={placeholder}
           autoComplete={autoComplete}
           inputMode={inputMode}
-          className="w-full bg-transparent text-slate-900 outline-none placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-500"
+          className="w-full bg-transparent text-ink outline-none placeholder:text-ink/40"
         />
       </span>
-      {error ? <span className="mt-1.5 block text-xs font-medium text-red-700 dark:text-red-300">{error}</span> : null}
+      {error ? <span className="mt-1.5 block text-xs font-medium text-red-400">{error}</span> : null}
     </label>
   );
 }
@@ -359,32 +359,32 @@ function SelectField({
 }) {
   return (
     <label className={["block", className].join(" ")}>
-      <span className="mb-1.5 block text-sm font-medium text-slate-800 dark:text-slate-100">
-        {label} {required ? <span className="text-red-600">*</span> : null}
+      <span className="mb-1.5 block text-sm font-medium text-ink/80">
+        {label} {required ? <span className="text-red-400">*</span> : null}
       </span>
       <span
         className={[
-          "flex items-center rounded-2xl border bg-white px-4 py-3 text-sm shadow-sm transition",
+          "flex items-center rounded-2xl border bg-sand/60 px-4 py-3 text-sm transition",
           error
-            ? "border-red-300 ring-2 ring-red-100 dark:border-red-800 dark:ring-red-900/40"
-            : "border-slate-200 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 dark:border-white/10 dark:bg-slate-950/60 dark:focus-within:border-blue-800 dark:focus-within:ring-blue-900/40",
+            ? "border-red-500/40 ring-2 ring-red-500/20"
+            : "border-gold/45 focus-within:border-gold focus-within:ring-1 focus-within:ring-gold",
         ].join(" ")}
       >
         <select
           name={name}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full bg-transparent text-slate-900 outline-none dark:text-white"
+          className="w-full bg-transparent text-ink outline-none"
         >
-          <option value="">Select one</option>
+          <option value="" className="bg-sand text-ink">Select one</option>
           {options.map((option) => (
-            <option key={option} value={option}>
+            <option key={option} value={option} className="bg-sand text-ink">
               {option}
             </option>
           ))}
         </select>
       </span>
-      {error ? <span className="mt-1.5 block text-xs font-medium text-red-700 dark:text-red-300">{error}</span> : null}
+      {error ? <span className="mt-1.5 block text-xs font-medium text-red-400">{error}</span> : null}
     </label>
   );
 }
@@ -414,28 +414,28 @@ function TextAreaField({
 }) {
   return (
     <label className={["block", className].join(" ")}>
-      <span className="mb-1.5 block text-sm font-medium text-slate-800 dark:text-slate-100">
-        {label} {required ? <span className="text-red-600">*</span> : null}
+      <span className="mb-1.5 block text-sm font-medium text-ink/80">
+        {label} {required ? <span className="text-red-400">*</span> : null}
       </span>
       <span
         className={[
-          "flex gap-3 rounded-2xl border bg-white px-4 py-3 text-sm shadow-sm transition",
+          "flex gap-3 rounded-2xl border bg-sand/60 px-4 py-3 text-sm transition",
           error
-            ? "border-red-300 ring-2 ring-red-100 dark:border-red-800 dark:ring-red-900/40"
-            : "border-slate-200 focus-within:border-blue-300 focus-within:ring-2 focus-within:ring-blue-100 dark:border-white/10 dark:bg-slate-950/60 dark:focus-within:border-blue-800 dark:focus-within:ring-blue-900/40",
+            ? "border-red-500/40 ring-2 ring-red-500/20"
+            : "border-gold/45 focus-within:border-gold focus-within:ring-1 focus-within:ring-gold",
         ].join(" ")}
       >
-        {icon ? <span className="mt-0.5 text-slate-400 dark:text-slate-500">{icon}</span> : null}
+        {icon ? <span className="mt-0.5 text-ink/40">{icon}</span> : null}
         <textarea
           name={name}
           rows={rows}
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder={placeholder}
-          className="w-full resize-y bg-transparent text-slate-900 outline-none placeholder:text-slate-400 dark:text-white dark:placeholder:text-slate-500"
+          className="w-full resize-y bg-transparent text-ink outline-none placeholder:text-ink/40"
         />
       </span>
-      {error ? <span className="mt-1.5 block text-xs font-medium text-red-700 dark:text-red-300">{error}</span> : null}
+      {error ? <span className="mt-1.5 block text-xs font-medium text-red-400">{error}</span> : null}
     </label>
   );
 }

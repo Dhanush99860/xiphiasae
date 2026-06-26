@@ -57,8 +57,8 @@ export default function Hero() {
     "relative flex flex-1 min-w-0 items-center gap-2.5 px-4 py-3.5",
     "transition-colors duration-150 cursor-text",
     /* subtle separator — only a thin right line on desktop */
-    "sm:[&:not(:last-of-type)]:border-r sm:[&:not(:last-of-type)]:border-white/10",
-    "border-b border-white/10 sm:border-b-0",
+    "sm:[&:not(:last-of-type)]:border-r sm:[&:not(:last-of-type)]:border-gold/45",
+    "border-b border-gold/45 sm:border-b-0",
     /* gold bottom accent that slides in on focus — our custom indicator */
     "after:absolute after:bottom-0 after:left-2 after:right-2 after:h-[2px] after:rounded-full",
     "after:bg-secondary after:scale-x-0 focus-within:after:scale-x-100",

@@ -125,12 +125,12 @@ export default function HeaderLink({ item }: Props) {
   const basePill =
     'relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[14px] font-medium leading-6 outline-none transition-all duration-200 ease-out';
   const colorIdle =
-    'text-white/90 hover:text-white focus-visible:ring-2 focus-visible:ring-white/40';
+    'text-[#eef3fb]/85 hover:text-gold focus-visible:ring-2 focus-visible:ring-gold/40';
   const colorActive =
-    'text-white after:pointer-events-none after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-secondary';
+    'text-gold after:pointer-events-none after:absolute after:left-3 after:right-3 after:-bottom-0.5 after:h-[2px] after:rounded-full after:bg-gold';
   const pillBg = isActive
     ? ''
-    : 'hover:text-white hover:bg-white/10 hover:rounded-xl';
+    : 'hover:text-gold hover:bg-gold/10 hover:rounded-xl';
 
   const shouldInterceptClick = !enableHover;
 

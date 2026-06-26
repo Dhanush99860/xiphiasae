@@ -2,7 +2,20 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import Breadcrumb from "@/components/Common/Breadcrumb";
+import { Cormorant_Garamond } from "next/font/google";
+import Header from "@/components/HomeLuxe/LuxeHeader";
+import Footer from "@/components/HomeLuxe/LuxeFooter";
+import Ambient from "@/components/HomeLuxe/Ambient";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const GOLD = "#bfa15c";
+const NAVY = "#0a1733";
 
 const CANONICAL = "/client-referrals/thank-you";
 
@@ -16,79 +29,109 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true }, // you can change to true if you want it indexed
 };
 
+const POINTS = [
+  "Your referral will hear from us via phone or email on working days.",
+  "If they sign up and progress with a case, your referral rewards will be processed as per the program terms.",
+  "You can always share this page again to refer more people.",
+];
+
 export default function ReferralThankYouPage() {
   const heroId = "referral-thank-you-title";
 
   return (
-    <main
-      id="main"
-      className="container mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-6 text-black dark:text-white"
-    >
-      <section
-        aria-labelledby={heroId}
-        className={[
-          "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-          "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-          "text-black dark:text-white",
-        ].join(" ")}
-      >
-        {/* Background accents (same style as other premium heroes) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-        >
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-          <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-          <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-          </div>
-        </div>
+    <div style={{ background: NAVY, color: "#fff" }}>
+      <Header serifClass={serif.className} />
 
-        <div className="relative text-left md:max-w-3xl">
-          <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-            <Dot className="mr-1.5" />
-            Referral submitted
-          </span>
+      <section
+        data-tone="dark"
+        aria-labelledby={heroId}
+        className="relative overflow-hidden px-6 pb-28 pt-36 md:px-10 lg:px-16"
+        style={{
+          background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`,
+          color: "#fff",
+        }}
+      >
+        <Ambient tone="dark" />
+        <div className="relative z-10 mx-auto max-w-3xl text-center">
+          <div className="flex items-center justify-center gap-3">
+            <span className="h-px w-10" style={{ background: GOLD }} />
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.32em]"
+              style={{ color: GOLD }}
+            >
+              Referral submitted
+            </span>
+            <span
+              lang="ar"
+              dir="rtl"
+              className="font-arabic-display text-base"
+              style={{ color: `${GOLD}cc` }}
+            >
+              شكراً
+            </span>
+          </div>
+
+          <div
+            className="mx-auto mt-10 grid h-20 w-20 place-items-center rounded-full text-3xl"
+            style={{ background: GOLD, color: NAVY }}
+            aria-hidden
+          >
+            ✓
+          </div>
 
           <h1
             id={heroId}
-            className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight"
+            className={`${serif.className} mt-8 text-[clamp(2.4rem,6vw,4.4rem)] font-medium leading-[1.02]`}
           >
-            Thank you for your referral.
+            Thank you for your{" "}
+            <span className="italic" style={{ color: GOLD }}>
+              referral.
+            </span>
           </h1>
 
-          <p className="mt-3 text-[15px] leading-7 text-zinc-700 dark:text-zinc-300 md:text-base">
+          <p className="mx-auto mt-6 max-w-xl text-[15px] leading-7 text-white/60 md:text-base">
             We’ve received your details and the information of the person you’ve
             referred. Our team will review the submission and contact them
             shortly to understand their plans and guide them on the best
             options.
           </p>
 
-          <ul className="mt-5 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
-            <li>
-              • Your referral will hear from us via phone or email on working
-              days.
-            </li>
-            <li>
-              • If they sign up and progress with a case, your referral rewards
-              will be processed as per the program terms.
-            </li>
-            <li>• You can always share this page again to refer more people.</li>
+          <ul className="mx-auto mt-10 flex max-w-xl flex-col gap-4 text-left">
+            {POINTS.map((point) => (
+              <li
+                key={point}
+                className="flex items-start gap-3 border-t pt-4 text-sm leading-7 text-white/70"
+                style={{ borderColor: "rgba(255,255,255,0.12)" }}
+              >
+                <span
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                  style={{ background: GOLD }}
+                  aria-hidden
+                />
+                <span>{point}</span>
+              </li>
+            ))}
           </ul>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/client-referrals"
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition"
+              className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] transition-transform hover:-translate-y-0.5"
+              style={{ background: GOLD, color: NAVY }}
             >
               Refer another client
-              <ArrowRight />
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </Link>
 
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] transition-colors"
+              style={{
+                border: "1px solid rgba(191,161,92,0.45)",
+                color: "#fff",
+              }}
             >
               Go back to homepage
             </Link>
@@ -96,29 +139,7 @@ export default function ReferralThankYouPage() {
         </div>
       </section>
 
-      <div className="mt-3">
-        <Breadcrumb />
-      </div>
-    </main>
-  );
-}
-
-/* icons */
-
-function ArrowRight() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
-      <path
-        fill="currentColor"
-        d="M5 12.75h11.19l-3.72 3.72a.75.75 0 1 0 1.06 1.06l5.25-5.25a.75.75 0 0 0 0-1.06L13.53 5.97a.75.75 0 1 0-1.06 1.06l3.72 3.72H5a.75.75 0 0 0 0 1.5z"
-      />
-    </svg>
-  );
-}
-function Dot({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`}
-    />
+      <Footer serifClass={serif.className} />
+    </div>
   );
 }

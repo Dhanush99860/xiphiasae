@@ -81,7 +81,7 @@ export default function PathwaysShowcase() {
           const Icon = p.icon;
           return (
             <article key={p.key} className="h-[60vh] max-h-[540px] w-[82vw] max-w-[540px] shrink-0">
-              <TiltCard className="group relative h-full overflow-hidden rounded-[28px] border border-white/10 shadow-2xl shadow-black/40">
+              <TiltCard className="group relative h-full overflow-hidden rounded-[28px] border border-gold/45 shadow-2xl shadow-black/40">
                 <Image
                   src={p.image}
                   alt=""

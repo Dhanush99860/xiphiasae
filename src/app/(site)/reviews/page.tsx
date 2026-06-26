@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 import type { Testimonial } from "@/components/Citizenship/TestimonialCarousel";
 import ReviewsPageShell from "@/components/Reviews/ReviewsPageShell";
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
@@ -9,6 +10,13 @@ import {
   getRepliesForTopLevelReview,
   topLevelReviews,
 } from "@/lib/reviews/legacyReviews";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 const CANONICAL = "/reviews";
 const ABSOLUTE_URL = "https://www.xiphiasimmigration.com/reviews";
@@ -145,6 +153,7 @@ export default async function ReviewsPage({ searchParams }: PageProps) {
       />
       <JsonLd data={collectionJsonLd} />
       <ReviewsPageShell
+        serifClass={serif.className}
         featuredItems={featuredItems}
         reviewThreads={reviewThreads}
         currentPage={currentPage}

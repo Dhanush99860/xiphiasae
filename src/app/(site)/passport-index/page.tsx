@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
-import PassportIndexClient from "@/components/PassportIndex/PassportIndexClient";
+import { Cormorant_Garamond } from "next/font/google";
+import PassportPowerClient from "@/components/PassportIndex/PassportPowerClient";
 import { passportIndexStats, passportRecords } from "@/data/passport-index";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
 
@@ -57,7 +65,7 @@ export default function PassportIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
-      <PassportIndexClient records={passportRecords} stats={passportIndexStats} />
+      <PassportPowerClient records={passportRecords} stats={passportIndexStats} serifClass={serif.className} />
     </>
   );
 }

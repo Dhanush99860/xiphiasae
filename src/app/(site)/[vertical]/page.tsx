@@ -4,10 +4,23 @@
 import { getAllContentCached } from "@/lib/content";
 import type { Metadata } from "next";
 import type { Vertical, ProgramDoc } from "@/lib/content/types";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ add
+
+import { VerticalLanding, type VerticalLandingData } from "@/components/Vertical/CatchAllHubs";
+import { countryImage } from "@/components/Countries/country-image";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+
+// Editorial frames for the full-bleed vertical hero / CTA (real assets in /public).
+const VERTICAL_HERO: Record<string, { hero: string; cta: string }> = {
+  residency: { hero: "/images/blogs/european-investment.webp", cta: "/images/blogs/global-millionaire-migration.webp" },
+  citizenship: { hero: "/images/blogs/caribbean-second-passport.webp", cta: "/images/blogs/global-millionaire-migration.webp" },
+  skilled: { hero: "/images/blogs/canada-investment-immigration.webp", cta: "/images/blogs/global-millionaire-migration.webp" },
+  corporate: { hero: "/images/blogs/dubai-expat-destination.webp", cta: "/images/blogs/global-millionaire-migration.webp" },
+};
 
 export const runtime = "nodejs"; // ensure Node.js runtime on Vercel (fs OK)
 
@@ -100,29 +113,27 @@ export default function VerticalPage({
     { name: capVertical, url: `/${vertical}` },
   ]);
 
+  const frames = VERTICAL_HERO[vertical] ?? VERTICAL_HERO.residency;
+
+  const data: VerticalLandingData = {
+    verticalSlug: vertical,
+    vertical: capVertical,
+    heroImage: frames.hero,
+    ctaImage: frames.cta,
+    totalPrograms: programs.length,
+    countries: countries.map(([country, count]) => ({
+      name: country.replace(/-/g, " "),
+      slug: country,
+      count,
+      img: countryImage(country),
+    })),
+  };
+
   return (
-    <main className="mx-auto max-w-6xl space-y-6 p-6">
+    <>
       {/* ✅ JSON-LD */}
       <JsonLd data={breadcrumbJsonLd} />
-
-      <h1 className="text-3xl font-semibold capitalize">{vertical}</h1>
-
-      {countries.length === 0 ? (
-        <p className="text-neutral-600">No programs available yet.</p>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {countries.map(([country, count]) => (
-            <Link
-              key={country}
-              href={`/${vertical}/${country}`}
-              className="rounded-2xl border p-5 transition hover:bg-gray-50"
-            >
-              <div className="text-xl font-medium capitalize">{country}</div>
-              <div className="text-sm opacity-70">{count} programs</div>
-            </Link>
-          ))}
-        </div>
-      )}
-    </main>
+      <VerticalLanding d={data} serifClass={serif.className} />
+    </>
   );
 }

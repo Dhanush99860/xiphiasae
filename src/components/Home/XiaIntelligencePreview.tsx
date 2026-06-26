@@ -23,7 +23,7 @@ export default function XiaIntelligencePreview() {
   return (
     <section aria-labelledby="xia-home-heading" className="py-10 sm:py-14">
       <div className="container mx-auto lg:max-w-screen-2xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/5 sm:p-7 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+        <div className="grid gap-6 rounded-2xl border border-blue-100 bg-white p-5 shadow-sm dark:border-gold/45 dark:bg-white/5 sm:p-7 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-100 dark:bg-blue-950/30 dark:text-blue-200 dark:ring-blue-900/50">
               <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
@@ -59,7 +59,7 @@ export default function XiaIntelligencePreview() {
             </div>
           </div>
 
-          <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-white/10 dark:bg-black/20">
+          <div className="relative overflow-hidden rounded-2xl border border-zinc-200 bg-zinc-50 p-4 dark:border-gold/45 dark:bg-black/20">
             <div className="xia-home-line" aria-hidden="true" />
             <div className="relative grid gap-3">
               {steps.map(({ title, copy, icon: Icon }, index) => (

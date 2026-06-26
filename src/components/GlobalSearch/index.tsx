@@ -226,14 +226,14 @@ export default function GlobalSearch({
   }, [open]);
 
   const TypeBadge = ({ t }: { t: string }) => (
-    <span className="inline-flex items-center rounded-full border px-1.5 py-[1px] text-[10.5px] font-medium text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700">
+    <span className="inline-flex items-center rounded-full border px-1.5 py-[1px] text-[10.5px] font-medium text-gold border-gold/45">
       {t}
     </span>
   );
 
   const SafeThumb = ({ src }: { src?: string }) =>
     src ? (
-      <div className="relative h-10 w-10 flex-none overflow-hidden rounded-md border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
+      <div className="relative h-10 w-10 flex-none overflow-hidden rounded-md border border-gold/45 bg-[#0a1733]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt="" className="h-full w-full object-cover" loading="lazy" />
       </div>
@@ -255,8 +255,8 @@ export default function GlobalSearch({
         aria-selected={active}
         onMouseEnter={() => setActiveIndex(i)}
         className={[
-          "flex items-center justify-between gap-3 px-3 sm:px-4 border-b last:border-0 border-gray-100 dark:border-gray-800 transition",
-          active ? "bg-blue-100/70 dark:bg-gray-800" : "hover:bg-blue-50 dark:hover:bg-gray-800",
+          "flex items-center justify-between gap-3 px-3 sm:px-4 border-b last:border-0 border-gold/25 transition",
+          active ? "bg-gold/15" : "hover:bg-white/[0.05]",
           "py-2",
         ].join(" ")}
       >
@@ -266,14 +266,14 @@ export default function GlobalSearch({
             setOpen(false);
             router.push(item.url);
           }}
-          className="flex min-w-0 flex-1 items-start gap-3 text-left focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-sm"
+          className="flex min-w-0 flex-1 items-start gap-3 text-left focus:outline-none focus:ring-2 focus:ring-gold rounded-sm"
         >
           <SafeThumb src={item.image} />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <TypeBadge t={item.type} />
               <span
-                className="truncate text-[14px] text-gray-900 dark:text-gray-100"
+                className="truncate text-[14px] text-[#eef3fb]"
                 title={item.title}
               >
                 {hasQuery ? highlight(item.title, query) : item.title}
@@ -281,11 +281,11 @@ export default function GlobalSearch({
             </div>
 
             {(item.tags?.length || item.dateLabel) && (
-              <div className="mt-0.5 flex items-center gap-2 text-[11.5px] text-gray-500 dark:text-gray-400">
+              <div className="mt-0.5 flex items-center gap-2 text-[11.5px] text-[#eef3fb]/55">
                 {item.tags?.slice(0, 3).map((t: string, idx: number) => (
                   <span
                     key={`${t}-${idx}`}
-                    className="inline-flex items-center gap-1 rounded-full border px-1.5 py-[1px] border-gray-200 dark:border-gray-700"
+                    className="inline-flex items-center gap-1 rounded-full border px-1.5 py-[1px] border-gold/45"
                   >
                     <Tag size={11} className="opacity-60" />
                     {t}
@@ -296,7 +296,7 @@ export default function GlobalSearch({
             )}
 
             {active && item.snippet && (
-              <p className="mt-0.5 line-clamp-1 text-[12.5px] text-gray-600 dark:text-gray-400">
+              <p className="mt-0.5 line-clamp-1 text-[12.5px] text-[#eef3fb]/55">
                 {item.snippet}
               </p>
             )}
@@ -304,7 +304,7 @@ export default function GlobalSearch({
         </button>
 
         <ArrowRight
-          className={active ? "text-blue-600 shrink-0" : "text-gray-400 shrink-0"}
+          className={active ? "text-gold shrink-0" : "text-[#eef3fb]/40 shrink-0"}
           size={18}
           aria-hidden
         />
@@ -319,7 +319,7 @@ export default function GlobalSearch({
           ref={triggerRef}
           onClick={() => setOpen(true)}
           aria-label="Open search"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/30 hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 transition-colors"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.06] text-ink ring-1 ring-gold/30 hover:ring-gold/60 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 transition-colors"
         >
           <Search className="h-[1rem] w-[1rem]" aria-hidden />
         </button>
@@ -329,8 +329,8 @@ export default function GlobalSearch({
           onClick={() => setOpen(true)}
           aria-label="Open search"
           className={[
-            "pointer-events-auto w-full max-w-[520px] rounded-full border px-5 py-2 text-sm text-white mx-5",
-            "border-white/15 bg-white/10 backdrop-blur-md",
+            "pointer-events-auto w-full max-w-[520px] rounded-full border px-5 py-2 text-sm text-ink/70 mx-5",
+            "border-gold/45 bg-white/[0.04] backdrop-blur-md hover:border-gold/65",
             "focus:outline-none focus-visible:outline-none",
             "focus:!ring-0 focus:!ring-offset-0",
             "focus-visible:!ring-0 focus-visible:!ring-offset-0",
@@ -338,18 +338,18 @@ export default function GlobalSearch({
             className,
           ].join(" ")}
         >
-          <Search size={18} className="text-white/95" />
-          <span className="text-white/95">{placeholder}</span>
+          <Search size={18} className="text-gold" />
+          <span className="text-ink/70">{placeholder}</span>
         </button>
       )}
 
       {mounted &&
         createPortal(
           open ? (
-            <div className="fixed inset-0 z-[2147483646] bg-white/90 dark:bg-black/80 backdrop-blur-xl flex justify-center">
+            <div className="fixed inset-0 z-[2147483646] bg-[#0c1f3f]/92 backdrop-blur-xl flex justify-center">
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-6 right-6 text-gray-900 dark:text-white hover:opacity-80 transition w-10 h-10 flex items-center justify-center"
+                className="absolute top-6 right-6 text-[#eef3fb]/70 hover:text-gold transition w-10 h-10 flex items-center justify-center"
                 aria-label="Close search"
               >
                 <X size={28} />
@@ -370,11 +370,11 @@ export default function GlobalSearch({
                   <div
                     className={[
                       "flex items-center rounded-xl shadow-xl px-3 sm:px-4 py-2 border",
-                      "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700",
+                      "bg-[#0a1733] border-gold/45 focus-within:border-gold",
                       "transition",
                     ].join(" ")}
                   >
-                    <Search className="text-gray-500 dark:text-gray-400" size={20} />
+                    <Search className="text-gold/70" size={20} />
                     <input
                       ref={inputRef}
                       type="text"
@@ -382,7 +382,7 @@ export default function GlobalSearch({
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search by country, visa type, service, article..."
                       className={[
-                        "flex-1 bg-transparent px-2 sm:px-3 text-[15px] text-gray-900 dark:text-gray-100 placeholder-gray-400",
+                        "flex-1 bg-transparent px-2 sm:px-3 text-[15px] text-[#eef3fb] placeholder-[#eef3fb]/40",
                         "outline-none ring-0",
                         "focus:outline-none focus-visible:outline-none",
                         "focus:!ring-0 focus:!ring-offset-0",
@@ -398,7 +398,7 @@ export default function GlobalSearch({
                     />
                     {loading && (
                       <span
-                        className="ml-2 h-1.5 w-1.5 rounded-full bg-gray-400 animate-pulse"
+                        className="ml-2 h-1.5 w-1.5 rounded-full bg-gold animate-pulse"
                         aria-hidden
                       />
                     )}
@@ -416,11 +416,11 @@ export default function GlobalSearch({
                 </div>
 
                 <div
-                  className="mt-3 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 max-h-[62vh] overflow-y-auto"
+                  className="mt-3 bg-[#0a1733] rounded-xl shadow-2xl border border-gold/45 max-h-[62vh] overflow-y-auto"
                   role="listbox"
                   id={listboxId}
                 >
-                  <div className="text-[11px] text-gray-400 dark:text-gray-500 m-1.5 px-2 text-center">
+                  <div className="text-[11px] text-[#eef3fb]/45 m-1.5 px-2 text-center">
                     Up/Down navigate | Enter open | Tab autocomplete | Esc close
                   </div>
 
@@ -428,7 +428,7 @@ export default function GlobalSearch({
                     <>
                       {recent.length > 0 && (
                         <>
-                          <div className="px-4 py-1.5 text-[11px] uppercase tracking-wide text-gray-500 dark:text-gray-400 border-y dark:border-gray-800">
+                          <div className="px-4 py-1.5 text-[11px] uppercase tracking-wide text-gold/80 border-y border-gold/25">
                             Recent
                           </div>
                           {recent.map((r, i) => (
@@ -436,15 +436,15 @@ export default function GlobalSearch({
                               key={`r-${i}`}
                               type="button"
                               onClick={() => setQuery(r)}
-                              className="w-full text-left flex items-center gap-2.5 px-4 py-2 border-b dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-gray-800"
+                              className="w-full text-left flex items-center gap-2.5 px-4 py-2 border-b border-gold/25 text-[#eef3fb]/75 hover:bg-white/[0.05]"
                             >
-                              <Clock size={14} className="text-gray-400" />
+                              <Clock size={14} className="text-[#eef3fb]/40" />
                               <span className="truncate text-[14px]">{r}</span>
                             </button>
                           ))}
                         </>
                       )}
-                      <div className="px-4 py-1.5 text-[11px] uppercase tracking-wide text-gray-500 dark:text-gray-400 border-y dark:border-gray-800">
+                      <div className="px-4 py-1.5 text-[11px] uppercase tracking-wide text-gold/80 border-y border-gold/25">
                         Popular
                       </div>
                     </>
@@ -460,13 +460,13 @@ export default function GlobalSearch({
                       />
                     ))
                   ) : hasQuery && !loading ? (
-                    <div className="py-6 text-center text-[13px] text-gray-500 dark:text-gray-400">
+                    <div className="py-6 text-center text-[13px] text-[#eef3fb]/55">
                       No results found. Try different keywords.
                     </div>
                   ) : null}
                 </div>
 
-                <div className="mt-2 text-[11px] text-center text-gray-400 md:hidden">
+                <div className="mt-2 text-[11px] text-center text-[#eef3fb]/45 md:hidden">
                   Enter opens | Esc closes
                 </div>
               </div>

@@ -110,8 +110,8 @@ export default function GlobalBrochureGate() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-sm rounded-xl bg-white dark:bg-neutral-950 p-6 shadow-lg">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-sand/80 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-sm rounded-xl bg-white border border-gold/45 p-6 shadow-[0_18px_50px_-20px_rgba(15,23,42,0.08)]">
         <button
           type="button"
           onClick={() => {
@@ -122,13 +122,13 @@ export default function GlobalBrochureGate() {
             setEmail("");
             setTouched(false);
           }}
-          className="absolute top-2 right-2 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 focus:outline-none"
+          className="absolute top-2 right-2 text-ink/55 hover:text-ink focus:outline-none"
           aria-label="Close"
         >
           ×
         </button>
 
-        <h3 className="mb-3 text-lg font-semibold text-black dark:text-white">
+        <h3 className="mb-3 font-sora text-lg font-semibold text-ink">
           Enter your details to download
         </h3>
 
@@ -137,7 +137,7 @@ export default function GlobalBrochureGate() {
           <div>
             <label
               htmlFor="brochure-name"
-              className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              className="mb-1 block text-sm font-medium text-ink/70"
             >
               Name
             </label>
@@ -147,10 +147,10 @@ export default function GlobalBrochureGate() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               onBlur={() => setTouched(true)}
-              className="w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gold/45 bg-sand/50 px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
             {touched && !nameOk && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              <p className="mt-1 text-xs text-red-400">
                 Please enter at least 2 characters.
               </p>
             )}
@@ -160,7 +160,7 @@ export default function GlobalBrochureGate() {
           <div>
             <label
               htmlFor="brochure-phone"
-              className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              className="mb-1 block text-sm font-medium text-ink/70"
             >
               Phone
             </label>
@@ -170,10 +170,10 @@ export default function GlobalBrochureGate() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               onBlur={() => setTouched(true)}
-              className="w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gold/45 bg-sand/50 px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
             {touched && !phoneOk && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              <p className="mt-1 text-xs text-red-400">
                 Enter a valid phone number (digits, +, -, (), spaces allowed).
               </p>
             )}
@@ -183,7 +183,7 @@ export default function GlobalBrochureGate() {
           <div>
             <label
               htmlFor="brochure-email"
-              className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              className="mb-1 block text-sm font-medium text-ink/70"
             >
               Email
             </label>
@@ -193,10 +193,10 @@ export default function GlobalBrochureGate() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onBlur={() => setTouched(true)}
-              className="w-full rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-gold/45 bg-sand/50 px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
             {touched && !emailOk && (
-              <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+              <p className="mt-1 text-xs text-red-400">
                 Enter a valid email address.
               </p>
             )}
@@ -207,7 +207,7 @@ export default function GlobalBrochureGate() {
             type="button"
             onClick={handleSubmit}
             disabled={loading || !valid}
-            className="w-full inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-transform disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full inline-flex items-center justify-center rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-midnight shadow-md transition-colors hover:bg-[#e6c14d] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading ? "Submitting…" : "Submit & Download"}
           </button>

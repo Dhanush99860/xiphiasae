@@ -35,7 +35,7 @@ function CountryCard({ country, accent }: { country: ChapterCountry; accent: str
   return (
     <Link
       href={country.href}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-lg transition duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-[#0b1322]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-lg transition duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-gold/45 dark:bg-[#0b1322]"
     >
       <div className="relative h-40 w-full overflow-hidden">
         <Image

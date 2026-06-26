@@ -65,8 +65,8 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-4 sm:p-5",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm",
+        "bg-white",
+        "border border-gold/45",
         className,
       ].join(" ")}
     >
@@ -74,11 +74,11 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
 
       {/* Header */}
       <header className="relative mb-3 flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2 text-[12px] text-blue-700 dark:text-blue-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
+        <div className="flex items-center gap-2 text-[12px] text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
           <span className="font-medium">Filters</span>
           {hasActive ? (
-            <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-blue-50 text-blue-800 ring-1 ring-blue-100 px-2 py-[2px] dark:bg-blue-950/30 dark:text-blue-200 dark:ring-blue-900/40">
+            <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-sand/50 text-ink/70 ring-1 ring-gold/40 px-2 py-[2px]">
               {activeCount} active
             </span>
           ) : null}
@@ -87,7 +87,7 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
         <button
           type="button"
           onClick={resetAll}
-          className="text-[12px] font-medium text-neutral-600 hover:text-neutral-900 underline underline-offset-4 dark:text-neutral-300 dark:hover:text-neutral-100"
+          className="text-[12px] font-medium text-ink/55 hover:text-gold underline underline-offset-4"
           aria-label="Reset all filters"
         >
           Reset
@@ -108,7 +108,7 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
           </label>
           <span
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink/40"
           >
             <SearchIcon className="h-4 w-4" />
           </span>
@@ -121,11 +121,11 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
             enterKeyHint="search"
             className="
               w-full rounded-xl pl-9 pr-9 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              placeholder:text-neutral-500 dark:placeholder:text-neutral-400
-              focus:outline-none focus:ring-2 focus:ring-blue-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              placeholder:text-ink/40
+              focus:outline-none focus:border-gold
             "
           />
           {q ? (
@@ -135,8 +135,8 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
               aria-label="Clear search"
               className="
                 absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center
-                h-7 w-7 rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700
-                text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800
+                h-7 w-7 rounded-md ring-1 ring-gold/15
+                text-ink/55 hover:text-gold hover:bg-white/[0.03]
               "
             >
               <XIcon className="h-3.5 w-3.5" />
@@ -153,10 +153,10 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
             id="skilled-filter-route"
             className="
               w-full appearance-none rounded-xl px-3 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              focus:outline-none focus:ring-2 focus:ring-blue-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              focus:outline-none focus:border-gold
             "
             value={routeType}
             onChange={(e) => setRouteType(e.target.value as any)}
@@ -172,7 +172,7 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
           </select>
           <span
             aria-hidden
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold/70"
           >
             <ChevronDownIcon className="h-4 w-4" />
           </span>
@@ -187,10 +187,10 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
             id="skilled-filter-sort"
             className="
               w-full appearance-none rounded-xl px-3 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              focus:outline-none focus:ring-2 focus:ring-blue-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              focus:outline-none focus:border-gold
             "
             value={sort}
             onChange={(e) => setSort(e.target.value as any)}
@@ -201,7 +201,7 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
           </select>
           <span
             aria-hidden
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gold/70"
           >
             <ChevronDownIcon className="h-4 w-4" />
           </span>
@@ -215,12 +215,12 @@ export default function SkilledFilterBar({ initial, onChange, className = "" }: 
 function BackgroundGraphics() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 print:hidden">
-      <div className="absolute -top-20 -left-16 h-48 w-48 rounded-full bg-neutral-300/15 blur-3xl" />
-      <div className="absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-neutral-400/10 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute -top-20 -left-16 h-48 w-48 rounded-full bg-gold/5 blur-3xl" />
+      <div className="absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="sk-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-            <path d="M24 0H0v24" fill="none" stroke="#111827" strokeWidth="0.75" />
+            <path d="M24 0H0v24" fill="none" stroke="#d4af37" strokeWidth="0.75" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#sk-grid)" />

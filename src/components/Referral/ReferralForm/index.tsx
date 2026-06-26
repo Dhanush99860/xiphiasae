@@ -159,29 +159,30 @@ export default function ReferralForm({
     <section
       id={id}
       className={[
-        "relative w-full max-w-xl mx-auto",
-        "rounded-2xl bg-white dark:bg-neutral-950",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm",
-        "p-4 sm:p-6",
+        "relative w-full max-w-xl mx-auto overflow-hidden",
+        "rounded-[28px] bg-white",
+        "border border-gold/45",
+        "p-5 sm:p-6",
         className,
       ].join(" ")}
       aria-labelledby={titleId}
     >
       <CardBG />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
       {/* header */}
       <header className="relative">
-        <div className="inline-flex items-center gap-2 text-[12px] text-primary">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-          <span className="font-semibold">Client Referral</span>
+        <div className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[12px] font-semibold text-gold">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+          <span>Client Referral</span>
         </div>
         <h2
           id={titleId}
-          className="mt-1.5 text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-50"
+          className="mt-3 font-sora text-xl sm:text-2xl font-semibold tracking-tight text-ink"
         >
           Introduce a friend or family member
         </h2>
-        <p className="mt-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="mt-2 text-xs sm:text-sm leading-6 text-ink/55">
           Share basic details below. We’ll contact them discreetly, mention your
           name, and keep you updated.
         </p>
@@ -206,7 +207,7 @@ export default function ReferralForm({
 
         {/* Your details */}
         <div className="md:col-span-2 mt-1">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">
             Your details
           </p>
         </div>
@@ -266,7 +267,7 @@ export default function ReferralForm({
 
         {/* Friend details */}
         <div className="md:col-span-2 mt-2">
-          <p className="text-[11px] font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">
             Friend / family details
           </p>
         </div>
@@ -336,12 +337,12 @@ export default function ReferralForm({
           className="md:col-span-2"
         />
 
-        <label className="md:col-span-2 flex items-start gap-2 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
+        <label className="md:col-span-2 flex items-start gap-2 rounded-2xl border border-gold/45 bg-sand/50 p-4 text-xs sm:text-sm leading-6 text-ink/70">
           <input
             type="checkbox"
             name="consent"
             value="yes"
-            className="mt-0.5 h-4 w-4 rounded border-neutral-300 dark:border-neutral-700 text-primary focus:ring-2 focus:ring-primary"
+            className="mt-0.5 h-4 w-4 rounded border-gold/45 bg-sand/60 text-gold focus:ring-2 focus:ring-gold"
           />
           I confirm I have permission to share these details and understand that
           XIPHIAS will contact my referral about immigration services only.
@@ -354,8 +355,8 @@ export default function ReferralForm({
             aria-busy={loading}
             className={[
               "inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold",
-              "bg-primary text-white hover:brightness-110",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+              "bg-gold text-ink hover:bg-gold_bright",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand",
               "disabled:opacity-60 disabled:cursor-not-allowed",
               "transition-all",
             ].join(" ")}
@@ -369,10 +370,10 @@ export default function ReferralForm({
               "Submit referral"
             )}
           </button>
-          <p className="mt-2 text-[11px] sm:text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="mt-2 text-[11px] sm:text-[12px] text-ink/45">
             We treat all referrals with strict confidentiality. By submitting,
             you accept our{" "}
-            <a href="/privacy-policy" className="underline text-primary">
+            <a href="/privacy-policy" className="underline text-gold hover:text-gold_bright">
               privacy policy
             </a>
             .
@@ -438,7 +439,7 @@ function Field({
       <div className="relative">
         {icon ? (
           <span
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink/40"
             aria-hidden
           >
             {icon}
@@ -458,26 +459,26 @@ function Field({
           autoComplete={autoComplete}
           onBlur={onBlur}
           className={[
-            "peer w-full rounded-xl bg-white dark:bg-neutral-950",
-            "ring-1 ring-neutral-300 dark:ring-neutral-700",
-            "px-10 py-3 text-sm text-neutral-900 dark:text-neutral-50",
-            "focus:outline-none focus:ring-2 focus:ring-primary",
+            "peer w-full rounded-xl bg-sand/60",
+            "border border-gold/45",
+            "px-10 py-3 text-sm text-ink",
+            "focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold",
             "placeholder-transparent",
-            invalid ? "ring-red-400 focus:ring-red-500" : "",
+            invalid ? "border-red-500/40 focus:border-red-500 focus:ring-red-500/20" : "",
           ].join(" ")}
         />
 
         <label
           htmlFor={id}
           className={[
-            "pointer-events-none absolute left-10 bg-white dark:bg-neutral-950 px-1 rounded",
-            "text-neutral-500 dark:text-neutral-400 transition-all z-10",
+            "pointer-events-none absolute left-10 bg-white px-1 rounded",
+            "text-ink/55 transition-all z-10",
             "opacity-0 top-2 translate-y-0 text-[12px]",
             "peer-placeholder-shown:opacity-100 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-sm",
           ].join(" ")}
         >
           {label}
-          {required ? <span className="ml-1 text-red-600">*</span> : null}
+          {required ? <span className="ml-1 text-red-400">*</span> : null}
         </label>
       </div>
 
@@ -485,9 +486,7 @@ function Field({
         <p
           className={[
             "mt-1 text-[11px] sm:text-[12px]",
-            invalid
-              ? "text-red-600 dark:text-red-400"
-              : "text-neutral-500 dark:text-neutral-400",
+            invalid ? "text-red-400" : "text-ink/45",
           ].join(" ")}
           role={invalid ? "alert" : undefined}
         >
@@ -534,7 +533,7 @@ function Textarea({
       <div className="relative">
         {icon ? (
           <span
-            className="pointer-events-none absolute left-3 top-3 text-neutral-400 dark:text-neutral-500"
+            className="pointer-events-none absolute left-3 top-3 text-ink/40"
             aria-hidden
           >
             {icon}
@@ -555,26 +554,26 @@ function Textarea({
             onInput?.((e.target as HTMLTextAreaElement).value.length)
           }
           className={[
-            "peer w-full rounded-xl bg-white dark:bg-neutral-950",
-            "ring-1 ring-neutral-300 dark:ring-neutral-700",
-            "px-10 py-3 text-sm text-neutral-900 dark:text-neutral-50",
-            "focus:outline-none focus:ring-2 focus:ring-primary",
+            "peer w-full rounded-xl bg-sand/60",
+            "border border-gold/45",
+            "px-10 py-3 text-sm text-ink",
+            "focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold",
             "resize-y placeholder-transparent",
-            invalid ? "ring-red-400 focus:ring-red-500" : "",
+            invalid ? "border-red-500/40 focus:border-red-500 focus:ring-red-500/20" : "",
           ].join(" ")}
         />
 
         <label
           htmlFor={id}
           className={[
-            "pointer-events-none absolute left-10 bg-white dark:bg-neutral-950 px-1 rounded",
-            "text-neutral-500 dark:text-neutral-400 transition-all z-10",
+            "pointer-events-none absolute left-10 bg-white px-1 rounded",
+            "text-ink/55 transition-all z-10",
             "opacity-0 top-2 translate-y-0 text-[12px]",
             "peer-placeholder-shown:opacity-100 peer-placeholder-shown:top-3 peer-placeholder-shown:text-sm",
           ].join(" ")}
         >
           {label}
-          {required ? <span className="ml-1 text-red-600">*</span> : null}
+          {required ? <span className="ml-1 text-red-400">*</span> : null}
         </label>
       </div>
 
@@ -582,9 +581,7 @@ function Textarea({
         <p
           className={[
             "mt-1 text-[11px] sm:text-[12px]",
-            invalid
-              ? "text-red-600 dark:text-red-400"
-              : "text-neutral-500 dark:text-neutral-400",
+            invalid ? "text-red-400" : "text-ink/45",
           ].join(" ")}
           role={invalid ? "alert" : undefined}
         >
@@ -598,9 +595,9 @@ function Textarea({
 function CardBG() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0">
-      <div className="absolute -top-10 -left-10 h-28 w-28 rounded-full bg-primary/10 blur-3xl" />
-      <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.04] dark:opacity-[0.07]">
+      <div className="absolute -top-10 -left-10 h-28 w-28 rounded-full bg-gold/10 blur-3xl" />
+      <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-gold/[0.06] blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.05]">
         <defs>
           <pattern
             id="grid-referral"
@@ -620,7 +617,7 @@ function CardBG() {
           width="100%"
           height="100%"
           fill="url(#grid-referral)"
-          className="text-primary"
+          className="text-gold"
         />
       </svg>
     </div>

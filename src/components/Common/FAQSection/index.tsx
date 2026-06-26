@@ -80,19 +80,19 @@ export default function FAQWithForm({
         {/* ------------------ Left: FAQs ------------------ */}
         <div className="min-w-0">
           {/* Header */}
-          <div className="rounded-2xl ring-1 ring-blue-100/80 bg-white/80 p-4 dark:ring-blue-900/40 dark:bg-white/[0.03]">
-            <div className="inline-flex items-center gap-2 text-[12px]">
-              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
+          <div className="rounded-2xl border border-gold/45 bg-white p-4">
+            <div className="inline-flex items-center gap-2 text-[12px] text-ink/70">
+              <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
               <span className="font-semibold">FAQs</span>
             </div>
             <h2
               id={`faq-heading-${uid}`}
-              className="mt-2 text-xl md:text-2xl font-semibold tracking-tight"
+              className="mt-2 font-sora text-xl md:text-2xl font-semibold tracking-tight text-ink"
             >
-              {title} <span className="text-blue-700 dark:text-blue-300">{highlight}</span>
+              {title} <span className="text-gold">{highlight}</span>
             </h2>
             {subtitle && (
-              <p className="mt-1 text-sm text-black/70 dark:text-white/70">{subtitle}</p>
+              <p className="mt-1 text-sm text-ink/55">{subtitle}</p>
             )}
           </div>
 
@@ -105,15 +105,20 @@ export default function FAQWithForm({
 
               return (
                 <li key={idx}>
-                  <div className="overflow-hidden rounded-xl ring-1 ring-blue-100/80 bg-white/90 dark:ring-blue-900/40 dark:bg-white/[0.03]">
+                  <div
+                    className={[
+                      "overflow-hidden rounded-xl border bg-white transition-colors",
+                      isOpen ? "border-gold/40" : "border-gold/45",
+                    ].join(" ")}
+                  >
                     <button
                       id={qId}
                       aria-expanded={isOpen}
                       aria-controls={aId}
                       onClick={() => onToggle(idx)}
                       className={[
-                        "flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-[15px] font-medium",
-                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
+                        "flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-[15px] font-medium text-ink",
+                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
                       ].join(" ")}
                     >
                       <span className="min-w-0 truncate">{item.question}</span>
@@ -121,8 +126,8 @@ export default function FAQWithForm({
                         className={[
                           "h-5 w-5 shrink-0",
                           isOpen
-                            ? "rotate-180 text-blue-700 dark:text-blue-300"
-                            : "text-black/50 dark:text-white/60",
+                            ? "rotate-180 text-gold"
+                            : "text-ink/45",
                         ].join(" ")}
                         aria-hidden
                       />
@@ -133,7 +138,7 @@ export default function FAQWithForm({
                         id={aId}
                         role="region"
                         aria-labelledby={qId}
-                        className="px-4 pb-4 text-sm text-zinc-800 dark:text-zinc-300"
+                        className="px-4 pb-4 text-sm text-ink/55"
                       >
                         {item.answer}
                       </div>

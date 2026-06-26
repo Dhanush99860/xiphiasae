@@ -66,10 +66,8 @@ export default function SkilledSidebarStatsPanel({
       className={[
         "relative overflow-hidden",
         "rounded-2xl p-4 sm:p-5",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800",
-        "bg-gradient-to-br from-sky-50/80 via-white/85 to-blue-50/70",
-        "dark:from-[rgba(2,6,23,0.7)] dark:via-[rgba(2,6,23,0.6)] dark:to-[rgba(30,41,59,0.5)]",
-        "backdrop-blur",
+        "border border-gold/45",
+        "bg-white/80 backdrop-blur",
         className || "",
       ].join(" ")}
       itemScope
@@ -82,7 +80,7 @@ export default function SkilledSidebarStatsPanel({
       </div>
 
       {updatedAt ? (
-        <p className="relative z-10 mt-1 text-[11px] text-neutral-500 dark:text-neutral-400">
+        <p className="relative z-10 mt-1 text-[11px] text-ink/45">
           Updated{" "}
           <time dateTime={toISO(updatedAt)} itemProp="dateModified">
             {toNiceDate(updatedAt)}
@@ -180,26 +178,26 @@ function DecorativeBackground() {
     <>
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-sky-400/15 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-20 h-56 w-56 rounded-full bg-gold/5 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-28 -right-16 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl"
+        className="pointer-events-none absolute -bottom-28 -right-16 h-64 w-64 rounded-full bg-gold/5 blur-3xl"
       />
       <svg
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06] dark:opacity-[0.08]"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.05]"
       >
         <defs>
           <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
             <path d="M24 0H0V24" fill="none" stroke="currentColor" strokeWidth="0.75" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" className="text-sky-700 dark:text-sky-300" />
+        <rect width="100%" height="100%" fill="url(#grid)" className="text-gold" />
       </svg>
       <div
         aria-hidden
-        className="pointer-events-none absolute left-0 right-0 top-0 h-10 bg-gradient-to-b from-white/60 to-transparent dark:from-white/10"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
       />
     </>
   );
@@ -220,39 +218,20 @@ function MetricTile({
   badge?: string;
   footer?: React.ReactNode;
 }) {
-  const colorRing =
-    color === "blue"
-      ? "ring-sky-200 dark:ring-sky-800"
-      : color === "green"
-      ? "ring-emerald-200 dark:ring-emerald-800"
-      : "ring-violet-200 dark:ring-violet-800";
-
-  const accentGrad =
-    color === "blue"
-      ? "from-sky-500 to-blue-600"
-      : color === "green"
-      ? "from-emerald-500 to-green-600"
-      : "from-violet-500 to-fuchsia-600";
-
   return (
     <div
       className={[
         "relative overflow-hidden rounded-2xl p-3 sm:p-3.5",
-        "bg-gradient-to-b from-white to-neutral-50 dark:from-neutral-950 dark:to-neutral-900/40",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800",
-        "transition shadow-sm motion-safe:hover:-translate-y-0.5 hover:shadow-md",
-        "focus-within:ring-2 focus-within:ring-sky-400/50 dark:focus-within:ring-sky-500/40",
+        "bg-sand/50",
+        "border border-gold/45",
+        "transition motion-safe:hover:-translate-y-0.5 hover:border-gold/65",
+        "focus-within:border-gold",
       ].join(" ")}
       role="group"
     >
       <div
         aria-hidden
-        className={`pointer-events-none absolute -right-14 -top-12 h-32 w-32 rounded-full bg-gradient-to-br ${accentGrad} opacity-10 blur-2xl`}
-      />
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-0 rounded-2xl ${colorRing}`}
-        style={{ maskImage: "linear-gradient(transparent, black)" }}
+        className="pointer-events-none absolute -right-14 -top-12 h-32 w-32 rounded-full bg-gold/10 opacity-50 blur-2xl"
       />
 
       <div className="flex items-start gap-3">
@@ -260,15 +239,14 @@ function MetricTile({
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <dt className="text-[11px] uppercase tracking-wide text-neutral-700/90 dark:text-neutral-300">
+            <dt className="text-[10px] uppercase tracking-[0.14em] text-ink/40">
               {label}
             </dt>
             {badge ? (
               <span
                 className={[
                   "rounded-full px-2 py-[2px] text-[10px] leading-none",
-                  "bg-white/80 text-neutral-700 ring-1 ring-neutral-200",
-                  "dark:bg-neutral-900/60 dark:text-neutral-200 dark:ring-neutral-800",
+                  "bg-sand/50 text-ink/70 ring-1 ring-gold/10",
                 ].join(" ")}
               >
                 {badge}
@@ -277,7 +255,7 @@ function MetricTile({
           </div>
 
           <dd
-            className="mt-1 text-[15px] sm:text-sm font-semibold text-black dark:text-white leading-6"
+            className="mt-1 text-[15px] sm:text-sm font-semibold font-sora text-gold leading-6"
             aria-live="polite"
           >
             {value}
@@ -309,7 +287,7 @@ function Truncate({
 
 function Skeleton() {
   return (
-    <span className="inline-block h-[1em] w-24 rounded bg-neutral-200/70 dark:bg-neutral-800/70 animate-pulse align-middle" />
+    <span className="inline-block h-[1em] w-24 rounded bg-pearl/10 animate-pulse align-middle" />
   );
 }
 
@@ -336,10 +314,10 @@ function TimelineBar({
 
   return (
     <div className="space-y-1" aria-label={ariaLabel}>
-      <div className="relative h-2 w-full overflow-hidden rounded-full bg-sky-100 dark:bg-sky-900/40 ring-1 ring-sky-200/60 dark:ring-sky-800/60">
+      <div className="relative h-2 w-full overflow-hidden rounded-full bg-sand ring-1 ring-gold/10">
         {showBand && minPct != null && maxPct != null ? (
           <div
-            className="absolute top-0 h-full bg-gradient-to-r from-sky-300/70 to-blue-300/70 dark:from-sky-700/50 dark:to-blue-700/50"
+            className="absolute top-0 h-full bg-gold/30"
             style={{
               left: `${minPct}%`,
               width: `${Math.max(2, maxPct - minPct)}%`,
@@ -348,13 +326,13 @@ function TimelineBar({
           />
         ) : null}
         <div
-          className="absolute top-0 h-full w-[2px] bg-blue-600 dark:bg-sky-400"
+          className="absolute top-0 h-full w-[2px] bg-gold"
           style={{ left: `${avgPct}%` }}
           aria-hidden
         />
       </div>
 
-      <div className="flex items-center justify-between text-[11px] text-neutral-500 dark:text-neutral-400">
+      <div className="flex items-center justify-between text-[11px] text-ink/45">
         <span>0&nbsp;mo</span>
         <span>~{Math.round(avg)}&nbsp;mo</span>
         <span>{scale}&nbsp;mo</span>

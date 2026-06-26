@@ -73,20 +73,20 @@ export default function PlanStep({
 
       {/* Selected summary + continue */}
       <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between text-sm">
-        <div className="text-zinc-800 dark:text-zinc-200">
+        <div className="text-ink/70">
           Selected:&nbsp;
-          <strong className="text-zinc-950 dark:text-white">
+          <strong className="text-ink">
             {isPaid ? "Paid (90m)" : "Free (15m)"}
           </strong>
-          <span className="ml-2 text-zinc-500 dark:text-zinc-400">·</span>
-          <span className="ml-2 text-zinc-700 dark:text-zinc-300">Duration {displayDur}</span>
-          <span className="ml-2 text-zinc-500 dark:text-zinc-400">·</span>
-          <span className="ml-2 text-zinc-700 dark:text-zinc-300">Total {displayPrice}</span>
+          <span className="ml-2 text-ink/45">·</span>
+          <span className="ml-2 text-ink/70">Duration {displayDur}</span>
+          <span className="ml-2 text-ink/45">·</span>
+          <span className="ml-2 text-ink/70">Total {displayPrice}</span>
         </div>
 
         <button
           onClick={onNextAction}
-          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 motion-safe:transition hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 font-semibold text-midnight motion-safe:transition hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
         >
           Continue
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
@@ -99,7 +99,7 @@ export default function PlanStep({
       </div>
 
       {/* Micro reassurance */}
-      <p className="text-xs text-zinc-600 dark:text-zinc-400">
+      <p className="text-xs text-ink/45">
         Discreet & confidential · No obligation
       </p>
     </div>
@@ -147,12 +147,11 @@ function PlanCard({
       }}
       className={[
         "group relative block w-full cursor-pointer select-none rounded-2xl p-4 sm:p-5",
-        "ring-1 shadow-sm motion-safe:transition",
-        // Light theme background + dark theme surface
+        "ring-1 motion-safe:transition",
         active
-          ? "bg-white ring-blue-300 dark:bg-white/10 dark:ring-blue-800/50"
-          : "bg-white ring-zinc-200 hover:ring-blue-200 dark:bg-white/5 dark:ring-white/10 dark:hover:ring-blue-700/40",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+          ? "bg-white ring-gold"
+          : "bg-white ring-gold/10 hover:ring-gold/40",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
       ].join(" ")}
       onClick={onSelectAction}
     >
@@ -163,26 +162,26 @@ function PlanCard({
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             {badge ? (
-              <span className="inline-flex items-center rounded-full bg-blue-600/10 px-2 py-0.5 text-[11px] font-medium text-blue-700 ring-1 ring-blue-300/60 dark:bg-blue-400/10 dark:text-blue-200 dark:ring-blue-400/30">
+              <span className="inline-flex items-center rounded-full bg-gold/10 px-2 py-0.5 text-[11px] font-medium text-gold ring-1 ring-gold/30">
                 {badge}
               </span>
             ) : null}
-            <span className="text-[13px] text-zinc-700 dark:text-zinc-300">
+            <span className="text-[13px] text-ink/55">
               Private Client Service
             </span>
           </div>
 
-          <div id={titleId} className="mt-1 truncate text-base font-semibold text-zinc-950 dark:text-white">
+          <div id={titleId} className="mt-1 truncate text-base font-semibold text-ink">
             {title}
           </div>
-          <div id={subId} className="mt-1 text-sm text-zinc-700 dark:text-zinc-300">
+          <div id={subId} className="mt-1 text-sm text-ink/55">
             {subtitle}
           </div>
 
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-ink/70">
             <Pill>{duration}</Pill>
-            <span className="text-zinc-400 dark:text-zinc-500">•</span>
-            <span>{price}</span>
+            <span className="text-ink/40">•</span>
+            <span className="text-gold">{price}</span>
           </div>
         </div>
 
@@ -191,8 +190,8 @@ function PlanCard({
           className={[
             "grid h-9 w-9 place-items-center rounded-full ring-1 motion-safe:transition",
             active
-              ? "bg-blue-600 text-white ring-blue-600"
-              : "bg-white text-zinc-400 ring-zinc-300 group-hover:ring-blue-300 dark:bg-transparent dark:ring-white/20 dark:text-zinc-500",
+              ? "bg-gold text-midnight ring-gold"
+              : "bg-transparent text-ink/45 ring-gold/20 group-hover:ring-gold/40",
           ].join(" ")}
           aria-hidden="true"
         >
@@ -213,7 +212,7 @@ function PlanCard({
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-700 ring-1 ring-zinc-200 dark:bg-white/10 dark:text-zinc-200 dark:ring-white/15">
+    <span className="inline-flex items-center rounded-full bg-sand/50 px-2 py-0.5 text-[11px] font-medium text-ink/70 ring-1 ring-gold/10">
       {children}
     </span>
   );

@@ -129,7 +129,7 @@ export default function DetailsStep({
         label="Anything specific you want to discuss? (optional)"
         htmlFor="notes"
         helper={
-          <span className="text-xs text-zinc-600 dark:text-zinc-400">
+          <span className="text-xs text-ink/45">
             {nt.length}/{NOTE_MAX}
           </span>
         }
@@ -154,7 +154,7 @@ export default function DetailsStep({
         <button
           type="button"
           onClick={onBackAction}
-          className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl px-4 py-2.5 text-zinc-900 dark:text-zinc-100 ring-1 ring-zinc-300/80 dark:ring-white/15 hover:bg-white/80 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="inline-flex w-full sm:w-auto items-center justify-center rounded-full px-5 py-2.5 text-ink ring-1 ring-gold/15 hover:border-gold/65 hover:ring-gold/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
         >
           Back
         </button>
@@ -162,7 +162,7 @@ export default function DetailsStep({
         <button
           type="submit"
           disabled={!valid}
-          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 transition enabled:hover:bg-blue-700 enabled:active:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:opacity-60"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 font-semibold text-midnight transition enabled:hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-50"
         >
           Continue
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
@@ -174,7 +174,7 @@ export default function DetailsStep({
         </button>
       </div>
 
-      <p className="text-xs text-zinc-700 dark:text-zinc-400">
+      <p className="text-xs text-ink/45">
         We’ll never share your details. Discreet & confidential.
       </p>
     </form>
@@ -204,7 +204,7 @@ function Field({
   return (
     <div className="grid gap-1.5 text-sm">
       <div className="flex items-center justify-between">
-        <label htmlFor={htmlFor} className="font-medium text-zinc-950 dark:text-zinc-100">
+        <label htmlFor={htmlFor} className="font-medium text-ink/70">
           {label}
         </label>
         {helper ?? null}
@@ -219,7 +219,7 @@ function Field({
         <p
           id={describedBy}
           role="alert"
-          className="text-xs text-red-600 dark:text-red-400"
+          className="text-xs text-red-400"
         >
           {error}
         </p>
@@ -231,16 +231,14 @@ function Field({
 function inputClass(hasError: boolean) {
   return [
     "rounded-xl border px-3 py-2 outline-none",
-    "bg-white text-zinc-950 placeholder:text-zinc-400",
-    "dark:bg-zinc-900/40 dark:text-zinc-100 dark:placeholder:text-zinc-500",
+    "bg-white text-ink placeholder:text-ink/40",
     hasError
-      ? "border-red-500 ring-1 ring-red-500/40 focus:ring-red-500"
-      : "border-zinc-300 ring-1 ring-transparent focus:ring-blue-500 dark:border-white/10 dark:focus:ring-blue-500",
+      ? "border-red-500 ring-1 ring-red-500/40 focus:ring-red-500 focus:border-red-500"
+      : "border-gold/45 ring-1 ring-transparent focus:border-gold focus:ring-gold",
   ].join(" ");
 }
 
 const textareaClass =
   "rounded-xl border px-3 py-2 outline-none " +
-  "bg-white text-zinc-950 placeholder:text-zinc-400 " +
-  "dark:bg-zinc-900/40 dark:text-zinc-100 dark:placeholder:text-zinc-500 " +
-  "border-zinc-300 ring-1 ring-transparent focus:ring-blue-500 dark:border-white/10 dark:focus:ring-blue-500";
+  "bg-white text-ink placeholder:text-ink/40 " +
+  "border-gold/45 ring-1 ring-transparent focus:border-gold focus:ring-gold";

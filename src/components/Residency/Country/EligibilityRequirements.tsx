@@ -58,7 +58,7 @@ export default function EligibilityRequirements({
       aria-describedby="eligibility-desc"
       className={[
         "relative scroll-mt-28",
-        "print:bg-white print:shadow-none",
+        "print:shadow-none",
         className,
       ].join(" ")}
       {...regionProps}
@@ -75,7 +75,7 @@ export default function EligibilityRequirements({
         <div className="min-w-0">
           <span
             aria-hidden
-            className="block h-1 w-16 rounded-full bg-gradient-to-r from-sky-500 via-sky-300/50 to-emerald-400"
+            className="block h-1 w-16 rounded-full bg-gradient-to-r from-gold via-gold/50 to-transparent"
           />
           <div className="mt-2">
             <SectionHeader
@@ -90,13 +90,13 @@ export default function EligibilityRequirements({
           <span
             className="
               inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px]
-              bg-white/85 dark:bg-neutral-900/70
-              ring-1 ring-neutral-200 dark:ring-neutral-800
-              text-neutral-700 dark:text-neutral-200
+              bg-sand/50
+              border border-gold/45
+              text-ink/70
             "
             aria-label={`${count} requirement${count === 1 ? "" : "s"}`}
           >
-            <span className="h-2 w-2 rounded-full bg-sky-500" aria-hidden />
+            <span className="h-2 w-2 rounded-full bg-gold" aria-hidden />
             {count} item{count === 1 ? "" : "s"}
           </span>
         ) : null}
@@ -112,9 +112,9 @@ export default function EligibilityRequirements({
         <div
           className={[
             "relative z-10 rounded-2xl p-4 sm:p-5",
-            "bg-white/90 dark:bg-neutral-950/60 backdrop-blur",
-            "ring-1 ring-neutral-200 dark:ring-neutral-800",
-            "prose prose-sm dark:prose-invert max-w-none",
+            "bg-white",
+            "border border-gold/45",
+            "prose prose-sm prose-invert max-w-none",
           ].join(" ")}
           itemProp="description"
         >
@@ -142,14 +142,14 @@ export default function EligibilityRequirements({
                 aria-hidden
                 className="
                   absolute left-0 top-1 grid h-6 w-6 place-items-center rounded-full
-                  bg-amber-500/15 text-[12px] font-semibold
-                  ring-1 ring-amber-500/30 text-neutral-800 dark:text-neutral-200
+                  bg-sand/50 text-[12px] font-semibold
+                  border border-gold/45 text-gold
                 "
               >
                 {idx + 1}
               </span>
               <p
-                className="text-[15px] leading-7 text-neutral-900 dark:text-neutral-100 break-words hyphens-auto"
+                className="text-[15px] leading-7 text-ink break-words hyphens-auto"
                 itemProp="name"
                 title={text}
               >
@@ -181,13 +181,13 @@ export default function EligibilityRequirements({
                   aria-hidden
                   className="
                     mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full
-                    bg-emerald-500/15 ring-1 ring-emerald-500/25
+                    bg-sand/50 border border-gold/45
                   "
                 >
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                  <CheckCircle2 className="h-4 w-4 text-gold" />
                 </span>
                 <p
-                  className="text-[15px] leading-7 text-neutral-900 dark:text-neutral-100 break-words hyphens-auto"
+                  className="text-[15px] leading-7 text-ink break-words hyphens-auto"
                   itemProp="name"
                   title={text}
                 >
@@ -218,11 +218,11 @@ function BackgroundGraphics() {
       aria-hidden
       className="pointer-events-none absolute inset-0 print:hidden"
     >
-      {/* soft brand glows */}
-      <div className="absolute -top-16 -left-14 h-40 w-40 rounded-full bg-sky-400/15 blur-3xl" />
-      <div className="absolute -bottom-20 -right-16 h-52 w-52 rounded-full bg-blue-500/10 blur-3xl" />
+      {/* soft gold glows */}
+      <div className="absolute -top-16 -left-14 h-40 w-40 rounded-full bg-gold/10 blur-3xl" />
+      <div className="absolute -bottom-20 -right-16 h-52 w-52 rounded-full bg-gold/5 blur-3xl" />
       {/* faint grid + doc motif */}
-      <svg className="absolute inset-0 h-full w-full opacity-[0.06] dark:opacity-[0.08]">
+      <svg className="absolute inset-0 h-full w-full opacity-[0.05]">
         <defs>
           <pattern
             id="req-grid"
@@ -259,15 +259,15 @@ function BackgroundGraphics() {
           width="100%"
           height="100%"
           fill="url(#req-grid)"
-          className="text-sky-900 dark:text-sky-300"
+          className="text-gold/60"
         />
-        <g className="text-sky-900 dark:text-sky-300" opacity="0.06">
+        <g className="text-gold/60" opacity="0.06">
           <use href="#doc" x="48" y="36" />
           <use href="#doc" x="300" y="120" />
         </g>
       </svg>
       {/* top gloss aiding legibility over grid */}
-      <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white/60 to-transparent dark:from-white/10" />
+      <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-pearl/[0.04] to-transparent" />
     </div>
   );
 }

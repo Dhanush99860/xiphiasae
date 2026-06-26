@@ -336,19 +336,18 @@ export default function ExploreGrid({
   /* --------------------------------- UI --------------------------------- */
 
   return (
-    <div className={["text-black dark:text-white", className ?? ""].join(" ")}>
+    <div className={["text-ink", className ?? ""].join(" ")}>
       {/* MOBILE: collapsible filter panel with premium dropdowns */}
       <details
         className="
           lg:hidden rounded-2xl p-4 open:p-4
-          ring-1 ring-blue-100/80 bg-gradient-to-br from-sky-50 via-white to-indigo-50
-          dark:ring-blue-900/40 dark:from-blue-950/20 dark:via-transparent dark:to-indigo-950/10
+          border border-gold/45 bg-white
         "
       >
-        <summary className="cursor-pointer select-none font-semibold flex items-center gap-2">
-          <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+        <summary className="cursor-pointer select-none font-semibold flex items-center gap-2 text-ink">
+          <SlidersHorizontal className="h-4 w-4 text-gold" />
           Filters & Top Programs
-          <span className="ml-auto text-sm font-normal text-zinc-500 dark:text-zinc-400">
+          <span className="ms-auto text-sm font-normal text-ink/50">
             {resultCount} countries
           </span>
         </summary>
@@ -399,7 +398,7 @@ export default function ExploreGrid({
               setRouteType("");
               setSort("timeline");
             }}
-            className="text-sm rounded-xl px-3 py-2 ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+            className="text-sm rounded-full px-4 py-2 border border-gold/45 text-ink/70 transition-colors hover:border-gold/60 hover:text-gold"
           >
             Reset all
           </button>
@@ -407,7 +406,7 @@ export default function ExploreGrid({
 
         {/* Top 5 list */}
         <div className="mt-6">
-          <h3 className="text-base font-semibold">Top 5 programs</h3>
+          <h3 className="text-base font-semibold text-ink">Top 5 programs</h3>
           <ol
             className="mt-3 space-y-3"
             itemScope
@@ -423,26 +422,26 @@ export default function ExploreGrid({
                 <meta itemProp="position" content={String(idx + 1)} />
                 <Link
                   href={`/skilled/${p.countrySlug}/${p.programSlug}`}
-                  className="block rounded-xl ring-1 ring-blue-100/80 bg-white p-3 hover:bg-blue-50/60 dark:bg-white/5 dark:ring-blue-900/40 dark:hover:bg-blue-950/20 transition"
+                  className="block rounded-xl border border-gold/45 bg-sand/50 p-3 transition-colors hover:border-gold/65"
                   itemProp="url"
                 >
                   <div className="flex items-center gap-3">
                     <SquareThumb program={p} />
                     <div className="flex-1">
-                      <div className="text-sm font-medium" itemProp="name">
+                      <div className="text-sm font-medium text-ink" itemProp="name">
                         {p.title}
                       </div>
-                      <div className="text-xs text-zinc-600 dark:text-zinc-300">
+                      <div className="text-xs text-ink/50">
                         {p.country}
                       </div>
                     </div>
-                    <div className="text-right text-xs">
-                      <div className="tabular-nums">
+                    <div className="text-end text-xs">
+                      <div className="tabular-nums text-gold">
                         {typeof p.minInvestment === "number"
                           ? toCurrency(p.minInvestment, p.currency ?? "USD")
                           : "No min"}
                       </div>
-                      <div className="text-zinc-600 dark:text-zinc-300">
+                      <div className="text-ink/50">
                         {formatTimelineShort(
                           p.timelineMonths,
                           p.timelineLabel,
@@ -468,14 +467,13 @@ export default function ExploreGrid({
             <div
               className="
                 rounded-2xl p-5
-                ring-1 ring-blue-100/80 bg-gradient-to-br from-sky-50 via-white to-indigo-50
-                dark:ring-blue-900/40 dark:from-blue-950/20 dark:via-transparent dark:to-indigo-950/10
+                border border-gold/45 bg-white
               "
             >
               <div className="mb-4 flex items-center gap-2">
-                <SlidersHorizontal className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                <h3 className="text-base font-semibold">Filters</h3>
-                <span className="ml-auto text-sm font-normal text-zinc-500 dark:text-zinc-400">
+                <SlidersHorizontal className="h-4 w-4 text-gold" />
+                <h3 className="text-base font-semibold text-ink">Filters</h3>
+                <span className="ms-auto text-sm font-normal text-ink/50">
                   {resultCount} countries
                 </span>
               </div>
@@ -526,7 +524,7 @@ export default function ExploreGrid({
                     setRouteType("");
                     setSort("timeline");
                   }}
-                  className="text-sm rounded-xl px-3 py-2 ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                  className="text-sm rounded-full px-4 py-2 border border-gold/45 text-ink/70 transition-colors hover:border-gold/60 hover:text-gold"
                 >
                   Reset all
                 </button>
@@ -534,8 +532,8 @@ export default function ExploreGrid({
             </div>
 
             {/* Top 5 (same UI; thumbnails safe) */}
-            <div className="rounded-2xl p-5 ring-1 ring-blue-100/80 bg-white dark:bg-white/5 dark:ring-blue-900/40">
-              <h3 className="text-base font-semibold">Top 5 programs</h3>
+            <div className="rounded-2xl p-5 border border-gold/45 bg-white">
+              <h3 className="text-base font-semibold text-ink">Top 5 programs</h3>
               <ol
                 className="mt-3 space-y-3"
                 itemScope
@@ -551,26 +549,26 @@ export default function ExploreGrid({
                     <meta itemProp="position" content={String(idx + 1)} />
                     <Link
                       href={`/skilled/${p.countrySlug}/${p.programSlug}`}
-                      className="group block rounded-xl ring-1 ring-blue-100/80 bg-white p-3 hover:bg-blue-50/60 dark:bg-white/5 dark:ring-blue-900/40 dark:hover:bg-blue-950/20 transition"
+                      className="group block rounded-xl border border-gold/45 bg-sand/50 p-3 transition-colors hover:border-gold/65"
                       itemProp="url"
                     >
                       <div className="flex items-center gap-3">
                         <SquareThumb program={p} />
                         <div className="flex-1">
-                          <div className="text-sm font-medium" itemProp="name">
+                          <div className="text-sm font-medium text-ink" itemProp="name">
                             {p.title}
                           </div>
-                          <div className="text-xs text-zinc-600 dark:text-zinc-300">
+                          <div className="text-xs text-ink/50">
                             {p.country}
                           </div>
                         </div>
-                        <div className="text-right text-xs">
-                          <div className="tabular-nums">
+                        <div className="text-end text-xs">
+                          <div className="tabular-nums text-gold">
                             {typeof p.minInvestment === "number"
                               ? toCurrency(p.minInvestment, p.currency ?? "USD")
                               : "No min"}
                           </div>
-                          <div className="text-zinc-600 dark:text-zinc-300">
+                          <div className="text-ink/50">
                             {formatTimelineShort(
                               p.timelineMonths,
                               p.timelineLabel,
@@ -592,11 +590,11 @@ export default function ExploreGrid({
 
         {/* Main grid (same visuals) */}
         <section className="lg:col-span-8">
-          <header className="mb-3 flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Explore by country</h2>
+          <header className="mb-4 flex items-center justify-between">
+            <h2 className="font-sora text-xl font-semibold text-ink">Explore by country</h2>
             <Link
               href="/personal-booking"
-              className="text-blue-700 hover:underline dark:text-blue-300"
+              className="text-gold underline-offset-4 hover:underline"
             >
               Need advice?
             </Link>
@@ -641,16 +639,16 @@ export default function ExploreGrid({
           </ol>
 
           {resultCount === 0 && (
-            <div className="mt-8 rounded-2xl border border-blue-100/80 bg-white/70 p-6 text-center dark:bg-white/5 dark:border-blue-900/40">
-              <p className="font-medium">No countries match your filters.</p>
-              <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+            <div className="mt-8 rounded-2xl border border-gold/45 bg-white p-6 text-center">
+              <p className="font-medium text-ink">No countries match your filters.</p>
+              <p className="mt-1 text-sm text-ink/50">
                 Try clearing the search or selecting a different route.
               </p>
               <div className="mt-4 flex justify-center gap-2">
                 {q && (
                   <button
                     onClick={() => setQ("")}
-                    className="rounded-xl px-3 py-2 text-sm ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                    className="rounded-full px-4 py-2 text-sm border border-gold/45 text-ink/70 transition-colors hover:border-gold/60 hover:text-gold"
                   >
                     Clear search
                   </button>
@@ -658,7 +656,7 @@ export default function ExploreGrid({
                 {routeType && (
                   <button
                     onClick={() => setRouteType("")}
-                    className="rounded-xl px-3 py-2 text-sm ring-1 ring-blue-200 hover:bg-blue-50 dark:ring-blue-800/60 dark:hover:bg-blue-950/20"
+                    className="rounded-full px-4 py-2 text-sm border border-gold/45 text-ink/70 transition-colors hover:border-gold/60 hover:text-gold"
                   >
                     Reset route
                   </button>
@@ -691,32 +689,32 @@ function ActiveFilters({
   return (
     <div className="mb-3 mt-2 flex flex-wrap items-center gap-2">
       {q ? (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs ring-1 ring-blue-200 dark:bg-white/5 dark:ring-blue-800/60">
-          <span className="opacity-80">Search:</span>
-          <strong className="font-medium">{q}</strong>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-sand/50 px-3 py-1 text-xs text-ink/80 ring-1 ring-gold/40">
+          <span className="opacity-70">Search:</span>
+          <strong className="font-medium text-gold">{q}</strong>
           <button
             aria-label="Clear search"
             onClick={onClearQ}
-            className="ml-1 p-0.5 hover:opacity-80"
+            className="ms-1 p-0.5 hover:text-gold"
           >
             <XCircle className="h-3.5 w-3.5" />
           </button>
         </span>
       ) : null}
       {routeType ? (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs ring-1 ring-blue-200 dark:bg-white/5 dark:ring-blue-800/60">
-          <span className="opacity-80">Route:</span>
-          <strong className="font-medium">{routeType.replace("-", " ")}</strong>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-sand/50 px-3 py-1 text-xs text-ink/80 ring-1 ring-gold/40">
+          <span className="opacity-70">Route:</span>
+          <strong className="font-medium text-gold">{routeType.replace("-", " ")}</strong>
           <button
             aria-label="Reset route"
             onClick={onClearRoute}
-            className="ml-1 p-0.5 hover:opacity-80"
+            className="ms-1 p-0.5 hover:text-gold"
           >
             <XCircle className="h-3.5 w-3.5" />
           </button>
         </span>
       ) : null}
-      <span className="ml-auto text-xs text-zinc-500 dark:text-zinc-400">
+      <span className="ms-auto text-xs text-gold_deep">
         Refine your selection
       </span>
     </div>
@@ -731,14 +729,14 @@ function SquareThumb({ program }: { program: ProgramMeta }) {
   const svgFallback =
     "data:image/svg+xml;utf8," +
     encodeURIComponent(
-      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#e6f0ff'/><stop offset='1' stop-color='#f5f8ff'/></linearGradient></defs><rect width='80' height='80' fill='url(#g)'/><circle cx='40' cy='40' r='18' fill='#93c5fd'/></svg>",
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#0b1626'/><stop offset='1' stop-color='#0a0e1a'/></linearGradient></defs><rect width='80' height='80' fill='url(#g)'/><circle cx='40' cy='40' r='18' fill='#d4af37' fill-opacity='0.5'/></svg>",
     );
 
   const candidates = [hero, heroPoster, countryPost, og, svgFallback].filter(Boolean) as string[];
   const [idx, setIdx] = React.useState(0);
 
   return (
-    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-900">
+    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-dune ring-1 ring-gold/20">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={candidates[idx]}
@@ -766,12 +764,12 @@ function FilterInput({
   return (
     <label className="relative block">
       <span className="sr-only">Search</span>
-      <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-blue-600/70 dark:text-blue-300/70" />
+      <SearchIcon className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gold/70" />
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-blue-100/80 pl-9 pr-9 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 bg-white/90 dark:bg-white/5 dark:border-blue-900/40"
+        className="w-full rounded-xl border border-gold/45 ps-9 pe-9 py-2 text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:ring-2 focus:ring-gold bg-sand/50"
         aria-label="Search programs and countries"
       />
       {value ? (
@@ -779,9 +777,9 @@ function FilterInput({
           type="button"
           aria-label="Clear search"
           onClick={() => onChange("")}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-1"
+          className="absolute end-2 top-1/2 -translate-y-1/2 p-1"
         >
-          <XCircle className="h-4 w-4 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200" />
+          <XCircle className="h-4 w-4 text-ink/50 hover:text-gold" />
         </button>
       ) : null}
     </label>
@@ -873,7 +871,7 @@ function FancySelect({
 
   return (
     <div className="relative">
-      <label className="mb-1 block text-xs font-medium text-zinc-600 dark:text-zinc-300">
+      <label className="mb-1 block text-xs font-medium text-ink/60">
         {label}
       </label>
       <button
@@ -884,12 +882,12 @@ function FancySelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         className={[
-          "group w-full rounded-xl border border-blue-100/80 bg-white/90 dark:bg-white/5 dark:border-blue-900/40",
-          "px-3 py-2 text-left text-sm focus:outline-none focus:ring-2 focus:ring-blue-600",
+          "group w-full rounded-xl border border-gold/45 bg-sand/50 text-ink",
+          "px-3 py-2 text-start text-sm focus:outline-none focus:ring-2 focus:ring-gold",
           "flex items-center justify-between gap-2",
         ].join(" ")}
       >
-        <span className={selected ? "text-current" : "text-zinc-500"}>
+        <span className={selected ? "text-ink" : "text-ink/40"}>
           {selected ? selected.label : placeholder}
         </span>
         <ChevronDown
@@ -904,9 +902,8 @@ function FancySelect({
           tabIndex={-1}
           onKeyDown={onMenuKeyDown}
           className="
-            absolute z-50 mt-2 w-full overflow-auto rounded-xl border border-blue-100/80 bg-white shadow-xl
-            dark:bg-zinc-950 dark:border-blue-900/40
-            max-h-72 ring-1 ring-blue-100/60 dark:ring-blue-900/40
+            absolute z-50 mt-2 w-full overflow-auto rounded-xl border border-gold/40 bg-dune shadow-xl
+            max-h-72 ring-1 ring-gold/10
           "
         >
           {options.map((opt, i) => {
@@ -926,21 +923,21 @@ function FancySelect({
                   btnRef.current?.focus();
                 }}
                 className={[
-                  "flex cursor-pointer items-start gap-2 px-3 py-2 text-sm",
-                  isActive ? "bg-blue-50 dark:bg-blue-950/30" : "",
+                  "flex cursor-pointer items-start gap-2 px-3 py-2 text-sm text-ink/80",
+                  isActive ? "bg-gold/10" : "",
                 ].join(" ")}
               >
                 <div
                   className={`h-4 w-4 mt-0.5 rounded border ${
-                    isSel ? "bg-blue-600 border-blue-600" : "border-zinc-300 dark:border-zinc-700"
+                    isSel ? "bg-gold border-gold" : "border-gold/45"
                   }`}
                 >
-                  {isSel && <CheckIcon className="h-4 w-4 text-white" />}
+                  {isSel && <CheckIcon className="h-4 w-4 text-midnight" />}
                 </div>
                 <div className="min-w-0">
                   <div className="truncate">{opt.label}</div>
                   {opt.hint ? (
-                    <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                    <div className="text-xs text-ink/40">
                       {opt.hint}
                     </div>
                   ) : null}
@@ -949,7 +946,7 @@ function FancySelect({
             );
           })}
           {options.length === 0 && (
-            <div className="px-3 py-2 text-sm text-zinc-500 dark:text-zinc-400">
+            <div className="px-3 py-2 text-sm text-ink/40">
               No options
             </div>
           )}

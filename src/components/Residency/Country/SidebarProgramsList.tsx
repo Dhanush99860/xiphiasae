@@ -107,14 +107,14 @@ export default function SidebarProgramsList({
       itemScope
       itemType="https://schema.org/ItemList"
     >
-      {/* Decorative primary accents (non-interactive) */}
+      {/* Decorative gold accents (non-interactive) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-10 -left-10 h-28 w-28 rounded-full bg-sky-400/15 blur-2xl"
+        className="pointer-events-none absolute -top-10 -left-10 h-28 w-28 rounded-full bg-gold/10 blur-2xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-blue-500/15 blur-2xl"
+        className="pointer-events-none absolute -bottom-12 -right-8 h-32 w-32 rounded-full bg-gold/5 blur-2xl"
       />
 
       <meta itemProp="name" content={`Programs in ${country}`} />
@@ -126,7 +126,7 @@ export default function SidebarProgramsList({
       <SectionHeader eyebrow="Programs" title={`In ${country}`} />
 
       {!hasPrograms ? (
-        <div className="mt-4 rounded-2xl ring-1 ring-neutral-200 dark:ring-neutral-800 bg-white/70 dark:bg-neutral-950/50 p-4 text-14 text-neutral-700 dark:text-neutral-200 backdrop-blur">
+        <div className="mt-4 rounded-2xl border border-gold/45 bg-white p-4 text-14 text-ink/70">
           No programs found for {country}.
           <div className="mt-2">
             <Link
@@ -134,10 +134,10 @@ export default function SidebarProgramsList({
               className="
                 inline-flex items-center gap-1.5
                 rounded-lg px-2.5 py-1.5 text-14 font-medium
-                ring-1 ring-inset ring-neutral-200 dark:ring-neutral-800
-                bg-white/80 hover:bg-white dark:bg-neutral-900/70 dark:hover:bg-neutral-900
-                text-neutral-800 dark:text-neutral-100
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60
+                border border-gold/45
+                bg-sand/50 hover:border-gold/65
+                text-ink
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-gold
                 transition
               "
             >
@@ -204,19 +204,19 @@ export default function SidebarProgramsList({
                   aria-describedby={metaId}
                   aria-current={isActive ? "page" : undefined}
                   className={[
-                    "group block rounded-xl p-2.5 sm:p-3 transition ring-1 ring-inset",
+                    "group block rounded-xl p-2.5 sm:p-3 transition border",
                     isActive
-                      ? "bg-sky-50/70 dark:bg-sky-900/20 ring-sky-300 dark:ring-sky-800"
-                      : "bg-white/80 dark:bg-neutral-950/60 ring-neutral-200 dark:ring-neutral-800 hover:bg-white dark:hover:bg-neutral-900",
-                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60",
-                    "text-neutral-800 dark:text-neutral-100 backdrop-blur",
+                      ? "bg-sand/60 border-gold/40"
+                      : "bg-white border-gold/45 hover:border-gold/65",
+                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
+                    "text-ink",
                   ].join(" ")}
                 >
                   {/* Layout: thumbnail/dot | content | chevron */}
                   <div className="grid grid-cols-[auto,1fr,auto] items-start gap-2.5 sm:gap-3">
                     {/* Thumbnail or accent dot */}
                     {thumb ? (
-                      <div className="relative mt-0.5 h-10 w-10 sm:h-11 sm:w-11 overflow-hidden rounded-lg ring-1 ring-neutral-200/70 dark:ring-neutral-800/70 bg-neutral-100 dark:bg-neutral-800/40">
+                      <div className="relative mt-0.5 h-10 w-10 sm:h-11 sm:w-11 overflow-hidden rounded-lg border border-gold/45 bg-sand">
                         {/* plain <img> for resilience (no domain config) */}
                         <img
                           src={thumb}
@@ -233,8 +233,8 @@ export default function SidebarProgramsList({
                         className={[
                           "mt-1 inline-flex h-2.5 w-2.5 shrink-0 rounded-full",
                           isActive
-                            ? "bg-sky-500"
-                            : "bg-neutral-300 dark:bg-neutral-600 group-hover:bg-sky-400/80",
+                            ? "bg-gold"
+                            : "bg-pearl/30 group-hover:bg-gold/70",
                         ].join(" ")}
                         aria-hidden="true"
                       />
@@ -244,10 +244,8 @@ export default function SidebarProgramsList({
                     <div className="min-w-0">
                       <div
                         className={[
-                          "text-[13.5px] sm:text-14 font-medium leading-snug line-clamp-2",
-                          isActive
-                            ? "text-sky-700 dark:text-sky-300"
-                            : "text-neutral-900 dark:text-neutral-100",
+                          "font-sora text-[13.5px] sm:text-14 font-medium leading-snug line-clamp-2",
+                          isActive ? "text-gold" : "text-ink",
                         ].join(" ")}
                         itemProp="name"
                       >
@@ -256,7 +254,7 @@ export default function SidebarProgramsList({
 
                       <div
                         id={metaId}
-                        className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-12 text-neutral-600 dark:text-neutral-300/80"
+                        className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-12 text-ink/55"
                       >
                         {hasTimelineValue(
                           (p as any).timelineMonths as number | undefined,
@@ -266,9 +264,9 @@ export default function SidebarProgramsList({
                             className="
                               inline-flex items-center gap-1
                               rounded-md px-1.5 py-0.5
-                              bg-sky-50 dark:bg-sky-900/30
-                              ring-1 ring-inset ring-sky-200/70 dark:ring-sky-800/60
-                              text-sky-800 dark:text-sky-300
+                              bg-sand/50
+                              border border-gold/45
+                              text-ink/70
                             "
                           >
                             <svg
@@ -298,9 +296,9 @@ export default function SidebarProgramsList({
                             className="
                               inline-flex items-center gap-1
                               rounded-md px-1.5 py-0.5
-                              bg-blue-50 dark:bg-blue-900/30
-                              ring-1 ring-inset ring-blue-200/70 dark:ring-blue-800/60
-                              text-blue-800 dark:text-blue-300
+                              bg-sand/50
+                              border border-gold/45
+                              text-gold
                             "
                           >
                             <svg
@@ -332,8 +330,8 @@ export default function SidebarProgramsList({
                       className={[
                         "ml-1 mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full transition",
                         isActive
-                          ? "text-sky-600 dark:text-sky-300"
-                          : "text-neutral-400 dark:text-neutral-500 group-hover:text-sky-500 dark:group-hover:text-sky-400",
+                          ? "text-gold"
+                          : "text-ink/40 group-hover:text-gold",
                       ].join(" ")}
                       aria-hidden="true"
                     >

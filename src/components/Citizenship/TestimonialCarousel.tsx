@@ -2,6 +2,7 @@
 
 import React from "react";
 import Script from "next/script";
+import { Reveal } from "@/components/motion";
 
 /* ============================ Types ============================ */
 
@@ -143,9 +144,7 @@ export default function TestimonialCarousel({
       aria-label={ariaLabel}
       className={[
         "relative overflow-hidden rounded-3xl p-6 md:p-8",
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-        "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-        "text-black dark:text-white",
+        "bg-white border border-gold/45 text-ink",
         className,
       ].join(" ")}
       onMouseEnter={() => setPaused(true)}
@@ -164,21 +163,23 @@ export default function TestimonialCarousel({
       {/* (Visually hidden) heading for accessibility / SEO */}
       <h2 className="sr-only">{title}</h2>
 
-      {/* Decorative background grid */}
+      {/* Decorative background */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-        <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-        <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
-        </div>
+        <div className="absolute -top-24 end-[-6rem] h-64 w-64 rounded-full bg-gold/25 blur-3xl" />
+        <div className="absolute -bottom-28 start-[-2.5rem] h-72 w-72 rounded-full bg-gold_deep/15 blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
+        {/* readable oversized gold quote-mark watermark */}
+        <span className="absolute -bottom-6 end-2 font-sora text-[9rem] leading-none font-bold text-gold_deep/20 select-none">
+          ”
+        </span>
       </div>
 
       {/* Content */}
       <div className="relative">
-        <div className="flex items-start gap-3 md:gap-4">
+        <Reveal y={14} className="flex items-start gap-3 md:gap-4">
           <svg
             viewBox="0 0 24 24"
-            className="h-7 w-7 shrink-0 text-blue-600/70 dark:text-blue-300/80"
+            className="h-7 w-7 shrink-0 text-gold"
             fill="currentColor"
             aria-hidden="true"
           >
@@ -187,20 +188,20 @@ export default function TestimonialCarousel({
 
           <blockquote
             id={quoteId}
-            className="text-[15px] leading-7 md:text-base transition-opacity duration-300 ease-out"
+            className="text-[15px] leading-7 md:text-base text-ink/80 transition-opacity duration-300 ease-out"
             aria-live="polite"
           >
             “{t.quote}”
           </blockquote>
-        </div>
+        </Reveal>
 
         {/* Author row */}
         <div className="mt-4 flex items-center gap-3">
           <Avatar name={t.author} url={t.avatarUrl} />
           <div className="min-w-0">
-            <div className="text-sm font-medium truncate">{t.author}</div>
+            <div className="text-sm font-medium truncate text-ink">{t.author}</div>
             {(t.role || t.organization) && (
-              <div className="text-xs text-zinc-600 dark:text-zinc-300 truncate">
+              <div className="text-xs text-ink/55 truncate">
                 {[t.role, t.organization].filter(Boolean).join(" • ")}
               </div>
             )}
@@ -223,8 +224,8 @@ export default function TestimonialCarousel({
                   className={[
                     "h-1.5 rounded-full transition-all",
                     idx === index
-                      ? "w-8 bg-blue-600"
-                      : "w-4 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 dark:hover:bg-zinc-600",
+                      ? "w-8 bg-gold"
+                      : "w-4 bg-gold/30 hover:bg-gold/50",
                   ].join(" ")}
                 />
               ))}
@@ -234,15 +235,15 @@ export default function TestimonialCarousel({
             <div className="flex items-center gap-2">
               <CarouselButton onClick={prev} ariaLabel="Previous testimonial" />
               <CarouselButton onClick={next} ariaLabel="Next testimonial" direction="next" />
-              <span className="ml-1 text-xs text-zinc-500 dark:text-zinc-400 tabular-nums">
+              <span className="ms-1 text-xs text-ink/60 tabular-nums">
                 {index + 1}/{length}
               </span>
               <span
                 className={[
-                  "ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] ring-1",
+                  "ms-2 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] ring-1",
                   paused
-                    ? "text-zinc-700 ring-zinc-300 dark:text-zinc-200 dark:ring-zinc-700"
-                    : "text-blue-700 ring-blue-200 dark:text-blue-200 dark:ring-blue-800/60",
+                    ? "text-ink/60 ring-gold/20"
+                    : "text-gold ring-gold/40",
                 ].join(" ")}
               >
                 {paused ? "Paused" : "Auto"}
@@ -297,10 +298,10 @@ function Avatar({ name, url }: { name: string; url?: string }) {
     <img
       src={url}
       alt={altText}
-      className="h-8 w-8 rounded-full ring-1 ring-blue-100/80 object-cover bg-zinc-100 dark:bg-zinc-900"
+      className="h-8 w-8 rounded-full ring-1 ring-gold/30 object-cover bg-dune"
     />
   ) : (
-    <div className="h-8 w-8 rounded-full bg-blue-600 text-white grid place-items-center ring-1 ring-blue-700/20">
+    <div className="h-8 w-8 rounded-full bg-gold text-midnight grid place-items-center ring-1 ring-gold/40">
       <span className="text-xs font-semibold">{initials}</span>
     </div>
   );
@@ -322,11 +323,10 @@ function CarouselButton({
       onClick={onClick}
       aria-label={ariaLabel}
       className={[
-        "inline-flex h-8 w-8 items-center justify-center rounded-xl",
-        "bg-white/90 ring-1 ring-blue-200 text-blue-700 hover:bg-blue-50",
-        "dark:bg-white/5 dark:ring-blue-900/40 dark:text-blue-200 dark:hover:bg-blue-950/20",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
-        "transition",
+        "inline-flex h-8 w-8 items-center justify-center rounded-full",
+        "border border-gold/45 bg-sand/40 text-ink hover:border-gold/60 hover:text-gold",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand",
+        "transition-all duration-300",
       ].join(" ")}
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">

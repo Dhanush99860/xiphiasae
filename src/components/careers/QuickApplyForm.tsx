@@ -96,17 +96,24 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
 
   const disableSubmit = submitting || !!fileError || !!linkedinError;
 
+  // navy/gold ContactPage treatment — light card, gold focus/submit
+  const GOLD = "#bfa15c";
+  const INK = "#0c1f3f";
+  const inputCls =
+    "mt-2 w-full rounded-md border bg-white px-4 py-3 text-[15px] text-[#0c1f3f] outline-none transition-colors focus:border-[#bfa15c]";
+  const labelCls = "block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#0c1f3f]/50";
+
   return (
     <form
       action="/api/apply"
       method="post"
       encType="multipart/form-data"
       onSubmit={onSubmit}
-      className="grid gap-4 text-black dark:text-white"
+      className="grid gap-5 text-[#0c1f3f]"
     >
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium">
+          <label htmlFor="name" className={labelCls}>
             Full name
           </label>
           <input
@@ -114,13 +121,14 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
             name="name"
             required
             minLength={2}
-            className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+            className={inputCls}
+            style={{ borderColor: `${INK}22` }}
             placeholder="Your name"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium">
+          <label htmlFor="email" className={labelCls}>
             Email
           </label>
           <input
@@ -128,15 +136,16 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
             name="email"
             type="email"
             required
-            className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+            className={inputCls}
+            style={{ borderColor: `${INK}22` }}
             placeholder="you@email.com"
           />
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium">
+          <label htmlFor="phone" className={labelCls}>
             Phone
           </label>
           <input
@@ -147,29 +156,31 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
             required
             pattern="[0-9+()\-.\s]{7,}"
             title="Enter a valid phone number (digits, +, -, (), spaces allowed)."
-            className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+            className={inputCls}
+            style={{ borderColor: `${INK}22` }}
             placeholder="+91 9XXXXXXXXX"
           />
         </div>
 
         <div>
-          <label htmlFor="role" className="block text-sm font-medium">
+          <label htmlFor="role" className={labelCls}>
             Role (optional)
           </label>
           <input
             id="role"
             name="role"
             defaultValue={defaultRole}
-            className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+            className={inputCls}
+            style={{ borderColor: `${INK}22` }}
             placeholder="e.g., Corporate Immigration Specialist"
           />
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="linkedin" className="block text-sm font-medium">
-            LinkedIn <span className="text-red-500">*</span>
+          <label htmlFor="linkedin" className={labelCls}>
+            LinkedIn <span style={{ color: "#b91c1c" }}>*</span>
           </label>
           <input
             id="linkedin"
@@ -180,20 +191,21 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
             onBlur={handleLinkedInChange}
             placeholder="https://linkedin.com/in/username"
             aria-describedby="linkedin-help linkedin-error"
-            className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+            className={inputCls}
+            style={{ borderColor: `${INK}22` }}
           />
-          <p id="linkedin-help" className="mt-1 text-xs opacity-80">
+          <p id="linkedin-help" className="mt-1 text-xs text-[#0c1f3f]/45">
             Please paste your LinkedIn profile link.
           </p>
           {linkedinError && (
-            <p id="linkedin-error" role="alert" className="mt-1 text-xs font-semibold">
+            <p id="linkedin-error" role="alert" className="mt-1 text-xs font-semibold text-red-600">
               {linkedinError}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="resume" className="block text-sm font-medium">
+          <label htmlFor="resume" className={labelCls}>
             Resume / CV
           </label>
           <input
@@ -204,13 +216,13 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
             accept=".pdf,.doc,.docx"
             onChange={handleFileChange}
             aria-describedby="resume-help resume-error"
-            className="mt-1 block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:font-semibold file:text-white hover:file:bg-blue-700"
+            className="mt-2 block w-full text-sm text-[#0c1f3f]/70 file:me-3 file:rounded-md file:border-0 file:px-4 file:py-2 file:font-semibold file:text-[#0a1733] hover:file:opacity-90 file:[background:#bfa15c]"
           />
-          <p id="resume-help" className="mt-1 text-xs">
+          <p id="resume-help" className="mt-1 text-xs text-[#0c1f3f]/45">
             Accepted: PDF, DOC, DOCX. Max 5MB.
           </p>
           {fileError && (
-            <p id="resume-error" role="alert" className="mt-1 text-xs font-semibold">
+            <p id="resume-error" role="alert" className="mt-1 text-xs font-semibold text-red-600">
               {fileError}
             </p>
           )}
@@ -219,7 +231,7 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
 
       {/* Message box */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium">
+        <label htmlFor="message" className={labelCls}>
           Message / Cover letter (optional)
         </label>
         <textarea
@@ -227,27 +239,30 @@ export default function QuickApplyForm({ defaultRole }: { defaultRole?: string }
           name="message"
           rows={4}
           maxLength={1500}
-          className="mt-1 w-full rounded-lg border border-black/20 px-3 py-2 text-sm placeholder-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-300 dark:border-white/20 dark:bg-transparent dark:placeholder-white"
+          className={inputCls}
+          style={{ borderColor: `${INK}22` }}
           placeholder="Tell us briefly about your experience, notice period, current location, and why you're applying…"
         />
-        <p className="mt-1 text-xs opacity-80">Max 1500 characters.</p>
+        <p className="mt-1 text-xs text-[#0c1f3f]/45">Max 1500 characters.</p>
       </div>
 
       {/* spam honeypot */}
       <input type="text" name="company" className="hidden" tabIndex={-1} autoComplete="off" />
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-4">
         <button
           type="submit"
           disabled={disableSubmit}
-          className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-60"
+          className="group inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+          style={{ background: GOLD, color: "#0a1733" }}
         >
-          {submitting ? "Submitting…" : "Submit"}
+          {submitting ? "Submitting…" : "Submit application"}
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </button>
-        <p className="text-xs">Having trouble submitting? Please send your resume to hr@xiphias.in</p>
+        <p className="text-xs text-[#0c1f3f]/55">Having trouble submitting? Please send your resume to hr@xiphias.in</p>
       </div>
 
-      <p className="mt-1 text-[11px] opacity-80">
+      <p className="mt-1 text-[11px] text-[#0c1f3f]/45">
         By submitting, you agree that we may store and process your data for recruitment purposes
         in accordance with our privacy policy.
       </p>

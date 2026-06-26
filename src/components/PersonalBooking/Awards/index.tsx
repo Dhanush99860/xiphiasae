@@ -14,16 +14,16 @@ export default function AwardSection() {
   return (
     <section
       id="awards"
-      className="py-24 bg-gradient-to-b from-neutral-50 via-white to-neutral-100 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 relative overflow-hidden"
+      className="py-24 bg-sand relative overflow-hidden"
       aria-labelledby="awards-heading"
     >
-      {/* Decorative Orbs (purely visual) */}
+      {/* Decorative Orbs (purely visual) — gold guiding glow */}
       <div
-        className="absolute -top-24 -left-24 w-72 h-72 bg-neutral-300/20 dark:bg-neutral-700/20 rounded-full blur-3xl"
+        className="absolute -top-24 -left-24 w-72 h-72 bg-gold/10 rounded-full blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-24 -right-24 w-72 h-72 bg-neutral-400/20 dark:bg-neutral-800/20 rounded-full blur-3xl"
+        className="absolute -bottom-24 -right-24 w-72 h-72 bg-gold/5 rounded-full blur-3xl"
         aria-hidden="true"
       />
 
@@ -33,11 +33,11 @@ export default function AwardSection() {
           <div>
             <h2
               id="awards-heading"
-              className="text-2xl md:text-3xl font-extrabold text-neutral-900 dark:text-neutral-100 tracking-tight"
+              className="text-2xl md:text-3xl font-semibold text-ink tracking-tight"
             >
               Awards &amp; Recognition
             </h2>
-            <p className="mt-4 max-w-2xl text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
+            <p className="mt-4 max-w-2xl text-lg text-ink/55 leading-relaxed">
               We are proud to be recognised worldwide for our commitment to
               excellence, leadership, and trusted client service.
             </p>
@@ -46,14 +46,14 @@ export default function AwardSection() {
           {/* Navigation Buttons */}
           <div className="flex gap-4 mt-6 md:mt-0">
             <button
-              className="award-prev w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300/50 dark:border-neutral-700/50 shadow-sm hover:shadow-lg hover:scale-105 transition"
+              className="award-prev w-12 h-12 flex items-center justify-center rounded-full bg-white text-ink border border-gold/45 hover:border-gold/65 hover:scale-105 transition"
               aria-label="Previous awards"
               type="button"
             >
               ◀
             </button>
             <button
-              className="award-next w-12 h-12 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-300/50 dark:border-neutral-700/50 shadow-sm hover:shadow-lg hover:scale-105 transition"
+              className="award-next w-12 h-12 flex items-center justify-center rounded-full bg-white text-ink border border-gold/45 hover:border-gold/65 hover:scale-105 transition"
               aria-label="Next awards"
               type="button"
             >
@@ -73,7 +73,7 @@ export default function AwardSection() {
             clickable: true,
             el: ".award-pagination",
             renderBullet: (index, className) => {
-              return `<button type="button" class="${className} w-3 h-3 mx-1 inline-block rounded-full bg-neutral-400 dark:bg-neutral-600 transition-all" aria-label="Go to slide ${
+              return `<button type="button" class="${className} w-3 h-3 mx-1 inline-block rounded-full bg-pearl/20 transition-all" aria-label="Go to slide ${
                 index + 1
               }"></button>`;
             },
@@ -97,7 +97,7 @@ export default function AwardSection() {
               key={award.id}
               aria-label={`Award: ${award.title}`}
             >
-              <article className="relative group w-full h-[220px] rounded-xl overflow-hidden bg-white dark:bg-neutral-800 hover:shadow-lg transition-all duration-500 border border-neutral-200 dark:border-neutral-700">
+              <article className="relative group w-full h-[220px] rounded-xl overflow-hidden bg-white transition-all duration-500 border border-gold/45 hover:border-gold/65">
                 {/* Award Image */}
                 <Image
                   src={award.img}
@@ -133,7 +133,7 @@ export default function AwardSection() {
             {awardsData.map((award: Award) => (
               <li
                 key={award.id}
-                className="border rounded-lg p-4 bg-white dark:bg-neutral-800"
+                className="border border-gold/45 rounded-lg p-4 bg-white"
               >
                 <Image
                   src={award.img}
@@ -142,7 +142,7 @@ export default function AwardSection() {
                   height={250}
                   loading="lazy"
                 />
-                <p className="mt-2 text-sm text-neutral-700 dark:text-neutral-300">
+                <p className="mt-2 text-sm text-ink/70">
                   {award.title}
                 </p>
               </li>
@@ -154,7 +154,7 @@ export default function AwardSection() {
       {/* Custom Styles for Active Bullet */}
       <style jsx global>{`
         .award-pagination .swiper-pagination-bullet-active {
-          background: linear-gradient(to right, #2563eb, #9333ea);
+          background: linear-gradient(to right, #d4af37, #e1b923);
           width: 20px;
           border-radius: 9999px;
         }

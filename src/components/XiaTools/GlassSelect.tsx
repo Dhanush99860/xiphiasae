@@ -69,12 +69,12 @@ export function GlassSelect({
         aria-expanded={open}
         aria-label={ariaLabel}
         onClick={() => setOpen((o) => !o)}
-        className={`flex w-full items-center justify-between gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3.5 py-2.5 text-left text-[14px] font-medium text-white transition hover:border-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4f8cff]/40 ${buttonClassName}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-xl border border-gold/45 bg-sand/60 px-3.5 py-2.5 text-left text-[14px] font-medium text-ink transition hover:border-gold/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 ${buttonClassName}`}
       >
         <span className="min-w-0 flex-1 truncate">
-          {selected ? selected.label : <span className="text-white/40">{placeholder}</span>}
+          {selected ? selected.label : <span className="text-ink/40">{placeholder}</span>}
         </span>
-        <ChevronDown className={`size-4 shrink-0 text-white/50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        <ChevronDown className={`size-4 shrink-0 text-ink/50 transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
       </button>
 
       <AnimatePresence>
@@ -84,26 +84,26 @@ export function GlassSelect({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-0 z-[60] mt-2 w-full min-w-[13rem] origin-top overflow-hidden rounded-2xl border border-white/15 bg-[#0b1730] shadow-2xl shadow-black/60"
+            className="absolute left-0 z-[60] mt-2 w-full min-w-[13rem] origin-top overflow-hidden rounded-2xl border border-gold/45 bg-white shadow-2xl shadow-black/60"
             role="listbox"
           >
             {searchable && (
-              <div className="border-b border-white/10 p-2">
-                <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5">
-                  <Search className="size-3.5 text-white/40" />
+              <div className="border-b border-gold/45 p-2">
+                <div className="flex items-center gap-2 rounded-lg border border-gold/45 bg-white/[0.04] px-2.5 py-1.5">
+                  <Search className="size-3.5 text-ink/40" />
                   <input
                     autoFocus
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search…"
-                    className="w-full bg-transparent text-[13px] text-white placeholder-white/35 outline-none"
+                    className="w-full bg-transparent text-[13px] text-ink placeholder-pearl/35 outline-none"
                   />
                 </div>
               </div>
             )}
             <ul data-lenis-prevent className="max-h-64 overflow-y-auto p-1.5 [scrollbar-width:thin]">
               {filtered.length === 0 ? (
-                <li className="px-3 py-2 text-[13px] text-white/40">No matches</li>
+                <li className="px-3 py-2 text-[13px] text-ink/40">No matches</li>
               ) : (
                 filtered.map((o) => {
                   const active = o.value === value;
@@ -119,7 +119,7 @@ export function GlassSelect({
                           setQuery("");
                         }}
                         className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[13.5px] transition ${
-                          active ? "bg-[#1c57b4] text-white" : "text-white/80 hover:bg-white/10"
+                          active ? "bg-gold text-midnight" : "text-ink/80 hover:bg-white/10"
                         }`}
                       >
                         <span className="truncate">{o.label}</span>
@@ -148,7 +148,7 @@ const CURRENCIES: GlassOption[] = [
 export function CurrencyGlassSelect() {
   const { currency, setCurrency } = useCurrency();
   return (
-    <div className="flex items-center gap-2 text-[13px] font-medium text-white/65">
+    <div className="flex items-center gap-2 text-[13px] font-medium text-ink/65">
       <span className="uppercase tracking-wide">Currency</span>
       <GlassSelect
         value={currency}

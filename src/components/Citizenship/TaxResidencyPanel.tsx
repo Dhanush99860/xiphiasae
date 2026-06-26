@@ -22,18 +22,29 @@ export default function TaxResidencyPanel({
 
   return (
     <section
-      className={`rounded-2xl ring-1 ring-neutral-200 dark:ring-neutral-800 p-5 bg-white/80 dark:bg-neutral-900/40 ${className}`}
+      className={`rounded-2xl border border-gold/45 p-5 bg-white ${className}`}
     >
-      <h3 className="text-base font-semibold">Tax & Residency</h3>
-      <ul className="mt-2 list-disc pl-5 text-sm space-y-1">
+      <h3 className="font-sora text-base font-semibold text-ink">
+        Tax &amp; Residency
+      </h3>
+      <ul className="mt-3 space-y-2 text-sm text-ink/70">
         {taxNotes.map((t) => (
-          <li key={t}>{t}</li>
+          <li key={t} className="flex items-start gap-2">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden />
+            <span>{t}</span>
+          </li>
         ))}
         {residencyRequirement ? (
-          <li>Residency/visit: {residencyRequirement}</li>
+          <li className="flex items-start gap-2">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden />
+            <span>Residency/visit: {residencyRequirement}</span>
+          </li>
         ) : null}
         {typeof interviewRequired === "boolean" ? (
-          <li>Interview required: {interviewRequired ? "Yes" : "No"}</li>
+          <li className="flex items-start gap-2">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden />
+            <span>Interview required: {interviewRequired ? "Yes" : "No"}</span>
+          </li>
         ) : null}
       </ul>
     </section>

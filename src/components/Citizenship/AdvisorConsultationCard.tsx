@@ -84,7 +84,7 @@ export default function AdvisorConsultationCard({
     <section
       aria-labelledby="advisor-card-title"
       className={cx(
-        "relative grid overflow-hidden rounded-2xl text-white",
+        "relative grid overflow-hidden rounded-2xl text-ink border border-gold/45",
         "grid-cols-1 lg:grid-cols-3",
         className,
       )}
@@ -108,8 +108,8 @@ export default function AdvisorConsultationCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
         {/* Available badge */}
-        <div className="absolute left-3 top-4 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[9.5px] font-semibold text-white backdrop-blur-sm">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+        <div className="absolute left-3 top-4 flex items-center gap-1.5 rounded-full bg-black/40 px-2.5 py-1 text-[9.5px] font-semibold text-ink backdrop-blur-sm">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
           Available now
         </div>
 
@@ -127,7 +127,7 @@ export default function AdvisorConsultationCard({
       {/* ══════════════════════════════════════
            COL 2 — Advisory info
           ══════════════════════════════════════ */}
-      <div className="relative flex flex-col gap-3 overflow-hidden bg-[#1c57b4] p-4 sm:p-5">
+      <div className="relative flex flex-col gap-3 overflow-hidden bg-white p-4 sm:p-5">
         {/* Dot texture */}
         <div
           aria-hidden
@@ -153,11 +153,11 @@ export default function AdvisorConsultationCard({
 
         {/* Eyebrow + demand */}
         <div className="relative flex items-center justify-between gap-2">
-          <p className="text-[9px] font-black uppercase tracking-[0.24em] text-[#e1b923]/65">
+          <p className="text-[9px] font-black uppercase tracking-[0.24em] text-gold/65">
             XIPHIAS Immigration · Premium Advisory
           </p>
-          <span className="flex shrink-0 items-center gap-1 text-[9px] font-semibold text-emerald-300">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+          <span className="flex shrink-0 items-center gap-1 text-[9px] font-semibold text-gold">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
             {demandHint}
           </span>
         </div>
@@ -186,13 +186,13 @@ export default function AdvisorConsultationCard({
               {clientsServed.toLocaleString()}+ clients
             </span>
           </div>
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 border-t border-white/[0.07] pt-1.5">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 border-t border-gold/45 pt-1.5">
             <span className="text-[8px] font-black uppercase tracking-[0.2em] text-white/30">Verified</span>
             <a
               href="https://investmentmigration.org/fellow-members-directory/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.08] px-2 py-0.5 text-[9px] text-white/50 transition hover:bg-white/[0.15]"
+              className="inline-flex items-center gap-1 rounded-full border border-gold/45 bg-white/[0.08] px-2 py-0.5 text-[9px] text-white/50 transition hover:bg-white/[0.15]"
             >
               <Image src="/images/personal/credentials/imc-fellow-logo.svg" alt="IMC" width={34} height={9} className="h-[9px] w-auto brightness-0 invert opacity-65" />
               <span>Fellow Directory</span>
@@ -202,7 +202,7 @@ export default function AdvisorConsultationCard({
               href="https://www.imidaily.com/imi-professionals/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.08] px-2 py-0.5 text-[9px] text-white/50 transition hover:bg-white/[0.15]"
+              className="inline-flex items-center gap-1 rounded-full border border-gold/45 bg-white/[0.08] px-2 py-0.5 text-[9px] text-white/50 transition hover:bg-white/[0.15]"
             >
               <Image src="/images/personal/credentials/imi-professionals-logo.png" alt="IMI" width={22} height={9} className="h-[9px] w-auto brightness-0 invert opacity-65" />
               <span>IMI Professionals</span>
@@ -240,7 +240,7 @@ export default function AdvisorConsultationCard({
       {/* ══════════════════════════════════════
            COL 3 — Booking panel
           ══════════════════════════════════════ */}
-      <div className="relative flex flex-col bg-[#1551a0] p-5 sm:p-6">
+      <div className="relative flex flex-col bg-sand p-5 sm:p-6">
         {/* Thin left border (desktop) */}
         <div className="absolute inset-y-0 left-0 hidden w-px bg-white/10 lg:block" />
 
@@ -280,7 +280,7 @@ export default function AdvisorConsultationCard({
           onClick={(e) => {
             if (onBookAction) { e.preventDefault(); onBookAction({ plan: "paid" }); }
           }}
-          className="group mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#e1b923] px-4 py-3 text-[13px] font-black text-[#1551a0] shadow-[0_3px_18px_rgba(225,185,35,0.28)] transition-all hover:bg-[#f0cb3b] hover:shadow-[0_5px_26px_rgba(225,185,35,0.44)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e1b923] focus-visible:ring-offset-1 focus-visible:ring-offset-[#1551a0]"
+          className="group mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#e1b923] px-4 py-3 text-[13px] font-black text-midnight shadow-[0_3px_18px_rgba(225,185,35,0.28)] transition-all hover:bg-[#f0cb3b] hover:shadow-[0_5px_26px_rgba(225,185,35,0.44)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e1b923] focus-visible:ring-offset-1 focus-visible:ring-offset-sand"
           aria-label="Book paid consultation"
         >
           Book Consultation
@@ -304,7 +304,7 @@ export default function AdvisorConsultationCard({
 /* ──────────────────── Sub-components ──────────────────── */
 function MetaChip({ children, icon }: { children: React.ReactNode; icon?: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.08] px-2 py-0.5 text-[10px] text-white/48">
+    <span className="inline-flex items-center gap-1 rounded-full border border-gold/45 bg-white/[0.08] px-2 py-0.5 text-[10px] text-white/48">
       {icon}
       {children}
     </span>

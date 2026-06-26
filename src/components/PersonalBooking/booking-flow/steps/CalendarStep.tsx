@@ -116,10 +116,10 @@ export default function CalendarStep({
 
       <div className="grid gap-4 md:grid-cols-2">
         {/* Date panel */}
-        <section className="rounded-2xl bg-white text-zinc-900 ring-1 ring-blue-200 p-4 dark:bg-zinc-900/40 dark:text-zinc-50 dark:ring-white/10">
+        <section className="rounded-2xl bg-white text-ink ring-1 ring-gold/10 p-4">
           <header className="mb-2 flex items-center justify-between">
-            <div className="text-sm font-medium">Choose a date</div>
-            <span className="text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="text-sm font-medium text-ink">Choose a date</div>
+            <span className="text-xs text-ink/45">
               Next {DAYS_AHEAD} days
             </span>
           </header>
@@ -146,10 +146,10 @@ export default function CalendarStep({
                   type="button"
                   onClick={() => setDate(d)}
                   className={[
-                    "rounded-xl px-3 py-2 text-sm ring-1 motion-safe:transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                    "rounded-xl px-3 py-2 text-sm ring-1 motion-safe:transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
                     isSelected
-                      ? "bg-blue-600 text-white ring-blue-600"
-                      : "bg-white text-zinc-900 ring-zinc-200 hover:ring-blue-300 dark:bg-white/5 dark:text-zinc-50 dark:ring-white/10 dark:hover:ring-blue-500/50",
+                      ? "bg-gold text-midnight ring-gold font-semibold"
+                      : "bg-sand/50 text-ink ring-gold/10 hover:ring-gold/40",
                   ].join(" ")}
                   aria-pressed={isSelected}
                   aria-label={`${label}${suffix}`}
@@ -163,9 +163,9 @@ export default function CalendarStep({
         </section>
 
         {/* Time panel */}
-        <section className="rounded-2xl bg-white text-zinc-900 ring-1 ring-blue-200 p-4 dark:bg-zinc-900/40 dark:text-zinc-50 dark:ring-white/10">
+        <section className="rounded-2xl bg-white text-ink ring-1 ring-gold/10 p-4">
           <header className="mb-2 flex items-center justify-between">
-            <div className="text-sm font-medium">Choose a time</div>
+            <div className="text-sm font-medium text-ink">Choose a time</div>
             <Legend />
           </header>
 
@@ -186,10 +186,10 @@ export default function CalendarStep({
                   disabled={isDisabled}
                   onClick={() => setTime(t)}
                   className={[
-                    "rounded-xl px-3 py-2 text-sm ring-1 motion-safe:transition focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                    "rounded-xl px-3 py-2 text-sm ring-1 motion-safe:transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
                     isSelected
-                      ? "bg-blue-600 text-white ring-blue-600"
-                      : "bg-white text-zinc-900 ring-zinc-200 hover:ring-blue-300 dark:bg-white/5 dark:text-zinc-50 dark:ring-white/10 dark:hover:ring-blue-500/50",
+                      ? "bg-gold text-midnight ring-gold font-semibold"
+                      : "bg-sand/50 text-ink ring-gold/10 hover:ring-gold/40",
                     isDisabled ? "opacity-50 cursor-not-allowed" : "",
                   ].join(" ")}
                   aria-disabled={isDisabled}
@@ -203,8 +203,8 @@ export default function CalendarStep({
                         className={[
                           "inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium",
                           st === "booked"
-                            ? "bg-zinc-200 text-zinc-700 dark:bg-white/10 dark:text-zinc-300"
-                            : "bg-amber-200 text-amber-900 dark:bg-amber-400/20 dark:text-amber-200",
+                            ? "bg-pearl/10 text-ink/55"
+                            : "bg-amber-400/20 text-amber-200",
                         ].join(" ")}
                       >
                         {st}
@@ -216,10 +216,10 @@ export default function CalendarStep({
             })}
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs text-zinc-700 dark:text-zinc-300">
+          <div className="mt-3 flex items-center justify-between text-xs text-ink/55">
             <span>
-              Business hours: <strong>09:00–18:00</strong> · Timezone:{" "}
-              <strong className="font-medium">{timezone}</strong>
+              Business hours: <strong className="text-ink">09:00–18:00</strong> · Timezone:{" "}
+              <strong className="font-medium text-ink">{timezone}</strong>
             </span>
             {loading ? (
               <span className="inline-flex items-center gap-1">
@@ -235,7 +235,7 @@ export default function CalendarStep({
         <button
           type="button"
           onClick={onBackAction}
-          className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl px-4 py-2.5 text-zinc-900 dark:text-zinc-100 ring-1 ring-zinc-300/80 dark:ring-white/15 hover:bg-white/80 dark:hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="inline-flex w-full sm:w-auto items-center justify-center rounded-full px-5 py-2.5 text-ink ring-1 ring-gold/15 hover:ring-gold/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
         >
           Back
         </button>
@@ -243,7 +243,7 @@ export default function CalendarStep({
         <button
           onClick={() => onNextAction({ dateISO: date, timeISO: time })}
           disabled={!date || !time}
-          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 transition enabled:hover:bg-blue-700 enabled:active:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:opacity-60"
+          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gold px-5 py-2.5 font-semibold text-midnight transition enabled:hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold disabled:opacity-50"
         >
           Continue
         </button>
@@ -274,15 +274,15 @@ function Spinner() {
 
 function Legend() {
   return (
-    <div className="hidden md:flex items-center gap-2 text-[11px] text-zinc-600 dark:text-zinc-400">
+    <div className="hidden md:flex items-center gap-2 text-[11px] text-ink/45">
       <span className="inline-flex items-center gap-1">
-        <i className="h-2.5 w-2.5 rounded-full bg-blue-600 inline-block" /> free
+        <i className="h-2.5 w-2.5 rounded-full bg-gold inline-block" /> free
       </span>
       <span className="inline-flex items-center gap-1">
         <i className="h-2.5 w-2.5 rounded-full bg-amber-400 inline-block" /> held
       </span>
       <span className="inline-flex items-center gap-1">
-        <i className="h-2.5 w-2.5 rounded-full bg-zinc-400 inline-block" /> booked
+        <i className="h-2.5 w-2.5 rounded-full bg-pearl/40 inline-block" /> booked
       </span>
     </div>
   );

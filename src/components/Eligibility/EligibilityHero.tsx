@@ -44,29 +44,27 @@ export default function EligibilityHero({
         className={[
           // Base container
           "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-          // Light theme (default) — primary blues
-          "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-          // Dark theme
-          "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-          "text-black dark:text-white",
+          // Midnight Embassy ground + gold guiding stroke
+          "bg-white border border-gold/45",
+          "text-ink",
           className,
         ].join(" ")}
       >
         {/* Decorative background accents (subtle, non-intrusive) */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          {/* soft glow */}
-          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-          <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
+          {/* soft gold underglow */}
+          <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+          <div className="absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-gold/[0.06] blur-3xl" />
           {/* faint grid */}
-          <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+          <div className="absolute inset-0 opacity-30 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.08)_1px,transparent_1px)] bg-[size:22px_22px]" />
           </div>
         </div>
 
         <div className={`relative ${alignClasses}`}>
           {/* Badge / Eyebrow */}
           {badge ? (
-            <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
+            <span className="inline-flex items-center rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-xs font-medium text-gold backdrop-blur">
               <Dot className="mr-1.5" />
               {badge}
             </span>
@@ -75,13 +73,13 @@ export default function EligibilityHero({
           {/* Title */}
           <h1
             id={heroId}
-            className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight"
+            className="mt-3 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-ink"
           >
             {title}
           </h1>
 
-          {/* Subtitle (pure black/white) */}
-          <p className="mt-3 text-[15px] leading-7 md:text-base">
+          {/* Subtitle */}
+          <p className="mt-3 text-[15px] leading-7 md:text-base text-ink/70">
             {subtitle}
           </p>
 
@@ -91,7 +89,7 @@ export default function EligibilityHero({
               {features.map((f) => (
                 <li
                   key={f}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1 ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-ink/70 backdrop-blur"
                 >
                   <Check />
                   <span>{f}</span>
@@ -108,7 +106,7 @@ export default function EligibilityHero({
               <Link
                 href={primaryHref}
                 prefetch={false}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-white shadow-sm ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 active:bg-blue-800 transition"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-midnight font-semibold hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold active:bg-gold_deep transition"
                 aria-label={primaryText}
               >
                 {primaryText}
@@ -119,7 +117,7 @@ export default function EligibilityHero({
                 <a
                   href={secondaryHref}
                   download
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-gold/40 bg-sand/40 px-4 py-2.5 text-gold hover:border-gold hover:bg-sand/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold transition"
                   aria-label={secondaryText}
                 >
                   <Download />
@@ -129,7 +127,7 @@ export default function EligibilityHero({
                 <Link
                   href={secondaryHref}
                   prefetch={false}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-blue-700 ring-1 ring-blue-300 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:bg-white/5 dark:text-blue-200 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 transition"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-gold/40 bg-sand/40 px-4 py-2.5 text-gold hover:border-gold hover:bg-sand/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold transition"
                   aria-label={secondaryText}
                 >
                   <Open />
@@ -138,8 +136,8 @@ export default function EligibilityHero({
               )}
             </div>
 
-            {/* Micro reassurance (still pure black/white using opacity) */}
-            <span className="block md:ml-2 md:mt-0 mt-2 text-xs text-black/70 dark:text-white/70">
+            {/* Micro reassurance */}
+            <span className="block md:ml-2 md:mt-0 mt-2 text-xs text-ink/55">
               No sign-up · Instant result · Free
             </span>
           </div>
@@ -158,7 +156,7 @@ export default function EligibilityHero({
 
 function Check() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5 fill-blue-600 dark:fill-blue-400">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5 fill-gold">
       <path d="M16.707 5.293a1 1 0 0 1 0 1.414l-7.25 7.25a1 1 0 0 1-1.414 0l-4-4A1 1 0 0 1 5.457 8.543l3.293 3.293 6.543-6.543a1 1 0 0 1 1.414 0z" />
     </svg>
   );
@@ -199,6 +197,6 @@ function Open() {
 }
 function Dot({ className = "" }: { className?: string }) {
   return (
-    <span className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`} />
+    <span className={`inline-block h-1.5 w-1.5 rounded-full bg-gold ${className}`} />
   );
 }

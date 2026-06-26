@@ -1,20 +1,20 @@
-"use client";
-
-import dynamic from "next/dynamic";
+import CinematicHero from "@/components/Home/Hero/CinematicHero";
+import JourneySelector from "./JourneySelector";
+import GlobalRouteCommand from "./GlobalRouteCommand";
+import PassportProcess from "./PassportProcess";
 import TrustEmbassy from "./TrustEmbassy";
+import XiaRouteDesk from "./XiaRouteDesk";
 import HomeFinalCTA from "./HomeFinalCTA";
 
-// Client-heavy sections loaded lazily (3D / GSAP / framer-motion)
-const EmbassyHero = dynamic(() => import("./EmbassyHero"), { ssr: false });
-const JourneySelector = dynamic(() => import("./JourneySelector"), { ssr: false });
-const GlobalRouteCommand = dynamic(() => import("./GlobalRouteCommand"), { ssr: false });
-const PassportProcess = dynamic(() => import("./PassportProcess"), { ssr: false });
-const XiaRouteDesk = dynamic(() => import("./XiaRouteDesk"), { ssr: false });
-
+// All sections are lightweight client components (CSS/SVG/framer — no 3D), so
+// they server-render in document order. Previously the hero + some sections were
+// dynamic({ ssr:false }) for the old R3F globe; that made them appear only after
+// hydration, so the server-rendered "Why XIPHIAS" / final CTA flashed at the top
+// first. Static imports keep the order correct on first paint (no flash).
 export default function HomeExperience() {
   return (
     <>
-      <EmbassyHero />
+      <CinematicHero />
       <JourneySelector />
       <GlobalRouteCommand />
       <PassportProcess />

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Script from "next/script";
+import { LatticeOverlay, KenBurns, ParallaxLayer } from "@/components/motion";
 
 /* ============================ Types ============================ */
 
@@ -128,10 +129,9 @@ export default function TestimonialCarousel({
       aria-roledescription="carousel"
       aria-label={ariaLabel}
       className={[
-        "relative overflow-hidden rounded-3xl p-6 md:p-8",
-        "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-        "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-        "text-black dark:text-white",
+        "relative isolate overflow-hidden rounded-3xl p-6 md:p-8",
+        "bg-midnight text-pearl border border-gold/30",
+        "flex flex-col",
         className,
       ].join(" ")}
       onMouseEnter={() => setPaused(true)}
@@ -146,19 +146,58 @@ export default function TestimonialCarousel({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
+      {/* Cinematic backdrop — a softly drifting real destination, deeply scrimmed */}
+      <div className="absolute inset-0 -z-10">
+        <KenBurns
+          src="/images/skilled/germany/germany-immigration.webp"
+          alt=""
+          sizes="(min-width:1024px) 33vw, 100vw"
+          position="center 40%"
+          duration={30}
+          className="h-full w-full opacity-50"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/90 to-midnight/70"
+        />
+      </div>
+
+      {/* Ambient texture — parallax lattice for depth */}
+      <ParallaxLayer speed={24} className="pointer-events-none absolute inset-0 -z-10">
+        <LatticeOverlay opacity={0.08} />
+      </ParallaxLayer>
+
+      {/* Top hairline */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+      />
+
       <h2 className="sr-only">{title}</h2>
 
-      <div className="relative">
-        <blockquote id={quoteId} className="text-[15px] leading-7 md:text-base" aria-live="polite">
-          “{t.quote}”
+      <div className="relative z-10 flex flex-1 flex-col">
+        {/* Oversized gold quote glyph — readable gold on the dark ground */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-3 -start-1 font-sora text-6xl leading-none text-gold/35"
+        >
+          &ldquo;
+        </span>
+
+        <blockquote
+          id={quoteId}
+          className="relative pt-4 text-[15px] leading-7 text-pearl/90 md:text-lg md:leading-8"
+          aria-live="polite"
+        >
+          &ldquo;{t.quote}&rdquo;
         </blockquote>
 
-        <div className="mt-4 flex items-center gap-3">
+        <div className="mt-auto flex items-center gap-3 pt-5">
           <Avatar name={t.author} url={t.avatarUrl} />
           <div className="min-w-0">
-            <div className="text-sm font-medium truncate">{t.author}</div>
+            <div className="text-sm font-medium truncate text-pearl">{t.author}</div>
             {(t.role || t.organization) && (
-              <div className="text-xs text-zinc-600 dark:text-zinc-300 truncate">
+              <div className="text-xs text-pearl/60 truncate">
                 {[t.role, t.organization].filter(Boolean).join(" • ")}
               </div>
             )}
@@ -166,10 +205,10 @@ export default function TestimonialCarousel({
         </div>
 
         {length > 1 && (
-          <div className="mt-5 flex items-center gap-2">
+          <div className="mt-6 flex items-center gap-2">
             <CarouselButton onClick={prev} ariaLabel="Previous testimonial" />
             <CarouselButton onClick={next} ariaLabel="Next testimonial" direction="next" />
-            <span className="ml-1 text-xs text-zinc-500 dark:text-zinc-400 tabular-nums">
+            <span className="ms-1 text-xs text-pearl/60 tabular-nums">
               {index + 1}/{length}
             </span>
           </div>
@@ -192,13 +231,14 @@ function Avatar({ name, url }: { name: string; url?: string }) {
   const altText = name && name.trim().length > 0 ? `${name}'s photo` : "Client photo";
 
   return url ? (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={url}
       alt={altText}
-      className="h-8 w-8 rounded-full ring-1 ring-blue-100/80 object-cover bg-zinc-100 dark:bg-zinc-900"
+      className="h-9 w-9 rounded-full ring-1 ring-gold/40 object-cover bg-ink"
     />
   ) : (
-    <div className="h-8 w-8 rounded-full bg-blue-600 text-white grid place-items-center ring-1 ring-blue-700/20">
+    <div className="h-9 w-9 rounded-full bg-gold/15 text-gold grid place-items-center ring-1 ring-gold/40">
       <span className="text-xs font-semibold">{initials}</span>
     </div>
   );
@@ -219,7 +259,7 @@ function CarouselButton({
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-xl bg-white/90 ring-1 ring-blue-200 text-blue-700 hover:bg-blue-50"
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 bg-white/10 text-pearl/80 backdrop-blur-sm transition-colors duration-300 hover:border-gold/70 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
         {isNext ? (

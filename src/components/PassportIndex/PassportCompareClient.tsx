@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, ChevronDown, ShieldCheck, TrendingUp } from "lucide-react";
 import type { PassportRecord } from "@/data/passport-index";
+import Flag from "@/components/Countries/Flag";
 import {
   bandClass,
   passportProfileHref,
@@ -11,6 +12,7 @@ import {
   PassportSourceNote,
   regionClass,
   scoreWidth,
+  serifClass,
   type PassportStats,
 } from "@/components/PassportIndex/PassportIndexShared";
 
@@ -38,14 +40,14 @@ function PassportSelect({
     <div>
       <label htmlFor={id} className="mb-1.5 flex items-center gap-2">
         <span className="size-2 rounded-full" style={{ backgroundColor: accentColor }} />
-        <span className="text-[11.5px] font-black uppercase tracking-[0.14em] text-[#505050]">{label}</span>
+        <span className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-white/70">{label}</span>
       </label>
       <div className="relative">
         <select
           id={id}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-lg border border-[#E1E1E1] bg-white py-2.5 pl-3 pr-8 text-[13px] font-semibold text-[#263238] outline-none ring-[#1c57b4] focus:border-[#1c57b4] focus:ring-2 focus:ring-offset-1"
+          className="w-full appearance-none rounded-lg border border-white/15 bg-white/[0.05] py-2.5 pl-3 pr-8 text-[13px] font-semibold text-white outline-none focus:border-[#bfa15c] focus:ring-1 focus:ring-[#bfa15c] [&>option]:bg-[#0c1f3f] [&>option]:text-white"
         >
           {records.map((record) => (
             <option key={record.code} value={record.code}>
@@ -53,7 +55,7 @@ function PassportSelect({
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-[#9ca3af]" aria-hidden="true" />
+        <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 size-3.5 -translate-y-1/2 text-white/45" aria-hidden="true" />
       </div>
     </div>
   );
@@ -71,50 +73,53 @@ function PassportCard({
   label: string;
 }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-xl border border-[#E1E1E1] bg-white shadow-sm">
+    <article className="flex flex-col overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] shadow-xl shadow-black/30 backdrop-blur-sm">
       {/* Card top accent bar */}
       <div className="h-1 w-full" style={{ backgroundColor: accentColor }} />
 
       <div className="flex flex-1 flex-col p-5">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
-          <div>
-            <span className="text-[10.5px] font-black uppercase tracking-[0.18em]" style={{ color: accentColor }}>
-              {label} · {record.code}
-            </span>
-            <h3 className="mt-1 text-xl font-black text-[#071a3a]">{record.country}</h3>
+          <div className="flex items-start gap-3">
+            <Flag code={record.code} size={36} />
+            <div>
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.18em]" style={{ color: accentColor }}>
+                {label} · {record.code}
+              </span>
+              <h3 className={`${serifClass} mt-1 text-xl font-medium text-white`}>{record.country}</h3>
+            </div>
           </div>
-          <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[10.5px] font-black ${bandClass(record.band)}`}>
+          <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[10.5px] font-semibold ${bandClass(record.band)}`}>
             {record.band}
           </span>
         </div>
 
         {/* Region pill */}
         <div className="mt-2">
-          <span className={`rounded-full px-2.5 py-1 text-[10.5px] font-black ${regionClass(record.region)}`}>
+          <span className={`rounded-full px-2.5 py-1 text-[10.5px] font-semibold ${regionClass(record.region)}`}>
             {record.region}
           </span>
         </div>
 
         {/* Stats row */}
         <div className="mt-4 grid grid-cols-2 gap-3">
-          <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] p-3">
-            <p className="text-[10.5px] font-black uppercase tracking-[0.12em] text-[#505050]">Global rank</p>
-            <p className="mt-1 text-2xl font-black text-[#071a3a]">{record.rank}</p>
+          <div className="rounded-lg border border-white/12 bg-white/[0.04] p-3">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-white/45">Global rank</p>
+            <p className="mt-1 text-2xl font-semibold text-white">{record.rank}</p>
           </div>
-          <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] p-3">
-            <p className="text-[10.5px] font-black uppercase tracking-[0.12em] text-[#505050]">Visa-free score</p>
-            <p className="mt-1 text-2xl font-black" style={{ color: accentColor }}>{record.score}</p>
+          <div className="rounded-lg border border-white/12 bg-white/[0.04] p-3">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-white/45">Visa-free score</p>
+            <p className="mt-1 text-2xl font-semibold" style={{ color: accentColor }}>{record.score}</p>
           </div>
         </div>
 
         {/* Score bar */}
         <div className="mt-4">
-          <div className="flex items-center justify-between text-[11px] font-bold text-[#505050]">
+          <div className="flex items-center justify-between text-[11px] font-medium text-white/60">
             <span>Against top score</span>
             <span className="tabular-nums">{record.score} / {stats.topScore}</span>
           </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#E1E1E1]">
+          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
             <div
               className="h-full rounded-full transition-all duration-700"
               style={{ width: scoreWidth(record.score, stats.topScore), backgroundColor: accentColor }}
@@ -123,7 +128,7 @@ function PassportCard({
         </div>
 
         {/* Advisory note */}
-        <p className="mt-4 flex-1 text-[12.5px] leading-[1.65] text-[#505050]">
+        <p className="mt-4 flex-1 text-[12.5px] leading-[1.65] text-white/60">
           {record.advisoryNote}
         </p>
 
@@ -151,8 +156,8 @@ export default function PassportCompareClient({ records, stats }: Props) {
   const weaker = scoreDelta >= 0 ? left : right;
   const isSame = left.code === right.code;
 
-  const LEFT_COLOR = "#1c57b4";
-  const RIGHT_COLOR = "#0f6b47";
+  const LEFT_COLOR = "#cdd6e4";
+  const RIGHT_COLOR = "#bfa15c";
 
   return (
     <PassportIndexShell
@@ -165,11 +170,11 @@ export default function PassportCompareClient({ records, stats }: Props) {
         <div className="grid gap-5 lg:grid-cols-[300px_1fr]">
 
           {/* ── Left selector panel ── */}
-          <aside className="flex flex-col gap-4 rounded-xl border border-[#E1E1E1] bg-white p-5 shadow-sm">
+          <aside className="flex flex-col gap-4 rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
             <div>
-              <p className="text-[10.5px] font-black uppercase tracking-[0.2em] text-[#1c57b4]">Compare passports</p>
-              <h2 className="mt-1 text-lg font-black text-[#071a3a]">Choose two passports</h2>
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-[#505050]">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#bfa15c]">Compare passports</p>
+              <h2 className={`${serifClass} mt-1 text-lg font-medium text-white`}>Choose two passports</h2>
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/60">
                 Select a current passport and a target, then review the gap and what it means for your client.
               </p>
             </div>
@@ -187,11 +192,11 @@ export default function PassportCompareClient({ records, stats }: Props) {
 
               {/* VS divider */}
               <div className="flex items-center gap-3">
-                <span className="flex-1 border-t border-dashed border-[#E1E1E1]" />
-                <span className="flex size-7 items-center justify-center rounded-full border border-[#E1E1E1] bg-[#F5F7FA] text-[10px] font-black text-[#505050]">
+                <span className="flex-1 border-t border-dashed border-white/15" />
+                <span className="flex size-7 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-[10px] font-semibold text-white/60">
                   VS
                 </span>
-                <span className="flex-1 border-t border-dashed border-[#E1E1E1]" />
+                <span className="flex-1 border-t border-dashed border-white/15" />
               </div>
 
               <PassportSelect
@@ -206,26 +211,26 @@ export default function PassportCompareClient({ records, stats }: Props) {
 
             {/* Mobility gap */}
             {isSame ? (
-              <div className="rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] p-4 text-center">
-                <p className="text-[12.5px] text-[#505050]">Select two different passports to see the mobility gap.</p>
+              <div className="rounded-lg border border-white/12 bg-white/[0.04] p-4 text-center">
+                <p className="text-[12.5px] text-white/60">Select two different passports to see the mobility gap.</p>
               </div>
             ) : (
               <div className={[
                 "rounded-lg border p-4",
-                scoreDelta > 0 ? "border-emerald-200 bg-emerald-50" : scoreDelta < 0 ? "border-rose-200 bg-rose-50" : "border-[#E1E1E1] bg-[#F5F7FA]",
+                scoreDelta > 0 ? "border-[#bfa15c]/40 bg-[#bfa15c]/[0.1]" : "border-white/12 bg-white/[0.04]",
               ].join(" ")}>
                 <div className="flex items-center gap-2">
-                  <TrendingUp className={`size-4 ${scoreDelta >= 0 ? "text-emerald-700" : "text-rose-700"}`} />
-                  <p className={`text-[11px] font-black uppercase tracking-[0.14em] ${scoreDelta >= 0 ? "text-emerald-700" : "text-rose-700"}`}>
+                  <TrendingUp className={`size-4 ${scoreDelta >= 0 ? "text-[#bfa15c]" : "text-white/60"}`} />
+                  <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${scoreDelta >= 0 ? "text-[#bfa15c]" : "text-white/60"}`}>
                     Mobility gap
                   </p>
                 </div>
-                <p className={`mt-2 text-4xl font-black tabular-nums ${scoreDelta >= 0 ? "text-emerald-800" : "text-rose-800"}`}>
+                <p className={`mt-2 text-4xl font-semibold tabular-nums ${scoreDelta >= 0 ? "text-[#bfa15c]" : "text-white"}`}>
                   {scoreDelta >= 0 ? "+" : ""}{scoreDelta}
                 </p>
-                <p className="mt-2 text-[12px] leading-relaxed text-[#505050]">
-                  <span className="font-black text-[#071a3a]">{stronger.country}</span> currently shows stronger visa-free access than{" "}
-                  <span className="font-black text-[#071a3a]">{weaker.country}</span>.
+                <p className="mt-2 text-[12px] leading-relaxed text-white/60">
+                  <span className="font-semibold text-white">{stronger.country}</span> currently shows stronger visa-free access than{" "}
+                  <span className="font-semibold text-white">{weaker.country}</span>.
                 </p>
               </div>
             )}
@@ -233,7 +238,7 @@ export default function PassportCompareClient({ records, stats }: Props) {
             {/* CTA */}
             <Link
               href="/personal-booking"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#1c57b4] px-4 py-2.5 text-[13px] font-black text-white transition hover:bg-[#1648a0]"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#bfa15c] px-4 py-2.5 text-[13px] font-semibold text-[#0c1f3f] transition hover:bg-[#d8bd78]"
             >
               Talk to an advisor <ArrowRight className="size-3.5" />
             </Link>
@@ -249,9 +254,9 @@ export default function PassportCompareClient({ records, stats }: Props) {
             </div>
 
             {/* XIPHIAS interpretation */}
-            <div className="rounded-xl border border-[#E1E1E1] bg-white p-5 shadow-sm">
-              <p className="text-[10.5px] font-black uppercase tracking-[0.2em] text-[#1c57b4]">Advisor interpretation</p>
-              <h2 className="mt-1.5 text-xl font-black text-[#071a3a]">What XIPHIAS checks next</h2>
+            <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
+              <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#bfa15c]">Advisor interpretation</p>
+              <h2 className={`${serifClass} mt-1.5 text-xl font-medium text-white`}>What XIPHIAS checks next</h2>
 
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {[
@@ -259,9 +264,9 @@ export default function PassportCompareClient({ records, stats }: Props) {
                   { text: "Whether the family can satisfy budget, source-of-funds, document, and physical-presence rules." },
                   { text: "Whether the mobility gain is worth the timeline, tax, risk, and compliance obligations." },
                 ].map((item) => (
-                  <div key={item.text} className="flex gap-2.5 rounded-lg border border-[#E1E1E1] bg-[#F5F7FA] p-3.5">
-                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-[#1c57b4]" aria-hidden="true" />
-                    <p className="text-[12.5px] leading-[1.6] text-[#505050]">{item.text}</p>
+                  <div key={item.text} className="flex gap-2.5 rounded-lg border border-white/12 bg-white/[0.04] p-3.5">
+                    <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-[#bfa15c]" aria-hidden="true" />
+                    <p className="text-[12.5px] leading-[1.6] text-white/60">{item.text}</p>
                   </div>
                 ))}
               </div>
@@ -269,13 +274,13 @@ export default function PassportCompareClient({ records, stats }: Props) {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/eligibility"
-                  className="inline-flex items-center gap-2 rounded-lg bg-[#1c57b4] px-4 py-2.5 text-[13px] font-black text-white transition hover:bg-[#1648a0]"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#bfa15c] px-4 py-2.5 text-[13px] font-semibold text-[#0c1f3f] transition hover:bg-[#d8bd78]"
                 >
                   Run eligibility check <ArrowRight className="size-3.5" />
                 </Link>
                 <Link
                   href="/personal-booking"
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#E1E1E1] px-4 py-2.5 text-[13px] font-black text-[#1c57b4] transition hover:border-[#1c57b4] hover:bg-[#eaf2ff]"
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/15 px-4 py-2.5 text-[13px] font-semibold text-[#bfa15c] transition hover:border-[#bfa15c] hover:bg-[#bfa15c]/10"
                 >
                   Talk to advisor
                 </Link>
@@ -283,13 +288,13 @@ export default function PassportCompareClient({ records, stats }: Props) {
             </div>
 
             {/* Compliance reminder */}
-            <div className="flex gap-3 rounded-xl border border-[#E1E1E1] bg-white p-5 shadow-sm">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#eef9f4] text-[#0f6b47]">
+            <div className="flex gap-3 rounded-2xl border border-white/12 bg-white/[0.04] p-5 shadow-xl shadow-black/30 backdrop-blur-sm">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#bfa15c]/15 text-[#bfa15c]">
                 <ShieldCheck className="size-4.5" />
               </span>
               <div>
-                <h3 className="text-[13.5px] font-black text-[#071a3a]">Compliance reminder</h3>
-                <p className="mt-1 text-[12.5px] leading-[1.65] text-[#505050]">
+                <h3 className="text-[13.5px] font-semibold text-white">Compliance reminder</h3>
+                <p className="mt-1 text-[12.5px] leading-[1.65] text-white/60">
                   A high-ranking passport can still be the wrong route if source of funds, family eligibility, minimum stay, tax exposure, or sanction-screening risk does not fit the client profile.
                 </p>
               </div>

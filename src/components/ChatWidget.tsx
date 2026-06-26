@@ -203,7 +203,7 @@ export default function ChatWidget({ defaultOpen = false }: Props) {
             width: layout.buttonSize,
             height: layout.buttonSize,
             borderRadius: 9999,
-            background: "rgba(240, 208, 67, 0.45)",
+            background: "rgba(191, 161, 92, 0.5)",
             animation: "chatPulse 2.6s ease-out infinite",
             zIndex: z - 1,
             pointerEvents: "none",
@@ -238,13 +238,15 @@ export default function ChatWidget({ defaultOpen = false }: Props) {
           width: "auto",
           overflow: "hidden",
           whiteSpace: "nowrap",
-          border: "1px solid rgba(255,255,255,0.25)",
+          border: open
+            ? "1px solid rgba(191,161,92,0.45)"
+            : "1px solid rgba(12,31,63,0.25)",
           borderRadius: 9999,
           background: open
-            ? "linear-gradient(135deg,#1c57b4 0%,#0f3a8a 100%)"
-            : "linear-gradient(135deg, #ceaf23ec 0%, #f0d043 100%)",
-          color: open ? "#ffffff" : "#1a1000",
-          boxShadow: "0 12px 28px rgba(12,36,90,0.35), 0 2px 8px rgba(0,0,0,0.2)",
+            ? "linear-gradient(135deg,#0a1733 0%,#0c1f3f 100%)"
+            : "linear-gradient(135deg, #bfa15c 0%, #a87d1f 100%)",
+          color: open ? "#bfa15c" : "#0c1f3f",
+          boxShadow: "0 12px 28px rgba(10,23,51,0.4), 0 2px 8px rgba(0,0,0,0.2)",
           cursor: "pointer",
           display: expanded ? "none" : "flex",
           alignItems: "center",
@@ -308,7 +310,7 @@ export default function ChatWidget({ defaultOpen = false }: Props) {
             width: `min(${layout.panelWidth}px, calc(100vw - ${layout.right * 2}px))`,
             height: `min(${layout.panelHeight}px, calc(100vh - ${layout.bottom * 2 + 16}px))`,
             display: open ? "block" : "none",
-            border: "1px solid rgba(28,87,180,0.2)",
+            border: "1px solid rgba(191,161,92,0.35)",
             borderRadius: 14,
             boxShadow: "0 18px 40px rgba(0,0,0,.22)",
             background: "#fff",
@@ -327,7 +329,7 @@ export default function ChatWidget({ defaultOpen = false }: Props) {
             style={{
               position: "fixed",
               inset: 0,
-              background: "rgba(15,23,42,0.38)",
+              background: "rgba(12,31,63,0.45)",
               backdropFilter: "blur(3px)",
               zIndex: z - 2,
             }}
@@ -344,10 +346,10 @@ export default function ChatWidget({ defaultOpen = false }: Props) {
             width: expanded ? "auto" : `min(${layout.panelWidth}px, calc(100vw - ${layout.right * 2}px))`,
             height: expanded ? "auto" : `min(${layout.panelHeight}px, calc(100vh - ${layout.bottom * 2 + 16}px))`,
             display: open ? "block" : "none",
-            border: "1px solid rgba(28,87,180,0.2)",
+            border: "1px solid rgba(191,161,92,0.35)",
             borderRadius: expanded ? 16 : 14,
             boxShadow: expanded ? "0 24px 70px rgba(0,0,0,.34)" : "0 18px 40px rgba(0,0,0,.22)",
-            background: "#fff",
+            background: "#0a1733",
             zIndex: z - 1,
             contain: "layout style paint",
             overflow: "hidden",
@@ -929,23 +931,23 @@ function InternalXiaPanel({
         display: "flex",
         height: "100%",
         flexDirection: "column",
-        background: "#f8fafc",
-        color: "#0f172a",
+        background: "#0a1733",
+        color: "#eef3fb",
         fontFamily: "Inter, system-ui, sans-serif",
       }}
     >
       <div
         style={{
-          borderBottom: "1px solid rgba(15, 23, 42, 0.08)",
-          background: "linear-gradient(135deg, #082247 0%, #123f7a 70%, #d8b545 170%)",
+          borderBottom: "1px solid rgba(191, 161, 92, 0.28)",
+          background: "linear-gradient(135deg, #0a1733 0%, #0c1f3f 70%, #a87d1f 200%)",
           color: "#fff",
           padding: 14,
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
           <div>
-            <div style={{ fontSize: 15, fontWeight: 900, letterSpacing: 0.2 }}>XIA by XIPHIAS</div>
-            <div style={{ marginTop: 3, fontSize: 12, color: "rgba(255,255,255,0.76)" }}>
+            <div style={{ fontSize: 15, fontWeight: 900, letterSpacing: 0.2, color: "#bfa15c" }}>XIA by XIPHIAS</div>
+            <div style={{ marginTop: 3, fontSize: 12, color: "rgba(238,243,251,0.76)" }}>
               Programmes, visas, countries, and advisor routing
             </div>
           </div>
@@ -956,10 +958,10 @@ function InternalXiaPanel({
               aria-label={expanded ? "Collapse chat" : "Expand chat"}
               title={expanded ? "Collapse chat" : "Expand chat"}
               style={{
-                border: "1px solid rgba(255,255,255,0.28)",
+                border: "1px solid rgba(191,161,92,0.4)",
                 borderRadius: 999,
-                background: "rgba(255,255,255,0.14)",
-                color: "#fff",
+                background: "rgba(191,161,92,0.14)",
+                color: "#bfa15c",
                 cursor: "pointer",
                 height: 30,
                 padding: "0 10px",
@@ -976,10 +978,10 @@ function InternalXiaPanel({
               aria-label="Close chat"
               title="Close chat"
               style={{
-                border: "1px solid rgba(255,255,255,0.28)",
+                border: "1px solid rgba(191,161,92,0.4)",
                 borderRadius: 999,
-                background: "rgba(255,255,255,0.14)",
-                color: "#fff",
+                background: "rgba(191,161,92,0.14)",
+                color: "#bfa15c",
                 cursor: "pointer",
                 height: 30,
                 width: 30,
@@ -1012,13 +1014,13 @@ function InternalXiaPanel({
             <div
               style={{
                 width: "fit-content",
-                border: "1px solid #e2e8f0",
+                border: "1px solid rgba(191,161,92,0.28)",
                 borderRadius: 12,
-                background: "#fff",
-                boxShadow: "0 8px 20px rgba(15,23,42,0.06)",
+                background: "#0c1f3f",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
                 padding: "10px 12px",
                 fontSize: 12,
-                color: "#475569",
+                color: "rgba(238,243,251,0.8)",
               }}
             >
               Checking programs and fit...
@@ -1028,7 +1030,7 @@ function InternalXiaPanel({
         </div>
       </div>
 
-      <div style={{ borderTop: "1px solid #e2e8f0", background: "#fff", padding: 10 }}>
+      <div style={{ borderTop: "1px solid rgba(191,161,92,0.25)", background: "#0c1f3f", padding: 10 }}>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <button
             type="button"
@@ -1042,7 +1044,7 @@ function InternalXiaPanel({
           >
             Start over
           </button>
-          <span style={{ color: "#64748b", fontSize: 12, fontWeight: 800, padding: "8px 2px" }}>
+          <span style={{ color: "rgba(238,243,251,0.6)", fontSize: 12, fontWeight: 800, padding: "8px 2px" }}>
             You can also type naturally.
           </span>
         </div>
@@ -1051,14 +1053,18 @@ function InternalXiaPanel({
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           placeholder="Type a country, visa, or programme"
+          onFocus={(e) => { e.currentTarget.style.borderColor = "#bfa15c"; e.currentTarget.style.boxShadow = "0 0 0 2px rgba(191,161,92,0.25)"; }}
+          onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(191,161,92,0.35)"; e.currentTarget.style.boxShadow = "none"; }}
           style={{
             minWidth: 0,
             flex: 1,
-            border: "1px solid #cbd5e1",
+            border: "1px solid rgba(191,161,92,0.35)",
             borderRadius: 10,
             padding: "10px 11px",
             fontSize: 13,
             outline: "none",
+            background: "#0a1733",
+            color: "#eef3fb",
           }}
         />
         <button
@@ -1067,8 +1073,8 @@ function InternalXiaPanel({
           style={{
             border: 0,
             borderRadius: 10,
-            background: "#123f7a",
-            color: "#fff",
+            background: "linear-gradient(135deg, #bfa15c 0%, #a87d1f 100%)",
+            color: "#0c1f3f",
             cursor: "pointer",
             fontSize: 13,
             fontWeight: 800,
@@ -1105,29 +1111,29 @@ function GuideMenu({
     <section
       className="xia-guide-shell"
       style={{
-        border: "1px solid rgba(18,63,122,0.10)",
+        border: "1px solid rgba(191,161,92,0.22)",
         borderRadius: 16,
-        background: "#ffffff",
-        boxShadow: "0 10px 26px rgba(15,23,42,0.06)",
+        background: "#0c1f3f",
+        boxShadow: "0 10px 26px rgba(0,0,0,0.25)",
         overflow: "hidden",
       }}
     >
       <div
         style={{
           background: isHome
-            ? "linear-gradient(135deg, rgba(8,34,71,0.96) 0%, rgba(18,63,122,0.96) 72%, rgba(216,181,69,0.82) 160%)"
-            : "linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%)",
-          color: isHome ? "#fff" : "#071a3a",
+            ? "linear-gradient(135deg, rgba(10,23,51,0.98) 0%, rgba(12,31,63,0.98) 72%, rgba(168,125,31,0.7) 180%)"
+            : "linear-gradient(135deg, #0a1733 0%, #0c1f3f 100%)",
+          color: isHome ? "#fff" : "#eef3fb",
           padding: expanded ? "16px 18px 14px" : "14px",
         }}
       >
       <div style={{ display: "flex", alignItems: "flex-start", gap: 10, justifyContent: "space-between" }}>
         <div>
-          <h3 style={{ margin: 0, color: "inherit", fontSize: expanded ? 18 : 15, fontWeight: 900 }}>
+          <h3 style={{ margin: 0, color: isHome ? "#bfa15c" : "#eef3fb", fontSize: expanded ? 18 : 15, fontWeight: 900 }}>
             {copy.title}
           </h3>
           {copy.subtitle ? (
-            <p style={{ margin: "5px 0 0", color: isHome ? "rgba(255,255,255,0.78)" : "#52647f", fontSize: expanded ? 13.5 : 12.5, lineHeight: 1.5 }}>
+            <p style={{ margin: "5px 0 0", color: isHome ? "rgba(238,243,251,0.78)" : "rgba(238,243,251,0.7)", fontSize: expanded ? 13.5 : 12.5, lineHeight: 1.5 }}>
               {copy.subtitle}
             </p>
           ) : null}
@@ -1178,7 +1184,7 @@ function GuideMenu({
           transition: background 160ms ease, color 160ms ease;
         }
         .xia-guide-choice:hover {
-          background: #f6f9fe !important;
+          background: rgba(191,161,92,0.12) !important;
         }
         @keyframes xiaGuideIn {
           from { opacity: 0; transform: translateY(8px); }
@@ -1209,10 +1215,10 @@ function RouteProfileChips({ profile }: { profile: RouteProfile }) {
         <span
           key={chip}
           style={{
-            border: "1px solid rgba(18,63,122,0.14)",
+            border: "1px solid rgba(191,161,92,0.35)",
             borderRadius: 999,
-            background: "#f1f6ff",
-            color: "#123f7a",
+            background: "rgba(191,161,92,0.12)",
+            color: "#bfa15c",
             fontSize: 11,
             fontWeight: 800,
             padding: "5px 8px",
@@ -1232,10 +1238,10 @@ function GuideMenuItemContent({ option, index }: { option: GuideOption; index: n
         <span
           style={{
             alignItems: "center",
-            background: "#eef5ff",
-            border: "1px solid rgba(18,63,122,0.16)",
+            background: "rgba(191,161,92,0.14)",
+            border: "1px solid rgba(191,161,92,0.4)",
             borderRadius: 999,
-            color: "#123f7a",
+            color: "#bfa15c",
             display: "inline-flex",
             fontSize: 11,
             fontWeight: 900,
@@ -1247,11 +1253,11 @@ function GuideMenuItemContent({ option, index }: { option: GuideOption; index: n
           {index + 1}
         </span>
         <span style={{ minWidth: 0 }}>
-          <span style={{ color: "#0f172a", display: "block", fontSize: 13.5, fontWeight: 900, lineHeight: 1.35 }}>
+          <span style={{ color: "#eef3fb", display: "block", fontSize: 13.5, fontWeight: 900, lineHeight: 1.35 }}>
             {option.label}
           </span>
         </span>
-        <ArrowRight size={13} strokeWidth={2.8} style={{ color: "#123f7a", flexShrink: 0 }} />
+        <ArrowRight size={13} strokeWidth={2.8} style={{ color: "#bfa15c", flexShrink: 0 }} />
       </span>
     </>
   );
@@ -1259,9 +1265,9 @@ function GuideMenuItemContent({ option, index }: { option: GuideOption; index: n
 
 const guideChoiceStyle: React.CSSProperties = {
   border: 0,
-  borderTop: "1px solid #e8eef6",
+  borderTop: "1px solid rgba(191,161,92,0.18)",
   background: "transparent",
-  color: "#0f172a",
+  color: "#eef3fb",
   display: "block",
   minHeight: "auto",
   padding: "8px 14px",
@@ -1270,10 +1276,10 @@ const guideChoiceStyle: React.CSSProperties = {
 
 const smallGhostButtonStyle: React.CSSProperties = {
   alignItems: "center",
-  border: "1px solid #dbe3ef",
+  border: "1px solid rgba(191,161,92,0.4)",
   borderRadius: 999,
-  background: "#fff",
-  color: "#123f7a",
+  background: "rgba(191,161,92,0.12)",
+  color: "#bfa15c",
   cursor: "pointer",
   display: "inline-flex",
   gap: 3,
@@ -1284,10 +1290,10 @@ const smallGhostButtonStyle: React.CSSProperties = {
 
 function footerButtonStyle(active: boolean): React.CSSProperties {
   return {
-    border: active ? "1px solid #123f7a" : "1px solid #dbe3ef",
+    border: active ? "1px solid #bfa15c" : "1px solid rgba(191,161,92,0.4)",
     borderRadius: 999,
-    background: active ? "#123f7a" : "#f8fafc",
-    color: active ? "#fff" : "#123f7a",
+    background: active ? "#bfa15c" : "rgba(191,161,92,0.12)",
+    color: active ? "#0c1f3f" : "#bfa15c",
     cursor: "pointer",
     fontSize: 12,
     fontWeight: 900,
@@ -1304,11 +1310,11 @@ function ChatBubble({ turn, expanded }: { turn: ChatTurn; expanded: boolean }) {
         className="xia-chat-bubble"
         style={{
           maxWidth: isUser ? "86%" : "96%",
-          border: isUser ? "1px solid #123f7a" : "1px solid #e2e8f0",
+          border: isUser ? "1px solid rgba(191,161,92,0.5)" : "1px solid rgba(191,161,92,0.22)",
           borderRadius: isUser ? "14px 14px 4px 14px" : "14px 14px 14px 4px",
-          background: isUser ? "#123f7a" : "#fff",
-          boxShadow: isUser ? "none" : "0 8px 20px rgba(15,23,42,0.06)",
-          color: isUser ? "#fff" : "#0f172a",
+          background: isUser ? "linear-gradient(135deg, #bfa15c 0%, #a87d1f 100%)" : "#0c1f3f",
+          boxShadow: isUser ? "none" : "0 8px 20px rgba(0,0,0,0.25)",
+          color: isUser ? "#0c1f3f" : "#eef3fb",
           padding: "11px 12px",
         }}
       >
@@ -1368,31 +1374,31 @@ function RecommendationView({
   return (
     <div className="xia-response">
       <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-        <span style={{ color: "#123f7a", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.8, textTransform: "uppercase" }}>
+        <span style={{ color: "#bfa15c", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.8, textTransform: "uppercase" }}>
           {formatIntentLabel(recommendation.intent)}
         </span>
         {typeof recommendation.confidence === "number" && !conversationalIntent ? (
-          <span style={{ borderRadius: 999, background: "#eff6ff", color: "#1d4ed8", fontSize: 10.5, fontWeight: 800, padding: "3px 7px" }}>
+          <span style={{ borderRadius: 999, background: "rgba(191,161,92,0.14)", color: "#bfa15c", fontSize: 10.5, fontWeight: 800, padding: "3px 7px" }}>
             Confidence {recommendation.confidence}
           </span>
         ) : null}
         {recommendation.handoffRequired ? (
-          <span style={{ borderRadius: 999, background: "#fffbeb", color: "#92400e", fontSize: 10.5, fontWeight: 800, padding: "3px 7px" }}>
+          <span style={{ borderRadius: 999, background: "rgba(168,125,31,0.2)", color: "#e1b923", fontSize: 10.5, fontWeight: 800, padding: "3px 7px" }}>
             Advisor review
           </span>
         ) : null}
       </div>
 
-      <p style={{ margin: "9px 0 0", fontSize: 13.5, fontWeight: 900, color: "#0f172a", lineHeight: 1.45 }}>
+      <p style={{ margin: "9px 0 0", fontSize: 13.5, fontWeight: 900, color: "#eef3fb", lineHeight: 1.45 }}>
         {lead.title}
       </p>
-      <p style={{ margin: "5px 0 0", color: "#334155", fontSize: 12.5, lineHeight: 1.55 }}>
+      <p style={{ margin: "5px 0 0", color: "rgba(238,243,251,0.75)", fontSize: 12.5, lineHeight: 1.55 }}>
         {lead.body}
       </p>
 
       {visiblePrograms.length ? (
         <div style={{ marginTop: 11 }}>
-          <div style={{ color: "#64748b", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.7, marginBottom: 7, textTransform: "uppercase" }}>
+          <div style={{ color: "rgba(238,243,251,0.6)", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.7, marginBottom: 7, textTransform: "uppercase" }}>
             {conversationalIntent ? "Suggested starting points" : isCountryOverview ? "Choose a pathway" : "Best matches"}
           </div>
           <div style={{ display: "grid", gap: 0 }}>
@@ -1408,10 +1414,10 @@ function RecommendationView({
               style={{
                 alignItems: "flex-start",
                 border: 0,
-                borderTop: "1px solid #e8eef6",
+                borderTop: "1px solid rgba(191,161,92,0.18)",
                 borderRadius: 0,
                 background: "transparent",
-                color: "#0f172a",
+                color: "#eef3fb",
                 display: "grid",
                 gap: 8,
                 gridTemplateColumns: "26px minmax(0, 1fr) auto",
@@ -1422,10 +1428,10 @@ function RecommendationView({
               <span
                 style={{
                   alignItems: "center",
-                  background: "#eef5ff",
-                  border: "1px solid rgba(18,63,122,0.14)",
+                  background: "rgba(191,161,92,0.14)",
+                  border: "1px solid rgba(191,161,92,0.35)",
                   borderRadius: 999,
-                  color: "#123f7a",
+                  color: "#bfa15c",
                   display: "inline-flex",
                   fontSize: 10.5,
                   fontWeight: 900,
@@ -1437,12 +1443,12 @@ function RecommendationView({
                 {index + 1}
               </span>
               <span style={{ minWidth: 0 }}>
-                <strong style={{ display: "block", fontSize: 12.6, lineHeight: 1.32 }}>{title}</strong>
-                <span style={{ color: "#64748b", display: "block", fontSize: 11.4, lineHeight: 1.35, marginTop: 2 }}>
+                <strong style={{ display: "block", fontSize: 12.6, lineHeight: 1.32, color: "#eef3fb" }}>{title}</strong>
+                <span style={{ color: "rgba(238,243,251,0.6)", display: "block", fontSize: 11.4, lineHeight: 1.35, marginTop: 2 }}>
                   {isCountryOverview ? shortReason(program.reason, false, recommendation.intent) : [country, shortReason(program.reason, expanded, recommendation.intent)].filter(Boolean).join(" - ")}
                 </span>
               </span>
-              <span style={{ alignItems: "center", color: "#123f7a", display: "inline-flex", fontSize: 11.5, fontWeight: 900, gap: 4, marginTop: 2, whiteSpace: "nowrap" }}>
+              <span style={{ alignItems: "center", color: "#bfa15c", display: "inline-flex", fontSize: 11.5, fontWeight: 900, gap: 4, marginTop: 2, whiteSpace: "nowrap" }}>
                 Open <ArrowRight size={12} strokeWidth={2.7} />
               </span>
             </a>
@@ -1453,14 +1459,14 @@ function RecommendationView({
       ) : null}
 
       {moreCount > 0 ? (
-        <p style={{ margin: "8px 0 0", color: "#64748b", fontSize: 11.7, fontWeight: 700 }}>
+        <p style={{ margin: "8px 0 0", color: "rgba(238,243,251,0.6)", fontSize: 11.7, fontWeight: 700 }}>
           {expanded ? `${moreCount} more option${moreCount === 1 ? "" : "s"} can be reviewed by an advisor.` : `More options are available in expanded view.`}
         </p>
       ) : null}
 
       {expanded && recommendation.sources?.length ? (
         <div style={{ marginTop: 10 }}>
-          <div style={{ color: "#64748b", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.7, marginBottom: 6, textTransform: "uppercase" }}>
+          <div style={{ color: "rgba(238,243,251,0.6)", fontSize: 10.5, fontWeight: 900, letterSpacing: 0.7, marginBottom: 6, textTransform: "uppercase" }}>
             Website pages checked
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -1469,9 +1475,9 @@ function RecommendationView({
               key={`${item.label}-${item.href}`}
               href={item.href}
               style={{
-                border: "1px solid #dbe3ef",
+                border: "1px solid rgba(191,161,92,0.4)",
                 borderRadius: 999,
-                color: "#123f7a",
+                color: "#bfa15c",
                 display: "inline-flex",
                 fontSize: 11,
                 fontWeight: 800,
@@ -1490,7 +1496,7 @@ function RecommendationView({
         </div>
       ) : null}
 
-      <p style={{ margin: "10px 0 0", color: "#334155", fontSize: 12.5, lineHeight: 1.5 }}>
+      <p style={{ margin: "10px 0 0", color: "rgba(238,243,251,0.75)", fontSize: 12.5, lineHeight: 1.5 }}>
         {nextPrompt(recommendation)}
       </p>
 
@@ -1502,10 +1508,10 @@ function RecommendationView({
               key={action.href}
               href={action.href}
               style={{
-                border: primary ? "1px solid #123f7a" : "1px solid #dbe3ef",
+                border: primary ? "1px solid #bfa15c" : "1px solid rgba(191,161,92,0.4)",
                 borderRadius: 9,
-                background: primary ? "#123f7a" : "#fff",
-                color: primary ? "#fff" : "#123f7a",
+                background: primary ? "linear-gradient(135deg, #bfa15c 0%, #a87d1f 100%)" : "rgba(191,161,92,0.1)",
+                color: primary ? "#0c1f3f" : "#bfa15c",
                 padding: "8px 10px",
                 fontSize: 12,
                 fontWeight: 900,
@@ -1523,7 +1529,7 @@ function RecommendationView({
         }
         .xia-result-row:hover {
           transform: translateX(2px);
-          background: #f8fbff !important;
+          background: rgba(191,161,92,0.1) !important;
         }
       `}</style>
     </div>

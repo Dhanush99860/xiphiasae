@@ -100,7 +100,7 @@ export default function GlobeSceneClient({ markers, arcs }: { markers: GlobeMark
     return (
       <section className="bg-[#05080f] py-16">
         <div className="mx-auto max-w-screen-2xl px-4 sm:px-6">
-          <div className="relative mb-8 h-[320px] overflow-hidden rounded-3xl border border-white/10">
+          <div className="relative mb-8 h-[320px] overflow-hidden rounded-3xl border border-gold/45">
             <LazyGlobe className="absolute inset-0" markers={markers} arcs={arcs} interactive={false} theme="dark" />
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -43,29 +43,16 @@ export default function ComparisonTable({
     [caption, rows],
   );
 
-  const accentRing = (a?: Column["accent"]) =>
-    a === "emerald"
-      ? "ring-emerald-200 dark:ring-emerald-800"
-      : a === "amber"
-        ? "ring-amber-200 dark:ring-amber-800"
-        : a === "purple"
-          ? "ring-purple-200 dark:ring-purple-800"
-          : "ring-blue-200 dark:ring-blue-900";
+  // One gold accent for every column under Midnight Embassy.
+  const accentRing = (_a?: Column["accent"]) => "ring-gold/30";
 
-  const accentText = (a?: Column["accent"]) =>
-    a === "emerald"
-      ? "text-emerald-700 dark:text-emerald-300"
-      : a === "amber"
-        ? "text-amber-700 dark:text-amber-300"
-        : a === "purple"
-          ? "text-purple-700 dark:text-purple-300"
-          : "text-blue-700 dark:text-blue-300";
+  const accentText = (_a?: Column["accent"]) => "text-gold";
 
   return (
     <section
       className={[
         "relative",
-        "rounded-2xl bg-white dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm",
+        "rounded-2xl bg-white border border-gold/45",
         "p-4 sm:p-5",
         className,
       ].join(" ")}
@@ -76,10 +63,10 @@ export default function ComparisonTable({
 
       {/* Header chip + caption */}
       <div className="mb-3 flex items-center gap-2">
-        <span className="inline-flex items-center rounded-md bg-blue-600/10 px-2 py-1 text-xs font-semibold text-blue-700 dark:text-blue-300">
+        <span className="inline-flex items-center rounded-md border border-gold/45 bg-sand/50 px-2 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-gold">
           Comparison
         </span>
-        <h3 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+        <h3 className="font-sora text-base font-semibold text-ink">
           {caption}
         </h3>
       </div>
@@ -89,11 +76,11 @@ export default function ComparisonTable({
         {/* edge fades */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-white to-transparent dark:from-neutral-900"
+          className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-ink to-transparent"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-white to-transparent dark:from-neutral-900"
+          className="pointer-events-none absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-ink to-transparent"
         />
 
         <div className="overflow-x-auto">
@@ -107,8 +94,8 @@ export default function ComparisonTable({
             </colgroup>
 
             <thead>
-              <tr className="bg-neutral-50 dark:bg-neutral-900/60 text-[12px] uppercase tracking-wide text-neutral-600 dark:text-neutral-300">
-                <th className="sticky left-0 z-10 bg-neutral-50 px-3 py-2.5 text-left font-semibold dark:bg-neutral-900/60">
+              <tr className="text-[12px] uppercase tracking-[0.14em] text-ink/45">
+                <th className="sticky left-0 z-10 bg-white px-3 py-2.5 text-left font-semibold">
                   Dimension
                 </th>
                 {columns.map((c) => (
@@ -117,7 +104,7 @@ export default function ComparisonTable({
                     className={`px-3 py-2.5 text-left font-semibold ${accentText(c.accent)}`}
                   >
                     <span
-                      className={`inline-flex items-center gap-2 rounded-md bg-white/80 dark:bg-neutral-900/80 ring-1 ${accentRing(c.accent)} px-2 py-1`}
+                      className={`inline-flex items-center gap-2 rounded-md bg-sand/50 border ${accentRing(c.accent)} px-2 py-1`}
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {c.label}
@@ -127,27 +114,22 @@ export default function ComparisonTable({
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className="divide-y divide-gold/5">
               {rows.map((r, idx) => (
                 <tr
                   key={idx}
-                  className={[
-                    "border-t border-neutral-200 dark:border-neutral-800",
-                    idx % 2
-                      ? "bg-white dark:bg-neutral-900"
-                      : "bg-neutral-50/60 dark:bg-neutral-900/40",
-                  ].join(" ")}
+                  className="bg-white hover:bg-white/[0.03]"
                 >
                   <th
                     scope="row"
-                    className="sticky left-0 z-10 bg-inherit px-3 py-3 text-left font-medium text-neutral-900 dark:text-neutral-100"
+                    className="sticky left-0 z-10 bg-inherit px-3 py-3 text-left font-medium text-ink"
                   >
                     {r.label}
                   </th>
                   {columns.map((c) => (
                     <td
                       key={c.key}
-                      className="px-3 py-3 align-top text-neutral-800 dark:text-neutral-200"
+                      className="px-3 py-3 align-top text-ink/70"
                     >
                       {r[c.key] ?? "—"}
                     </td>
@@ -159,7 +141,7 @@ export default function ComparisonTable({
         </div>
 
         {footnote ? (
-          <p className="mt-3 text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="mt-3 text-[12px] text-ink/45">
             {footnote}
           </p>
         ) : null}
@@ -175,24 +157,23 @@ export default function ComparisonTable({
           <article
             role="listitem"
             key={idx}
-            className="rounded-xl ring-1 ring-neutral-200 dark:ring-neutral-800 bg-white dark:bg-neutral-900 p-3"
+            className="rounded-xl border border-gold/45 bg-sand/50 p-3"
           >
-            <div className="mb-2 text-[13px] font-semibold text-neutral-900 dark:text-neutral-100">
+            <div className="mb-2 text-[13px] font-semibold text-ink">
               {r.label}
             </div>
             <dl className="grid grid-cols-1 gap-2">
               {columns.map((c) => (
                 <div
                   key={c.key}
-                  className="rounded-lg ring-1 p-2 bg-neutral-50 dark:bg-neutral-900/60 text-sm
-                  ring-neutral-200 dark:ring-neutral-800"
+                  className="rounded-lg border p-2 bg-sand/50 text-sm border-gold/45"
                 >
                   <dt
-                    className={`text-[11px] uppercase tracking-wide ${accentText(c.accent)}`}
+                    className={`text-[11px] uppercase tracking-[0.14em] ${accentText(c.accent)}`}
                   >
                     {c.label}
                   </dt>
-                  <dd className="mt-0.5 text-neutral-800 dark:text-neutral-200">
+                  <dd className="mt-0.5 text-ink/70">
                     {r[c.key] ?? "—"}
                   </dd>
                 </div>
@@ -201,7 +182,7 @@ export default function ComparisonTable({
           </article>
         ))}
         {footnote ? (
-          <p className="text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="text-[12px] text-ink/45">
             {footnote}
           </p>
         ) : null}
@@ -221,9 +202,9 @@ export default function ComparisonTable({
 function Decor() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-      <div className="absolute -top-24 -left-16 h-48 w-48 rounded-full bg-neutral-300/15 blur-3xl" />
-      <div className="absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-blue-400/15 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]">
+      <div className="absolute -top-24 -left-16 h-48 w-48 rounded-full bg-gold/5 blur-3xl" />
+      <div className="absolute -bottom-24 -right-16 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.04]">
         <defs>
           <pattern
             id="comp-grid"
@@ -243,7 +224,7 @@ function Decor() {
           width="100%"
           height="100%"
           fill="url(#comp-grid)"
-          className="text-blue-800 dark:text-blue-300"
+          className="text-gold"
         />
       </svg>
     </div>

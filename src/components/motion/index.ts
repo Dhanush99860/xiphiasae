@@ -13,6 +13,37 @@ export { Stagger, StaggerItem } from "./Stagger";
 export { default as Parallax } from "./Parallax";
 export { default as Marquee } from "./Marquee";
 
+// Decor / ambient (UAE refresh)
+export { default as AuroraBackground } from "./AuroraBackground";
+export { default as DrawLine } from "./DrawLine";
+export { default as LatticeOverlay } from "./LatticeOverlay";
+
+// Desert Sand polish
+export { default as SandReveal } from "./SandReveal";
+export { default as ScrollGuideLine } from "./ScrollGuideLine";
+export { default as GoldenBurj } from "./GoldenBurj";
+export { default as KenBurns } from "./KenBurns";
+export { default as ParallaxLayer } from "./ParallaxLayer";
+export { default as ParallaxBackdrop } from "./ParallaxBackdrop";
+export { default as ImageReveal } from "./ImageReveal";
+export { default as CollectionRail } from "./CollectionRail";
+
+// Living Horizon
+export { default as HorizonCanvas } from "./HorizonCanvas";
+export { default as IrisReveal } from "./IrisReveal";
+export { default as SlideReveal } from "./SlideReveal";
+
+// Living Horizon — interaction system
+export { default as DawnCursor } from "./DawnCursor";
+export { default as LightWindow } from "./LightWindow";
+export { default as GoldSweepButton } from "./GoldSweepButton";
+export { default as DawnMeter } from "./DawnMeter";
+export { default as PinnedVerbSwap } from "./PinnedVerbSwap";
+export { default as VelocityMarquee } from "./VelocityMarquee";
+export { default as ScrubReveal3D } from "./ScrubReveal3D";
+export { default as OdometerTally } from "./OdometerTally";
+export { default as PassportSeal } from "./PassportSeal";
+
 // Text effects
 export { default as SplitText } from "./SplitText";
 export { default as TextReveal } from "./TextReveal";

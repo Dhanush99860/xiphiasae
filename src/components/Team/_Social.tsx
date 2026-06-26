@@ -6,9 +6,10 @@ import Link from "next/link";
 import { Social } from "@/components/Team/team";
 import { SearchIcon } from "@/components/Team/Icons"; // re-exported usage example
 
-export function SocialLink({ s }: { s: Social }) {
+export function SocialLink({ s, tone = "dark" }: { s: Social; tone?: "dark" | "light" }) {
+  const base = tone === "light" ? "text-[#0c1f3f]/70 hover:text-[#a87d1f]" : "text-white/65 hover:text-[#bfa15c]";
   return (
-    <Link href={s.url} prefetch={false} target="_blank" className="inline-flex items-center gap-1 text-blue-700 dark:text-blue-300">
+    <Link href={s.url} prefetch={false} target="_blank" className={`inline-flex items-center gap-1 transition-colors ${base}`}>
       <SocialIcon s={s} />
       <span className="underline-offset-2 hover:underline capitalize">{s.platform}</span>
     </Link>

@@ -31,7 +31,7 @@ const SPRING = { type: "spring", stiffness: 340, damping: 32, mass: 0.72 };
 
 const UI = {
   surface:
-    "rounded-2xl ring-1 ring-black/10 dark:ring-white/10 bg-white dark:bg-black",
+    "rounded-2xl border border-gold/45 bg-white",
   pad: "px-3 py-3 md:px-4 md:py-4",
 };
 
@@ -313,7 +313,7 @@ export default function Flow() {
   return (
     <div ref={shellRef} className="w-full">
       <div className={`${UI.surface} overflow-hidden`}>
-        <div className="h-0.5 w-full bg-gradient-to-r from-blue-600 to-indigo-500" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
 
         <div className={`${UI.pad} min-h-0`}>
           <AnimatePresence mode="wait" initial={false}>
@@ -362,11 +362,11 @@ export default function Flow() {
                     onChangePathway={goToSelect}
                     changeLabel="Change pathway"
                   >
-                    <span className="inline-flex items-center gap-2 rounded-full ring-1 ring-black/10 dark:ring-white/20 bg-black/5 dark:bg-white/10 px-2 py-1 text-xs font-medium">
+                    <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-2 py-1 text-xs font-medium text-gold">
                       {TRACK_LABEL[track]}
                     </span>
                     <span
-                      className="text-xs md:text-sm opacity-80"
+                      className="text-xs md:text-sm text-ink/55"
                       aria-live="polite"
                     >
                       {progressText} • {etaText}
@@ -406,7 +406,7 @@ export default function Flow() {
                     onChangePathway={goToSelect}
                     changeLabel="Change pathway"
                   >
-                    <span className="text-xs opacity-80">Almost done</span>
+                    <span className="text-xs text-ink/55">Almost done</span>
                   </TopBar>
 
                   <div className="mt-2 mb-2">
@@ -436,7 +436,7 @@ export default function Flow() {
                     onChangePathway={goToSelect}
                     changeLabel="Start over"
                   >
-                    <span className="text-xs opacity-80">Results</span>
+                    <span className="text-xs text-ink/55">Results</span>
                   </TopBar>
 
                   <div className="relative z-10 pointer-events-auto">
@@ -519,7 +519,7 @@ function TopBar({
       <button
         type="button"
         onClick={back}
-        className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs ring-1 ring-black/10 hover:ring-black/20 dark:ring-white/15 dark:hover:ring-white/25"
+        className="inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs text-ink/70 border border-gold/45 hover:border-gold/65 hover:text-ink"
         aria-label="Go back"
       >
         <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
@@ -544,7 +544,7 @@ function TopBar({
             e.preventDefault();
             onChangePathway();
           }}
-          className="ml-auto text-xs underline hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+          className="ml-auto text-xs text-gold underline hover:text-gold_bright focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
           aria-label={changeLabel || "Change pathway"}
         >
           {changeLabel || "Change pathway"}

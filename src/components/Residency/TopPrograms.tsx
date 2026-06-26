@@ -159,11 +159,11 @@ export default function TopPrograms({ programs }: { programs: AnyProgram[] }) {
                 href={href}
                 aria-labelledby={titleId}
                 className={[
-                  "group relative block w-full rounded-2xl p-2.5 sm:p-3",
-                  "bg-white/90 dark:bg-neutral-900/70 backdrop-blur",
-                  "ring-1 ring-neutral-200/80 dark:ring-neutral-800/70",
-                  "shadow-sm hover:shadow-md transition-shadow duration-200",
-                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60",
+                  "group relative block h-full w-full rounded-2xl p-2.5 sm:p-3",
+                  "bg-white border border-gold/45 backdrop-blur",
+                  "transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/65",
+                  "motion-reduce:transform-none",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-sand",
                 ].join(" ")}
               >
                 <article
@@ -172,7 +172,7 @@ export default function TopPrograms({ programs }: { programs: AnyProgram[] }) {
                   className="flex items-stretch gap-3"
                 >
                   {/* Media (fixed size to keep rows aligned) */}
-                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 sm:h-24 sm:w-32">
+                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-xl bg-sand sm:h-24 sm:w-32">
                     {rawImg ? (
                       <Image
                         src={imgSrc}
@@ -183,18 +183,27 @@ export default function TopPrograms({ programs }: { programs: AnyProgram[] }) {
                         unoptimized
                       />
                     ) : (
-                      <div className="absolute inset-0 grid place-items-center text-[11px] text-neutral-500 dark:text-neutral-400">
+                      <div className="absolute inset-0 grid place-items-center text-[11px] text-ink/40">
                         No image
                       </div>
                     )}
-                    <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/5 dark:ring-white/10" />
+                    {/* legibility veil + gold hairline at base */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent"
+                    />
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                    />
+                    <span className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gold/10" />
                   </div>
 
                   {/* Content */}
                   <div className="min-w-0 flex-1">
                     <h3
                       id={titleId}
-                      className="text-[14px] sm:text-[15px] font-semibold leading-snug text-neutral-900 dark:text-neutral-100 line-clamp-2"
+                      className="font-sora text-[14px] sm:text-[15px] font-semibold leading-snug text-ink line-clamp-2"
                     >
                       {(p as any).title}
                     </h3>
@@ -202,26 +211,26 @@ export default function TopPrograms({ programs }: { programs: AnyProgram[] }) {
                     {/* Metric pills */}
                     <div className="mt-1.5 grid grid-cols-2 gap-1.5 text-[11px] sm:text-[12px]">
                       <div
-                        className="flex items-center gap-1.5 rounded-lg bg-black/5 px-2 py-1 ring-1 ring-neutral-200 dark:bg-white/10 dark:ring-neutral-700"
+                        className="flex items-center gap-1.5 rounded-lg border border-gold/45 bg-sand/50 px-2 py-1"
                         title={`Minimum investment: ${investment}`}
                       >
                         <Banknote
-                          className="h-3.5 w-3.5 opacity-70 text-black dark:text-white"
+                          className="h-3.5 w-3.5 text-gold"
                           aria-hidden
                         />
-                        <span className="font-medium tabular-nums truncate text-black dark:text-white">
+                        <span className="font-semibold tabular-nums truncate text-gold">
                           {investment}
                         </span>
                       </div>
                       <div
-                        className="flex items-center gap-1.5 rounded-lg bg-black/5 px-2 py-1 ring-1 ring-neutral-200 dark:bg-white/10 dark:ring-neutral-700"
+                        className="flex items-center gap-1.5 rounded-lg border border-gold/45 bg-sand/50 px-2 py-1"
                         title={`Typical timeline: ${timeline}`}
                       >
                         <Timer
-                          className="h-3.5 w-3.5 opacity-70 text-black dark:text-white"
+                          className="h-3.5 w-3.5 text-ink/50"
                           aria-hidden
                         />
-                        <span className="font-medium tabular-nums truncate text-black dark:text-white">
+                        <span className="font-medium tabular-nums truncate text-ink">
                           {timeline}
                         </span>
                       </div>
@@ -233,16 +242,17 @@ export default function TopPrograms({ programs }: { programs: AnyProgram[] }) {
                         {chips.map((t: string, i: number) => (
                           <span
                             key={`${id}-tag-${i}-${t}`}
-                            className="inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] ring-1 ring-neutral-200 dark:ring-neutral-700 bg-black/5 dark:bg-white/10 text-neutral-700 dark:text-neutral-300 max-w-[9rem] truncate"
+                            className="inline-flex items-center gap-1.5 rounded-full border border-gold/45 bg-sand/50 px-2 py-0.5 text-[10px] text-ink/70 max-w-[9rem] truncate"
                             title={t}
                           >
+                            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" aria-hidden />
                             {t}
                           </span>
                         ))}
                       </div>
                     ) : null}
 
-                    <span className="mt-1.5 inline-flex items-center text-[12px] font-medium text-sky-700 dark:text-sky-300">
+                    <span className="mt-1.5 inline-flex items-center text-[12px] font-medium text-gold">
                       View details
                       <span
                         aria-hidden

@@ -1,38 +1,62 @@
 // ==============================================
-// components/team/Leadership.tsx
+// components/team/Leadership.tsx – navy/gold Spotlight showcase
 // ==============================================
 import React from "react";
 import { Person } from "@/components/Team/team";
 import { Avatar } from "@/components/Team/Avatar";
 import { SocialLink } from "./_Social";
+import Ambient from "@/components/HomeLuxe/Ambient";
 
-export function Leadership({ people }: { people: Person[] }) {
+const GOLD = "#bfa15c";
+const GOLD_DEEP = "#a87d1f";
+const INK = "#0c1f3f";
+
+export function Leadership({ people, serifClass = "" }: { people: Person[]; serifClass?: string }) {
+  if (!people.length) return null;
   return (
-    <section aria-labelledby="leadership-title" className="mt-12">
-      <header className="text-center">
-        <h2 id="leadership-title" className="text-2xl md:text-3xl font-semibold tracking-tight">Leadership</h2>
-        <p className="mt-2 text-zinc-600 dark:text-zinc-300">Operators with skin in the game.</p>
-      </header>
-      <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {people.map((p) => (
-          <li key={p.id} className="group relative overflow-hidden rounded-2xl bg-white/80 ring-1 ring-blue-100 p-6 backdrop-blur dark:bg-white/5 dark:ring-blue-900 transition hover:shadow-sm">
-            <div className="flex items-start gap-4">
-              <Avatar src={p.headshot} alt={p.name} />
-              <div>
-                <h3 className="text-lg font-medium leading-tight">{p.name}</h3>
-                <p className="text-sm text-blue-700 dark:text-blue-300">{p.role}</p>
-                {p.location && <p className="mt-1 text-xs text-zinc-500">{p.location}</p>}
+    <section
+      aria-labelledby="leadership-title"
+      data-tone="light"
+      className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+      style={{ background: "#fbfaf7", color: INK }}
+    >
+      <Ambient tone="light" />
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <header className="flex flex-col items-center text-center">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-10" style={{ background: GOLD_DEEP }} />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD_DEEP }}>Leadership</span>
+            <span lang="ar" dir="rtl" className="font-arabic-display text-base" style={{ color: GOLD_DEEP }}>القيادة</span>
+          </div>
+          <h2 id="leadership-title" className={`${serifClass} mt-5 text-[clamp(1.8rem,4vw,3rem)] font-medium leading-[1.06]`} style={{ color: INK }}>
+            Operators with <span className="italic" style={{ color: GOLD_DEEP }}>skin in the game</span>.
+          </h2>
+        </header>
+        <ul className="mt-12 grid grid-cols-1 gap-6 items-stretch sm:grid-cols-2 lg:grid-cols-3">
+          {people.map((p) => (
+            <li
+              key={p.id}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-colors hover:border-[#a87d1f]"
+              style={{ border: "1px solid rgba(168,125,31,0.3)", background: "#fff" }}
+            >
+              <div className="flex items-start gap-4">
+                <Avatar src={p.headshot} alt={p.name} />
+                <div>
+                  <h3 className={`${serifClass} text-xl font-medium leading-tight`} style={{ color: INK }}>{p.name}</h3>
+                  <p className="text-sm font-semibold uppercase tracking-[0.14em]" style={{ color: GOLD_DEEP }}>{p.role}</p>
+                  {p.location && <p className="mt-1 text-xs" style={{ color: "rgba(12,31,63,0.45)" }}>{p.location}</p>}
+                </div>
               </div>
-            </div>
-            {p.bio && <p className="mt-4 text-sm leading-6 text-zinc-700 dark:text-zinc-300">{p.bio}</p>}
-            {p.socials?.length ? (
-              <ul className="mt-4 flex flex-wrap gap-3 text-xs">
-                {p.socials.map((s, i) => (<li key={i}><SocialLink s={s} /></li>))}
-              </ul>
-            ) : null}
-          </li>
-        ))}
-      </ul>
+              {p.bio && <p className="mt-4 text-sm leading-6" style={{ color: "rgba(12,31,63,0.6)" }}>{p.bio}</p>}
+              {p.socials?.length ? (
+                <ul className="mt-auto flex flex-wrap gap-3 pt-4 text-xs">
+                  {p.socials.map((s, i) => (<li key={i}><SocialLink s={s} tone="light" /></li>))}
+                </ul>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

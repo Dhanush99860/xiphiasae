@@ -120,26 +120,28 @@ export default function SkilledHero({
         ) : imageSrc ? (
           <Image src={imageSrc} alt={title} fill className="object-cover" />
         ) : (
-          <div className="absolute inset-0 bg-slate-200 dark:bg-slateGray" />
+          <div className="absolute inset-0 bg-white" />
         )}
+        {/* Gold hairline framing the media, matching the card image veil */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </div>
 
       {/* Desktop-only overlay & CTAs */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/35 to-black/10 hidden md:block" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-midnight via-midnight/55 to-transparent hidden md:block" />
       <div className="absolute inset-0 hidden md:flex items-end">
         <div className="p-6 md:p-10">
-          <div className="max-w-3xl text-white">
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight">{title}</h1>
-            {subtitle && <p className="mt-2 text-white/90">{subtitle}</p>}
+          <div className="max-w-3xl text-ink">
+            <h1 className="font-sora text-3xl md:text-4xl font-bold leading-tight">{title}</h1>
+            {subtitle && <p className="mt-2 text-ink/70">{subtitle}</p>}
             {!!actions.length && (
               <div className="mt-6 flex flex-wrap items-end gap-3 sm:gap-4">
                 {actions.map((a) => {
                   const base =
-                    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+                    "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-sand";
                   const styles =
                     a.variant === "ghost"
-                      ? "bg-white/20 text-white backdrop-blur ring-1 ring-inset ring-white/30 hover:bg-white/30"
-                      : "bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600 text-white shadow-lg";
+                      ? "bg-white/60 text-ink backdrop-blur ring-1 ring-inset ring-gold/20 hover:ring-gold/40"
+                      : "border border-gold/40 bg-gold/10 text-gold hover:bg-gold/20";
                   return (
                     <Link
                       key={a.label}

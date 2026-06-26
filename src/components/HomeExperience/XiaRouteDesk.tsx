@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+
+import { Eyebrow, Button } from "@/components/ui";
+import {
+  SplitText,
+  DrawLine,
+  Stagger,
+  StaggerItem,
+  Magnetic,
+  SandReveal,
+  LatticeOverlay,
+  ImageReveal,
+  ParallaxLayer,
+} from "@/components/motion";
 
 import { XIA_FLOW } from "./data";
 
@@ -13,162 +24,204 @@ export default function XiaRouteDesk() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#040b1a] py-24"
-      aria-label="XIA Route Intelligence desk"
+      className="relative w-full overflow-hidden bg-white py-24 text-ink lg:py-28"
+      aria-label="How XIA Intelligence works"
     >
-      {/* Divider */}
+      {/* Faint Emirati lattice texture so the white band isn't flat */}
+      <LatticeOverlay opacity={0.06} />
+
+      {/* Faint gold dot-grid so the white ground reads as a surface, not a void */}
       <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(168,125,31,0.7) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
       />
 
-      {/* Blue accent glow */}
+      {/* Top gold hairline ties the band into the scroll guide */}
       <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-0 top-1/2 h-80 w-96 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse,rgba(28,87,180,0.12)_0%,transparent_70%)]"
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
       />
 
-      <div className="relative mx-auto max-w-screen-2xl px-6 sm:px-10 xl:px-16">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-
-          {/* Left: description */}
-          <div>
-            <span className="mb-4 inline-block rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#60a5fa]">
+      <div className="relative z-10 mx-auto w-full max-w-screen-xl px-6 sm:px-10 xl:px-16">
+        {/* Header + editorial image */}
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)]">
+          <SandReveal className="max-w-2xl">
+            <Eyebrow tone="gold" arabic="الذكاء">
               XIA Intelligence
-            </span>
-            <h2 className="mt-1 text-[clamp(1.75rem,4vw,3rem)] font-black leading-tight tracking-tight text-white">
-              Your AI-assisted
-              <br />
-              <span className="text-secondary">advisory desk</span>
+            </Eyebrow>
+            <h2 className="mt-6 font-sora text-[clamp(1.9rem,4.5vw,3.25rem)] font-bold leading-[1.05] tracking-tight text-ink">
+              <SplitText text="How XIA maps your route" />
             </h2>
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/50">
-              XIA analyses your profile against 50+ global programs in seconds —
-              then a licensed advisor reviews and refines your shortlist before
-              any consultation is booked.
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-ink/60">
+              Four considered steps — from intent to a verified shortlist reviewed
+              by a licensed advisor before any consultation is scheduled.
             </p>
+            <DrawLine
+              d="M0 1 L260 1"
+              viewBox="0 0 260 2"
+              preserveAspectRatio="none"
+              strokeWidth={2}
+              duration={1.4}
+              className="mt-8 h-px w-44"
+            />
+          </SandReveal>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/xia-intelligence"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[14px] font-bold text-white transition-all hover:bg-[#1a4ea8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                Start Route Assessment
-                <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/booking"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-[14px] font-semibold text-white backdrop-blur-sm transition-all hover:border-white/35 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-              >
-                Book Consultation
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: flow desk */}
-          <div className="rounded-2xl border border-white/10 bg-[#060e1e] p-6 sm:p-8">
-            {/* Desk header */}
-            <div className="mb-6 flex items-center gap-3 border-b border-white/8 pb-4">
-              <div className="flex gap-1.5" aria-hidden="true">
-                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              </div>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/30">
-                XIA Route Desk
+          {/* Editorial advisory image — parallax depth on desktop */}
+          <ParallaxLayer speed={34} className="hidden lg:block">
+            <div className="relative">
+              <ImageReveal
+                src="/images/blogs/immigration-consultants-xiphias.webp"
+                alt="A licensed XIPHIAS advisor reviewing an XIA-generated shortlist"
+                ratio="aspect-[4/5]"
+                position="center"
+                sizes="(min-width:1024px) 36vw, 100vw"
+                className="border border-gold/30 shadow-[0_24px_64px_-38px_rgba(168,125,31,0.5)]"
+              />
+              {/* gold caption tag */}
+              <span className="pointer-events-none absolute start-4 top-4 rounded-full border border-gold/50 bg-pearl/85 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-gold_deep backdrop-blur-sm">
+                Advisor-verified
               </span>
             </div>
+          </ParallaxLayer>
+        </div>
 
-            {/* Steps */}
-            <div className="flex flex-col gap-3">
-              {XIA_FLOW.map((item, i) => {
-                const isDone = i < activeStep;
-                const isActive = i === activeStep;
+      {/* ── Horizontal stepper (md+) ─────────────────────────────────── */}
+      <div className="mt-14 hidden md:block">
+        <div className="relative">
+          {/* Faint base rail — reads on white */}
+          <span
+            aria-hidden
+            className="absolute inset-x-0 top-7 h-px bg-gold/20"
+          />
+          {/* Gold connector that draws across */}
+          <DrawLine
+            d="M0 1 L100 1"
+            viewBox="0 0 100 2"
+            preserveAspectRatio="none"
+            strokeWidth={2}
+            duration={1.8}
+            className="pointer-events-none absolute inset-x-0 top-7 h-px w-full"
+          />
 
-                return (
+          <Stagger className="relative grid grid-cols-4 gap-6" amount={0.3}>
+            {XIA_FLOW.map((item, i) => {
+              const isActive = i === activeStep;
+              return (
+                <StaggerItem key={item.step}>
                   <button
-                    key={item.step}
+                    type="button"
                     onClick={() => setActiveStep(i)}
-                    className={`group flex items-start gap-4 rounded-xl border p-4 text-left transition-all ${
-                      isActive
-                        ? "border-secondary/30 bg-secondary/6"
-                        : isDone
-                          ? "border-white/10 bg-white/3"
-                          : "border-white/6 bg-transparent hover:border-white/12 hover:bg-white/3"
-                    }`}
+                    onMouseEnter={() => setActiveStep(i)}
                     aria-current={isActive ? "step" : undefined}
+                    className="group flex w-full flex-col items-start text-start focus:outline-none"
                   >
-                    {/* Step badge */}
-                    <span
-                      className={`mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-black transition-colors ${
-                        isActive
-                          ? "bg-secondary text-[#040b1a]"
-                          : isDone
-                            ? "bg-white/20 text-white/70"
-                            : "bg-white/8 text-white/30"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {isDone ? "✓" : item.step}
-                    </span>
-
-                    <div>
-                      <p
-                        className={`text-[14px] font-bold leading-tight transition-colors ${
-                          isActive ? "text-secondary" : isDone ? "text-white/60" : "text-white/50"
+                    {/* Node */}
+                    <span className="relative mb-6 inline-flex">
+                      <span
+                        className={`relative z-10 inline-flex h-14 w-14 items-center justify-center rounded-full border font-sora text-[15px] font-bold transition-all duration-300 ${
+                          isActive
+                            ? "border-gold bg-gold text-ink shadow-[0_10px_30px_-8px_rgba(212,175,55,0.6)]"
+                            : "border-gold/40 bg-sand text-gold_deep group-hover:border-gold/70"
                         }`}
                       >
-                        {item.label}
-                      </p>
+                        {item.step}
+                      </span>
+                      {isActive && !reduce && (
+                        <motion.span
+                          layoutId="xia-node-ring"
+                          className="absolute -inset-1.5 rounded-full border border-gold/40"
+                          transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                        />
+                      )}
+                    </span>
 
-                      <AnimatePresence>
-                        {isActive && (
-                          <motion.p
-                            initial={reduce ? {} : { opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={reduce ? {} : { opacity: 0, height: 0 }}
-                            transition={{ duration: 0.28 }}
-                            className="mt-1.5 overflow-hidden text-[12.5px] leading-relaxed text-white/45"
-                          >
-                            {item.description}
-                          </motion.p>
-                        )}
-                      </AnimatePresence>
-                    </div>
+                    <h3
+                      className={`font-sora text-[16px] font-semibold leading-snug transition-colors ${
+                        isActive ? "text-ink" : "text-ink/70 group-hover:text-ink"
+                      }`}
+                    >
+                      {item.label}
+                    </h3>
+
+                    <AnimatePresence initial={false} mode="wait">
+                      {isActive && (
+                        <motion.p
+                          key={item.step}
+                          initial={reduce ? { opacity: 1 } : { opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={reduce ? { opacity: 0 } : { opacity: 0, height: 0 }}
+                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden text-[13.5px] leading-relaxed text-ink/60"
+                        >
+                          <span className="block pt-3">{item.description}</span>
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </button>
-                );
-              })}
-            </div>
-
-            {/* Navigation */}
-            <div className="mt-5 flex items-center justify-between border-t border-white/8 pt-4">
-              <button
-                onClick={() => setActiveStep((s) => Math.max(0, s - 1))}
-                disabled={activeStep === 0}
-                className="text-[12px] font-semibold text-white/30 transition-colors hover:text-white/60 disabled:pointer-events-none disabled:opacity-30"
-              >
-                Previous
-              </button>
-              <div className="flex gap-1.5" aria-hidden="true">
-                {XIA_FLOW.map((_, i) => (
-                  <span
-                    key={i}
-                    className={`h-1 rounded-full transition-all ${
-                      i === activeStep ? "w-5 bg-secondary" : "w-1 bg-white/20"
-                    }`}
-                  />
-                ))}
-              </div>
-              <button
-                onClick={() => setActiveStep((s) => Math.min(XIA_FLOW.length - 1, s + 1))}
-                disabled={activeStep === XIA_FLOW.length - 1}
-                className="text-[12px] font-semibold text-white/50 transition-colors hover:text-white disabled:pointer-events-none disabled:opacity-30"
-              >
-                Next
-              </button>
-            </div>
-          </div>
+                </StaggerItem>
+              );
+            })}
+          </Stagger>
         </div>
       </div>
+
+      {/* ── Vertical stepper (mobile) ────────────────────────────────── */}
+      <div className="relative mt-12 md:hidden">
+        {/* Vertical connector — reads on white */}
+        <span
+          aria-hidden
+          className="absolute bottom-6 start-7 top-6 w-px bg-gold/25"
+        />
+        <DrawLine
+          d="M1 0 L1 100"
+          viewBox="0 0 2 100"
+          preserveAspectRatio="none"
+          strokeWidth={2}
+          duration={1.6}
+          className="pointer-events-none absolute bottom-6 start-7 top-6 h-[calc(100%-3rem)] w-px"
+        />
+
+        <Stagger className="relative flex flex-col gap-8" amount={0.15}>
+          {XIA_FLOW.map((item) => (
+            <StaggerItem key={item.step}>
+              <div className="flex items-start gap-5">
+                <span className="relative z-10 inline-flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-gold bg-gold font-sora text-[15px] font-bold text-ink shadow-[0_8px_24px_-8px_rgba(212,175,55,0.55)]">
+                  {item.step}
+                </span>
+                <div className="pt-1.5">
+                  <h3 className="font-sora text-[16px] font-semibold leading-snug text-ink">
+                    {item.label}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-ink/60">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </div>
+
+      {/* ── CTA row ──────────────────────────────────────────────────── */}
+      <div className="mt-16 flex flex-col flex-wrap items-start gap-4 border-t border-gold/40 pt-10 sm:flex-row sm:items-center">
+        <Magnetic strength={0.3}>
+          <Button href="/xia-intelligence">See XIA Intelligence</Button>
+        </Magnetic>
+        <Button variant="secondary" href="/booking">
+          Book a consultation
+        </Button>
+      </div>
+      </div>
+
+      {/* Bottom gold hairline closes the band into the scroll guide */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/35 to-transparent"
+      />
     </section>
   );
 }

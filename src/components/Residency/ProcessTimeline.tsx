@@ -31,18 +31,19 @@ export default function ProcessTimeline({
     <section
       role="region"
       aria-labelledby={heading ? headingId : undefined}
-      className="text-black dark:text-white"
+      className="text-ink"
     >
       {/* Header */}
       {heading ? (
         <div className="mb-4 flex items-center gap-2">
-          <span className="inline-flex items-center rounded-md bg-indigo-600/10 px-2 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-300">
+          <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
             Process
           </span>
-          <h3 id={headingId} className="text-xl font-semibold">
+          <h3 id={headingId} className="font-sora text-xl font-semibold text-ink">
             {heading}
           </h3>
-          <span className="ml-auto hidden sm:inline-flex items-center rounded-full px-2.5 py-1 text-xs ring-1 ring-slate-200 dark:ring-neutral-700 opacity-70">
+          <span className="ml-auto hidden sm:inline-flex items-center rounded-full px-2.5 py-1 text-xs border border-gold/45 text-ink/45">
             {steps.length} step{steps.length > 1 ? "s" : ""}
           </span>
         </div>
@@ -67,7 +68,7 @@ export default function ProcessTimeline({
                 {/* connector line */}
                 {!isLast ? (
                   <span
-                    className="absolute left-4 sm:left-5 top-6 bottom-0 w-px bg-slate-200 dark:bg-neutral-800"
+                    className="absolute left-4 sm:left-5 top-6 bottom-0 w-px bg-gold/30"
                     aria-hidden
                   />
                 ) : null}
@@ -75,7 +76,7 @@ export default function ProcessTimeline({
                 <span
                   className={[
                     "absolute left-0 top-1 grid h-8 w-8 sm:h-9 sm:w-9 place-items-center",
-                    "rounded-full text-[13px] font-semibold ring-2 ring-white dark:ring-neutral-900 shadow-sm",
+                    "rounded-full text-[13px] font-semibold ring-2 ring-midnight",
                     palette.dotBg,
                   ].join(" ")}
                   aria-hidden
@@ -89,9 +90,9 @@ export default function ProcessTimeline({
                 aria-labelledby={`${stepId}-title`}
                 className={[
                   "ml-10 sm:ml-12 rounded-xl p-4 sm:p-5",
-                  "bg-white/80 dark:bg-neutral-900/40",
-                  "ring-1 shadow-sm transition",
-                  "hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] focus-within:shadow-[0_10px_30px_rgba(0,0,0,0.10)]",
+                  "bg-white",
+                  "border transition",
+                  "hover:border-gold/65",
                   palette.cardRing,
                 ].join(" ")}
               >
@@ -106,14 +107,14 @@ export default function ProcessTimeline({
 
                 <h4
                   id={`${stepId}-title`}
-                  className="mt-2 text-base font-semibold leading-6"
+                  className="mt-2 font-sora text-base font-semibold leading-6 text-ink"
                 >
                   <span className="sr-only">Step {i + 1}: </span>
                   {step.title}
                 </h4>
 
                 {step.description ? (
-                  <p className="mt-2 text-[15px] leading-7 text-black/80 dark:text-gray-200">
+                  <p className="mt-2 text-[15px] leading-7 text-ink/55">
                     {step.description}
                   </p>
                 ) : null}
@@ -170,9 +171,8 @@ function Chip({
       className="
         inline-flex items-center gap-1.5 rounded-full
         px-2.5 py-1 text-xs
-        ring-1 ring-slate-200 dark:ring-neutral-700
-        bg-black/5 text-black/80
-        dark:bg-white/10 dark:text-gray-200
+        border border-gold/45
+        bg-sand/50 text-ink/70
       "
     >
       {icon ? <span aria-hidden>{icon}</span> : null}
@@ -182,37 +182,11 @@ function Chip({
 }
 
 function paletteByIndex(i: number) {
-  // Gentle rotating palette for visual rhythm
-  switch (i % 5) {
-    case 0:
-      return {
-        dotBg: "bg-indigo-600 text-white",
-        cardRing: "ring-indigo-200/70 dark:ring-indigo-900/40",
-        accentBar: "bg-indigo-500/80 dark:bg-indigo-400/60",
-      };
-    case 1:
-      return {
-        dotBg: "bg-emerald-600 text-white",
-        cardRing: "ring-emerald-200/70 dark:ring-emerald-900/40",
-        accentBar: "bg-emerald-500/80 dark:bg-emerald-400/60",
-      };
-    case 2:
-      return {
-        dotBg: "bg-sky-600 text-white",
-        cardRing: "ring-sky-200/70 dark:ring-sky-900/40",
-        accentBar: "bg-sky-500/80 dark:bg-sky-400/60",
-      };
-    case 3:
-      return {
-        dotBg: "bg-rose-600 text-white",
-        cardRing: "ring-rose-200/70 dark:ring-rose-900/40",
-        accentBar: "bg-rose-500/80 dark:bg-rose-400/60",
-      };
-    default:
-      return {
-        dotBg: "bg-amber-600 text-white",
-        cardRing: "ring-amber-200/70 dark:ring-amber-900/40",
-        accentBar: "bg-amber-500/80 dark:bg-amber-400/60",
-      };
-  }
+  // Midnight Embassy — single gold accent across all steps.
+  void i;
+  return {
+    dotBg: "bg-gold text-midnight",
+    cardRing: "border-gold/45",
+    accentBar: "bg-gradient-to-r from-gold to-transparent",
+  };
 }

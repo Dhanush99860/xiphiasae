@@ -41,17 +41,17 @@ export default function ContactChannels({
   return (
     <SectionCard
       className={[
-        // refreshed visual: softer bg, stronger ring, tighter spacing
-        "text-sm p-4 sm:p-5 lg:p-6",
-        "bg-white/95 dark:bg-white/5 ring-1 ring-blue-100/80 dark:ring-blue-900/30",
-        "shadow-[0_1px_0_rgba(0,0,0,0.03)]",
+        // refreshed visual: dark midnight surface, gold-accented
+        "group text-sm p-4 sm:p-5 lg:p-6",
+        "bg-white border border-gold/45 transition-colors hover:border-gold/65",
+        "shadow-[0_1px_0_rgba(255,255,255,0.02)]",
         // make card stretch to available height
         "h-full flex flex-col",
         className,
       ].join(" ")}
       aria-labelledby="contact-channels-title"
     >
-      <h2 id="contact-channels-title" className="text-base sm:text-lg font-semibold">
+      <h2 id="contact-channels-title" className="font-sora text-base sm:text-lg font-semibold text-ink">
         Contact options
       </h2>
 
@@ -59,13 +59,13 @@ export default function ContactChannels({
       <div className="mt-4 grid gap-4">
         {phone && (
           <Row icon={<PhoneIcon />} label="Phone">
-            <a className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600" href={telHref}>
+            <a className="text-ink underline decoration-gold/50 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold" href={telHref}>
               {phone}
             </a>
             {altPhone && (
               <>
                 {" "}/{" "}
-                <a className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600" href={altTelHref}>
+                <a className="text-ink underline decoration-gold/50 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold" href={altTelHref}>
                   {altPhone}
                 </a>
               </>
@@ -75,7 +75,7 @@ export default function ContactChannels({
 
         {email && (
           <Row icon={<MailIcon />} label="Email">
-            <a className="underline decoration-blue-400 underline-offset-2 hover:decoration-blue-600" href={mailHref}>
+            <a className="text-ink underline decoration-gold/50 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold" href={mailHref}>
               {email}
             </a>
           </Row>
@@ -84,7 +84,7 @@ export default function ContactChannels({
         {whatsapp && (
           <Row icon={<WhatsAppIcon />} label="WhatsApp">
             <a
-              className="underline decoration-green-400 underline-offset-2 hover:decoration-green-600"
+              className="text-ink underline decoration-gold/50 underline-offset-2 transition-colors hover:text-gold hover:decoration-gold"
               href={waHref}
               target="_blank"
               rel="noopener noreferrer"
@@ -95,12 +95,12 @@ export default function ContactChannels({
         )}
 
         {address.length > 0 && (
-          <div className="pt-3 border-t border-blue-100/70 dark:border-blue-900/30">
+          <div className="pt-3 border-t border-gold/45">
             <div className="flex items-start gap-2">
-              <PinIcon className="mt-0.5 h-4 w-4" />
+              <PinIcon className="mt-0.5 h-4 w-4 text-gold" />
               <div>
-                <div className="font-medium">Head office</div>
-                <address className="not-italic text-black/80 dark:text-white/80">
+                <div className="font-medium text-ink">Head office</div>
+                <address className="not-italic text-ink/55">
                   {address.map((l, i) => (
                     <div key={i}>{l}</div>
                   ))}
@@ -108,10 +108,10 @@ export default function ContactChannels({
               </div>
             </div>
             {hours && (
-              <div className="mt-2 flex items-start gap-2 text-black/80 dark:text-white/80">
-                <ClockIcon className="mt-0.5 h-4 w-4" />
+              <div className="mt-2 flex items-start gap-2 text-ink/55">
+                <ClockIcon className="mt-0.5 h-4 w-4 text-gold" />
                 <div>
-                  <span className="font-medium">Hours: </span>
+                  <span className="font-medium text-ink">Hours: </span>
                   {hours}
                 </div>
               </div>
@@ -138,10 +138,10 @@ function Action({
     "inline-flex items-center justify-center gap-2 rounded-xl px-3.5 py-2.5 min-h-[44px] text-sm transition focus:outline-none focus-visible:ring-2 active:scale-[0.985]";
   const ring = "ring-1";
   const styles: Record<string, string> = {
-    primary: `bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-600 ${ring} ring-blue-700/20`,
-    secondary: `bg-white/90 text-blue-700 hover:bg-blue-50 dark:bg-white/5 dark:text-blue-200 ${ring} ring-blue-300 dark:ring-blue-800/60 dark:hover:bg-blue-950/20 focus-visible:ring-blue-600`,
-    ghost: `bg-white/80 text-black hover:bg-white dark:bg-white/5 dark:text-white ${ring} ring-blue-200/50 dark:ring-blue-900/40 focus-visible:ring-blue-600`,
-    whatsapp: `bg-[#25D366] text-black hover:bg-[#1ED760] ${ring} ring-black/10 focus-visible:ring-black/40`,
+    primary: `bg-gold text-ink font-semibold hover:bg-gold_bright ${ring} ring-gold/60 focus-visible:ring-gold`,
+    secondary: `bg-sand/50 text-ink hover:border-gold/65 ${ring} ring-gold/15 focus-visible:ring-gold`,
+    ghost: `bg-sand/50 text-ink/80 hover:text-ink ${ring} ring-gold/15 focus-visible:ring-gold`,
+    whatsapp: `bg-sand/50 text-ink hover:border-gold/65 ${ring} ring-gold/15 focus-visible:ring-gold`,
   };
   return (
     <a href={href} className={[base, styles[intent], className].join(" ")} {...rest}>
@@ -153,10 +153,10 @@ function Action({
 function Row({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2">
-      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center">{icon}</span>
+      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center text-gold">{icon}</span>
       <div>
-        <div className="font-medium">{label}</div>
-        <div className="mt-0.5">{children}</div>
+        <div className="font-medium uppercase tracking-wide text-[11px] text-ink/40">{label}</div>
+        <div className="mt-0.5 text-ink/70">{children}</div>
       </div>
     </div>
   );
@@ -214,5 +214,5 @@ function ClockIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 function Dot() {
-  return <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-blue-500" />;
+  return <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-gold" />;
 }

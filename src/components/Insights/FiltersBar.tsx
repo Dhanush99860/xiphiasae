@@ -123,9 +123,9 @@ export default function FiltersBar({
 
   /* ------------------------------ shared styles ----------------------------- */
   const inputBase =
-    "w-full rounded-xl border border-neutral-200 bg-white px-10 py-2.5 text-[14px] leading-5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder:text-neutral-500";
+    "w-full rounded-xl border border-gold/45 bg-white px-10 py-2.5 text-[14px] leading-5 text-ink placeholder:text-ink/40 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30";
   const selectBase =
-    "w-full appearance-none rounded-xl border border-neutral-200 bg-white pl-10 pr-9 py-2.5 text-[14px] leading-5 text-neutral-900 focus:outline-none focus:ring-2 focus:ring-blue-500/30 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100";
+    "w-full appearance-none rounded-xl border border-gold/45 bg-white pl-10 pr-9 py-2.5 text-[14px] leading-5 text-ink focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30";
 
   /* --------------------------------- chips --------------------------------- */
   const chips: Array<{ label: string; onClear: () => void; key: string }> = [];
@@ -168,25 +168,25 @@ export default function FiltersBar({
         aria-label="Filters"
         className="
           hidden sm:block
-          rounded-3xl border border-neutral-200 bg-white/70 p-3 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70
+          rounded-3xl border border-gold/45 bg-white p-3 backdrop-blur
         "
       >
         <div className="relative flex items-center gap-3">
           {/* Visual accent */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-12 top-0 hidden h-full w-24 -skew-x-12 rounded-3xl bg-[radial-gradient(60%_100%_at_0%_50%,rgba(59,130,246,.15),transparent)] sm:block"
+            className="pointer-events-none absolute -left-12 top-0 hidden h-full w-24 -skew-x-12 rounded-3xl bg-[radial-gradient(60%_100%_at_0%_50%,rgba(212,175,55,.12),transparent)] sm:block"
           />
 
           {/* Left: label */}
-          <div className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
+          <div className="flex items-center gap-2 rounded-xl border border-gold/45 bg-sand/50 px-3 py-2 text-sm font-medium text-ink">
             <FilterIcon
-              className="h-4 w-4 text-blue-600 dark:text-blue-400"
+              className="h-4 w-4 text-gold"
               aria-hidden="true"
             />
             Filters
             {hasActive && (
-              <span className="ml-1 rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/15 dark:text-blue-300 dark:ring-blue-500/30">
+              <span className="ml-1 rounded-full bg-gold/15 px-2 py-0.5 text-[11px] font-semibold text-gold ring-1 ring-gold/30">
                 {activeCount}
               </span>
             )}
@@ -195,7 +195,7 @@ export default function FiltersBar({
           {/* Search */}
           <div className="min-w-[260px] flex-1">
             <div className="relative">
-              <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+              <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
               <input
                 id="q"
                 value={q}
@@ -214,7 +214,7 @@ export default function FiltersBar({
           {/* Type */}
           <div className="w-[210px]">
             <div className="relative">
-              <Layers3 className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+              <Layers3 className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
               <select
                 id="kind"
                 value={kind}
@@ -232,14 +232,14 @@ export default function FiltersBar({
                   </option>
                 ))}
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
             </div>
           </div>
 
           {/* Country */}
           <div className="w-[230px]">
             <div className="relative">
-              <Globe2 className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+              <Globe2 className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
               <select
                 id="country"
                 value={country}
@@ -257,7 +257,7 @@ export default function FiltersBar({
                   </option>
                 ))}
               </select>
-              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
             </div>
           </div>
 
@@ -266,7 +266,7 @@ export default function FiltersBar({
             <button
               type="button"
               onClick={clearAll}
-              className="ml-auto inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[13px] font-medium text-neutral-700 underline decoration-neutral-300 underline-offset-4 hover:text-neutral-900 dark:text-neutral-300 dark:decoration-neutral-700 dark:hover:text-white"
+              className="ml-auto inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[13px] font-medium text-ink/70 underline decoration-gold/30 underline-offset-4 hover:text-gold"
             >
               <X className="h-4 w-4" aria-hidden="true" />
               Clear
@@ -282,7 +282,7 @@ export default function FiltersBar({
                 key={c.key}
                 type="button"
                 onClick={c.onClear}
-                className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-[12px] font-medium text-blue-700 ring-1 ring-blue-100 hover:bg-blue-100/80 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/30"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gold/10 px-3 py-1.5 text-[12px] font-medium text-gold ring-1 ring-gold/30 hover:bg-gold/20"
                 aria-label={`Remove ${c.label}`}
               >
                 {c.label}
@@ -296,11 +296,11 @@ export default function FiltersBar({
       {/* Mobile: compact bar + bottom sheet */}
       <section
         aria-label="Filters (mobile)"
-        className="sm:hidden rounded-3xl border border-neutral-200 bg-white/80 p-3 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70"
+        className="sm:hidden rounded-3xl border border-gold/45 bg-white p-3 backdrop-blur"
       >
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+            <SearchIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-ink/40" />
             <input
               value={q}
               onChange={(e) => {
@@ -317,12 +317,12 @@ export default function FiltersBar({
           <button
             type="button"
             onClick={() => setShowSheet(true)}
-            className="inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm font-medium text-neutral-800 active:scale-[.98] dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100"
+            className="inline-flex items-center gap-2 rounded-xl border border-gold/45 bg-sand/50 px-3 py-2 text-sm font-medium text-ink active:scale-[.98]"
           >
-            <FilterIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <FilterIcon className="h-4 w-4 text-gold" />
             Filters
             {hasActive && (
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/15 dark:text-blue-300 dark:ring-blue-500/30">
+              <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[11px] font-semibold text-gold ring-1 ring-gold/30">
                 {activeCount}
               </span>
             )}
@@ -336,14 +336,14 @@ export default function FiltersBar({
               <button
                 key={`m-${c.key}`}
                 onClick={c.onClear}
-                className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-[12px] font-medium text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/30"
+                className="inline-flex items-center gap-1.5 rounded-full bg-gold/10 px-3 py-1.5 text-[12px] font-medium text-gold ring-1 ring-gold/30"
               >
                 {c.label}
                 <X className="h-3.5 w-3.5" aria-hidden="true" />
               </button>
             ))}
             {chips.length > 3 && (
-              <span className="text-[12px] text-neutral-500">
+              <span className="text-[12px] text-ink/55">
                 +{chips.length - 3} more
               </span>
             )}
@@ -355,21 +355,21 @@ export default function FiltersBar({
       {showSheet && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[1px]"
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-[1px]"
             onClick={() => setShowSheet(false)}
             aria-hidden
           />
           <div
-            className="fixed inset-x-0 bottom-0 z-50 max-h-[80vh] overflow-auto rounded-t-3xl border border-neutral-200 bg-white p-4 shadow-xl dark:border-neutral-800 dark:bg-neutral-900"
+            className="fixed inset-x-0 bottom-0 z-50 max-h-[80vh] overflow-auto rounded-t-3xl border border-gold/45 bg-white p-4 shadow-[0_-18px_50px_-20px_rgba(15,23,42,0.08)]"
             role="dialog"
             aria-modal="true"
           >
             <div className="mb-2 flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-3 py-2 text-sm font-medium text-neutral-800 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100">
-                <FilterIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <div className="inline-flex items-center gap-2 rounded-xl border border-gold/45 bg-sand/50 px-3 py-2 text-sm font-medium text-ink">
+                <FilterIcon className="h-4 w-4 text-gold" />
                 Filters
                 {hasActive && (
-                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/15 dark:text-blue-300 dark:ring-blue-500/30">
+                  <span className="rounded-full bg-gold/15 px-2 py-0.5 text-[11px] font-semibold text-gold ring-1 ring-gold/30">
                     {activeCount}
                   </span>
                 )}
@@ -377,7 +377,7 @@ export default function FiltersBar({
               <button
                 type="button"
                 onClick={() => setShowSheet(false)}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-neutral-700 underline decoration-neutral-300 underline-offset-4 dark:text-neutral-300 dark:decoration-neutral-700"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-ink/70 underline decoration-gold/30 underline-offset-4 hover:text-gold"
               >
                 Close
               </button>
@@ -386,10 +386,10 @@ export default function FiltersBar({
             <div className="space-y-3">
               {/* Type */}
               <div className="relative">
-                <label className="mb-1 block text-[12px] font-medium text-neutral-600 dark:text-neutral-300">
+                <label className="mb-1 block text-[12px] font-medium text-ink/70">
                   Type
                 </label>
-                <Layers3 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <Layers3 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-ink/40" />
                 <select
                   value={kind}
                   onChange={(e) => {
@@ -405,15 +405,15 @@ export default function FiltersBar({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-ink/40" />
               </div>
 
               {/* Country */}
               <div className="relative">
-                <label className="mb-1 block text-[12px] font-medium text-neutral-600 dark:text-neutral-300">
+                <label className="mb-1 block text-[12px] font-medium text-ink/70">
                   Country
                 </label>
-                <Globe2 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <Globe2 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-ink/40" />
                 <select
                   value={country}
                   onChange={(e) => {
@@ -429,15 +429,15 @@ export default function FiltersBar({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-ink/40" />
               </div>
 
               {/* Program */}
               <div className="relative">
-                <label className="mb-1 block text-[12px] font-medium text-neutral-600 dark:text-neutral-300">
+                <label className="mb-1 block text-[12px] font-medium text-ink/70">
                   Program
                 </label>
-                <Layers3 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <Layers3 className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-ink/40" />
                 <select
                   value={program}
                   onChange={(e) => {
@@ -453,15 +453,15 @@ export default function FiltersBar({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-ink/40" />
               </div>
 
               {/* Tag */}
               <div className="relative">
-                <label className="mb-1 block text-[12px] font-medium text-neutral-600 dark:text-neutral-300">
+                <label className="mb-1 block text-[12px] font-medium text-ink/70">
                   Tag
                 </label>
-                <TagsIcon className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <TagsIcon className="pointer-events-none absolute left-3 top-[38px] h-4 w-4 text-ink/40" />
                 <select
                   value={tag}
                   onChange={(e) => {
@@ -477,7 +477,7 @@ export default function FiltersBar({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-neutral-400 dark:text-neutral-500" />
+                <ChevronDown className="pointer-events-none absolute right-3 top-[38px] h-4 w-4 text-ink/40" />
               </div>
 
               {/* Chips & clear */}
@@ -487,7 +487,7 @@ export default function FiltersBar({
                     <button
                       key={`sheet-${c.key}`}
                       onClick={c.onClear}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1.5 text-[12px] font-medium text-blue-700 ring-1 ring-blue-100 dark:bg-blue-500/10 dark:text-blue-300 dark:ring-blue-500/30"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-gold/10 px-3 py-1.5 text-[12px] font-medium text-gold ring-1 ring-gold/30"
                     >
                       {c.label}
                       <X className="h-3.5 w-3.5" aria-hidden="true" />
@@ -500,7 +500,7 @@ export default function FiltersBar({
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[13px] font-medium text-neutral-700 underline decoration-neutral-300 underline-offset-4 dark:text-neutral-300 dark:decoration-neutral-700"
+                  className="inline-flex items-center gap-1 rounded-xl px-3 py-2 text-[13px] font-medium text-ink/70 underline decoration-gold/30 underline-offset-4 hover:text-gold"
                 >
                   <X className="h-4 w-4" aria-hidden="true" />
                   Clear all
@@ -508,7 +508,7 @@ export default function FiltersBar({
                 <button
                   type="button"
                   onClick={() => setShowSheet(false)}
-                  className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm active:scale-[.99] dark:bg-blue-500"
+                  className="rounded-xl bg-gold px-4 py-2 text-sm font-semibold text-midnight shadow-sm active:scale-[.99] hover:brightness-110"
                 >
                   Done
                 </button>

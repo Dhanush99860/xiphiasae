@@ -109,8 +109,8 @@ export default function InsightTOC({
           className={[
             "block rounded px-2 py-1 text-sm transition-colors",
             isActiveH2
-              ? "bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white"
-              : "text-slate-700 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white",
+              ? "bg-gold/10 text-gold"
+              : "text-ink/70 hover:text-ink",
           ].join(" ")}
           aria-current={isActiveH2 ? "true" : undefined}
         >
@@ -118,7 +118,7 @@ export default function InsightTOC({
         </a>
 
         {!!children.length && (
-          <ul className="mt-1 ml-3 border-l border-slate-200 dark:border-slate-700 pl-3 space-y-1">
+          <ul className="mt-1 ml-3 border-l border-gold/45 pl-3 space-y-1">
             {children.map((h3) => {
               const active = activeId === h3.id;
               return (
@@ -129,8 +129,8 @@ export default function InsightTOC({
                     className={[
                       "block rounded px-2 py-0.5 text-[13px] leading-5 transition-colors",
                       active
-                        ? "bg-slate-900/5 text-slate-900 dark:bg-white/10 dark:text-white"
-                        : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white",
+                        ? "bg-gold/10 text-gold"
+                        : "text-ink/55 hover:text-ink",
                     ].join(" ")}
                     aria-current={active ? "true" : undefined}
                   >
@@ -150,20 +150,20 @@ export default function InsightTOC({
       {/* Mobile: simple collapsible */}
       <details
         ref={detailsRef}
-        className="lg:hidden rounded-2xl border border-black/10 dark:border-white/10 bg-white/80 dark:bg-black/50 backdrop-blur"
+        className="lg:hidden rounded-2xl border border-gold/45 bg-white backdrop-blur"
       >
         <summary className="flex items-center justify-between cursor-pointer list-none px-4 py-3">
           <div>
-            <div className="text-[13px] font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
+            <div className="text-[13px] font-semibold uppercase tracking-wide text-ink/55">
               On this page
             </div>
             {title && (
-              <div className="text-sm font-medium text-slate-900 dark:text-white line-clamp-1">
+              <div className="text-sm font-medium text-ink line-clamp-1">
                 {title}
               </div>
             )}
           </div>
-          <ChevronDown className="h-5 w-5 text-slate-600 dark:text-slate-300 transition group-open:rotate-180" />
+          <ChevronDown className="h-5 w-5 text-ink/55 transition group-open:rotate-180" />
         </summary>
         <div className="px-4 pb-4">
           <ul className="space-y-1.5">{h2s.map(renderH2)}</ul>
@@ -171,13 +171,13 @@ export default function InsightTOC({
       </details>
 
       {/* Desktop: clean sticky card */}
-      <aside className="hidden lg:block sticky top-28 rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/40 backdrop-blur p-4">
+      <aside className="hidden lg:block sticky top-28 rounded-2xl border border-gold/45 bg-white backdrop-blur p-4">
         <div className="mb-3">
-          <h2 className="text-[13px] font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-300">
+          <h2 className="text-[13px] font-semibold uppercase tracking-wide text-ink/55">
             On this page
           </h2>
           {title && (
-            <p className="mt-1 text-base font-semibold text-slate-900 dark:text-white line-clamp-2">
+            <p className="mt-1 font-sora text-base font-semibold text-ink line-clamp-2">
               {title}
             </p>
           )}

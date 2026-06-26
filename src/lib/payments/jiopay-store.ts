@@ -8,6 +8,7 @@ export type JiopayOrderStatus =
   | "checkout_created"
   | "returned"
   | "paid"
+  | "report_sent"
   | "failed"
   | "provisioned";
 

@@ -1,11 +1,13 @@
 // ==============================================
-// app/team/page.tsx – main page
+// app/teams/page.tsx – Spotlight Feature (navy/gold)
 // ==============================================
 "use client";
 import React from "react";
 import Head from "next/head";
-import Link from "next/link";
+import { Cormorant_Garamond } from "next/font/google";
 import { ORG, LEADERSHIP, ADVISORS, TEAM, EVENTS } from "@/components/Team/team";
+import Header from "@/components/HomeLuxe/LuxeHeader";
+import Footer from "@/components/HomeLuxe/LuxeFooter";
 import { Hero } from "@/components/Team/Hero";
 import { Leadership } from "@/components/Team/Leadership";
 import { Advisors } from "@/components/Team/Advisors";
@@ -14,6 +16,15 @@ import { Values } from "@/components/Team/Values";
 import { Events } from "@/components/Team/Events";
 import { CTA } from "@/components/Team/CTA";
 import { JsonLd } from "@/components/Team/JsonLd";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const NAVY = "#0a1733";
 
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -28,7 +39,10 @@ const orgJsonLd = {
   employee: LEADERSHIP.map((p) => ({ "@type": "Person", name: p.name, jobTitle: p.role, image: p.headshot, email: p.email })),
 } as const;
 
-export default function TeamPage(){
+export default function TeamPage() {
+  const serifClass = serif.className;
+  const md = LEADERSHIP[0];
+
   return (
     <>
       <Head>
@@ -38,12 +52,14 @@ export default function TeamPage(){
         <meta property="og:title" content={`Leadership & Team – ${ORG.name}`} />
         <meta property="og:description" content="Meet the people behind the work." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${ORG.url}/team`} />
+        <meta property="og:url" content={`${ORG.url}/teams`} />
         <meta property="og:image" content={`${ORG.url}${ORG.logo}`} />
       </Head>
       <JsonLd data={orgJsonLd} />
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+      <main style={{ background: NAVY, color: "#fff" }}>
+        <Header serifClass={serifClass} />
+
         <Hero
           title="Meet the People Behind the Work"
           subtitle="Transparent leadership. Senior hands-on execution. A culture that ships."
@@ -52,24 +68,18 @@ export default function TeamPage(){
           secondaryHref="/about"
           secondaryText="About the Company"
           badge="Leadership & Team"
-          align="center"
+          featured={md}
+          serifClass={serifClass}
         />
 
-        <Leadership people={LEADERSHIP} />
-        <Advisors people={ADVISORS} />
-        <TeamDirectory people={TEAM} />
-        <Values />
-        <Events items={EVENTS} />
-        <CTA />
+        <Leadership people={LEADERSHIP} serifClass={serifClass} />
+        <Advisors people={ADVISORS} serifClass={serifClass} />
+        {TEAM.length ? <TeamDirectory people={TEAM} serifClass={serifClass} /> : null}
+        <Values serifClass={serifClass} />
+        {EVENTS.length ? <Events items={EVENTS} serifClass={serifClass} /> : null}
+        <CTA serifClass={serifClass} />
 
-        {/* Breadcrumb – swap with your Breadcrumb component if desired */}
-        <nav aria-label="Breadcrumb" className="mt-8">
-          <ol className="flex flex-wrap items-center gap-2 text-sm">
-            <li><Link href="/" className="text-blue-700 dark:text-blue-300">Home</Link></li>
-            <li>/</li>
-            <li aria-current="page" className="text-zinc-500">Team</li>
-          </ol>
-        </nav>
+        <Footer serifClass={serifClass} />
       </main>
     </>
   );

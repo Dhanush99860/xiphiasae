@@ -107,10 +107,10 @@ export default function CountryCardPro({
       aria-describedby={summary ? dId : undefined}
       className={[
         "group block overflow-hidden rounded-2xl",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200/90 dark:ring-neutral-800/90",
-        "shadow-sm hover:shadow-lg transition hover:-translate-y-0.5 motion-reduce:transform-none",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70",
+        "bg-white border border-gold/45",
+        "transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/65 motion-reduce:transform-none",
+        "hover:shadow-[0_18px_50px_-20px_rgba(15,23,42,0.08)]",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70",
         className,
       ].join(" ")}
     >
@@ -174,21 +174,21 @@ export default function CountryCardPro({
               }}
             />
           ) : (
-            <div className="h-full w-full bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700 grid place-items-center">
-              <span className="text-xs text-neutral-700/80 dark:text-neutral-200/80">
+            <div className="h-full w-full bg-sand grid place-items-center">
+              <span className="text-xs text-ink/40">
                 {country || "Program"}
               </span>
             </div>
           )}
 
           {/* overlays */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-black/5 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
           {country ? (
             <span
-              className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-md bg-white/85 px-2 py-1 text-[11px] font-medium text-neutral-900 ring-1 ring-neutral-200 backdrop-blur
-                         dark:bg-neutral-900/70 dark:text-neutral-100 dark:ring-neutral-700"
+              className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1 rounded-md bg-sand/50 px-2 py-1 text-[11px] font-medium text-ink/70 border border-gold/45 backdrop-blur"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-600" aria-hidden />
+              <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
               {country}
             </span>
           ) : null}
@@ -198,7 +198,7 @@ export default function CountryCardPro({
         <div className="p-4 sm:p-5">
           <h3
             id={hId}
-            className="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
+            className="font-sora text-base font-semibold tracking-tight text-ink"
           >
             {title}
           </h3>
@@ -206,7 +206,7 @@ export default function CountryCardPro({
           {summary ? (
             <p
               id={dId}
-              className="mt-1 text-sm text-neutral-700 dark:text-neutral-300 line-clamp-2"
+              className="mt-1 text-sm text-ink/55 line-clamp-2"
             >
               {summary}
             </p>
@@ -214,19 +214,19 @@ export default function CountryCardPro({
 
           {/* Key metrics */}
           <div className="mt-3 grid grid-cols-2 gap-2 text-[13px]">
-            <div className="rounded-xl p-2 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
-              <div className="font-medium text-neutral-900 dark:text-neutral-100">
+            <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+              <div className="font-semibold text-gold">
                 {price}
               </div>
-              <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                 Min investment
               </div>
             </div>
-            <div className="rounded-xl p-2 bg-neutral-50 dark:bg-neutral-900 ring-1 ring-neutral-200 dark:ring-neutral-800">
-              <div className="font-medium text-neutral-900 dark:text-neutral-100">
+            <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+              <div className="font-semibold text-ink">
                 {time}
               </div>
-              <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+              <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                 Typical timeline
               </div>
             </div>
@@ -234,19 +234,19 @@ export default function CountryCardPro({
 
           {passportRank || visaFreeCount ? (
             <div className="mt-2 grid grid-cols-2 gap-2 text-[13px]">
-              <div className="rounded-xl p-2 ring-1 ring-neutral-200 dark:ring-neutral-800">
-                <div className="font-medium text-neutral-900 dark:text-neutral-100">
+              <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+                <div className="font-semibold text-ink">
                   {passportRank ?? "—"}
                 </div>
-                <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                   Passport rank
                 </div>
               </div>
-              <div className="rounded-xl p-2 ring-1 ring-neutral-200 dark:ring-neutral-800">
-                <div className="font-medium text-neutral-900 dark:text-neutral-100">
+              <div className="rounded-xl p-2 border border-gold/45 bg-sand/50">
+                <div className="font-semibold text-ink">
                   {visaFreeCount ?? "—"}
                 </div>
-                <div className="text-[11px] text-neutral-600 dark:text-neutral-400">
+                <div className="text-[11px] uppercase tracking-[0.14em] text-ink/40">
                   Visa-free countries
                 </div>
               </div>
@@ -260,10 +260,9 @@ export default function CountryCardPro({
                 <span
                   key={t}
                   className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px]
-                             bg-white text-neutral-900 ring-1 ring-neutral-200
-                             dark:bg-neutral-900 dark:text-neutral-100 dark:ring-neutral-700"
+                             border border-gold/45 bg-sand/50 text-ink/70"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-blue-600" aria-hidden />
+                  <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
                   {t}
                 </span>
               ))}

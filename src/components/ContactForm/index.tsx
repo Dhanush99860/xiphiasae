@@ -154,8 +154,8 @@ export default function ContactForm({
     <section
       className={[
         "relative w-full max-w-xl mx-auto",
-        "rounded-2xl bg-white dark:bg-neutral-950",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm",
+        "rounded-2xl bg-white",
+        "border border-gold/45 shadow-[0_1px_0_rgba(255,255,255,0.02)]",
         "p-4 sm:p-6",
         className,
       ].join(" ")}
@@ -165,17 +165,17 @@ export default function ContactForm({
 
       {/* header */}
       <header className="relative">
-        <div className="inline-flex items-center gap-2 text-[12px] text-primary">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+        <div className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.2em] text-ink/40">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
           <span className="font-semibold">Get in touch</span>
         </div>
         <h2
           id={titleId}
-          className="mt-1.5 text-lg sm:text-xl font-semibold text-neutral-900 dark:text-neutral-50"
+          className="mt-1.5 font-sora text-lg sm:text-xl font-semibold text-ink"
         >
           {title}
         </h2>
-        <p className="mt-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="mt-1 text-xs sm:text-sm text-ink/55">
           {desc}
         </p>
       </header>
@@ -258,12 +258,12 @@ export default function ContactForm({
         )}
 
         {isFull && (
-          <label className="md:col-span-2 flex items-start gap-2 text-xs sm:text-sm text-neutral-700 dark:text-neutral-300">
+          <label className="md:col-span-2 flex items-start gap-2 text-xs sm:text-sm text-ink/70">
             <input
               type="checkbox"
               name="consent"
               value="yes"
-              className="mt-0.5 h-4 w-4 rounded border-neutral-300 dark:border-neutral-700 text-primary focus:ring-2 focus:ring-primary"
+              className="mt-0.5 h-4 w-4 rounded border-gold/40 bg-sand/60 text-gold accent-gold focus:ring-2 focus:ring-gold"
             />
             I agree to be contacted about my inquiry. We never sell your data.
           </label>
@@ -276,8 +276,8 @@ export default function ContactForm({
             aria-busy={loading}
             className={[
               "inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold",
-              "bg-primary text-white hover:brightness-110",
-              "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary",
+              "bg-gold text-ink border border-gold/60 hover:bg-gold_bright",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
               "disabled:opacity-60 disabled:cursor-not-allowed",
               "transition-all",
             ].join(" ")}
@@ -293,9 +293,9 @@ export default function ContactForm({
               "Request callback"
             )}
           </button>
-          <p className="mt-2 text-[11px] sm:text-[12px] text-neutral-600 dark:text-neutral-400">
+          <p className="mt-2 text-[11px] sm:text-[12px] text-ink/45">
             We respond within one business day. By submitting, you accept our{" "}
-            <a href="/privacy-policy" className="underline text-primary">
+            <a href="/privacy-policy" className="underline text-gold transition-colors hover:text-gold_bright">
               privacy policy
             </a>
             .
@@ -361,16 +361,16 @@ function Field({
     <div className={["relative", className].join(" ")}>
       <label
         htmlFor={id}
-        className="mb-1.5 block text-[12px] font-medium text-neutral-600 dark:text-neutral-400"
+        className="mb-1.5 block text-[12px] font-medium uppercase tracking-wide text-ink/40"
       >
         {label}
-        {required ? <span className="ml-1 text-red-600">*</span> : null}
+        {required ? <span className="ms-1 text-gold">*</span> : null}
       </label>
 
       <div className="relative">
         {icon ? (
           <span
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
+            className="pointer-events-none absolute start-3 top-1/2 -translate-y-1/2 text-ink/40"
             aria-hidden
           >
             {icon}
@@ -390,12 +390,12 @@ function Field({
           autoComplete={autoComplete}
           onBlur={onBlur}
           className={[
-            "w-full rounded-xl bg-white dark:bg-neutral-950",
-            "ring-1 ring-neutral-300 dark:ring-neutral-700",
-            "pl-10 pr-4 py-3 text-sm text-neutral-900 dark:text-neutral-50 caret-primary",
-            "focus:outline-none focus:ring-2 focus:ring-primary",
-            "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
-            invalid ? "ring-red-400 focus:ring-red-500" : "",
+            "w-full rounded-xl bg-sand/60",
+            "border border-gold/45",
+            "ps-10 pe-4 py-3 text-sm text-ink caret-gold",
+            "focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold",
+            "placeholder:text-ink/40",
+            invalid ? "border-red-400/70 focus:border-red-400 focus:ring-red-400" : "",
           ].join(" ")}
         />
       </div>
@@ -404,7 +404,7 @@ function Field({
         <p
           className={[
             "mt-1 text-[11px] sm:text-[12px]",
-            invalid ? "text-red-600 dark:text-red-400" : "text-neutral-500 dark:text-neutral-400",
+            invalid ? "text-red-400" : "text-ink/45",
           ].join(" ")}
           role={invalid ? "alert" : undefined}
         >
@@ -450,16 +450,16 @@ function Textarea({
     <div className={["relative", className].join(" ")}>
       <label
         htmlFor={id}
-        className="mb-1.5 block text-[12px] font-medium text-neutral-600 dark:text-neutral-400"
+        className="mb-1.5 block text-[12px] font-medium uppercase tracking-wide text-ink/40"
       >
         {label}
-        {required ? <span className="ml-1 text-red-600">*</span> : null}
+        {required ? <span className="ms-1 text-gold">*</span> : null}
       </label>
 
       <div className="relative">
         {icon ? (
           <span
-            className="pointer-events-none absolute left-3 top-3 text-neutral-400 dark:text-neutral-500"
+            className="pointer-events-none absolute start-3 top-3 text-ink/40"
             aria-hidden
           >
             {icon}
@@ -478,12 +478,12 @@ function Textarea({
           onBlur={onBlur}
           onInput={(e) => onInput?.((e.target as HTMLTextAreaElement).value.length)}
           className={[
-            "w-full rounded-xl bg-white dark:bg-neutral-950",
-            "ring-1 ring-neutral-300 dark:ring-neutral-700",
-            "pl-10 pr-4 py-3 text-sm text-neutral-900 dark:text-neutral-50 caret-primary",
-            "focus:outline-none focus:ring-2 focus:ring-primary",
-            "resize-y placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
-            invalid ? "ring-red-400 focus:ring-red-500" : "",
+            "w-full rounded-xl bg-sand/60",
+            "border border-gold/45",
+            "ps-10 pe-4 py-3 text-sm text-ink caret-gold",
+            "focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold",
+            "resize-y placeholder:text-ink/40",
+            invalid ? "border-red-400/70 focus:border-red-400 focus:ring-red-400" : "",
           ].join(" ")}
         />
       </div>
@@ -492,7 +492,7 @@ function Textarea({
         <p
           className={[
             "mt-1 text-[11px] sm:text-[12px]",
-            invalid ? "text-red-600 dark:text-red-400" : "text-neutral-500 dark:text-neutral-400",
+            invalid ? "text-red-400" : "text-ink/45",
           ].join(" ")}
           role={invalid ? "alert" : undefined}
         >
@@ -506,16 +506,16 @@ function Textarea({
 /* subtle decorative background */
 function CardBG() {
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0">
-      <div className="absolute -top-10 -left-10 h-28 w-28 rounded-full bg-primary/10 blur-3xl" />
-      <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.04] dark:opacity-[0.07]">
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+      <div className="absolute -top-10 -left-10 h-28 w-28 rounded-full bg-gold/10 blur-3xl" />
+      <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-gold/10 blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.06]">
         <defs>
           <pattern id="grid-cf" width="24" height="24" patternUnits="userSpaceOnUse">
             <path d="M24 0H0V24" fill="none" stroke="currentColor" strokeWidth="0.75" />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid-cf)" className="text-primary" />
+        <rect width="100%" height="100%" fill="url(#grid-cf)" className="text-gold" />
       </svg>
     </div>
   );

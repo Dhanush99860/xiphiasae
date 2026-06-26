@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 
 import { getProgrammeExplorerData } from "@/lib/programme-explorer";
 import { toCostProgram } from "@/lib/cost-estimator";
 import ProgramComparisonClient, {
   type ComparableProgram,
 } from "@/components/ProgramComparison/ProgramComparisonClient";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Compare Programmes — XIA Intelligence",
@@ -23,5 +31,5 @@ export default function CompareProgramsPage() {
     risk: it.risk,
     family: it.family,
   }));
-  return <ProgramComparisonClient programs={programs} />;
+  return <ProgramComparisonClient programs={programs} serifClass={serif.className} />;
 }

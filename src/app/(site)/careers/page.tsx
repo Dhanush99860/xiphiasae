@@ -1,6 +1,7 @@
 // app/careers/page.tsx
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { Cormorant_Garamond } from "next/font/google";
 import Hero from "@/components/careers/Hero";
 import { getAllJobs } from "@/lib/jobs";
 import JobList from "@/components/careers/JobList";
@@ -9,7 +10,14 @@ import HiringSteps from "@/components/careers/HiringSteps";
 import Perks from "@/components/careers/Perks";
 import FAQ from "@/components/careers/FAQ";
 import QuickApplyForm from "@/components/careers/QuickApplyForm";
-import Breadcrumb from "@/components/Common/Breadcrumb";
+import Header from "@/components/HomeLuxe/LuxeHeader";
+import Footer from "@/components/HomeLuxe/LuxeFooter";
+import Ambient from "@/components/HomeLuxe/Ambient";
+
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+
+const GOLD = "#bfa15c";
+const NAVY = "#0a1733";
 
 export const dynamic = "force-static"; // build-time; FS-driven
 
@@ -50,6 +58,8 @@ export default function Page() {
     new Set(jobs.map((j) => j.dept).filter(Boolean))
   ) as string[];
 
+  const featured = jobs[0];
+
   return (
     <>
       {/* Organization structured data (OK on listing page) */}
@@ -58,91 +68,156 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: orgJsonLd() }}
       />
 
-      <main className="mx-auto max-w-7xl px-4 pb-16 pt-10 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <Breadcrumb />
+      <main style={{ background: NAVY, color: "#fff" }}>
+        <Header serifClass={serif.className} />
 
-        {/* Hero */}
-        <Hero />
+        {/* ───────── HERO + FEATURED SPOTLIGHT (dark) ───────── */}
+        <section
+          data-tone="dark"
+          className="relative overflow-hidden px-6 pb-24 pt-36 md:px-10 lg:px-16"
+          style={{ background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`, color: "#fff" }}
+        >
+          <Ambient tone="dark" />
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <Hero serifClass={serif.className} featured={featured} openCount={jobs.length} />
+          </div>
+        </section>
 
-        {/* Filters + listing */}
+        {/* ───────── FILTERS + LISTING (dark) ───────── */}
         <section
           id="open-roles"
+          data-tone="dark"
           aria-label="Filters and Open roles"
-          className="mt-10 md:mt-14"
+          className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+          style={{ background: NAVY, color: "#fff" }}
         >
-          <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Open Roles
-          </h2>
-          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-            On-site opportunities across consulting, sales, processing, design,
-            and marketing from our Bengaluru and branch offices.
-          </p>
-
-          <div className="mt-4">
-            {/*
-              `JobFilters` uses `useSearchParams()`.
-              Wrap it in Suspense so static prerendering doesn't error.
-            */}
-            <Suspense
-              fallback={
-                <div className="h-14 rounded-xl bg-black/5 dark:bg-white/10 ring-1 ring-black/10 dark:ring-white/10 animate-pulse" />
-              }
-            >
-              <JobFilters depts={depts} />
-            </Suspense>
-          </div>
-
-          <div className="mt-6">
-            {/*
-              `JobList` uses `useSearchParams()`.
-              Wrap it in Suspense so static prerendering doesn't error.
-            */}
-            <Suspense
-              fallback={
-                <div className="h-56 rounded-2xl bg-black/5 dark:bg-white/10 ring-1 ring-black/10 dark:ring-white/10 animate-pulse" />
-              }
-            >
-              <JobList jobs={jobs} />
-            </Suspense>
-          </div>
-        </section>
-
-        {/* Hiring process */}
-        <section id="process" aria-label="Hiring process" className="mt-14">
-          <HiringSteps />
-        </section>
-
-        {/* Benefits */}
-        <section id="perks" aria-label="Benefits & Perks" className="mt-14">
-          <Perks />
-        </section>
-
-        {/* FAQ */}
-        <section id="faq" aria-label="Frequently asked questions" className="mt-14">
-          <FAQ />
-        </section>
-
-        {/* Apply / quick form */}
-        <section id="apply" aria-label="Quick apply" className="mt-16">
-          <div
-            className={[
-              "rounded-3xl p-6 sm:p-8",
-              "bg-gradient-to-br from-sky-50 via-white to-indigo-50 ring-1 ring-blue-100/80",
-              "dark:from-blue-950/30 dark:to-indigo-950/20 dark:ring-blue-900/40",
-            ].join(" ")}
-          >
-            <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Quick Apply
+          <Ambient tone="dark" />
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8" style={{ background: GOLD }} />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: GOLD }}>
+                Open roles
+              </span>
+            </div>
+            <h2 className={`${serif.className} mt-4 max-w-2xl text-[clamp(1.7rem,3.6vw,2.6rem)] font-medium`}>
+              Find your <span className="italic" style={{ color: GOLD }}>place</span>
             </h2>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-              Don’t see an exact match? Share your resume and we’ll reach out.
+            <p className="mt-3 max-w-xl text-sm text-white/55">
+              On-site opportunities across consulting, sales, processing, design,
+              and marketing from our Bengaluru and branch offices.
             </p>
-            <div className="mt-5">
-              <QuickApplyForm />
+
+            <div className="mt-8">
+              {/*
+                `JobFilters` uses `useSearchParams()`.
+                Wrap it in Suspense so static prerendering doesn't error.
+              */}
+              <Suspense
+                fallback={
+                  <div className="h-14 animate-pulse rounded-2xl" style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }} />
+                }
+              >
+                <JobFilters depts={depts} />
+              </Suspense>
+            </div>
+
+            <div className="mt-6">
+              {/*
+                `JobList` uses `useSearchParams()`.
+                Wrap it in Suspense so static prerendering doesn't error.
+              */}
+              <Suspense
+                fallback={
+                  <div className="h-56 animate-pulse rounded-2xl" style={{ border: "1px solid rgba(191,161,92,0.22)", background: "rgba(255,255,255,0.02)" }} />
+                }
+              >
+                <JobList jobs={jobs} serifClass={serif.className} />
+              </Suspense>
             </div>
           </div>
         </section>
+
+        {/* ───────── HIRING PROCESS (light) ───────── */}
+        <section
+          id="process"
+          data-tone="light"
+          aria-label="Hiring process"
+          className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+          style={{ background: "#fbfaf7", color: "#0c1f3f" }}
+        >
+          <Ambient tone="light" />
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <HiringSteps serifClass={serif.className} />
+          </div>
+        </section>
+
+        {/* ───────── BENEFITS (dark) ───────── */}
+        <section
+          id="perks"
+          data-tone="dark"
+          aria-label="Benefits & Perks"
+          className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+          style={{ background: NAVY, color: "#fff" }}
+        >
+          <Ambient tone="dark" />
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <Perks serifClass={serif.className} />
+          </div>
+        </section>
+
+        {/* ───────── FAQ (light) ───────── */}
+        <section
+          id="faq"
+          data-tone="light"
+          aria-label="Frequently asked questions"
+          className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+          style={{ background: "#f7f4ef", color: "#0c1f3f" }}
+        >
+          <Ambient tone="light" />
+          <div className="relative z-10 mx-auto max-w-6xl">
+            <FAQ serifClass={serif.className} />
+          </div>
+        </section>
+
+        {/* ───────── QUICK APPLY (dark hero band, light form card) ───────── */}
+        <section
+          id="apply"
+          data-tone="dark"
+          aria-label="Quick apply"
+          className="relative overflow-hidden px-6 py-24 md:px-10 lg:px-16"
+          style={{ background: `radial-gradient(120% 90% at 15% 0%, #13284f 0%, ${NAVY} 60%)`, color: "#fff" }}
+        >
+          <Ambient tone="dark" />
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+            <div>
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8" style={{ background: GOLD }} />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.3em]" style={{ color: GOLD }}>
+                  Quick apply
+                </span>
+              </div>
+              <h2 className={`${serif.className} mt-5 text-[clamp(2rem,4.5vw,3.4rem)] font-medium leading-[1.04]`}>
+                Don&apos;t see an exact match? <span className="italic" style={{ color: GOLD }}>Tell us anyway.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[15px] leading-relaxed text-white/65">
+                Share your resume and a few details — our talent team will reach out when a suitable
+                role opens.
+              </p>
+            </div>
+            <div
+              className="rounded-2xl border p-7 sm:p-9"
+              style={{ borderColor: `${GOLD}40`, background: "#f6f9fd", boxShadow: "0 40px 110px -50px rgba(0,0,0,0.7)" }}
+            >
+              <h3 className={`${serif.className} text-[1.7rem] font-medium text-[#0c1f3f]`}>Submit your application</h3>
+              <p className="mt-1 text-sm text-[#0c1f3f]/55">We&apos;ll keep your details on file and reach out.</p>
+              <div className="mt-6">
+                <QuickApplyForm />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Footer serifClass={serif.className} />
       </main>
     </>
   );

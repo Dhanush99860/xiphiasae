@@ -55,7 +55,7 @@ function SquareThumb({ item }: { item: CompareItem }) {
   const [src, setSrc] = React.useState(safeThumbSrc(item));
   const [stage, setStage] = React.useState<0 | 1>(0);
   return (
-    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-900">
+    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md bg-sand">
       <Image
         src={src}
         alt=""
@@ -209,8 +209,8 @@ export default function CompareDrawer({
         onClick={() => setOpen(true)}
         className={[
           "fixed top-2 right-4 z-40 inline-flex items-center gap-2 rounded-full px-4 py-2",
-          "bg-blue-600 text-white shadow-lg ring-1 ring-blue-700/20",
-          "hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
+          "bg-gold text-midnight font-semibold shadow-lg",
+          "hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold",
         ].join(" ")}
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -225,7 +225,7 @@ export default function CompareDrawer({
           <path d="M3 5.75A.75.75 0 0 1 3.75 5h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 5.75Zm0 6A.75.75 0 0 1 3.75 11h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 11.75Zm.75 5.25a.75.75 0 0 0 0 1.5h16.5a.75.75 0 0 0 0-1.5H3.75Z" />
         </svg>
         <span className="font-medium">Compare</span>
-        <span className="ml-1 rounded-full bg-white/20 px-2 py-0.5 text-xs">
+        <span className="ml-1 rounded-full bg-sand/20 px-2 py-0.5 text-xs">
           {items.length}
         </span>
       </button>
@@ -250,8 +250,8 @@ export default function CompareDrawer({
             ref={panelRef}
             className={[
               "absolute right-0 top-0 h-full w-full max-w-3xl",
-              "bg-white dark:bg-zinc-950 shadow-2xl",
-              "ring-1 ring-blue-100/80 dark:ring-blue-900/40",
+              "bg-sand shadow-2xl",
+              "border-l border-gold/45",
               "flex flex-col",
               reduceMotion ? "" : "transition-transform duration-300 ease-out",
               reduceMotion ? "" : "translate-x-0",
@@ -259,8 +259,8 @@ export default function CompareDrawer({
             ].join(" ")}
           >
             {/* header */}
-            <div className="flex items-center gap-3 border-b border-blue-100/80 dark:border-blue-900/40 px-5 py-4">
-              <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white ring-1 ring-blue-700/20">
+            <div className="flex items-center gap-3 border-b border-gold/45 px-5 py-4">
+              <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-sand/50 text-gold border border-gold/45">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4"
@@ -271,10 +271,10 @@ export default function CompareDrawer({
                 </svg>
               </div>
               <div className="min-w-0">
-                <h3 className="text-base font-semibold leading-tight">
+                <h3 className="font-sora text-base font-semibold leading-tight text-ink">
                   {title}
                 </h3>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400">
+                <p className="text-xs text-ink/55">
                   Side-by-side overview of timelines, minimum investment, and
                   tags.
                 </p>
@@ -282,7 +282,7 @@ export default function CompareDrawer({
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="ml-auto inline-flex items-center gap-2 rounded-xl bg-white/90 px-3 py-1.5 text-sm ring-1 ring-blue-200 hover:bg-blue-50 dark:bg-white/5 dark:ring-blue-900/40 dark:hover:bg-blue-950/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                className="ml-auto inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm text-ink border border-gold/45 hover:border-gold/65 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
                 Close
                 <svg
@@ -303,7 +303,7 @@ export default function CompareDrawer({
                 {items.map((it, idx) => (
                   <li
                     key={it.href}
-                    className="rounded-2xl ring-1 ring-blue-100/80 bg-white p-3 dark:bg-white/5 dark:ring-blue-900/40"
+                    className="rounded-2xl border border-gold/45 bg-white p-3"
                     itemScope
                     itemType="https://schema.org/Service"
                   >
@@ -314,10 +314,10 @@ export default function CompareDrawer({
                     <div className="flex items-center gap-3">
                       <SquareThumb item={it} />
                       <div className="min-w-0">
-                        <div className="text-sm font-medium truncate">
+                        <div className="text-sm font-medium text-ink truncate">
                           {it.title}
                         </div>
-                        <div className="text-xs text-zinc-600 dark:text-zinc-300 truncate">
+                        <div className="text-xs text-ink/55 truncate">
                           {it.country}
                         </div>
                         {!!it.tags?.length && (
@@ -325,7 +325,7 @@ export default function CompareDrawer({
                             {it.tags.slice(0, 4).map((t) => (
                               <span
                                 key={t}
-                                className="text-[11px] rounded-full bg-white/90 dark:bg-white/5 px-2 py-0.5 ring-1 ring-blue-100/80 dark:ring-blue-900/40"
+                                className="text-[11px] rounded-full bg-sand/50 text-ink/70 px-2 py-0.5 border border-gold/45"
                               >
                                 {t}
                               </span>
@@ -335,7 +335,7 @@ export default function CompareDrawer({
                       </div>
                       <Link
                         href={it.href}
-                        className="ml-auto inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-3 py-1.5 text-xs text-white ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                        className="ml-auto inline-flex items-center gap-1.5 rounded-xl bg-gold px-3 py-1.5 text-xs text-midnight font-semibold hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                         aria-label={`View ${it.title}`}
                       >
                         View
@@ -350,17 +350,17 @@ export default function CompareDrawer({
                       </Link>
                     </div>
                     <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                      <div className="rounded-lg bg-white/90 dark:bg-white/5 px-2 py-1 ring-1 ring-blue-100/80 dark:ring-blue-900/40">
-                        <dt className="text-zinc-500">Minimum investment</dt>
-                        <dd className="tabular-nums">
+                      <div className="rounded-lg bg-sand/50 px-2 py-1 border border-gold/45">
+                        <dt className="text-ink/40 uppercase tracking-[0.12em]">Minimum investment</dt>
+                        <dd className="tabular-nums text-gold">
                           {typeof it.minInvestment === "number"
                             ? toCurrency(it.minInvestment, it.currency ?? "USD")
                             : "—"}
                         </dd>
                       </div>
-                      <div className="rounded-lg bg-white/90 dark:bg-white/5 px-2 py-1 ring-1 ring-blue-100/80 dark:ring-blue-900/40">
-                        <dt className="text-zinc-500">Timeline</dt>
-                        <dd className="tabular-nums">
+                      <div className="rounded-lg bg-sand/50 px-2 py-1 border border-gold/45">
+                        <dt className="text-ink/40 uppercase tracking-[0.12em]">Timeline</dt>
+                        <dd className="tabular-nums text-ink">
                           {formatTimelineShort(
                             it.timelineMonths,
                             it.timelineLabel,
@@ -375,8 +375,8 @@ export default function CompareDrawer({
               {/* Desktop table */}
               <div className="hidden md:block">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-white/90 dark:bg-zinc-950/90 backdrop-blur ring-1 ring-blue-100/80 dark:ring-blue-900/40">
-                    <tr className="text-left">
+                  <thead className="sticky top-0 bg-sand/90 backdrop-blur border-b border-gold/45">
+                    <tr className="text-left text-ink/45 uppercase tracking-[0.12em] text-[12px]">
                       <th className="p-2 font-semibold">Program</th>
                       <th className="p-2 text-right font-semibold">
                         Min investment
@@ -385,20 +385,20 @@ export default function CompareDrawer({
                       <th className="p-2 text-right font-semibold">Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-gold/5">
                     {items.map((it) => (
                       <tr
                         key={it.href}
-                        className="border-b border-blue-100/80 dark:border-blue-900/40"
+                        className="hover:bg-white/[0.03]"
                       >
                         <td className="p-2">
                           <div className="flex items-center gap-3">
                             <SquareThumb item={it} />
                             <div className="min-w-0">
-                              <div className="font-medium truncate">
+                              <div className="font-medium text-ink truncate">
                                 {it.title}
                               </div>
-                              <div className="text-xs text-zinc-600 dark:text-zinc-300 truncate">
+                              <div className="text-xs text-ink/55 truncate">
                                 {it.country}
                               </div>
                               {!!it.tags?.length && (
@@ -406,7 +406,7 @@ export default function CompareDrawer({
                                   {it.tags.slice(0, 4).map((t) => (
                                     <span
                                       key={t}
-                                      className="text-[11px] rounded-full bg-white/90 dark:bg-white/5 px-2 py-0.5 ring-1 ring-blue-100/80 dark:ring-blue-900/40"
+                                      className="text-[11px] rounded-full bg-sand/50 text-ink/70 px-2 py-0.5 border border-gold/45"
                                     >
                                       {t}
                                     </span>
@@ -416,12 +416,12 @@ export default function CompareDrawer({
                             </div>
                           </div>
                         </td>
-                        <td className="p-2 text-right tabular-nums">
+                        <td className="p-2 text-right tabular-nums text-gold">
                           {typeof it.minInvestment === "number"
                             ? toCurrency(it.minInvestment, it.currency ?? "USD")
                             : "—"}
                         </td>
-                        <td className="p-2 text-right tabular-nums">
+                        <td className="p-2 text-right tabular-nums text-ink">
                           {formatTimelineShort(
                             it.timelineMonths,
                             it.timelineLabel,
@@ -430,7 +430,7 @@ export default function CompareDrawer({
                         <td className="p-2 text-right">
                           <Link
                             href={it.href}
-                            className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-3 py-1.5 text-xs text-white ring-1 ring-blue-700/20 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                            className="inline-flex items-center gap-1.5 rounded-xl bg-gold px-3 py-1.5 text-xs text-midnight font-semibold hover:bg-gold_bright focus:outline-none focus-visible:ring-2 focus-visible:ring-gold"
                             aria-label={`View ${it.title}`}
                           >
                             View
@@ -452,7 +452,7 @@ export default function CompareDrawer({
             </div>
 
             {/* footer (optional area for notes) */}
-            <div className="border-t border-blue-100/80 dark:border-blue-900/40 px-5 py-3 text-xs text-zinc-600 dark:text-zinc-400">
+            <div className="border-t border-gold/45 px-5 py-3 text-xs text-ink/45">
               Figures are indicative and subject to due diligence outcomes and
               government updates.
             </div>

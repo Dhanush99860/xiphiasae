@@ -42,7 +42,7 @@ export function CountryRoutePopover({
         border:               "1px solid rgba(255,255,255,0.08)",
         borderRadius:         "20px",
         overflow:             "hidden",
-        boxShadow:            `0 0 0 1px ${track.color}18, 0 24px 72px rgba(0,0,0,0.85), 0 0 140px ${track.color}06`,
+        boxShadow:            `0 0 0 1px ${track.color}18, 0 24px 72px rgba(15,23,42,0.08), 0 0 140px ${track.color}06`,
         fontFamily:           "inherit",
         pointerEvents:        "auto",
       }}

@@ -30,7 +30,7 @@ type Props = {
  * CorporateFilterBar — 3 controls: Search | Route type | Sort
  * - Debounced search (300ms), Clear search button, Reset all
  * - Corporate-specific route & sort options
- * - Emerald/teal palette to match Corporate UI
+ * - Midnight Embassy palette (ink ground, gold accent)
  */
 export default function CorporateFilterBar({ initial, onChange, className = "" }: Props) {
   const [q, setQ] = React.useState(initial?.q ?? "");
@@ -65,10 +65,10 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
       id={sectionId}
       aria-label="Program filters"
       className={[
-        "relative overflow-hidden",
+        "relative overflow-hidden font-sora",
         "rounded-2xl p-4 sm:p-5",
-        "bg-white dark:bg-neutral-900",
-        "ring-1 ring-neutral-200 dark:ring-neutral-800 shadow-sm",
+        "bg-white",
+        "border border-gold/45",
         className,
       ].join(" ")}
     >
@@ -76,11 +76,11 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
 
       {/* Header */}
       <header className="relative mb-3 flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2 text-[12px] text-emerald-700 dark:text-emerald-300">
-          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-600" />
+        <div className="flex items-center gap-2 text-[12px] text-ink/55">
+          <span className="inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
           <span className="font-medium">Filters</span>
           {hasActive ? (
-            <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100 px-2 py-[2px] dark:bg-emerald-950/30 dark:text-emerald-200 dark:ring-emerald-900/40">
+            <span className="ml-1 inline-flex items-center gap-1 rounded-full border border-gold/45 bg-gold/10 text-gold px-2 py-[2px]">
               {activeCount} active
             </span>
           ) : null}
@@ -89,7 +89,7 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
         <button
           type="button"
           onClick={resetAll}
-          className="text-[12px] font-medium text-neutral-600 hover:text-neutral-900 underline underline-offset-4 dark:text-neutral-300 dark:hover:text-neutral-100"
+          className="text-[12px] font-medium text-ink/55 hover:text-gold underline underline-offset-4 transition-colors"
           aria-label="Reset all filters"
         >
           Reset
@@ -110,7 +110,7 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
           </label>
           <span
             aria-hidden
-            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink/40"
           >
             <SearchIcon className="h-4 w-4" />
           </span>
@@ -123,11 +123,11 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
             enterKeyHint="search"
             className="
               w-full rounded-xl pl-9 pr-9 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              placeholder:text-neutral-500 dark:placeholder:text-neutral-400
-              focus:outline-none focus:ring-2 focus:ring-emerald-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              placeholder:text-ink/40
+              focus:outline-none focus:border-gold
             "
           />
           {q ? (
@@ -137,8 +137,8 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
               aria-label="Clear search"
               className="
                 absolute right-2 top-1/2 -translate-y-1/2 grid place-items-center
-                h-7 w-7 rounded-md ring-1 ring-neutral-300 dark:ring-neutral-700
-                text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800
+                h-7 w-7 rounded-md border border-gold/45
+                text-ink/55 hover:text-gold hover:border-gold/65 transition-colors
               "
             >
               <XIcon className="h-3.5 w-3.5" />
@@ -155,10 +155,10 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
             id="corp-filter-route"
             className="
               w-full appearance-none rounded-xl px-3 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              focus:outline-none focus:ring-2 focus:ring-emerald-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              focus:outline-none focus:border-gold
             "
             value={routeType}
             onChange={(e) => setRouteType(e.target.value as any)}
@@ -174,7 +174,7 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
           </select>
           <span
             aria-hidden
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink/40"
           >
             <ChevronDownIcon className="h-4 w-4" />
           </span>
@@ -189,10 +189,10 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
             id="corp-filter-sort"
             className="
               w-full appearance-none rounded-xl px-3 py-2
-              ring-1 ring-neutral-300 dark:ring-neutral-700
-              bg-white dark:bg-neutral-900
-              text-sm text-neutral-900 dark:text-neutral-100
-              focus:outline-none focus:ring-2 focus:ring-emerald-400/70
+              border border-gold/45
+              bg-white
+              text-sm text-ink
+              focus:outline-none focus:border-gold
             "
             value={sort}
             onChange={(e) => setSort(e.target.value as any)}
@@ -203,7 +203,7 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
           </select>
           <span
             aria-hidden
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink/40"
           >
             <ChevronDownIcon className="h-4 w-4" />
           </span>
@@ -217,12 +217,12 @@ export default function CorporateFilterBar({ initial, onChange, className = "" }
 function BackgroundGraphics() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 print:hidden">
-      <div className="absolute -top-20 -left-16 h-48 w-48 rounded-full bg-emerald-300/15 blur-3xl" />
-      <div className="absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-teal-400/10 blur-3xl" />
-      <svg className="absolute inset-0 h-full w-full opacity-[0.03] dark:opacity-[0.05]" xmlns="http://www.w3.org/2000/svg">
+      <div className="absolute -top-20 -left-16 h-48 w-48 rounded-full bg-gold/10 blur-3xl" />
+      <div className="absolute -bottom-20 -right-16 h-56 w-56 rounded-full bg-gold/5 blur-3xl" />
+      <svg className="absolute inset-0 h-full w-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="corp-grid" width="24" height="24" patternUnits="userSpaceOnUse">
-            <path d="M24 0H0v24" fill="none" stroke="#111827" strokeWidth="0.75" />
+            <path d="M24 0H0v24" fill="none" stroke="#d4af37" strokeWidth="0.75" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#corp-grid)" />

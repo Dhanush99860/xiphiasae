@@ -1,6 +1,7 @@
 // components/about/Credibility.tsx
 import React from "react";
 import { Awards } from "@/components/awards";
+import { Eyebrow } from "@/components/ui";
 
 type Brand = { name: string; abbr?: string; color?: string };
 
@@ -37,14 +38,12 @@ export default function Credibility() {
     >
       {/* container aligned with hero + overflow safety */}
       <div className="container mx-auto lg:max-w-screen-2xl px-4 sm:px-6 lg:px-8 overflow-x-clip">
-        {/* gradient, ringed wrapper (hero aesthetic) */}
+        {/* dark ink wrapper (Midnight Embassy) */}
         <div
           className={[
             "relative overflow-hidden rounded-3xl p-6 md:p-8 lg:p-10",
-            "bg-gradient-to-br from-sky-50 via-white to-indigo-50",
-            "ring-1 ring-blue-100/80 shadow-sm",
-            "dark:from-blue-950/30 dark:via-transparent dark:to-indigo-950/20 dark:ring-blue-900/40",
-            "text-black dark:text-white",
+            "bg-white border border-gold/45",
+            "text-ink",
           ].join(" ")}
         >
           {/* soft background accents (clipped) */}
@@ -52,26 +51,25 @@ export default function Credibility() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
           >
-            <div className="hidden sm:block absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl dark:bg-blue-700/10" />
-            <div className="hidden sm:block absolute -bottom-28 -left-10 h-72 w-72 rounded-full bg-indigo-300/20 blur-3xl dark:bg-indigo-700/10" />
-            <div className="absolute inset-0 opacity-40 dark:opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
+            <div className="hidden sm:block absolute -top-24 -end-24 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+            <div className="hidden sm:block absolute -bottom-28 -start-10 h-72 w-72 rounded-full bg-gold/5 blur-3xl" />
+            <div className="absolute inset-0 opacity-20 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent_80%)]">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(212,175,55,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(212,175,55,0.06)_1px,transparent_1px)] bg-[size:22px_22px]" />
             </div>
           </div>
 
           {/* header */}
           <header className="relative mb-6 md:mb-8 text-center">
-            <span className="inline-flex items-center rounded-full bg-white/80 px-3 py-1 text-xs font-medium ring-1 ring-blue-200 backdrop-blur dark:bg-white/5 dark:ring-blue-800">
-              <Dot className="mr-1.5" />
+            <Eyebrow arabic="مصداقية" className="justify-center">
               Recognized &amp; Featured
-            </span>
+            </Eyebrow>
             <h2
               id={titleId}
-              className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl lg:text-[32px]"
+              className="mt-3 font-sora text-2xl font-semibold tracking-tight text-ink md:text-3xl lg:text-[32px]"
             >
               Credibility Markers
             </h2>
-            <p className="mt-2 max-w-3xl mx-auto text-sm text-zinc-700 dark:text-zinc-300">
+            <p className="mt-2 max-w-3xl mx-auto text-sm text-ink/55">
               Memberships, press mentions and awards across key markets.
             </p>
           </header>
@@ -106,21 +104,21 @@ export default function Credibility() {
 
           {/* AWARDS — uses shared Awards component */}
           <RowTitle>Awards &amp; Recognition</RowTitle>
-          <div className="group relative overflow-hidden rounded-2xl border border-blue-100/70 bg-white/90 p-3 ring-1 ring-blue-100/70 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:ring-blue-900/40">
+          <div className="group relative overflow-hidden rounded-2xl border border-gold/45 bg-sand/50 p-3">
             <Awards variant="preview" />
             {/* edge fades */}
             <div
-              className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white/95 to-transparent dark:from-[#0A0B0F]/80"
+              className="pointer-events-none absolute inset-y-0 start-0 w-16 bg-gradient-to-r from-ink to-transparent"
               aria-hidden="true"
             />
             <div
-              className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white/95 to-transparent dark:from-[#0A0B0F]/80"
+              className="pointer-events-none absolute inset-y-0 end-0 w-16 bg-gradient-to-l from-ink to-transparent"
               aria-hidden="true"
             />
           </div>
 
           {/* tiny note */}
-          <p className="relative mt-3 text-center text-[11px] text-zinc-600 dark:text-zinc-400">
+          <p className="relative mt-3 text-center text-[11px] text-ink/45">
             *Logos/marks are for identification only. No endorsement is implied.
           </p>
         </div>
@@ -132,13 +130,13 @@ export default function Credibility() {
 /* ---------- subcomponents ---------- */
 function RowTitle({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-2 text-center text-xs font-semibold text-zinc-900 dark:text-zinc-100">
+    <p className="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/40">
       {children}
     </p>
   );
 }
 function Divider() {
-  return <div className="my-5 border-t border-blue-100 dark:border-blue-900/40" />;
+  return <div className="my-5 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />;
 }
 
 /** Centers when short; becomes horizontal swipe when overflowed. */
@@ -161,11 +159,11 @@ function ScrollStrip({
       </div>
       {/* gradient fades (appear when content scrolls) */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white/95 to-transparent dark:from-[#0A0B0F]/80"
+        className="pointer-events-none absolute inset-y-0 start-0 w-10 bg-gradient-to-r from-ink to-transparent"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white/95 to-transparent dark:from-[#0A0B0F]/80"
+        className="pointer-events-none absolute inset-y-0 end-0 w-10 bg-gradient-to-l from-ink to-transparent"
         aria-hidden="true"
       />
     </div>
@@ -175,38 +173,27 @@ function ScrollStrip({
 /* Chips */
 function RegChip({ name, abbr }: { name: string; abbr: string }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-3 py-2 text-[12px] text-zinc-800 ring-1 ring-blue-100/70 backdrop-blur dark:bg-white/5 dark:text-zinc-200 dark:ring-blue-900/40">
-      <span className="grid h-6 w-6 place-items-center rounded-full bg-zinc-100 text-[10px] font-semibold text-zinc-700 ring-1 ring-black/5 dark:bg-white/10 dark:text-zinc-200 dark:ring-white/10">
+    <span className="inline-flex items-center gap-2 rounded-xl border border-gold/45 bg-sand/50 px-3 py-2 text-[12px] text-ink/70">
+      <span className="grid h-6 w-6 place-items-center rounded-full border border-gold/40 bg-white text-[10px] font-semibold text-gold">
         {abbr}
       </span>
       <span className="whitespace-nowrap">{name}</span>
     </span>
   );
 }
-function PressChip({ name, color }: { name: string; color: string }) {
+function PressChip({ name }: { name: string; color?: string }) {
   return (
     <span
-      className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-3 py-2 text-[12px] text-zinc-800 ring-1 ring-blue-100/70 backdrop-blur dark:bg-white/5 dark:text-zinc-200 dark:ring-blue-900/40"
+      className="inline-flex items-center gap-2 rounded-xl border border-gold/45 bg-sand/50 px-3 py-2 text-[12px] text-ink/70"
       title={name}
     >
-      <span
-        className="h-2 w-2 rounded-full ring-2 ring-white dark:ring-transparent"
-        style={{ backgroundColor: color }}
-        aria-hidden="true"
-      />
+      <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
       <span className="whitespace-nowrap">{name}</span>
     </span>
   );
 }
 
 /* utils */
-function Dot({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-block h-1.5 w-1.5 rounded-full bg-blue-600 dark:bg-blue-400 ${className}`}
-    />
-  );
-}
 function initials(name: string) {
   const words = name.split(/\s+/).filter(Boolean);
   if (words.length === 1)

@@ -63,7 +63,7 @@ function useSrcFallback(srcs: (string | undefined)[]) {
 
 function Skeleton({ className = "" }: { className?: string }) {
   return (
-    <div aria-hidden className={`animate-pulse bg-black/5 ${className}`} />
+    <div aria-hidden className={`animate-pulse bg-pearl/5 ${className}`} />
   );
 }
 
@@ -163,19 +163,19 @@ export default function ProgramHero({
     <header
       className={[
         "relative isolate overflow-hidden mb-6",
-        "rounded-3xl shadow-md",
-        "bg-gradient-to-br from-blue-500/10 via-white to-indigo-500/10",
+        "rounded-3xl",
+        "bg-white border border-gold/45",
         className ?? "",
       ].join(" ")}
     >
-      {/* Decorative background glows */}
+      {/* Decorative gold glows */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl"
+        className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-20 h-80 w-80 rounded-full bg-gold/5 blur-3xl"
       />
 
       <div className="relative z-10 p-6 md:p-10">
@@ -184,22 +184,22 @@ export default function ProgramHero({
           <div className="order-2 lg:order-1">
             {/* Country chip */}
             <div
-              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-3 py-1 text-xs text-gray-600 backdrop-blur"
+              className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-xs text-ink/70 backdrop-blur"
               aria-label={`Country: ${country}`}
             >
               <span
-                className="inline-block h-1.5 w-1.5 rounded-full bg-blue-500"
+                className="inline-block h-1.5 w-1.5 rounded-full bg-gold"
                 aria-hidden
               />
               {country}
             </div>
 
-            <h1 className="mt-2 text-balance font-semibold leading-tight text-gray-900 [font-size:clamp(1.875rem,2.5vw,2.5rem)]">
+            <h1 className="mt-2 text-balance font-sora font-semibold leading-tight text-ink [font-size:clamp(1.875rem,2.5vw,2.5rem)]">
               {title}
             </h1>
 
             {tagline && (
-              <p className="mt-3 text-pretty text-base leading-relaxed text-gray-600">
+              <p className="mt-3 text-pretty text-base leading-relaxed text-ink/55">
                 {tagline}
               </p>
             )}
@@ -214,7 +214,7 @@ export default function ProgramHero({
           {/* Media */}
           <div className="order-1 lg:order-2">
             <div
-              className="relative aspect-video w-full overflow-hidden rounded-2xl"
+              className="relative aspect-video w-full overflow-hidden rounded-2xl bg-sand"
               aria-busy={!imgLoaded && !heroVideo}
             >
               {heroVideo ? (
@@ -250,8 +250,9 @@ export default function ProgramHero({
               {/* Subtle scrim to improve legibility when text overlaps on small screens */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-white/60 to-transparent"
+                className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-white/70 to-transparent"
               />
+              <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
             </div>
           </div>
         </div>

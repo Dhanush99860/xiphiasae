@@ -67,10 +67,11 @@ export default function QuickFacts({
     >
       {/* Eyebrow + Title */}
       <div className="mb-2 flex items-center gap-2">
-        <span className="inline-flex items-center rounded-md bg-sky-600/10 px-2 py-1 text-xs font-semibold text-sky-700 dark:text-sky-300">
+        <span className="inline-flex items-center gap-2 rounded-full border border-gold/45 bg-sand/50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/70">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
           At a glance
         </span>
-        <h2 id="quickfacts-title" className="text-sm font-semibold opacity-80">
+        <h2 id="quickfacts-title" className="font-sora text-sm font-semibold text-ink/55">
           Quick facts
         </h2>
       </div>
@@ -80,9 +81,8 @@ export default function QuickFacts({
         className="
           relative overflow-hidden
           rounded-2xl p-4 sm:p-6
-          bg-gradient-to-br from-slate-50 to-white dark:from-neutral-900/60 dark:to-neutral-900/20
-          ring-1 ring-slate-200/70 dark:ring-neutral-800/70
-          shadow-sm
+          bg-white
+          border border-gold/45
         "
         role="group"
         aria-label="Program quick facts"
@@ -90,11 +90,11 @@ export default function QuickFacts({
         {/* Subtle official-style watermark glow (pure CSS; no images) */}
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-sky-500/5 blur-2xl"
+          className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-gold/[0.06] blur-2xl"
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-indigo-500/5 blur-2xl"
+          className="pointer-events-none absolute -bottom-12 -left-10 h-40 w-40 rounded-full bg-gold/[0.04] blur-2xl"
         />
 
         <p id="quickfacts-desc" className="sr-only">
@@ -109,14 +109,14 @@ export default function QuickFacts({
             itemType="https://schema.org/Offer"
             aria-label="Minimum investment"
           >
-            <dt className="flex items-center gap-2 text-[11px] uppercase tracking-wide opacity-75">
+            <dt className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink/40">
               <IconBadge>
                 <Banknote className="h-4 w-4" aria-hidden />
               </IconBadge>
               Minimum investment
             </dt>
 
-            <dd className="text-3xl sm:text-4xl font-semibold tabular-nums leading-none">
+            <dd className="font-sora text-3xl sm:text-4xl font-semibold tabular-nums leading-none text-gold">
               <span itemProp="price">{minDisplay}</span>
               {/* Currency microdata only when we have a valid ISO code */}
               {hasMin && isISO4217(currency) ? (
@@ -125,7 +125,7 @@ export default function QuickFacts({
             </dd>
 
             {currency ? (
-              <dd className="text-xs opacity-70">
+              <dd className="text-xs text-ink/45">
                 Currency:{" "}
                 <abbr title={currencyFullName(currency)}>{currency}</abbr>
               </dd>
@@ -136,18 +136,18 @@ export default function QuickFacts({
           <dl
             className="
               grid gap-2
-              md:border-l md:border-slate-200/70 md:dark:border-neutral-800/70 md:pl-6
+              md:border-l md:border-gold/45 md:pl-6
             "
             aria-label="Typical timeline"
           >
-            <dt className="flex items-center gap-2 text-[11px] uppercase tracking-wide opacity-75">
+            <dt className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink/40">
               <IconBadge>
                 <Clock className="h-4 w-4" aria-hidden />
               </IconBadge>
               Typical timeline
             </dt>
 
-            <dd className="text-3xl sm:text-4xl font-semibold tabular-nums leading-none">
+            <dd className="font-sora text-3xl sm:text-4xl font-semibold tabular-nums leading-none text-ink">
               <time
                 itemProp="duration"
                 // ISO 8601 duration (months → PnM), only when we know months
@@ -157,17 +157,17 @@ export default function QuickFacts({
               </time>
             </dd>
 
-            <dd className="text-xs opacity-70">From application start</dd>
+            <dd className="text-xs text-ink/45">From application start</dd>
           </dl>
 
           {/* Highlights (tags) */}
           <div
             className="
               grid gap-2
-              md:border-l md:border-slate-200/70 md:dark:border-neutral-800/70 md:pl-6
+              md:border-l md:border-gold/45 md:pl-6
             "
           >
-            <div className="flex items-center gap-2 text-[11px] uppercase tracking-wide opacity-75">
+            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink/40">
               <IconBadge>
                 <Sparkles className="h-4 w-4" aria-hidden />
               </IconBadge>
@@ -185,14 +185,13 @@ export default function QuickFacts({
                     <li key={t}>
                       <span
                         className="
-                          inline-flex items-center rounded-full
-                          bg-black/5 px-3 py-1 text-xs text-black
-                          dark:bg-white/10 dark:text-gray-100
-                          ring-1 ring-black/5 dark:ring-white/10
-                          hover:bg-black/7 dark:hover:bg-white/15
+                          inline-flex items-center gap-1.5 rounded-full
+                          bg-sand/50 px-3 py-1 text-xs text-ink/70
+                          border border-gold/45
                           transition-colors
                         "
                       >
+                        <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden />
                         {t}
                       </span>
                     </li>
@@ -203,9 +202,8 @@ export default function QuickFacts({
                         aria-label={`${extraCount} more highlights`}
                         className="
                           inline-flex items-center rounded-full
-                          bg-slate-100 px-3 py-1 text-xs text-slate-700
-                          dark:bg-neutral-800 dark:text-neutral-300
-                          ring-1 ring-slate-200 dark:ring-neutral-700
+                          bg-sand/50 px-3 py-1 text-xs text-ink/55
+                          border border-gold/45
                         "
                       >
                         +{extraCount} more
@@ -214,7 +212,7 @@ export default function QuickFacts({
                   ) : null}
                 </>
               ) : (
-                <li className="text-xs opacity-70">
+                <li className="text-xs text-ink/45">
                   Add highlights in front-matter
                 </li>
               )}
@@ -233,9 +231,7 @@ function IconBadge({ children }: { children: React.ReactNode }) {
     <span
       className="
         inline-flex h-6 w-6 items-center justify-center rounded-md
-        bg-white text-slate-700 ring-1 ring-slate-200
-        dark:bg-white/10 dark:text-white dark:ring-neutral-700
-        shadow-sm
+        bg-sand/50 text-gold border border-gold/45
       "
       aria-hidden
     >

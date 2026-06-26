@@ -2,12 +2,22 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import nextDynamic from "next/dynamic";
+import { Cormorant_Garamond } from "next/font/google";
 import { getInsightBySlug } from "@/lib/insights-content";
+import ArticleDetail from "@/components/Content/ArticleDetail";
 
-const InsightDetailView = nextDynamic(() => import("@/components/Insights/InsightDetailView"));
 const InsightJsonLd = nextDynamic(() => import("@/components/SEO/InsightJsonLd"));
 
+const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+
 const SITE_URL = "https://www.xiphiasimmigration.com";
+
+function formatDate(input?: string) {
+  if (!input) return "";
+  const d = new Date(input);
+  if (Number.isNaN(d.getTime())) return "";
+  return new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" }).format(d);
+}
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -72,10 +82,25 @@ export default async function Page({ params }: PageProps) {
 
   if (!record) notFound();
 
+  const heroImage = record.hero || record.heroPoster || "/images/articles/nexus-of-global-mobility.webp";
+
   return (
     <>
       <InsightJsonLd record={record} />
-      <InsightDetailView record={record} />
+      <ArticleDetail
+        serifClass={serif.className}
+        eyebrow="Immigration Insights"
+        eyebrowAr="مقالات"
+        title={record.title}
+        date={formatDate(record.updated || record.date)}
+        author={record.author}
+        category={record.country?.[0] || record.program?.[0] || record.tags?.[0]}
+        heroImage={heroImage}
+        backHref="/articles"
+        backLabel="Articles"
+      >
+        {record.content}
+      </ArticleDetail>
     </>
   );
 }

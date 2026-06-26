@@ -39,14 +39,14 @@ function MobileCTABar({ actions }: { actions: Action[] }) {
       style={{ paddingBottom: "max(env(safe-area-inset-bottom),12px)" }}
     >
       <div className="mx-auto max-w-screen-sm px-3">
-      <div className="flex w-full items-center gap-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-black shadow-[0_10px_30px_rgba(0,0,0,0.15)] p-2">
+      <div className="flex w-full items-center gap-3 rounded-2xl border border-gold/45 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.5)] p-2">
           {mobileActions.map((a) => {
             const base =
               "inline-flex flex-1 basis-1/2 items-center justify-center rounded-xl px-4 h-12 text-sm font-semibold";
             const styles =
               a.variant === "ghost"
-                ? "bg-white dark:bg-black text-black dark:text-white ring-1 ring-black/10 dark:ring-white/15"
-                : "bg-black text-white hover:brightness-110";
+                ? "bg-sand/50 text-ink ring-1 ring-gold/15 hover:border-gold/65"
+                : "bg-gold text-midnight hover:brightness-110";
             return (
               <Link
                 key={`m-${a.label}`}
@@ -246,7 +246,7 @@ export default function MediaHero({
         onKeyDown={onKeyDown}
         className="
           group relative w-full aspect-video md:aspect-[16/7] overflow-hidden rounded-2xl md:rounded-3xl
-          focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60
         "
       >
         {hasImage ? (
@@ -290,7 +290,7 @@ export default function MediaHero({
                 <button
                   onClick={togglePlay}
                   aria-label="Play video"
-                  className="pointer-events-auto mx-auto mb-20 flex items-center justify-center h-16 w-16 rounded-full bg-white/95 text-black shadow-lg hover:scale-105 transition"
+                  className="pointer-events-auto mx-auto mb-20 flex items-center justify-center h-16 w-16 rounded-full bg-gold text-midnight shadow-lg hover:scale-105 transition"
                 >
                   <svg
                     width="28"
@@ -315,7 +315,7 @@ export default function MediaHero({
                   value={progress}
                   onChange={onSeek}
                   className="
-                    w-full accent-sky-500
+                    w-full accent-gold
                     [--track:theme(colors.white/60)] [--track-dark:theme(colors.neutral.500/50)]
                     [&::-webkit-slider-runnable-track]:h-1.5
                     [&::-webkit-slider-thumb]:appearance-none
@@ -425,7 +425,7 @@ export default function MediaHero({
             </div>
           </>
         ) : (
-          <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_30%_0%,theme(colors.sky.400/.35),transparent),linear-gradient(to_bottom_right,theme(colors.slate.50),theme(colors.slate.100))] dark:bg-[radial-gradient(80%_60%_at_30%_0%,theme(colors.sky.900/.5),transparent),linear-gradient(to_bottom_right,theme(colors.neutral.900),theme(colors.neutral.950))]" />
+          <div className="absolute inset-0 bg-[radial-gradient(80%_60%_at_30%_0%,rgba(212,175,55,.18),transparent),linear-gradient(to_bottom_right,#0a0f1c,#050810)]" />
         )}
       </div>
 
@@ -447,7 +447,7 @@ export default function MediaHero({
                     const styles =
                       a.variant === "ghost"
                         ? "bg-white/15 text-white backdrop-blur ring-1 ring-inset ring-white/25 hover:bg-white/25"
-                        : "bg-white text-black shadow-lg hover:brightness-[1.02]";
+                        : "bg-gold text-midnight shadow-lg hover:brightness-110";
                     return (
                       <Link
                         key={a.label}

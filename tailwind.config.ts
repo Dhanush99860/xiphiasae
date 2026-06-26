@@ -41,6 +41,9 @@ const config: Config = {
       },
       fontFamily: {
         raleway: ["var(--font-raleway)", "system-ui", "sans-serif"],
+        // UAE refresh — Arabic faces (loaded in layout.tsx via next/font)
+        arabic: ["var(--font-arabic)", "system-ui", "sans-serif"],
+        "arabic-display": ["var(--font-arabic-display)", "Georgia", "serif"],
       },
       maxWidth: {
         "screen-xl": "75rem",
@@ -79,6 +82,18 @@ const config: Config = {
       colors: {
         primary: "#1c57b4",
         secondary: "#e1b923",
+        // ── UAE refresh palette (see SKILLS.md §3). Gold is the hero accent;
+        //    use as line / underglow / small CTA, never a large fill. ──────────
+        midnight: "#050810",     // near-black futuristic ground
+        ink: "#0a0e1a",          // raised surfaces / cards on dark
+        oasis_night: "#0b1626",  // deep blue-teal depth layer
+        gold: "#bfa15c",         // refined hero gold
+        gold_bright: "#e1b923",  // highlight / shine sweeps (== secondary)
+        gold_deep: "#a87d1f",    // pressed / shadow gold, gradients
+        sand: "#f5ede0",         // warm light background
+        dune: "#e8dcc8",         // warm surface / borders on light
+        pearl: "#fbfaf7",        // true light canvas
+        falcon_green: "#1a4d3c", // rare emirati-green accent
         light_bg: "#ffffff",
         light_text: "#1a1a1a",
         dark_bg: "#121212",
