@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import Ambient from "@/components/HomeLuxe/Ambient";
 import { awardsData } from "@/components/awards/awards.data";
 
 const GOLD = "#bfa15c";
 const NAVY = "#0a1733";
+const HERO_IMG = "/images/gallery/xiphias-immigration-gallery-16.jpeg";
 
 /* The featured lead award, derived from the real data. */
 const FEATURED = awardsData[0];
@@ -55,16 +56,40 @@ function Badge({ issuer }: { issuer: string }) {
 
 export function HeroAwards({ serifClass }: { serifClass: string }) {
   const reduce = useReducedMotion();
+  const [play, setPlay] = useState(false);
+  useEffect(() => setPlay(true), []);
 
   return (
     <section
       data-tone="dark"
       aria-labelledby="hero-awards"
-      className="relative overflow-hidden px-6 pb-24 pt-36 md:px-10 lg:px-16"
-      style={{ background: `radial-gradient(120% 90% at 50% 0%, #13284f 0%, ${NAVY} 60%)`, color: "#fff" }}
+      className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]"
+      style={{ background: NAVY }}
     >
-      <Ambient tone="dark" />
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.12 }}
+        animate={play ? { scale: 1 } : { scale: 1.12 }}
+        transition={{ duration: 8, ease: "easeOut" }}
+      >
+        <Image
+          src={HERO_IMG}
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover [filter:grayscale(0.5)_brightness(0.55)_contrast(1.05)]"
+        />
+      </motion.div>
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }}
+      />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-28 sm:px-12 lg:px-20">
         <Rise reduce={reduce}>
           <div className="flex items-center gap-3">
             <span className="h-px w-10" style={{ background: GOLD }} />
@@ -120,6 +145,10 @@ export function HeroAwards({ serifClass }: { serifClass: string }) {
             </div>
           </Rise>
         )}
+      </div>
+      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55">
+        <span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span>
+        <span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} />
       </div>
     </section>
   );

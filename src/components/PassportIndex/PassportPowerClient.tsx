@@ -78,11 +78,14 @@ export default function PassportPowerClient({ records, stats, serifClass }: Prop
     <div className="bg-[#0a1733]">
       <LuxeHeader serifClass={serifClass} />
 
-      {/* HERO — full-bleed real image, navy gradient overlay for legibility */}
-      <section className="relative isolate min-h-[78vh] overflow-hidden text-[#eef3fb]" style={{ background: NAVY }}>
-        <Image src="/images/blogs/american-passport-visa-free.webp" alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(120% 95% at 80% 0%, rgba(19,40,79,0.72) 0%, rgba(10,23,51,0.92) 62%, #0a1733 100%)" }} />
-        <div className="relative mx-auto flex min-h-[78vh] max-w-6xl flex-col justify-end px-6 pb-20 pt-40 sm:px-12 lg:px-20">
+      {/* HERO — full-screen full-bleed real image, navy gradient scrims for legibility */}
+      <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: NAVY }}>
+        <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={reduce ? { scale: 1.12 } : { scale: 1 }} transition={{ duration: 8, ease: "easeOut" }}>
+          <Image src="/images/blogs/american-passport-visa-free.webp" alt="" fill priority sizes="100vw" className="object-cover [filter:grayscale(0.5)_brightness(0.55)_contrast(1.05)]" />
+        </motion.div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-40 sm:px-12 lg:px-20">
           <Eyebrow ar="مؤشر الجوازات">Passport Index</Eyebrow>
           <h1 className={`${serifClass} mt-6 max-w-4xl text-[clamp(2.6rem,6vw,5rem)] font-medium leading-[1.02]`}>
             The Power Index — how far your <span className="italic" style={{ color: GOLD }}>passport</span> reaches.
@@ -100,6 +103,7 @@ export default function PassportPowerClient({ records, stats, serifClass }: Prop
           </dl>
           <p className="mt-6 text-[11px] uppercase tracking-[0.2em] text-white/40">{stats.snapshotLabel}</p>
         </div>
+        <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
       </section>
 
       {/* TOP-PASSPORT SPOTLIGHT — real country image + flag */}

@@ -9,6 +9,7 @@ import Ambient from "@/components/HomeLuxe/Ambient";
 
 const GOLD = "#bfa15c";
 const NAVY = "#0a1733";
+const HERO_IMG = "/images/gallery/xiphias-immigration-gallery-04.jpeg";
 
 function Rise({ text, className, play }: { text: string; className?: string; play?: boolean }) {
   const words = text.split(" ");
@@ -41,16 +42,21 @@ export default function InsightsPage({ serifClass }: { serifClass: string }) {
     <div className="relative">
       <Header serifClass={serifClass} />
 
-      <section data-tone="dark" className="relative isolate px-6 pb-16 pt-32 text-[#eef3fb] sm:px-12 lg:px-20" style={{ background: `radial-gradient(120% 90% at 80% 0%, #13284f 0%, ${NAVY} 60%)` }}>
-        <Ambient tone="dark" />
-        <div className="mx-auto max-w-6xl">
+      <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: NAVY }}>
+        <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }}>
+          <Image src={HERO_IMG} alt="" fill sizes="100vw" priority className="object-cover [filter:grayscale(0.5)_brightness(0.55)_contrast(1.05)]" />
+        </motion.div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-12 lg:px-20">
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Insights &amp; intelligence<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">رؤى</span></p>
           <h1 className={`${serifClass} mt-5 max-w-3xl text-[clamp(2.8rem,6vw,5rem)] font-medium leading-[0.98]`}><Rise text="The XIPHIAS journal." play /></h1>
           <p className="mt-5 max-w-xl text-[16px] leading-relaxed text-white/70">Programme intelligence, mobility data and the practical guidance families act on — written by the advisors who do the work.</p>
           <div className="mt-9 flex flex-wrap gap-2.5">
-            {CATS.map((c) => <button key={c} onClick={() => setCat(c)} className="rounded-full border px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.1em] transition-colors duration-200" style={{ borderColor: cat === c ? GOLD : "rgba(255,255,255,0.2)", background: cat === c ? GOLD : "transparent", color: cat === c ? NAVY : "rgba(238,243,251,0.7)" }}>{c}</button>)}
+            {CATS.map((c) => <button key={c} onClick={() => setCat(c)} className="rounded-full border px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.1em] backdrop-blur-sm transition-colors duration-200" style={{ borderColor: cat === c ? GOLD : "rgba(255,255,255,0.3)", background: cat === c ? GOLD : "rgba(8,18,42,0.35)", color: cat === c ? NAVY : "rgba(238,243,251,0.85)" }}>{c}</button>)}
           </div>
         </div>
+        <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
       </section>
 
       <section data-tone="light" className="relative isolate px-6 py-24 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#f3f7fd" }}>

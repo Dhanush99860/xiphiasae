@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Header from "@/components/HomeLuxe/LuxeHeader";
 import Footer from "@/components/HomeLuxe/LuxeFooter";
 import Ambient from "@/components/HomeLuxe/Ambient";
@@ -57,6 +58,8 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [play, setPlay] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setPlay(true), 120); return () => clearTimeout(t); }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -90,9 +93,13 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
     <div className="relative">
       <Header serifClass={serifClass} />
 
-      <section data-tone="dark" className="relative isolate px-6 pb-24 pt-32 text-[#eef3fb] sm:px-12 lg:px-20" style={{ background: `radial-gradient(120% 90% at 15% 0%, #13284f 0%, ${NAVY} 60%)` }}>
-        <Ambient tone="dark" />
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+      <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: NAVY }}>
+        <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={play ? { scale: 1 } : { scale: 1.12 }} transition={{ duration: 8, ease: "easeOut" }}>
+          <Image src="/images/gallery/xiphias-immigration-gallery-03.jpeg" alt="" fill sizes="100vw" priority className="object-cover [filter:grayscale(0.5)_brightness(0.55)_contrast(1.05)]" />
+        </motion.div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
+        <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-12 px-6 py-32 sm:px-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-20">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(238,243,251,0.5)" }}><a href="/" className="hover:text-[#bfa15c]">Home</a> <span style={{ color: GOLD }}>/</span> Contact</p>
             <p className="mt-7"><Eyebrow ar="تواصل معنا">Contact</Eyebrow></p>
@@ -134,6 +141,7 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
             )}
           </motion.div>
         </div>
+        <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
       </section>
 
       <section data-tone="light" className="relative isolate px-6 py-24 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#f3f7fd" }}>

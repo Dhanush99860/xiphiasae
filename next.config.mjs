@@ -2,7 +2,38 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx"],
-  outputFileTracingIncludes: { "*": ["./content/**/*"] },
+  outputFileTracingIncludes: {
+    "*": ["./content/**/*"],
+    // The eligibility PDF report reads these public assets at runtime via fs,
+    // so they must be bundled into that function.
+    "/api/eligibility/report": [
+      "./public/images/logo/**",
+      "./public/images/flags/**",
+      "./public/images/articles/**",
+      "./public/images/skilled/**",
+      "./public/images/hero/**",
+      "./public/xiphias-immigration.png",
+    ],
+  },
+  // Keep heavy, function-irrelevant static assets OUT of serverless bundles.
+  // These are served as static CDN files and are never read by any function,
+  // so bundling them only bloats functions past Vercel's 250MB limit.
+  outputFileTracingExcludes: {
+    "*": [
+      "public/images/events/**",
+      "public/images/events.zip",
+      "public/images/gallery/**",
+      "public/images/residency/**",
+      "public/images/citizenship/**",
+      "public/images/blogs/**",
+      "public/images/personal/**",
+      "public/images/Pexels/**",
+      "public/images/news/**",
+      "public/images/corporate/**",
+      "public/images/avtar/**",
+      "public/samples/**",
+    ],
+  },
 
   images: {
     formats: ["image/avif", "image/webp"],
