@@ -19,7 +19,9 @@ const nextConfig = {
   // These are served as static CDN files and are never read by any function,
   // so bundling them only bloats functions past Vercel's 250MB limit.
   outputFileTracingExcludes: {
-    "*": [
+    // Keyed to the exact route: in Next 16 the "*" key does not match nested
+    // API paths, and this is the only function that reads public/ via fs.
+    "/api/eligibility/report": [
       "public/images/events/**",
       "public/images/events.zip",
       "public/images/gallery/**",
