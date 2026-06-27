@@ -18,21 +18,22 @@ const nextConfig = {
   // Keep heavy, function-irrelevant static assets OUT of serverless bundles.
   // These are served as static CDN files and are never read by any function,
   // so bundling them only bloats functions past Vercel's 250MB limit.
+  // Several content libs call publicAssetExists(path.join(process.cwd(),"public",x)),
+  // which makes nft bundle ALL of public/ into every function that imports them
+  // (report, articles/[slug], country pages, etc.). Globally drop the heavy,
+  // non-validated static folders from every function bundle. They stay served as
+  // static CDN assets. We deliberately KEEP images/{citizenship,residency,skilled,
+  // corporate,articles,flags,hero,logo} so server-side publicAssetExists() checks
+  // and the PDF report still resolve real assets.
   outputFileTracingExcludes: {
-    // Keyed to the exact route: in Next 16 the "*" key does not match nested
-    // API paths, and this is the only function that reads public/ via fs.
-    "/api/eligibility/report": [
+    "*": [
       "public/images/events/**",
       "public/images/events.zip",
       "public/images/gallery/**",
-      "public/images/residency/**",
-      "public/images/citizenship/**",
-      "public/images/blogs/**",
       "public/images/personal/**",
       "public/images/Pexels/**",
+      "public/images/blogs/**",
       "public/images/news/**",
-      "public/images/corporate/**",
-      "public/images/avtar/**",
       "public/samples/**",
     ],
   },
