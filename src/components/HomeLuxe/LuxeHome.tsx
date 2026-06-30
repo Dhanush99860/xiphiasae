@@ -22,24 +22,42 @@ const V_JET = "/videos/19666133-uhd_2160_3840_60fps.mp4"; // CTA
 const V_ADVISOR = "/videos/14736590_3840_2160_30fps.mp4"; // Section 2 (advisor)
 // Poster stills (captured from each clip) — server-rendered LCP image; video is
 // desktop-only & in-view-only, so mobile loads the poster and never the .mp4.
-const P_JET = "/images/posters/cta-jet.jpg";
-const P_ADVISOR = "/images/posters/s2-advisor.jpg";
+const P_JET = "/images/home/cta-jet-poster.webp";
+const P_ADVISOR = "/images/home/advisor-poster.webp";
 // Hero: real photography (not video) — warm, on-brand, fast, the LCP image.
-const HERO_FAMILY = "/images/hero/top-immigration-counsultent.webp";
+const HERO_FAMILY = "/images/home/hero-family.webp";
 const IMG = {
   // Section 2
-  family1: "/images/Pexels/pexels-gatsby-yang-857486579-37669246.jpg",
-  family2: "/images/Pexels/pexels-m-munzevi-2155457440-37119543.jpg",
-  corporate: "/images/corporate/uae/dubai-corporate-immigration.webp",
+  family1: "/images/home/freedom-to-move.webp",
+  family2: "/images/home/family-plan-b.webp",
+  corporate: "/images/home/corporate-mobility.webp",
   // Programmes
-  uae: "/images/residency/uae/uae-golden-visa.webp",
-  grenada: "/images/citizenship/grenada/grenada-citizenship.webp",
-  singapore: "/images/residency/singapore/singapore-gip-pr-investment-hero.webp",
+  uae: "/images/home/uae-golden-visa.webp",
+  grenada: "/images/home/grenada-citizenship.webp",
+  singapore: "/images/home/singapore-due-diligence.webp",
   // Process
-  dubai: "/images/citizenship/dubai/dubai-country-image.webp",
-  portugal: "/images/residency/portugal/portugal-golden-visa.webp",
-  greece: "/images/residency/greece/greece-golden-visa.webp",
-  malta: "/images/residency/malta/malta-mprp.webp",
+  dubai: "/images/home/dubai-global-mobility.webp",
+  dubaiPortrait: "/images/home/dubai-global-mobility-portrait.webp",
+  portugal: "/images/home/portugal-golden-visa.webp",
+  greece: "/images/home/greece-golden-visa.webp",
+  malta: "/images/home/malta-residency.webp",
+  varun: "/images/home/varun-singh-md.webp",
+};
+
+const WHAT_WE_PROVIDE_IMAGES = {
+  "Citizenship by Investment": IMG.grenada,
+  "Residency & Golden Visas": IMG.uae,
+  "Skilled & Corporate Migration": IMG.corporate,
+  "Source-of-funds & due diligence": IMG.singapore,
+  "Relocation, banking & schooling": IMG.family1,
+  "Lifetime concierge": IMG.dubai,
+};
+
+const INSIGHT_IMAGES = {
+  "/blog/dubai-golden-visa-real-estate": "/images/home/insight-dubai-golden-visa.webp",
+  "/blog/investment-migration-2025": "/images/home/insight-investment-migration.webp",
+  "/blog/greece-golden-visa-benefits": "/images/home/insight-greece-golden-visa.webp",
+  "/blog/us-passport-visa-free-countries-2026": "/images/home/insight-us-passport.webp",
 };
 
 /* ─────────── shared text animations ─────────── */
@@ -196,14 +214,14 @@ export default function AssembledHome({ serifClass }: { serifClass: string }) {
       <Header serifClass={serifClass} />
       <Hero serifClass={serifClass} />
       <WhatBringsYou serifClass={serifClass} />
-      <WhyInvest serifClass={serifClass} />
+      <WhyInvest serifClass={serifClass} imageSrc={IMG.dubaiPortrait} imageAlt="Dubai skyline and Museum of the Future" />
       <ProgrammesTable serifClass={serifClass} />
-      <WhatWeProvide serifClass={serifClass} />
+      <WhatWeProvide serifClass={serifClass} imageOverrides={WHAT_WE_PROVIDE_IMAGES} />
       <PassportPower serifClass={serifClass} />
       <Process serifClass={serifClass} />
       <FaqSection serifClass={serifClass} />
-      <WhyXiphias serifClass={serifClass} />
-      <InsightsNews serifClass={serifClass} />
+      <WhyXiphias serifClass={serifClass} portraitSrc={IMG.varun} />
+      <InsightsNews serifClass={serifClass} imageOverrides={INSIGHT_IMAGES} />
       <CTA serifClass={serifClass} />
       <Footer serifClass={serifClass} />
     </div>

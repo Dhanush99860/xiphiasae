@@ -39,25 +39,29 @@ export default function GalleryView({ items, serifClass }: { items: GalleryItem[
     <div className="relative">
       <Header serifClass={serifClass} />
 
-      {/* HERO — navy radial */}
+      {/* HERO — full-bleed navy + gold */}
       <section
         data-tone="dark"
-        className="relative isolate flex min-h-[68vh] items-center overflow-hidden px-6 pb-16 pt-28 text-[#eef3fb] sm:px-12 lg:px-20"
-        style={{ background: `radial-gradient(120% 100% at 15% 0%, #13284f 0%, ${NAVY} 55%)` }}
+        className="relative isolate flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-28 text-[#eef3fb] sm:px-12 lg:px-20"
+        style={{ background: NAVY }}
       >
-        {hero ? (
-          <>
-            <Image
-              src={hero.src}
-              alt=""
-              fill
-              sizes="100vw"
-              priority
-              className="object-cover opacity-[0.16] [filter:grayscale(0.4)_contrast(1.05)]"
-            />
-            <div className="absolute inset-0" style={{ background: `linear-gradient(0deg, ${NAVY} 0%, rgba(10,23,51,0.55) 60%, rgba(10,23,51,0.85) 100%)` }} />
-          </>
-        ) : null}
+        <motion.div
+          className="absolute inset-0"
+          initial={{ scale: 1.12 }}
+          animate={play ? { scale: 1 } : { scale: 1.12 }}
+          transition={{ duration: 8, ease: "easeOut" }}
+        >
+          <Image
+            src={hero?.src ?? "/images/gallery/xiphias-immigration-gallery-01.jpeg"}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover [filter:grayscale(0.5)_brightness(0.55)_contrast(1.05)]"
+          />
+        </motion.div>
+        <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
 
         <div className="lcp-instant relative z-10 mx-auto w-full max-w-6xl">
           <Fade play={play}>
@@ -88,6 +92,11 @@ export default function GalleryView({ items, serifClass }: { items: GalleryItem[
               Events · Team · Office · CSR
             </p>
           </Fade>
+        </div>
+
+        <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55">
+          <span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span>
+          <span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} />
         </div>
       </section>
 

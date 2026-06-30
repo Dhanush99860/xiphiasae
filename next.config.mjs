@@ -2,9 +2,44 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx"],
-  outputFileTracingIncludes: { "*": ["./content/**/*"] },
+  outputFileTracingIncludes: {
+    "*": ["./content/**/*"],
+    // The eligibility PDF report reads these public assets at runtime via fs,
+    // so they must be bundled into that function.
+    "/api/eligibility/report": [
+      "./public/images/logo/**",
+      "./public/images/flags/**",
+      "./public/images/articles/**",
+      "./public/images/skilled/**",
+      "./public/images/hero/**",
+      "./public/xiphias-immigration.png",
+    ],
+  },
+  // Keep heavy, function-irrelevant static assets OUT of serverless bundles.
+  // These are served as static CDN files and are never read by any function,
+  // so bundling them only bloats functions past Vercel's 250MB limit.
+  // Several content libs call publicAssetExists(path.join(process.cwd(),"public",x)),
+  // which makes nft bundle ALL of public/ into every function that imports them
+  // (report, articles/[slug], country pages, etc.). Globally drop the heavy,
+  // non-validated static folders from every function bundle. They stay served as
+  // static CDN assets. We deliberately KEEP images/{citizenship,residency,skilled,
+  // corporate,articles,flags,hero,logo} so server-side publicAssetExists() checks
+  // and the PDF report still resolve real assets.
+  outputFileTracingExcludes: {
+    "*": [
+      "public/images/events/**",
+      "public/images/events.zip",
+      "public/images/gallery/**",
+      "public/images/personal/**",
+      "public/images/Pexels/**",
+      "public/images/blogs/**",
+      "public/images/news/**",
+      "public/samples/**",
+    ],
+  },
 
   images: {
+    unoptimized: process.env.NODE_ENV === "development",
     formats: ["image/avif", "image/webp"],
     qualities: [75, 80],
     remotePatterns: [

@@ -61,9 +61,9 @@ export const dynamicParams = true;
 export async function generateMetadata({
   params,
 }: {
-  params: { vertical: Vertical; country: string };
+  params: Promise<{ vertical: Vertical; country: string }>;
 }): Promise<Metadata> {
-  const { vertical, country } = params;
+  const { vertical, country } = await params;
   if (!VERTICALS.includes(vertical) || !country) return { title: "Not found" };
 
   const capVertical = vertical.charAt(0).toUpperCase() + vertical.slice(1);
@@ -103,12 +103,12 @@ export async function generateMetadata({
   };
 }
 
-export default function CountryPage({
+export default async function CountryPage({
   params,
 }: {
-  params: { vertical: Vertical; country: string };
+  params: Promise<{ vertical: Vertical; country: string }>;
 }) {
-  const { vertical, country } = params;
+  const { vertical, country } = await params;
   if (!VERTICALS.includes(vertical) || !country) return notFound();
 
   const docs = getAllContentCached();

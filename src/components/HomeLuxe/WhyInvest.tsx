@@ -16,7 +16,15 @@ const BENEFITS = [
   { t: "Business & banking", d: "Open international bank accounts, enter new markets and move capital freely — as a citizen with standing, not an outsider waiting on permissions." },
 ];
 
-export default function WhyInvest({ serifClass }: { serifClass: string }) {
+export default function WhyInvest({
+  serifClass,
+  imageSrc = "/images/citizenship/dubai/dubai-country-image.webp",
+  imageAlt = "Dubai",
+}: {
+  serifClass: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
@@ -34,7 +42,7 @@ export default function WhyInvest({ serifClass }: { serifClass: string }) {
           {/* parallax image */}
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">
             <motion.div className="absolute -inset-y-[8%] inset-x-0" style={{ y }}>
-              <Image src="/images/citizenship/dubai/dubai-country-image.webp" alt="Dubai" fill sizes="45vw" className="object-cover [filter:grayscale(0.15)_contrast(1.03)]" />
+              <Image src={imageSrc} alt={imageAlt} fill sizes="45vw" className="object-cover [filter:grayscale(0.15)_contrast(1.03)]" />
             </motion.div>
             <div className="absolute inset-0" style={{ boxShadow: `inset 0 0 0 1px ${GOLD}40` }} />
             <span aria-hidden className="absolute left-4 top-4 h-7 w-7 border-l-2 border-t-2" style={{ borderColor: GOLD }} />

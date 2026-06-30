@@ -28,7 +28,13 @@ const AWARDS = [
   { img: "/images/awards/xiphias-awards-uk-2019.png", label: "UK Recognition 2019" },
 ];
 
-export default function WhyXiphias({ serifClass }: { serifClass: string }) {
+export default function WhyXiphias({
+  serifClass,
+  portraitSrc = "/images/avtar/varun-singh-md-xiphias.jpg",
+}: {
+  serifClass: string;
+  portraitSrc?: string;
+}) {
   return (
     <section data-tone="light" className="relative isolate px-6 py-24 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#eef3fb" }}>
       <div className="mx-auto max-w-6xl">
@@ -39,7 +45,7 @@ export default function WhyXiphias({ serifClass }: { serifClass: string }) {
           <Fade>
             <figure className="overflow-hidden rounded-lg border bg-white" style={{ borderColor: `${INK}14` }}>
               <div className="relative aspect-[4/5] w-full overflow-hidden">
-                <Image src="/images/avtar/varun-singh-md-xiphias.jpg" alt="Varun Singh, Managing Director of XIPHIAS Immigration" fill sizes="(min-width:1024px) 28rem, 100vw" className="object-cover object-top" />
+                <Image src={portraitSrc} alt="Varun Singh, Managing Director of XIPHIAS Immigration" fill sizes="(min-width:1024px) 28rem, 100vw" className="object-cover object-top" />
                 <span aria-hidden className="absolute inset-0" style={{ boxShadow: `inset 0 0 0 1px ${GOLD}40` }} />
               </div>
               <figcaption className="p-6">
