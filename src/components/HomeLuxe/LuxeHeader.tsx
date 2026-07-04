@@ -55,8 +55,8 @@ const GROUPS: Group[] = [
   { label: "Company", img: DUBAI, caption: "XIPHIAS Immigration", items: [
     { name: "About", href: "/about" },
     { name: "Insights", href: "/insights" },
+    { name: "Blog", href: "/blog" },
     { name: "Careers", href: "/careers" },
-    { name: "Events", href: "/events" },
   ] },
   { label: "Get in touch", img: PORTUGAL, caption: "Private Consultation", items: [
     { name: "Contact", href: "/contact" },

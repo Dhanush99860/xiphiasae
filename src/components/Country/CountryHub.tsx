@@ -53,27 +53,24 @@ function Eyebrow({ children, ar, light }: { children: React.ReactNode; ar: strin
   return <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />{children}<span lang="ar" dir="rtl" className={`font-arabic-display text-sm tracking-normal ${light ? "" : ""}`}>{ar}</span></p>;
 }
 
-/* ── HERO (split A) ── */
+/* ── HERO (full-screen cinematic) ── */
 function Hero({ d, serifClass, play }: { d: CountryData; serifClass: string; play: boolean }) {
   return (
-    <section data-tone="dark" className="relative isolate flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-28 text-[#eef3fb] sm:px-12 lg:px-20" style={{ background: `radial-gradient(120% 100% at 15% 0%, #13284f 0%, ${NAVY} 55%)` }}>
-      <div className="lcp-instant mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-        <div>
-          <Fade play={play}><p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(238,243,251,0.5)" }}><a href="/" className="hover:text-[#bfa15c]">Home</a> <span style={{ color: GOLD }}>/</span> <a href={`/${d.verticalSlug}`} className="hover:text-[#bfa15c]">{d.vertical}</a> <span style={{ color: GOLD }}>/</span> {d.country}</p></Fade>
-          <Fade play={play} delay={0.1}><p className="mt-7 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />{d.region ? `${d.region} · ` : ""}{d.vertical}</p></Fade>
-          <h1 className={`${serifClass} mt-5 text-[clamp(3rem,8vw,6rem)] font-medium leading-[0.92]`}><Rise text={d.country} play={play} delay={0.2} /></h1>
-          <Fade play={play} delay={0.6}><p className="mt-6 max-w-lg text-[16px] leading-relaxed text-white/75">{d.summary}</p></Fade>
-          <Fade play={play} delay={0.75}><div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><a href="/contact" className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em]" style={{ background: GOLD, color: NAVY }}>Book a private consultation <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>{d.brochure ? <a href={d.brochure} className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#bfa15c]">Download brochure</a> : null}</div></Fade>
-          {d.stats.length ? <Fade play={play} delay={0.9}><div className="mt-10 grid max-w-lg grid-cols-2 gap-x-8 gap-y-6 border-t pt-7 sm:grid-cols-4" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{d.stats.map((s) => <div key={s.label} className="flex flex-col gap-1"><span className={`${serifClass} text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none`} style={{ color: GOLD }}>{s.value}</span><span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">{s.label}</span></div>)}</div></Fade> : null}
-        </div>
-        <motion.div initial={{ opacity: 0, scale: 1.06 }} animate={play ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="group relative aspect-[4/5] w-full overflow-hidden rounded-lg">
-          <Image src={d.heroImage} alt={d.country} fill sizes="45vw" priority className="object-cover [filter:grayscale(0.4)_brightness(0.72)_contrast(1.05)] transition-[filter,transform] duration-700 group-hover:[filter:grayscale(0)_brightness(0.85)] group-hover:scale-105" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.6) 0%, transparent 50%)" }} />
-          <div className="absolute inset-0" style={{ boxShadow: `inset 0 0 0 1px ${GOLD}55` }} />
-          <span aria-hidden className="absolute left-4 top-4 h-7 w-7 border-l-2 border-t-2" style={{ borderColor: GOLD }} />
-          <span aria-hidden className="absolute bottom-4 right-4 h-7 w-7 border-b-2 border-r-2" style={{ borderColor: GOLD }} />
-        </motion.div>
+    <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: NAVY }}>
+      <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={play ? { scale: 1 } : { scale: 1.12 }} transition={{ duration: 8, ease: "easeOut" }}>
+        <Image src={d.heroImage} alt={d.country} fill sizes="100vw" priority className="object-cover [filter:grayscale(0.4)_brightness(0.6)_contrast(1.05)]" />
+      </motion.div>
+      <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
+      <div className="lcp-instant relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-12 lg:px-20">
+        <Fade play={play}><p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(238,243,251,0.5)" }}><a href="/" className="hover:text-[#bfa15c]">Home</a> <span style={{ color: GOLD }}>/</span> <a href={`/${d.verticalSlug}`} className="hover:text-[#bfa15c]">{d.vertical}</a> <span style={{ color: GOLD }}>/</span> {d.country}</p></Fade>
+        <Fade play={play} delay={0.1}><p className="mt-8 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />{d.region ? `${d.region} · ` : ""}{d.vertical}</p></Fade>
+        <h1 className={`${serifClass} mt-6 max-w-3xl text-[clamp(3rem,8vw,6rem)] font-medium leading-[0.92]`}><Rise text={d.country} play={play} delay={0.2} /></h1>
+        <Fade play={play} delay={0.6}><p className="mt-7 max-w-xl text-[16px] leading-relaxed text-white/75">{d.summary}</p></Fade>
+        <Fade play={play} delay={0.75}><div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><a href="/contact" className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em]" style={{ background: GOLD, color: NAVY }}>Book a private consultation <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>{d.brochure ? <a href={d.brochure} className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:border-[#bfa15c]">Download brochure</a> : null}</div></Fade>
+        {d.stats.length ? <Fade play={play} delay={0.9}><div className="mt-10 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 border-t pt-7 sm:grid-cols-4" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{d.stats.map((s) => <div key={s.label} className="flex flex-col gap-1"><span className={`${serifClass} text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none`} style={{ color: GOLD }}>{s.value}</span><span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">{s.label}</span></div>)}</div></Fade> : null}
       </div>
+      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
     </section>
   );
 }

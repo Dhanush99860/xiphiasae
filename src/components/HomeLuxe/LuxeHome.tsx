@@ -91,9 +91,14 @@ const HERO_QUICK: [string, string][] = [["Golden Visa", "/golden-visa"], ["Citiz
 const HERO_STATS = [{ v: "35", u: "jurisdictions" }, { v: "17 yrs", u: "advising" }, { v: "10,000+", u: "families" }, { v: "98%", u: "approval" }];
 function Hero({ serifClass }: { serifClass: string }) {
   return (
-    <section data-tone="dark" className="relative isolate flex min-h-screen items-center overflow-hidden px-6 pb-16 pt-28 text-[#eef3fb] sm:px-12 lg:px-20" style={{ background: "radial-gradient(120% 100% at 12% 0%, #13284f 0%, #0a1733 58%)" }}>
+    <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: "#0a1733" }}>
       <Ambient tone="dark" />
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }}>
+        <Image src={HERO_FAMILY} alt="" fill sizes="100vw" priority className="object-cover [filter:grayscale(0.3)_brightness(0.58)_contrast(1.05)]" />
+      </motion.div>
+      <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-12 lg:px-20">
         <div className="lcp-instant">
           <Eyebrow ar="الهجرة والإقامة">Dubai · Global mobility since 2007</Eyebrow>
           <h1 className={`${serifClass} mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] font-medium leading-[1.02]`}><Rise text="Immigration, residency &" className="block" /><span className="block italic" style={{ color: GOLD }}><Rise text="citizenship — expertly advised." delay={0.25} /></span></h1>
@@ -101,15 +106,10 @@ function Hero({ serifClass }: { serifClass: string }) {
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.65 }} className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center"><Btn href="/citizenship">Book a private consultation</Btn><Btn ghost href="/eligibility">Check your eligibility</Btn></motion.div>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.8 }} className="mt-7 flex flex-wrap gap-2">{HERO_QUICK.map(([label, href]) => <a key={label} href={href} className="rounded-full border px-3.5 py-1.5 text-[12px] text-white/75 transition-colors hover:border-[#bfa15c] hover:text-[#bfa15c]" style={{ borderColor: "rgba(191,161,92,0.35)" }}>{label}</a>)}</motion.div>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.95 }} className="mt-9 flex flex-wrap gap-x-8 gap-y-3 border-t pt-7" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{HERO_STATS.map((s) => <div key={s.u} className="flex flex-col"><span className="text-[clamp(1.3rem,2vw,1.8rem)] font-semibold tabular-nums" style={{ color: GOLD }}>{s.v}</span><span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">{s.u}</span></div>)}</motion.div>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 1.1 }} className="mt-6 text-[12px] font-semibold" style={{ color: GOLD }}>Licensed in the UAE · IMC &amp; ICCRC members</motion.p>
         </div>
-        <motion.div initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="relative aspect-[5/6] w-full overflow-hidden rounded-lg lg:aspect-[4/5]">
-        <Image src={HERO_FAMILY} alt="A family with XIPHIAS Immigration at the airport, holding their new passports" fill sizes="(min-width:1024px) 45vw, 100vw" priority className="object-cover" />
-          <div className="absolute inset-0" style={{ boxShadow: `inset 0 0 0 1px ${GOLD}55` }} />
-          <span aria-hidden className="absolute left-4 top-4 h-7 w-7 border-l-2 border-t-2" style={{ borderColor: GOLD }} />
-          <span aria-hidden className="absolute bottom-4 right-4 h-7 w-7 border-b-2 border-r-2" style={{ borderColor: GOLD }} />
-          <div className="absolute bottom-4 left-4 rounded-full bg-black/55 px-4 py-2 text-[12px] font-semibold backdrop-blur" style={{ color: GOLD }}>Licensed in the UAE · IMC & ICCRC members</div>
-        </motion.div>
       </div>
+      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
     </section>
   );
 }

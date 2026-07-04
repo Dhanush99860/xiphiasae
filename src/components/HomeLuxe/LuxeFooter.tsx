@@ -3,48 +3,128 @@
 const GOLD = "#bfa15c";
 const INK = "#0c1f3f";
 
-function Btn({ children, href = "/contact" }: { children: React.ReactNode; href?: string }) {
-  return <a href={href} className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-[#0a1733] transition-transform hover:-translate-y-0.5" style={{ background: GOLD }}>{children}<span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>;
-}
+const NAV = [
+  {
+    heading: "Programmes",
+    links: [
+      { label: "Golden Visa", href: "/golden-visa" },
+      { label: "Citizenship by Investment", href: "/citizenship" },
+      { label: "Residency & Relocation", href: "/residency" },
+      { label: "Skilled Migration", href: "/skilled" },
+      { label: "Corporate Mobility", href: "/corporate" },
+    ],
+  },
+  {
+    heading: "Destinations",
+    links: [
+      { label: "United Arab Emirates", href: "/residency/uae" },
+      { label: "Portugal", href: "/residency/portugal" },
+      { label: "Malta", href: "/citizenship/malta" },
+      { label: "Canada", href: "/skilled/canada" },
+      { label: "Australia", href: "/skilled/australia" },
+      { label: "United Kingdom", href: "/skilled/united-kingdom" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { label: "About Us", href: "/about" },
+      { label: "Insights", href: "/insights" },
+      { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
+      { label: "Careers", href: "/careers" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms of Use", href: "/terms" },
+      { label: "Anti-fraud Notice", href: "/anti-fraud" },
+      { label: "Cookie Preferences", href: "#" },
+    ],
+  },
+] as const;
 
-/* ─────────── FOOTER (editorial white) ─────────── */
-const FCOLS = [["Programmes", ["Golden Visa", "Citizenship by Investment", "Residency & Relocation", "Corporate Mobility"]], ["Destinations", ["United Arab Emirates", "Portugal", "Greece", "Malta", "Grenada"]], ["Intelligence", ["XIA Assessment", "Eligibility", "Passport Index", "Compare Programmes"]], ["Company", ["About", "Our Advisors", "Insights", "Careers", "Contact"]]] as const;
+const OFFICES = [
+  "Bengaluru", "Gurugram", "Dubai", "Leicester",
+  "Waterloo", "Montreal", "Melbourne", "Auckland", "Doha",
+];
 
-// Map every footer label to its real route.
-const FHREF: Record<string, string> = {
-  // Programmes
-  "Golden Visa": "/golden-visa",
-  "Citizenship by Investment": "/citizenship",
-  "Residency & Relocation": "/residency",
-  "Corporate Mobility": "/corporate",
-  // Destinations
-  "United Arab Emirates": "/residency/uae",
-  Portugal: "/residency/portugal",
-  Greece: "/residency/greece",
-  Malta: "/residency/malta",
-  Grenada: "/citizenship/grenada",
-  // Intelligence
-  "XIA Assessment": "/xia-intelligence",
-  Eligibility: "/eligibility",
-  "Passport Index": "/passport-index",
-  "Compare Programmes": "/compare-programs",
-  // Company
-  About: "/about",
-  "Our Advisors": "/teams",
-  Insights: "/insights",
-  Careers: "/careers",
-  Contact: "/contact",
-};
-
-/** Shared luxe footer used by the homepage and every vertical hub. */
 export default function LuxeFooter({ serifClass }: { serifClass: string }) {
   return (
-    <footer data-tone="light" className="relative px-6 py-20 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#f7faff" }}>
+    <footer data-tone="light" className="relative px-6 pb-8 pt-12 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#f7faff" }}>
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col justify-between gap-8 border-b pb-12 lg:flex-row lg:items-end" style={{ borderColor: `${INK}1f` }}><div><span className={`${serifClass} text-[2.4rem] font-semibold tracking-[0.04em]`}>XIPHIAS</span><p className="mt-3 max-w-sm text-[14px] leading-relaxed text-[#0c1f3f]/60">A private global-mobility practice. Residency, citizenship and second passports — arranged with discretion since 2007.</p></div><Btn>Book a consultation</Btn></div>
-        <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4">{FCOLS.map((c) => (<div key={c[0]}><p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: GOLD }}>{c[0]}</p><ul className="mt-4 flex flex-col gap-2.5">{c[1].map((it) => <li key={it}><a href={FHREF[it] ?? "#"} className="text-[13px] text-[#0c1f3f]/60 hover:text-[#0c1f3f]">{it}</a></li>)}</ul></div>))}</div>
-        <div className="grid gap-6 border-t pt-8 text-[12px] text-[#0c1f3f]/55 sm:grid-cols-3" style={{ borderColor: `${INK}15` }}><span><span className="font-semibold text-[#0c1f3f]">Dubai</span> · DIFC, Gate Village</span><span><span className="font-semibold text-[#0c1f3f]">London</span> · Mayfair</span><span><span className="font-semibold text-[#0c1f3f]">Bengaluru</span> · UB City</span></div>
-        <div className="mt-8 flex flex-col items-start justify-between gap-4 text-[12px] text-[#0c1f3f]/45 sm:flex-row sm:items-center"><span>© 2026 XIPHIAS Immigration · Licensed in the UAE</span><span className="flex gap-5"><a href="/privacy-policy" className="hover:text-[#0c1f3f]">Privacy</a><a href="/terms" className="hover:text-[#0c1f3f]">Terms</a><a href="/anti-fraud" className="hover:text-[#0c1f3f]">Anti-fraud</a></span></div>
+
+        {/* ── brand row ── */}
+        <div
+          className="flex flex-col gap-5 border-b pb-8 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: `${INK}18` }}
+        >
+          <div className="flex items-baseline gap-4">
+            <span className={`${serifClass} text-[1.8rem] font-semibold tracking-[0.04em]`}>XIPHIAS</span>
+            <span className="hidden text-[12px] text-[#0c1f3f]/40 sm:inline">Private global mobility · Est. 2007</span>
+          </div>
+          <a
+            href="/contact"
+            className="group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-[12px] font-bold uppercase tracking-[0.14em]"
+            style={{ background: GOLD, color: "#0a1733" }}
+          >
+            Book a consultation
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+        </div>
+
+        {/* ── nav columns ── */}
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 py-8 md:grid-cols-4">
+          {NAV.map((col) => (
+            <div key={col.heading}>
+              <p
+                className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em]"
+                style={{ color: GOLD }}
+              >
+                {col.heading}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {col.links.map((l) => (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      className="text-[12.5px] text-[#0c1f3f]/55 transition-colors hover:text-[#0c1f3f]"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* ── bottom bar ── */}
+        <div
+          className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: `${INK}12` }}
+        >
+          {/* office cities */}
+          <div className="flex flex-wrap items-center gap-x-1 gap-y-1">
+            {OFFICES.map((city, i) => (
+              <span key={city} className="text-[11px] text-[#0c1f3f]/38">
+                {city}{i < OFFICES.length - 1 && <span className="mx-1 opacity-30">·</span>}
+              </span>
+            ))}
+          </div>
+
+          {/* copyright */}
+          <p className="shrink-0 text-[11px] text-[#0c1f3f]/38">
+            © {new Date().getFullYear()} XIPHIAS Immigration · Licensed in the UAE
+          </p>
+        </div>
+
+        {/* ── compliance note ── */}
+        <p className="mt-4 max-w-2xl text-[10.5px] leading-relaxed text-[#0c1f3f]/28">
+          XIPHIAS Immigration advises on lawful immigration pathways. We do not provide legal advice. Content is for informational purposes only. Results may vary based on individual circumstances and jurisdiction.
+        </p>
       </div>
     </footer>
   );
