@@ -60,6 +60,7 @@ const GROUPS: Group[] = [
   ] },
   { label: "Get in touch", img: PORTUGAL, caption: "Private Consultation", items: [
     { name: "Contact", href: "/contact" },
+    { name: "Personal Booking", href: "/personal-booking" },
     { name: "Book a consultation", href: "/contact" },
   ] },
 ];
