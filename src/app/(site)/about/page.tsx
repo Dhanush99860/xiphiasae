@@ -11,15 +11,15 @@ const OG_IMAGE = "/xiphias-immigration.png";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "About XIPHIAS Immigration — 17 Years of Private Global Mobility",
+  title: "About XIPHIAS — Licensed Immigration Advisors, Dubai",
   description:
-    "Since 2007 XIPHIAS has arranged residency, citizenship and second passports for 10,000+ families across 35 jurisdictions — from offices in Dubai, London and Bengaluru. Licensed, discreet, end-to-end.",
+    "UAE-licensed immigration firm since 2007. 10,000+ families, 35 jurisdictions. IMC Fellow-led, offices in Dubai, London & Bengaluru.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "About XIPHIAS Immigration — Private Global Mobility Since 2007",
+    title: "About XIPHIAS — Licensed Immigration Advisors Since 2007",
     description:
-      "17 years, 10,000+ families, 35 jurisdictions. Our story, our people, our credentials.",
+      "Founded 2007. 10,000+ families, 35 jurisdictions. IMC Fellow-led, UAE-licensed, with offices in Dubai, London and Bengaluru.",
     url: `${SITE_URL}/about`,
     siteName: "XIPHIAS Immigration",
     locale: "en_US",

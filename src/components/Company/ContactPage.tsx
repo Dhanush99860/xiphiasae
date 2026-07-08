@@ -16,15 +16,16 @@ type OfficeEntry = { city: string; entity: string; address: string; phone: strin
 const ALL_REGIONS: { region: string; offices: OfficeEntry[] }[] = [
   { region: "India", offices: [
     { city: "Bengaluru", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "Aurbis Prime, 11, Kaveri Regent Coronet, 80 Feet Road, 3rd Block, Koramangala, Bengaluru – 560034", phone: "+91 9021335577", email: "immigration@xiphias.in" },
-    { city: "Gurugram", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "Augusta Point, Golf Course Rd, near Parsvnath Exotica, DLF Phase 5, Sector 53, Gurugram, Haryana 122002", phone: "+91-96675 20211", email: "Gurgaon@xiphias.in" },
+    { city: "Gurugram", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "Augusta Point, Golf Course Rd, near Parsvnath Exotica, DLF Phase 5, Sector 53, Gurugram, Haryana 122002", phone: "+91-96675 20211", email: "gurgaon@xiphias.in" },
   ]},
   { region: "UAE", offices: [
     { city: "Dubai", entity: "XIPHIAS IMMIGRATION DMCC", address: "Unit No: 608, Platinum Tower, Plot No: JLT-PH1-I2, Jumeirah Lakes Towers, Dubai, UAE", phone: "+971-527 275 101", email: "dubai@xiphiasimmigration.com" },
   ]},
   { region: "Europe", offices: [
-    { city: "Larnaca, Cyprus", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "41-43 Spyros Kyprianou Ave., Patroclos Tower, 6th Floor, Larnaca, 6051", phone: "+357-24-812000", email: "info@xiphiasimmigration.com" },
-    { city: "Lisbon, Portugal", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "Rua do Mar Vermelho, nº 2, 2.1, 1990-152 Lisboa", phone: "+351-218 954 290", email: "info@xiphiasimmigration.com" },
-    { city: "Valletta, Malta", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "120, St Ursula Street, Valletta, VLT 1236 AD", phone: "+356 2205 6611", email: "info@xiphiasimmigration.com" },
+    { city: "Larnaca, Cyprus", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "41-43 Spyros Kyprianou Ave., Patroclos Tower, 6th Floor, Larnaca, 6051", phone: "+357-24-812000", phone2: "+357-24-635964", email: "info@xiphiasimmigration.com" },
+    { city: "Lisbon, Portugal", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "Rua do Mar Vermelho, nº 2, 2.1, 1990-152 Lisboa", phone: "+351-218 954 290", phone2: "+351-218 943 244", email: "info@xiphiasimmigration.com" },
+    { city: "Valletta, Malta", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "120, St Ursula Street, Valletta, VLT 1236 AD", phone: "+356 2205 6611", phone2: "+356 2205 6201", email: "info@xiphiasimmigration.com" },
+    { city: "València, Spain", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "Plaza del Ayuntamiento 19, Office 3G, València", phone: "+34 960 730 029", email: "info@xiphiasimmigration.com" },
   ]},
   { region: "United Kingdom", offices: [
     { city: "Leicester", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "5 Upper King Street, Leicester, LE1 6XF", phone: "+44 (0) 781 392 9395", phone2: "+44 (0) 116 319 4884", email: "info@xiphiasimmigration.com" },
@@ -37,13 +38,13 @@ const ALL_REGIONS: { region: string; offices: OfficeEntry[] }[] = [
     { city: "Melbourne", entity: "XIPHIAS Immigration", address: "SSCS-Suite 204, 227 Collins Street, Melbourne, VIC 3000", phone: "+61-0451239 239", email: "info@xiphiasimmigration.com" },
   ]},
   { region: "New Zealand", offices: [
-    { city: "Auckland", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Belinda Wang, LIA #200902240)", address: "26C Aviemore Drive, Highland Park, Auckland", phone: "+64 9 535 0227", email: "belinda@xiphias.in" },
+    { city: "Auckland", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Belinda Wang, LIA #200902240)", address: "26C Aviemore Drive, Highland Park, Auckland", phone: "+64 21 269 9692", phone2: "+64 9 535 0227", email: "belinda@xiphias.in" },
   ]},
   { region: "USA", offices: [
     { city: "Los Angeles, CA", entity: "XIPHIAS IMMIGRATION PVT LTD (Represented by Partners)", address: "1605 North Cahuenga Blvd, Hollywood, CA 90028", phone: "+1 323 466 1400", email: "info@xiphiasimmigration.com" },
   ]},
   { region: "Qatar", offices: [
-    { city: "Doha", entity: "ILC LLC (Represented by Partners)", address: "Doha, Qatar", phone: "+974 4476 0562", email: "info@xiphiasimmigration.com" },
+    { city: "Doha", entity: "ILC LLC (Represented by Partners)", address: "Office 3402, Al Jazeera Tower, Conference Center Rd, West Bay, P.O Box 4011, Doha, Qatar", phone: "+974 4476 0562", phone2: "+974 4007 5001", email: "info@xiphiasimmigration.com" },
   ]},
   { region: "Brazil", offices: [
     { city: "São Paulo", entity: "HOFF ADVOCACIA", address: "Tabapuã Street, No. 594, Room 46, Itaim Bibi, São Paulo Capital, SP – 04533-002", phone: "(11) 3787-0935", phone2: "(11) 98070-8842", email: "info@xiphiasimmigration.com" },
@@ -51,10 +52,10 @@ const ALL_REGIONS: { region: string; offices: OfficeEntry[] }[] = [
 ];
 
 const CHANNELS = [
-  { label: "Call", value: "+91 90213 35577", sub: "Mon–Sat · 9:30–18:30 IST", href: "tel:+919021335577" },
-  { label: "Email", value: "immigration@xiphias.in", sub: "Reply within one business day", href: "mailto:immigration@xiphias.in" },
-  { label: "WhatsApp", value: "+91 74060 06061", sub: "Message our advisory desk", href: "https://wa.me/917406006061" },
-  { label: "Dubai", value: "+971 527 275 101", sub: "Jumeirah Lakes Towers · UAE", href: "tel:+971527275101" },
+  { label: "Call", value: "+971-527 275 101", sub: "Mon–Sat · 9:00–18:00 GST", href: "tel:+971527275101" },
+  { label: "Email", value: "dubai@xiphiasimmigration.com", sub: "Reply within one business day", href: "mailto:dubai@xiphiasimmigration.com" },
+  { label: "WhatsApp", value: "+971-527 275 101", sub: "Message our Dubai advisory desk", href: "https://wa.me/971527275101" },
+  { label: "Office", value: "Jumeirah Lakes Towers, Dubai", sub: "Unit 608, Platinum Tower, JLT-PH1-I2", href: "https://maps.google.com/?q=Platinum+Tower+JLT+Dubai" },
 ];
 
 const INTERESTS = ["Citizenship by Investment", "Residency & Golden Visa", "Skilled Migration", "Corporate Mobility", "Not sure yet"];
@@ -293,7 +294,7 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
                   {submitting ? "Sending…" : "Send confidential enquiry"}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </button>
-                <p className="text-center text-[11px] text-[#0c1f3f]/30">Dubai · Bengaluru · Gurugram · London · Waterloo</p>
+                <p className="text-center text-[11px] text-[#0c1f3f]/30">Dubai · Bengaluru · Gurugram · Leicester · Waterloo</p>
               </form>
             )}
           </motion.div>

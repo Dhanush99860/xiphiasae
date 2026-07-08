@@ -1,4 +1,5 @@
 // app/(site)/citizenship/[country]/[program]/page.tsx
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond } from "next/font/google";
@@ -25,8 +26,10 @@ export async function generateMetadata(props: { params: Promise<{ country: strin
     const { meta } = await loadProgramPageSections(params.country, params.program);
     const m = meta as Record<string, any> & { title: string; country: string };
     const seo = m.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
-    const title = seo?.title ?? m.title;
-    const description = seo?.description ?? m.tagline;
+    const genT = `${m.title} | XIPHIAS`;
+    const title = seo?.title ?? (genT.length <= 60 ? genT : `${String(m.title).slice(0, 47).trimEnd()}… | XIPHIAS`);
+    const rawD = (m.tagline as string | undefined) ?? `${m.title} — ${m.country} citizenship programme. Arranged end-to-end by XIPHIAS, Dubai.`;
+    const description = seo?.description ?? rawD.slice(0, 150);
     const heroImage = m.heroImage as string | undefined;
     const canonicalPath = `/citizenship/${params.country}/${params.program}`;
     return {
@@ -53,6 +56,12 @@ export default async function ProgramPage(props: { params: Promise<{ country: st
   const p = getCitizenshipPrograms(country).find((x) => x.programSlug === program) as (Record<string, any> & { title: string; country: string; countrySlug: string }) | undefined;
   if (!p) return notFound();
 
+  let overviewSection: ReactNode = null;
+  try {
+    const { sections } = await loadProgramPageSections(country, program);
+    overviewSection = (sections as Record<string, ReactNode>)["overview"] ?? null;
+  } catch { /* non-fatal */ }
+
   const stats: { label: string; value: string }[] = [];
   if (typeof p.minInvestment === "number") stats.push({ label: "Invest from", value: money(p.minInvestment, p.currency)! });
   if (p.timelineLabel || typeof p.timelineMonths === "number") stats.push({ label: "Timeline", value: p.timelineLabel ?? `${p.timelineMonths} mo` });
@@ -76,12 +85,19 @@ export default async function ProgramPage(props: { params: Promise<{ country: st
     requirements: Array.isArray(p.requirements) ? p.requirements : [],
     disqualifiers: Array.isArray(p.disqualifiers) ? p.disqualifiers : [],
     faq: Array.isArray(p.faq) ? p.faq : [],
+    documentChecklist: Array.isArray(p.documentChecklist) ? p.documentChecklist as ProgramData["documentChecklist"] : [],
+    familyMatrix: p.familyMatrix && typeof p.familyMatrix === "object" ? p.familyMatrix as ProgramData["familyMatrix"] : undefined,
+    projectList: Array.isArray(p.projectList) ? p.projectList as ProgramData["projectList"] : [],
+    riskNotes: Array.isArray(p.riskNotes) ? p.riskNotes : typeof p.riskNotes === "string" ? [p.riskNotes] : typeof p.risknotes === "string" ? [p.risknotes] : [],
+    complianceNotes: Array.isArray(p.complianceNotes) ? p.complianceNotes : typeof p.complianceNotes === "string" ? [p.complianceNotes] : [],
+    processSteps: Array.isArray(p.processSteps) ? p.processSteps as ProgramData["processSteps"] : [],
+    lastUpdated: typeof p.lastUpdated === "string" ? p.lastUpdated : undefined,
   };
 
   return (
     <>
       <JsonLd data={breadcrumbLd([{ name: "Citizenship", url: "/citizenship" }, { name: p.country, url: `/citizenship/${country}` }, { name: p.title, url: `/citizenship/${country}/${program}` }])} />
-      <ProgramHub data={data} serifClass={serif.className} />
+      <ProgramHub data={data} serifClass={serif.className} overviewSection={overviewSection} />
     </>
   );
 }

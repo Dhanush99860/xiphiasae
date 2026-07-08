@@ -15,14 +15,14 @@ const NAV = [
     ],
   },
   {
-    heading: "Destinations",
+    heading: "Tools",
     links: [
-      { label: "United Arab Emirates", href: "/residency/uae" },
-      { label: "Portugal", href: "/residency/portugal" },
-      { label: "Malta", href: "/citizenship/malta" },
-      { label: "Canada", href: "/skilled/canada" },
-      { label: "Australia", href: "/skilled/australia" },
-      { label: "United Kingdom", href: "/skilled/united-kingdom" },
+      { label: "XIA Intelligence", href: "/xia-intelligence" },
+      { label: "Passport Power", href: "/passport-index" },
+      { label: "Compare Programs", href: "/compare-programs" },
+      { label: "Cost Estimator", href: "/cost-estimator" },
+      { label: "Eligibility Check", href: "/eligibility" },
+      { label: "Route Intelligence", href: "/route-intelligence" },
     ],
   },
   {
@@ -33,6 +33,7 @@ const NAV = [
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "Careers", href: "/careers" },
+      { label: "Partner With Us", href: "/partner-with-us" },
     ],
   },
   {
@@ -47,8 +48,10 @@ const NAV = [
 ] as const;
 
 const OFFICES = [
-  "Bengaluru", "Gurugram", "Dubai", "Leicester",
-  "Waterloo", "Montreal", "Melbourne", "Auckland", "Doha",
+  "Dubai", "Bengaluru", "Gurugram", "Leicester",
+  "Larnaca", "Lisbon", "Valletta", "València",
+  "Waterloo", "Montreal", "Melbourne", "Auckland",
+  "Los Angeles", "Doha", "São Paulo",
 ];
 
 export default function LuxeFooter({ serifClass }: { serifClass: string }) {

@@ -33,6 +33,7 @@ const DUBAI = "/images/residency/uae/uae-golden-visa.webp";
 const PORTUGAL = "/images/residency/portugal/portugal-golden-visa.webp";
 const MALTA = "/images/residency/malta/malta-mprp.webp";
 const TURKEY = "/images/citizenship/turkey/bank-deposit-turkey.webp";
+const TOOLS_IMG = "/images/home/singapore-due-diligence.webp";
 
 type Item = { name: string; href: string; img?: string };
 type Group = { label: string; items: Item[]; img: string; caption: string };
@@ -58,10 +59,32 @@ const GROUPS: Group[] = [
     { name: "Blog", href: "/blog" },
     { name: "Careers", href: "/careers" },
   ] },
+  { label: "Tools", img: TOOLS_IMG, caption: "Intelligence & Resources", items: [
+    { name: "XIA Intelligence", href: "/xia-intelligence" },
+    { name: "Route Intelligence", href: "/route-intelligence" },
+    { name: "Deep Analysis", href: "/deep-analysis" },
+    { name: "US Visa Intelligence", href: "/us-visa-intelligence" },
+    { name: "Cost Estimator", href: "/cost-estimator" },
+    { name: "Compare Programs", href: "/compare-programs" },
+    { name: "Program Index", href: "/xiphias-program-index" },
+    { name: "Passport Power", href: "/passport-index" },
+    { name: "Guide", href: "/guide" },
+    { name: "Eligibility Check", href: "/eligibility" },
+    { name: "Personal Advice", href: "/personal-booking" },
+    { name: "Media", href: "/media" },
+    { name: "News", href: "/news" },
+    { name: "Blog", href: "/blog" },
+    { name: "Insights", href: "/insights" },
+    { name: "Articles", href: "/articles" },
+    { name: "Events", href: "/events" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Careers", href: "/careers" },
+    { name: "Partner With Us", href: "/partner-with-us" },
+    { name: "Reviews", href: "/reviews" },
+  ] },
   { label: "Get in touch", img: PORTUGAL, caption: "Private Consultation", items: [
     { name: "Contact", href: "/contact" },
     { name: "Personal Booking", href: "/personal-booking" },
-    { name: "Book a consultation", href: "/contact" },
   ] },
 ];
 
@@ -115,7 +138,7 @@ export default function LuxeHeader({ serifClass }: { serifClass: string }) {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-[60] flex items-center justify-between px-6 py-5 transition-colors duration-300 sm:px-10">
-        <a href="/" aria-label="XIPHIAS Immigration — home" className="relative block h-11 w-36"><Image src={logoSrc} alt="XIPHIAS Immigration" fill sizes="144px" className="object-contain object-left" priority /></a>
+        <a href="/" aria-label="XIPHIAS Immigration — home" className="relative block h-16 w-52"><Image src={logoSrc} alt="XIPHIAS Immigration" fill sizes="208px" className="object-contain object-left" priority /></a>
         <button onClick={() => setOpen(true)} onMouseEnter={() => setBtnHover(true)} onMouseLeave={() => setBtnHover(false)} onFocus={() => setBtnHover(true)} onBlur={() => setBtnHover(false)} aria-expanded={open} aria-label="Open menu" className="flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.2em] transition-colors duration-300" style={{ color: btnHover ? GOLD : fg }}>
           <span>Menu</span>
           <MenuMark on={btnHover && !reduce} color={btnHover ? GOLD : fg} />
@@ -138,7 +161,7 @@ export default function LuxeHeader({ serifClass }: { serifClass: string }) {
           >
             {/* Logo — small, top-left, never clipped */}
             <a href="/" onClick={close} className="absolute left-6 top-6 z-50 block w-fit sm:left-10 sm:top-8 lg:left-16" aria-label="XIPHIAS Immigration — home">
-              <Image src="/images/logo/xiphias-immigration-white.png" alt="XIPHIAS Immigration" width={220} height={56} priority className="h-10 w-32 object-contain object-left" />
+              <Image src="/images/logo/xiphias-immigration-white.png" alt="XIPHIAS Immigration" width={260} height={66} priority className="h-14 w-44 object-contain object-left" />
             </a>
 
             {/* Close */}
@@ -180,7 +203,7 @@ export default function LuxeHeader({ serifClass }: { serifClass: string }) {
                   >
                     <div className="flex-1">
                       <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>{group.label}</p>
-                      <ul className="flex flex-col gap-3">
+                      <ul className="flex flex-col gap-2.5 max-h-[55vh] overflow-y-auto pr-2">
                         {group.items.map((it) => (
                           <li key={it.name + it.href}>
                             <a href={it.href} onClick={close} onMouseEnter={() => setHoverImg(it.img ?? null)} onFocus={() => setHoverImg(it.img ?? null)} onMouseLeave={() => setHoverImg(null)} onBlur={() => setHoverImg(null)} className={`group inline-flex items-center gap-2.5 text-[20px] leading-snug transition-colors hover:text-[#bfa15c] sm:text-[22px] ${serifClass}`} style={{ color: "rgba(238,243,251,0.82)" }}>
@@ -209,9 +232,23 @@ export default function LuxeHeader({ serifClass }: { serifClass: string }) {
               </div>
             </section>
 
-            <p className="px-6 pb-7 text-[12px] tracking-[0.18em] sm:px-10 lg:px-16" style={{ color: "rgba(238,243,251,0.55)" }}>
-              EN <span className="font-arabic-display">·&nbsp;ع</span>&nbsp;&nbsp;·&nbsp;&nbsp;Dubai · London · Bengaluru
-            </p>
+            {/* Global offices footer bar */}
+            <div className="px-6 pb-7 sm:px-10 lg:px-16 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+              <p className="pt-5 mb-2 text-[9px] font-bold uppercase tracking-[0.32em]" style={{ color: GOLD }}>Global Offices</p>
+              <div className="flex flex-wrap gap-x-4 gap-y-1">
+                {[
+                  "Dubai, UAE", "Bengaluru, India", "Gurugram, India",
+                  "Leicester, UK", "Larnaca, Cyprus", "Lisbon, Portugal",
+                  "Valletta, Malta", "València, Spain", "Waterloo, Canada",
+                  "Montreal, Canada", "Melbourne, Australia", "Auckland, NZ",
+                  "Los Angeles, USA", "Doha, Qatar", "São Paulo, Brazil",
+                ].map((city, i, arr) => (
+                  <span key={city} className="text-[11px] tracking-[0.1em] whitespace-nowrap" style={{ color: "rgba(238,243,251,0.42)" }}>
+                    {city}{i < arr.length - 1 && <span className="ml-4" style={{ color: "rgba(191,161,92,0.35)" }}>·</span>}
+                  </span>
+                ))}
+              </div>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>

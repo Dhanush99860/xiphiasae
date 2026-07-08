@@ -20,14 +20,14 @@ const serif = Cormorant_Garamond({
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Citizenship by Investment — Second Passports, Privately Arranged | XIPHIAS",
+  title: "Citizenship by Investment Programs 2025 | XIPHIAS",
   description:
-    "Donation and real-estate citizenship routes across the Caribbean, Türkiye and beyond — arranged end-to-end with transparent costs and rigorous compliance. Book a private consultation.",
+    "Malta, St Kitts, Grenada & Türkiye from €100k. Donation & real-estate citizenship routes, transparent costs, rigorous compliance. Dubai.",
   alternates: { canonical: "/citizenship" },
   openGraph: {
-    title: "Citizenship by Investment — Second Passports, Privately Arranged",
+    title: "Citizenship by Investment Programs 2025 | XIPHIAS",
     description:
-      "Second citizenship across ten jurisdictions and twenty-five investment routes, arranged with discretion from Dubai.",
+      "Second citizenship across 10+ jurisdictions — Malta, Caribbean & Türkiye. Donation & real-estate routes from €100k, arranged from Dubai.",
     url: "https://www.xiphiasimmigration.com/citizenship",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",

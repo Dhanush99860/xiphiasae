@@ -22,13 +22,13 @@ const SITE = "https://www.xiphiasimmigration.com";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Careers at XIPHIAS Immigration | Join Our Team",
-  description: "Join our global-mobility team. Explore on-site careers in citizenship, residency, skilled migration and corporate immigration from our Bengaluru headquarters.",
+  title: "Immigration Jobs at XIPHIAS | Dubai & Bengaluru",
+  description: "On-site roles in citizenship, residency, skilled migration & corporate mobility. Bengaluru HQ, 10+ global offices. Apply directly.",
   alternates: { canonical: `${SITE}/careers` },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Careers at XIPHIAS Immigration",
-    description: "On-site roles across immigration services — Bengaluru & branch offices.",
+    title: "Immigration Jobs at XIPHIAS | Dubai & Bengaluru",
+    description: "Join a specialist immigration firm — roles in citizenship, residency, skilled migration & corporate mobility. Bengaluru HQ & branch offices.",
     url: `${SITE}/careers`,
     type: "website",
     siteName: "XIPHIAS Immigration",

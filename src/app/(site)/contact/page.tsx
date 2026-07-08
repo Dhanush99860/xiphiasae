@@ -8,14 +8,14 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "7
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Contact XIPHIAS — Book a Private Consultation",
+  title: "Contact XIPHIAS Immigration | Dubai, London & Bengaluru",
   description:
-    "Speak to a senior global-mobility advisor at XIPHIAS — call, WhatsApp or request a confidential consultation. Offices in Dubai, London and Bengaluru.",
-  keywords: ["Contact XIPHIAS", "Immigration consultants", "Citizenship by Investment", "Golden Visa consultants", "Residency by Investment"],
+    "Reach our senior advisors by call, WhatsApp or email. Offices in Dubai, London & Bengaluru. Confidential consultations by appointment.",
+  keywords: ["Contact XIPHIAS", "Immigration consultants Dubai", "Golden Visa consultant", "Citizenship by Investment", "Residency by Investment"],
   alternates: { canonical: "/contact" },
   openGraph: {
-    title: "Contact XIPHIAS — Book a Private Consultation",
-    description: "Speak to a senior advisor — Dubai · London · Bengaluru. Confidential and by appointment.",
+    title: "Contact XIPHIAS Immigration | Dubai, London & Bengaluru",
+    description: "Call, WhatsApp or email our senior advisors. Dubai, London & Bengaluru offices. Confidential immigration consultations by appointment.",
     url: "https://www.xiphiasimmigration.com/contact",
     siteName: "XIPHIAS Immigration", locale: "en_US", type: "website",
     images: [{ url: "/xiphias-immigration.png", width: 1200, height: 630, alt: "Contact XIPHIAS Immigration" }],

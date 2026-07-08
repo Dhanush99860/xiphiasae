@@ -24,8 +24,11 @@ export async function generateMetadata(props: { params: Promise<{ country: strin
   const meta = getCountryFrontmatter(params.country) as Record<string, unknown> & { title: string; summary?: string };
   const heroImage = meta.heroImage as string | undefined;
   const seo = meta.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
-  const title = seo?.title ?? meta.title;
-  const description = seo?.description ?? meta.summary;
+  const cn = (meta.country as string | undefined) ?? meta.title;
+  const genT = `${cn} Citizenship by Investment | XIPHIAS`;
+  const title = seo?.title ?? (genT.length <= 60 ? genT : `${cn} Citizenship | XIPHIAS`);
+  const rawD = meta.summary ?? `${cn} citizenship by investment — donation & real-estate routes, transparent costs. Arranged end-to-end by XIPHIAS, Dubai.`;
+  const description = seo?.description ?? rawD.slice(0, 150);
   const canonicalPath = `/citizenship/${params.country}`;
   return {
     title, description, keywords: seo?.keywords,

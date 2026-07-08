@@ -1,4 +1,5 @@
 // src/app/(site)/skilled/[country]/[program]/page.tsx
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Cormorant_Garamond } from "next/font/google";
@@ -21,8 +22,10 @@ export async function generateMetadata(props: { params: Promise<{ country: strin
     const { meta } = await loadProgramPageSections(params.country, params.program);
     const m = meta as Record<string, any> & { title: string; country: string };
     const seo = m.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
-    const title = seo?.title ?? m.title;
-    const description = seo?.description ?? m.tagline;
+    const genT = `${m.title} | XIPHIAS`;
+    const title = seo?.title ?? (genT.length <= 60 ? genT : `${String(m.title).slice(0, 47).trimEnd()}… | XIPHIAS`);
+    const rawD = (m.tagline as string | undefined) ?? `${m.title} — ${m.country} skilled migration route. Profile scoring & end-to-end filing by XIPHIAS, Dubai.`;
+    const description = seo?.description ?? rawD.slice(0, 150);
     const heroImage = m.heroImage as string | undefined;
     return { title, description, keywords: seo?.keywords ?? [title, m.country, ...(m.tags ?? [])].join(", "), alternates: { canonical: `/skilled/${params.country}/${params.program}` }, openGraph: { title, description, type: "article", url: `https://www.xiphiasimmigration.com/skilled/${params.country}/${params.program}`, siteName: "XIPHIAS Immigration", locale: "en_US", images: [{ url: heroImage ?? "/xiphias-immigration.png", width: 1200, height: 630, alt: `${title} – XIPHIAS Immigration` }] }, twitter: { card: "summary_large_image", title, description, images: [heroImage ?? "/xiphias-immigration.png"] } };
   } catch { return { title: "Programme not found" }; }
@@ -35,10 +38,17 @@ export default async function ProgramPage(props: { params: Promise<{ country: st
   const { country, program } = await props.params;
   const p = getSkilledPrograms(country).find((x) => x.programSlug === program) as (Record<string, any> & { title: string; country: string; countrySlug: string }) | undefined;
   if (!p) return notFound();
+
+  let overviewSection: ReactNode = null;
+  try {
+    const { sections } = await loadProgramPageSections(country, program);
+    overviewSection = (sections as Record<string, ReactNode>)["overview"] ?? null;
+  } catch { /* non-fatal */ }
+
   const stats: { label: string; value: string }[] = [];
   if (typeof p.minInvestment === "number") stats.push({ label: "From", value: money(p.minInvestment, p.currency)! });
   if (p.timelineLabel || typeof p.timelineMonths === "number") stats.push({ label: "Timeline", value: p.timelineLabel ?? `${p.timelineMonths} mo` });
   if (p.routeType) stats.push({ label: "Route", value: ROUTE_LABEL[p.routeType] ?? String(p.routeType) });
-  const data: ProgramData = { vertical: "Skilled Migration", verticalSlug: "skilled", country: p.country, countrySlug: p.countrySlug ?? country, title: p.title, tagline: typeof p.tagline === "string" ? p.tagline : undefined, heroImage: (p.heroImage as string) ?? "/xiphias-immigration.png", brochure: typeof p.brochure === "string" ? p.brochure : undefined, stats: stats.slice(0, 4), benefits: Array.isArray(p.benefits) ? p.benefits : [], prices: Array.isArray(p.prices) ? p.prices.map((r: any) => ({ label: r.label, amount: money(r.amount, r.currency ?? p.currency), when: r.when, notes: r.notes })) : [], governmentFees: Array.isArray(p.governmentFees) ? p.governmentFees.map((g: any) => ({ label: g.label, amount: money(g.amount, g.currency ?? p.currency) })) : [], proofOfFunds: Array.isArray(p.proofOfFunds) ? p.proofOfFunds.map((x: any) => ({ label: x.label, amount: money(x.amount, x.currency ?? p.currency), notes: x.notes })) : [], requirements: Array.isArray(p.requirements) ? p.requirements : [], disqualifiers: Array.isArray(p.disqualifiers) ? p.disqualifiers : [], faq: Array.isArray(p.faq) ? p.faq : [] };
-  return (<><JsonLd data={breadcrumbLd([{ name: "Skilled Migration", url: "/skilled" }, { name: p.country, url: `/skilled/${country}` }, { name: p.title, url: `/skilled/${country}/${program}` }])} /><ProgramHub data={data} serifClass={serif.className} /></>);
+  const data: ProgramData = { vertical: "Skilled Migration", verticalSlug: "skilled", country: p.country, countrySlug: p.countrySlug ?? country, title: p.title, tagline: typeof p.tagline === "string" ? p.tagline : undefined, heroImage: (p.heroImage as string) ?? "/xiphias-immigration.png", brochure: typeof p.brochure === "string" ? p.brochure : undefined, stats: stats.slice(0, 4), benefits: Array.isArray(p.benefits) ? p.benefits : [], prices: Array.isArray(p.prices) ? p.prices.map((r: any) => ({ label: r.label, amount: money(r.amount, r.currency ?? p.currency), when: r.when, notes: r.notes })) : [], governmentFees: Array.isArray(p.governmentFees) ? p.governmentFees.map((g: any) => ({ label: g.label, amount: money(g.amount, g.currency ?? p.currency) })) : [], proofOfFunds: Array.isArray(p.proofOfFunds) ? p.proofOfFunds.map((x: any) => ({ label: x.label, amount: money(x.amount, x.currency ?? p.currency), notes: x.notes })) : [], requirements: Array.isArray(p.requirements) ? p.requirements : [], disqualifiers: Array.isArray(p.disqualifiers) ? p.disqualifiers : [], faq: Array.isArray(p.faq) ? p.faq : [], documentChecklist: Array.isArray(p.documentChecklist) ? p.documentChecklist as ProgramData["documentChecklist"] : [], familyMatrix: p.familyMatrix && typeof p.familyMatrix === "object" ? p.familyMatrix as ProgramData["familyMatrix"] : undefined, projectList: Array.isArray(p.projectList) ? p.projectList as ProgramData["projectList"] : [], riskNotes: Array.isArray(p.riskNotes) ? p.riskNotes : typeof p.riskNotes === "string" ? [p.riskNotes] : typeof p.risknotes === "string" ? [p.risknotes] : [], complianceNotes: Array.isArray(p.complianceNotes) ? p.complianceNotes : typeof p.complianceNotes === "string" ? [p.complianceNotes] : [], processSteps: Array.isArray(p.processSteps) ? p.processSteps as ProgramData["processSteps"] : [], lastUpdated: typeof p.lastUpdated === "string" ? p.lastUpdated : undefined, language: p.language && typeof p.language === "object" ? p.language as ProgramData["language"] : undefined, pointsGrid: Array.isArray(p.pointsGrid) ? p.pointsGrid as ProgramData["pointsGrid"] : [], pointsThreshold: typeof p.pointsThreshold === "number" ? p.pointsThreshold : undefined, occupationLists: Array.isArray(p.occupationLists) ? p.occupationLists as ProgramData["occupationLists"] : [] };
+  return (<><JsonLd data={breadcrumbLd([{ name: "Skilled Migration", url: "/skilled" }, { name: p.country, url: `/skilled/${country}` }, { name: p.title, url: `/skilled/${country}/${program}` }])} /><ProgramHub data={data} serifClass={serif.className} overviewSection={overviewSection} /></>);
 }

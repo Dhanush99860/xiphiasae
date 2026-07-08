@@ -10,13 +10,13 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "7
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Corporate Mobility — Intra-Company Transfers, Market Entry & Relocation | XIPHIAS",
+  title: "Corporate Immigration & Relocation Services | XIPHIAS",
   description:
-    "Corporate immigration done end-to-end: intra-company transfers (L-1/ICT), company setup and compliant workforce relocation across the UAE, UK, EU and US. One accountable partner for founders, HR and global teams.",
+    "Intra-company transfers, UAE company setup & workforce relocation across 7 jurisdictions. One partner for founders, HR & legal teams.",
   alternates: { canonical: "/corporate" },
   openGraph: {
-    title: "Corporate Mobility — Move Your People Across Borders",
-    description: "Intra-company transfers, market entry and compliant workforce relocation, arranged from Dubai.",
+    title: "Corporate Immigration & Relocation Services | XIPHIAS",
+    description: "L-1/ICT intra-company transfers, UAE free-zone setup & workforce relocation across 7 jurisdictions. One partner, end-to-end, Dubai.",
     url: "https://www.xiphiasimmigration.com/corporate",
     siteName: "XIPHIAS Immigration", locale: "en_US", type: "website",
     images: [{ url: "/xiphias-immigration.png", width: 1200, height: 630, alt: "Corporate Mobility – XIPHIAS Immigration" }],

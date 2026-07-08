@@ -19,8 +19,11 @@ export async function generateMetadata(props: { params: Promise<{ country: strin
   const params = await props.params;
   const m = getCountryFrontmatter(params.country) as Record<string, unknown> & { title: string; summary?: string };
   const seo = m.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
-  const title = seo?.title ?? m.title;
-  const description = seo?.description ?? m.summary;
+  const cn = (m.country as string | undefined) ?? m.title;
+  const genT = `${cn} Corporate Immigration & Visa | XIPHIAS`;
+  const title = seo?.title ?? (genT.length <= 60 ? genT : `${cn} Corporate Immigration | XIPHIAS`);
+  const rawD = (m.summary as string | undefined) ?? `${cn} corporate immigration — intra-company transfers, company setup & workforce relocation. Arranged by XIPHIAS, Dubai.`;
+  const description = seo?.description ?? rawD.slice(0, 150);
   const heroImage = m.heroImage as string | undefined;
   return { title, description, keywords: seo?.keywords, alternates: { canonical: `/corporate/${params.country}` }, openGraph: { title, description, url: `https://www.xiphiasimmigration.com/corporate/${params.country}`, siteName: "XIPHIAS Immigration", locale: "en_US", type: "website", images: [{ url: heroImage ?? "/xiphias-immigration.png", width: 1200, height: 630, alt: `${title} – XIPHIAS Immigration` }] }, twitter: { card: "summary_large_image", title, description, images: [heroImage ?? "/xiphias-immigration.png"] } };
 }

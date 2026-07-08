@@ -12,14 +12,14 @@ const serif = Cormorant_Garamond({
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "XIPHIAS — Private Global Mobility · Golden Visas & Citizenship by Investment, Dubai",
+  title: "Immigration Consultants in Dubai, UAE | XIPHIAS",
   description:
-    "A private global-mobility practice for those who value discretion. Golden visas, residency and second passports across 35 jurisdictions — arranged end-to-end from Dubai. 17 years, 10,000+ families.",
+    "Golden visa, citizenship by investment & residency across 35+ jurisdictions. IMC-licensed advisors, Dubai. 17 years, 10,000+ families.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "XIPHIAS — Your second passport, privately arranged",
+    title: "Visa & Immigration Consultants in Dubai | XIPHIAS",
     description:
-      "Golden visas and citizenship by investment across 35 jurisdictions, arranged with discretion from Dubai.",
+      "Golden visas, second passports & investor residency across 35+ jurisdictions. Licensed IMC advisors based in Dubai since 2007.",
     url: "https://www.xiphiasimmigration.com",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",

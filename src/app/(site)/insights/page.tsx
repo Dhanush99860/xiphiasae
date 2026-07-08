@@ -25,14 +25,14 @@ const KIND_LABEL: Record<string, string> = {
 };
 
 export const metadata: Metadata = {
-  title: "Insights — Programme Intelligence, Guides & News | XIPHIAS Immigration",
+  title: "Immigration Insights — Guides & Programme Updates | XIPHIAS",
   description:
-    "The XIPHIAS journal: programme intelligence, mobility data and practical guidance on residency, citizenship, golden visas and skilled migration — written by our advisors.",
+    "Expert guides on citizenship by investment, golden visas, skilled migration & corporate mobility — written by XIPHIAS advisors.",
   alternates: { canonical: "/insights" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Insights — The XIPHIAS Journal",
-    description: "Programme intelligence, mobility data and practical guidance on global migration.",
+    title: "Immigration Insights — Guides & Programme Updates | XIPHIAS",
+    description: "Citizenship, golden visa & skilled migration guides, programme updates and news — written by XIPHIAS immigration advisors.",
     url: `${SITE_URL}/insights`,
     siteName: "XIPHIAS Immigration",
     locale: "en_US",

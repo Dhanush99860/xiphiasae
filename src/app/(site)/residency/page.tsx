@@ -10,14 +10,14 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "7
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Residency & Golden Visas — Investor Residence, Privately Arranged | XIPHIAS",
+  title: "Golden Visa & Investor Residency Programs | XIPHIAS",
   description:
-    "A 10-year UAE Golden Visa, EU golden visas and global investor residence across 20+ jurisdictions — real estate, fund and capital-transfer routes, arranged end-to-end. Book a private consultation.",
+    "UAE 10-yr Golden Visa, Portugal & Greece from €250k. Real estate, fund & capital routes across 20+ jurisdictions. IMC-licensed, Dubai.",
   alternates: { canonical: "/residency" },
   openGraph: {
-    title: "Residency & Golden Visas — Investor Residence, Privately Arranged",
+    title: "Golden Visa & Investor Residency Programs | XIPHIAS",
     description:
-      "Investor residence across 20+ jurisdictions — the UAE Golden Visa, Portugal, Greece, Malta and more, arranged with discretion from Dubai.",
+      "UAE Golden Visa, Portugal, Greece & Malta — investor residence across 20+ jurisdictions from €250k. Real estate & fund routes, Dubai-based.",
     url: "https://www.xiphiasimmigration.com/residency",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",

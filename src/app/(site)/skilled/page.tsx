@@ -10,13 +10,13 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "7
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Skilled Migration — Express Entry, Points-Based & Employer-Sponsored PR | XIPHIAS",
+  title: "Skilled Migration Visa — Canada, Australia & UK | XIPHIAS",
   description:
-    "Permanent residence through your profession — Express Entry, points-based and employer-sponsored routes to Canada, Australia, the UK, Germany and the US. Profile scoring and end-to-end handling.",
+    "Canada Express Entry, Australia skilled visa, UK Skilled Worker & Germany Blue Card. Permanent residence through your profession. Dubai.",
   alternates: { canonical: "/skilled" },
   openGraph: {
-    title: "Skilled Migration — Your Skills, Your New Country",
-    description: "Express Entry, points-based and employer-sponsored permanent-residence routes, arranged from Dubai.",
+    title: "Skilled Migration Visa — Canada, Australia & UK | XIPHIAS",
+    description: "Canada Express Entry, Australia points visa, UK Skilled Worker & Germany Opportunity Card. PR through your profession, arranged from Dubai.",
     url: "https://www.xiphiasimmigration.com/skilled",
     siteName: "XIPHIAS Immigration", locale: "en_US", type: "website",
     images: [{ url: "/xiphias-immigration.png", width: 1200, height: 630, alt: "Skilled Migration – XIPHIAS Immigration" }],

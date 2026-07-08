@@ -118,7 +118,7 @@ function Hero({ serifClass }: { serifClass: string }) {
 const INTENTS: { no: string; title: string; line: string; tag: string; href: string; media: { type: "img" | "video"; src: string } }[] = [
   { no: "01", title: "Freedom to move", line: "A second passport and visa-free access to 140+ countries — for you and your family.", tag: "Citizenship", href: "/citizenship", media: { type: "img", src: IMG.family1 } },
   { no: "02", title: "A plan B for your family", line: "Security, education and a place to belong — whatever tomorrow brings.", tag: "Residency", href: "/residency", media: { type: "img", src: IMG.family2 } },
-  { no: "03", title: "A private advisor", line: "One named advisor who handles every step — filing, liaison, follow-through.", tag: "Concierge", href: "/contact", media: { type: "video", src: V_ADVISOR } },
+  { no: "03", title: "A private advisor", line: "One named advisor who handles every step — filing, liaison, follow-through.", tag: "Concierge", href: "/personal-booking", media: { type: "video", src: V_ADVISOR } },
   { no: "04", title: "Global business reach", line: "Corporate mobility and relocation across 35 jurisdictions.", tag: "Corporate", href: "/corporate", media: { type: "img", src: IMG.corporate } },
 ];
 function WhatBringsYou({ serifClass }: { serifClass: string }) {

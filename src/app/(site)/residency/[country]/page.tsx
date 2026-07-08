@@ -24,8 +24,11 @@ export async function generateMetadata(props: { params: Promise<{ country: strin
   const meta = getCountryFrontmatter(params.country) as Record<string, unknown> & { title: string; summary?: string };
   const heroImage = meta.heroImage as string | undefined;
   const seo = meta.seo as { title?: string; description?: string; keywords?: string[] } | undefined;
-  const title = seo?.title ?? meta.title;
-  const description = seo?.description ?? meta.summary;
+  const cn = (meta.country as string | undefined) ?? meta.title;
+  const genT = `${cn} Golden Visa & Residency Programs | XIPHIAS`;
+  const title = seo?.title ?? (genT.length <= 60 ? genT : `${cn} Golden Visa | XIPHIAS`);
+  const rawD = meta.summary ?? `${cn} investor residency & golden visa — real estate, fund & capital routes across multiple jurisdictions. Arranged by XIPHIAS, Dubai.`;
+  const description = seo?.description ?? rawD.slice(0, 150);
   const canonicalPath = `/residency/${params.country}`;
   return {
     title, description, keywords: seo?.keywords,

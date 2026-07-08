@@ -9,15 +9,15 @@ export const revalidate = 86400;
 const SITE = "https://www.xiphiasimmigration.com";
 
 export const metadata: Metadata = {
-  title: "Book a Private Consultation — Expert-Led Immigration Strategy | XIPHIAS",
+  title: "Book a Private Immigration Consultation | XIPHIAS",
   description:
-    "Reserve a 60-minute private strategy call with Varun Singh, IMC Fellow and Managing Director of XIPHIAS Immigration. Citizenship, residency, skilled migration and corporate mobility — one call, one clear plan.",
+    "60-min strategy session with Varun Singh, IMC Fellow & MD. Citizenship, residency or skilled migration — fee credited on engagement.",
   alternates: { canonical: `${SITE}/personal-booking` },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Book a Private Consultation | XIPHIAS Immigration",
+    title: "Book a Private Immigration Consultation | XIPHIAS",
     description:
-      "60 minutes with a licensed IMC Fellow. Your jurisdiction, your investment route, your timeline — mapped privately.",
+      "60-minute private strategy call with Varun Singh, IMC Fellow. Residency, citizenship or skilled migration — clear plan, fee credited on engagement.",
     url: `${SITE}/personal-booking`,
     siteName: "XIPHIAS Immigration",
     locale: "en_US",
