@@ -208,11 +208,6 @@ const websiteJsonLd = {
   url: SITE,
   name: "XIPHIAS Immigration",
   publisher: { "@id": `${SITE}/#organization` },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${SITE}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({

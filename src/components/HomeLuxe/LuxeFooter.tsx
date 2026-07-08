@@ -12,6 +12,7 @@ const NAV = [
       { label: "Residency & Relocation", href: "/residency" },
       { label: "Skilled Migration", href: "/skilled" },
       { label: "Corporate Mobility", href: "/corporate" },
+      { label: "Work Permits", href: "/work-permits" },
     ],
   },
   {
@@ -33,6 +34,9 @@ const NAV = [
       { label: "Blog", href: "/blog" },
       { label: "Contact", href: "/contact" },
       { label: "Careers", href: "/careers" },
+      { label: "Awards", href: "/awards" },
+      { label: "Events", href: "/events" },
+      { label: "Gallery", href: "/gallery" },
       { label: "Partner With Us", href: "/partner-with-us" },
     ],
   },
@@ -91,12 +95,22 @@ export default function LuxeFooter({ serifClass }: { serifClass: string }) {
               <ul className="flex flex-col gap-2">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <a
-                      href={l.href}
-                      className="text-[12.5px] text-[#0c1f3f]/55 transition-colors hover:text-[#0c1f3f]"
-                    >
-                      {l.label}
-                    </a>
+                    {l.href === "#" ? (
+                      <button
+                        type="button"
+                        onClick={() => { (window as Window & { showCookiePreferences?: () => void }).showCookiePreferences?.(); }}
+                        className="text-left text-[12.5px] text-[#0c1f3f]/55 transition-colors hover:text-[#0c1f3f]"
+                      >
+                        {l.label}
+                      </button>
+                    ) : (
+                      <a
+                        href={l.href}
+                        className="text-[12.5px] text-[#0c1f3f]/55 transition-colors hover:text-[#0c1f3f]"
+                      >
+                        {l.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -120,13 +134,13 @@ export default function LuxeFooter({ serifClass }: { serifClass: string }) {
 
           {/* copyright */}
           <p className="shrink-0 text-[11px] text-[#0c1f3f]/38">
-            © {new Date().getFullYear()} XIPHIAS Immigration · Licensed in the UAE
+            © {new Date().getFullYear()} XIPHIAS Immigration DMCC · Licensed in the UAE
           </p>
         </div>
 
         {/* ── compliance note ── */}
         <p className="mt-4 max-w-2xl text-[10.5px] leading-relaxed text-[#0c1f3f]/28">
-          XIPHIAS Immigration advises on lawful immigration pathways. We do not provide legal advice. Content is for informational purposes only. Results may vary based on individual circumstances and jurisdiction.
+          XIPHIAS Immigration DMCC advises on lawful immigration pathways. We do not provide legal advice. Content is for informational purposes only. Results may vary based on individual circumstances and jurisdiction.
         </p>
       </div>
     </footer>

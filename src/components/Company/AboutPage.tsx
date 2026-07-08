@@ -112,15 +112,12 @@ const CREDS = [
 ];
 
 const GALLERY = [
-  "/images/gallery/xiphias-immigration-gallery-01.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-04.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-07.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-10.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-15.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-20.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-25.jpeg",
-  "/images/gallery/xiphias-immigration-gallery-30.jpg",
-  "/images/gallery/xiphias-immigration-gallery-35.webp",
+  "/images/events/seminar-2018-dubai/1.JPG",
+  "/images/events/seminar-2018-dubai/2.JPG",
+  "/images/events/seminar-2018-dubai/3.jpg",
+  "/images/events/seminar-2018-dubai/4.jpg",
+  "/images/events/seminar-2018-dubai-iccr/2.jpg",
+  "/images/events/seminar-2018-dubai-iccr/3.jpg",
 ];
 
 /* ══════════════════════════════════════════════════════════
@@ -648,11 +645,11 @@ function Gallery({ serifClass }: { serifClass: string }) {
         <h2 className={`${serifClass} mt-5 text-[clamp(2rem,4vw,3.2rem)] font-medium`}>
           <Rise text="Seventeen years, in person." />
         </h2>
-        <p className="mt-3 text-[14px] text-[#0c1f3f]/50">Events, client milestones and moments from across our global offices.</p>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="mt-3 text-[14px] text-[#0c1f3f]/50">Events and milestones from our Dubai office.</p>
+        <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-3">
           {GALLERY.map((src, i) => (
             <Fade key={src} delay={(i % 3) * 0.07}>
-              <div className={`group relative overflow-hidden rounded-md ${i === 0 ? "aspect-[16/9] sm:col-span-2" : i === 4 ? "aspect-[16/9] sm:col-span-2" : "aspect-[4/3]"}`}>
+              <div className="group relative aspect-[4/3] overflow-hidden rounded-md">
                 <Image src={src} alt="" fill sizes="(min-width:1024px) 28rem, (min-width:640px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" style={{ background: "rgba(10,23,51,0.08)" }} />
                 <div className="absolute inset-0" style={{ boxShadow: `inset 0 0 0 1px ${GOLD}22` }} />

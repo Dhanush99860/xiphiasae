@@ -174,7 +174,6 @@ const nextConfig = {
       { source: "/canada-skilled-migration", destination: "/skilled/canada", permanent: true },
       { source: "/canada-skilled-immigration-consultants.html", destination: "/skilled/canada", permanent: true },
       { source: "/canada-immigration.php", destination: "/skilled/canada", permanent: true },
-      { source: "/canada-family-sponsorship-class-visa.html", destination: "/", permanent: true },
 
       // Skilled misc legacy
       { source: "/europe-visa-work-permit.html", destination: "/skilled", permanent: true },

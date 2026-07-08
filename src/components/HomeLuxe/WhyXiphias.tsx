@@ -142,16 +142,47 @@ export default function WhyXiphias({
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0c1f3f]/40">Recognition</p>
                 <div className="mt-3 grid grid-cols-4 gap-3">
-                  {AWARDS.map((a) => (
-                    <div
+                  {AWARDS.map((a, i) => (
+                    <motion.div
                       key={a.label}
-                      className="rounded-md border bg-white p-3 transition-shadow hover:shadow-[0_12px_28px_-18px_rgba(8,18,42,0.4)]"
-                      style={{ borderColor: `${INK}10` }}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 * i }}
+                      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                      className="group relative flex flex-col items-center gap-2 rounded-xl p-3 transition-all duration-300"
+                      style={{
+                        background: "linear-gradient(145deg, rgba(191,161,92,0.06) 0%, rgba(191,161,92,0.02) 100%)",
+                        border: `1px solid rgba(191,161,92,0.18)`,
+                        boxShadow: "0 1px 0 rgba(255,255,255,0.6) inset",
+                      }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(191,161,92,0.45)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px -8px rgba(191,161,92,0.25), 0 1px 0 rgba(255,255,255,0.6) inset";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.borderColor = "rgba(191,161,92,0.18)";
+                        (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 0 rgba(255,255,255,0.6) inset";
+                      }}
                     >
-                      <div className="relative h-14 w-full">
-                        <Image src={a.img} alt={a.label} fill sizes="10rem" className="object-contain" />
+                      {/* subtle gold glow behind image */}
+                      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(191,161,92,0.08) 0%, transparent 70%)" }}
+                      />
+                      <div className="relative h-16 w-full">
+                        <Image
+                          src={a.img}
+                          alt={a.label}
+                          fill
+                          sizes="10rem"
+                          className="object-contain drop-shadow-sm transition-all duration-300 group-hover:drop-shadow-md"
+                        />
                       </div>
-                    </div>
+                      <p className="text-center text-[9px] font-semibold uppercase tracking-[0.14em] leading-tight transition-colors duration-300"
+                        style={{ color: `rgba(191,161,92,0.55)` }}>
+                        {a.label}
+                      </p>
+                    </motion.div>
                   ))}
                 </div>
               </div>

@@ -45,6 +45,7 @@ const GROUPS: Group[] = [
     { name: "Residency & Golden Visas", href: "/residency", img: PORTUGAL },
     { name: "Skilled Migration", href: "/skilled", img: DUBAI },
     { name: "Corporate Mobility", href: "/corporate", img: MALTA },
+    { name: "Work Permits", href: "/work-permits", img: TURKEY },
   ] },
   { label: "Intelligence", img: TURKEY, caption: "Programme Intelligence", items: [
     { name: "Passport Index", href: "/passport-index" },
@@ -53,11 +54,14 @@ const GROUPS: Group[] = [
     { name: "Eligibility Check", href: "/eligibility" },
     { name: "Work Permit Intelligence", href: "/work-permit-intelligence" },
   ] },
-  { label: "Company", img: DUBAI, caption: "XIPHIAS Immigration", items: [
+  { label: "Company", img: DUBAI, caption: "XIPHIAS Immigration DMCC", items: [
     { name: "About", href: "/about" },
     { name: "Insights", href: "/insights" },
     { name: "Blog", href: "/blog" },
     { name: "Careers", href: "/careers" },
+    { name: "Awards", href: "/awards" },
+    { name: "Events", href: "/events" },
+    { name: "Gallery", href: "/gallery" },
   ] },
   { label: "Tools", img: TOOLS_IMG, caption: "Intelligence & Resources", items: [
     { name: "XIA Intelligence", href: "/xia-intelligence" },
