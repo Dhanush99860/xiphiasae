@@ -54,13 +54,13 @@ const LEGAL = [
 const OFFICES = [
   {
     name: "Bengaluru HQ",
-    street: "Aurbis Prime, 11 Kaveri Regent Coronet, 80 ft Rd, 3rd Blk, Koramangala",
+    street: "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala",
     city: "Bengaluru",
     postal: "560034",
     country: "India",
     hours: "Mon–Sat, 9:30–18:30",
     phone: "+91 9021335577",
-    maps: "https://maps.google.com/?q=Aurbis+Prime+Kaveri+Regent+Coronet+Koramangala+Bengaluru+560034",
+    maps: "https://maps.google.com/?q=ESSZED+Meridian+Plot+780+80+Feet+Rd+4th+Block+Koramangala+Bengaluru+560034",
   },
   {
     name: "Gurugram",

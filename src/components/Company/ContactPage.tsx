@@ -15,7 +15,7 @@ const INK = "#0c1f3f";
 type OfficeEntry = { city: string; entity: string; address: string; phone: string; email: string; phone2?: string };
 const ALL_REGIONS: { region: string; offices: OfficeEntry[] }[] = [
   { region: "India", offices: [
-    { city: "Bengaluru", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "Aurbis Prime, 11, Kaveri Regent Coronet, 80 Feet Road, 3rd Block, Koramangala, Bengaluru – 560034", phone: "+91 9021335577", email: "immigration@xiphias.in" },
+    { city: "Bengaluru", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034", phone: "+91 9021335577", email: "immigration@xiphias.in" },
     { city: "Gurugram", entity: "XIPHIAS IMMIGRATION PVT LTD", address: "Augusta Point, Golf Course Rd, near Parsvnath Exotica, DLF Phase 5, Sector 53, Gurugram, Haryana 122002", phone: "+91-96675 20211", email: "gurgaon@xiphias.in" },
   ]},
   { region: "UAE", offices: [

@@ -52,3 +52,6 @@ public/images/personal/video/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Runtime data store — contains real customer/lead PII, must never be committed
+your/persistent/platform-store.json

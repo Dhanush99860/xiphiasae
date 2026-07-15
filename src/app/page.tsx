@@ -12,9 +12,9 @@ const serif = Cormorant_Garamond({
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Immigration Consultants in Dubai, UAE | XIPHIAS",
+  title: "Immigration Consultants in Dubai | Golden Visa & Citizenship",
   description:
-    "Golden visa, citizenship by investment & residency across 35+ jurisdictions. IMC-licensed advisors, Dubai. 17 years, 10,000+ families.",
+    "Trusted immigration consultants in Dubai for UAE Golden Visas, residency and citizenship by investment. Get a confidential eligibility assessment.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Visa & Immigration Consultants in Dubai | XIPHIAS",

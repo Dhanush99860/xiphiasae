@@ -140,7 +140,7 @@ export async function POST(req: Request) {
 
           <div style="text-align:center;font-size:13px;color:#666;">
             <p style="margin:4px 0;"><strong>XIPHIAS Immigration Pvt. Ltd</strong></p>
-            <p style="margin:4px 0;">Aurbis Prime, 11, Kaveri Regent Coronet, 80 Feet Road, 3rd Block,<br> Koramangala, Bangalore-560034</p>
+            <p style="margin:4px 0;">First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd,<br> 4th Block, Koramangala, Bengaluru, Karnataka 560034</p>
             <p style="margin:4px 0;">+91-80-67601000 / 9021335577</p>
             <p style="margin:4px 0;"><a href="mailto:immigration@xiphias.in" style="color:#004fa3;">immigration@xiphias.in</a> | <a href="https://www.xiphiasimmigration.com" style="color:#004fa3;">www.xiphiasimmigration.com</a></p>
             <div style="margin-top:10px;">

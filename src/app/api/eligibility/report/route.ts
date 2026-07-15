@@ -18,7 +18,7 @@ const PDF_LOGO_BASE64 = process.env.PDF_LOGO_BASE64 || "";
 
 const FOOTER_ADDRESS =
   process.env.NEXT_PUBLIC_PDF_ADDRESS ||
-  "Aurbis Prime No. 1, Koramangala, Bengaluru, India 560034";
+  "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034";
 const FOOTER_EMAIL = process.env.NEXT_PUBLIC_PDF_EMAIL || "immigration@xiphias.in";
 const FOOTER_PHONE = process.env.NEXT_PUBLIC_PDF_PHONE || "+91 9021335577";
 const FOOTER_WEBSITE = process.env.NEXT_PUBLIC_PDF_WEBSITE || "www.xiphiasimmigration.com";

@@ -144,13 +144,13 @@ export default function LocationsDirectory({
       company: "XIPHIAS IMMIGRATION PVT LTD",
       regionKey: "india",
       address: [
-        "Aurbis Prime, 11, Kaveri Regent Coronet, 80 Feet Road, 3rd Block, Koramangala",
-        "Bengaluru - 560034",
+        "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala",
+        "Bengaluru, Karnataka 560034",
       ],
       phones: ["+91 9021335577"],
       email: "immigration@xiphias.in",
       mapQuery:
-        "Aurbis Prime, 80 Feet Road, 3rd Block Koramangala, Bengaluru 560034",
+        "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
     },
     {
       id: "gurugram",

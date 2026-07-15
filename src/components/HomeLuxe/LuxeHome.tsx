@@ -45,12 +45,12 @@ const IMG = {
 };
 
 const WHAT_WE_PROVIDE_IMAGES = {
-  "Citizenship by Investment": IMG.grenada,
-  "Residency & Golden Visas": IMG.uae,
-  "Skilled & Corporate Migration": IMG.corporate,
-  "Source-of-funds & due diligence": IMG.singapore,
-  "Relocation, banking & schooling": IMG.family1,
-  "Lifetime concierge": IMG.dubai,
+  "Citizenship by Investment Advisory": IMG.grenada,
+  "Residency and Golden Visa Services": IMG.uae,
+  "Skilled and Corporate Immigration": IMG.corporate,
+  "Source-of-Funds and Due-Diligence Support": IMG.singapore,
+  "Relocation, Banking and Education Support": IMG.family1,
+  "Lifetime Immigration Concierge": IMG.dubai,
 };
 
 const INSIGHT_IMAGES = {
@@ -101,8 +101,8 @@ function Hero({ serifClass }: { serifClass: string }) {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-12 lg:px-20">
         <div className="lcp-instant">
           <Eyebrow ar="الهجرة والإقامة">Dubai · Global mobility since 2007</Eyebrow>
-          <h1 className={`${serifClass} mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] font-medium leading-[1.02]`}><Rise text="Immigration, residency &" className="block" /><span className="block italic" style={{ color: GOLD }}><Rise text="citizenship — expertly advised." delay={0.25} /></span></h1>
-          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/75">Golden visas, residency and second passports across 35 jurisdictions — handled end-to-end by XIPHIAS Immigration DMCC. 17 years of advisory, 10,000+ families relocated.</motion.p>
+          <h1 className={`${serifClass} mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] font-medium leading-[1.02]`}><Rise text="Immigration Consultants in Dubai for" className="block" /><span className="block italic" style={{ color: GOLD }}><Rise text="Residency and Citizenship" delay={0.25} /></span></h1>
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/75">XIPHIAS Immigration provides end-to-end guidance for UAE Golden Visas, global residency and citizenship by investment programs. We help investors, families and businesses identify and complete suitable immigration pathways.</motion.p>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.65 }} className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center"><Btn href="/citizenship">Book a private consultation</Btn><Btn ghost href="/eligibility">Check your eligibility</Btn></motion.div>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.8 }} className="mt-7 flex flex-wrap gap-2">{HERO_QUICK.map(([label, href]) => <a key={label} href={href} className="rounded-full border px-3.5 py-1.5 text-[12px] text-white/75 transition-colors hover:border-[#bfa15c] hover:text-[#bfa15c]" style={{ borderColor: "rgba(191,161,92,0.35)" }}>{label}</a>)}</motion.div>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.95 }} className="mt-9 flex flex-wrap gap-x-8 gap-y-3 border-t pt-7" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{HERO_STATS.map((s) => <div key={s.u} className="flex flex-col"><span className="text-[clamp(1.3rem,2vw,1.8rem)] font-semibold tabular-nums" style={{ color: GOLD }}>{s.v}</span><span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">{s.u}</span></div>)}</motion.div>
@@ -128,7 +128,7 @@ function WhatBringsYou({ serifClass }: { serifClass: string }) {
       <Ambient tone="light" />
       <div className="mx-auto max-w-6xl">
         <Eyebrow ar="ما الذي تبحث عنه">What brings you here</Eyebrow>
-        <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.6vw,3.8rem)] font-medium`}><Rise text="Why people come to us." /></h2>
+        <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.6vw,3.8rem)] font-medium`}><Rise text="Immigration Solutions for Investors, Families and Businesses" /></h2>
         <div className="mt-12 flex h-[68vh] flex-col gap-3 lg:flex-row">
           {INTENTS.map((it, i) => {
             const on = i === active;
@@ -168,7 +168,7 @@ function Process({ serifClass }: { serifClass: string }) {
   useEffect(() => { const mm = gsap.matchMedia(); mm.add("(min-width:1024px)", () => { const track = trackRef.current!; const dist = () => Math.max(0, track.scrollWidth - window.innerWidth + 120); const st = ScrollTrigger.create({ trigger: sectionRef.current!, start: "top top", end: () => `+=${dist()}`, pin: true, scrub: 0.5, invalidateOnRefresh: true, onUpdate: (s) => gsap.set(track, { x: -dist() * s.progress }) }); return () => st.kill(); }); return () => mm.revert(); }, []);
   return (
     <section ref={sectionRef} data-tone="dark" className="relative min-h-screen overflow-hidden bg-[#0a1733] pb-16 pt-24 text-[#eef3fb]">
-      <div className="px-6 sm:px-12 lg:px-20"><Eyebrow ar="كيف نعمل">How it works</Eyebrow><h2 className={`${serifClass} mt-6 text-[clamp(2rem,4.4vw,3.4rem)] font-medium`}>The process.</h2></div>
+      <div className="px-6 sm:px-12 lg:px-20"><Eyebrow ar="كيف نعمل">How it works</Eyebrow><h2 className={`${serifClass} mt-6 text-[clamp(2rem,4.4vw,3.4rem)] font-medium`}>Our Immigration Consultation and Application Process</h2></div>
       <div ref={trackRef} className="mt-10 flex flex-col gap-8 px-6 sm:px-12 lg:w-max lg:flex-row lg:items-center lg:gap-12 lg:px-20">
         {STEPS.map((s) => (
           <motion.div key={s.no} initial={{ opacity: 0, scale: 0.92 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.7 }} className="group relative block h-[440px] w-full shrink-0 overflow-hidden rounded-sm lg:h-[66vh] lg:w-[60rem]">
@@ -180,6 +180,7 @@ function Process({ serifClass }: { serifClass: string }) {
           </motion.div>
         ))}
       </div>
+      <div className="mt-12 px-6 sm:px-12 lg:px-20"><Btn href="/eligibility">Start Your Confidential Assessment</Btn></div>
     </section>
   );
 }
@@ -192,8 +193,8 @@ function CTA({ serifClass }: { serifClass: string }) {
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <Eyebrow ar="ابدأ الآن">Your next move</Eyebrow>
-          <h2 className={`${serifClass} mt-7 text-[clamp(2.6rem,5.5vw,4.6rem)] font-medium leading-[1.0]`}>Your global future<br /><span className="italic" style={{ color: GOLD }}>begins with a conversation.</span></h2>
-          <p className="mt-6 max-w-md text-[16px] leading-relaxed text-white/70">Tell us your goal. A senior advisor will map your most secure, cost-effective pathway — privately, and entirely off the record.</p>
+          <h2 className={`${serifClass} mt-7 text-[clamp(2.6rem,5.5vw,4.6rem)] font-medium leading-[1.0]`}>Speak to an<br /><span className="italic" style={{ color: GOLD }}>Immigration Consultant in Dubai</span></h2>
+          <p className="mt-6 max-w-md text-[16px] leading-relaxed text-white/70">Tell us your preferred country, investment range and family requirements. A senior XIPHIAS advisor will assess your eligibility and recommend the most suitable residency or citizenship pathway.</p>
           <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><Btn href="/contact">Book a private consultation</Btn><Btn ghost href="https://wa.me/917406006061">WhatsApp our Dubai desk</Btn></div>
           <p lang="ar" dir="rtl" className="mt-8 font-arabic-display text-2xl" style={{ color: GOLD }}>مستقبلك العالمي يبدأ من هنا</p>
           <p className="mt-8 text-[12px] uppercase tracking-[0.18em] text-white/45">By appointment · Dubai · London · Bengaluru</p>

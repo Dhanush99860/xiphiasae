@@ -42,8 +42,8 @@ export default function ProgrammesTable({ serifClass, defaultTab = "citizenship"
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />What we offer<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">برامجنا</span></p>
-            <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] font-medium leading-[1.05]`}>Every route, with the <span className="italic" style={{ color: GOLD }}>real numbers.</span></h2>
-            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#0c1f3f]/60">No vague promises — the exact investment, timeline and mobility for every programme we run, across 35 jurisdictions.</p>
+            <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] font-medium leading-[1.05]`}>Compare Residency and <span className="italic" style={{ color: GOLD }}>Citizenship by Investment Programs</span></h2>
+            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#0c1f3f]/60">Compare minimum investments, estimated processing times, family eligibility and mobility benefits across leading global immigration programs.</p>
           </div>
           <div className="flex flex-wrap gap-2.5 text-center">
             {[["35", "jurisdictions"], ["60+", "programmes"], ["$90k", "entry point"], ["190", "destinations"]].map(([v, u]) => (
@@ -98,7 +98,7 @@ export default function ProgrammesTable({ serifClass, defaultTab = "citizenship"
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
           <p className="text-[13px] text-[#0c1f3f]/55">Figures are minimum qualifying investments, exclusive of government and due-diligence fees.</p>
-          <a href="/citizenship" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Compare all 60+ programmes <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+          <a href="/citizenship" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Compare All Immigration Programs <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
         </div>
       </div>
     </section>

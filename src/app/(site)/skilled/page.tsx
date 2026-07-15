@@ -56,7 +56,7 @@ const config: VerticalConfig = {
     { cat: "Global Talent", title: "UK Global Talent Visa: who qualifies and how to apply", meta: "6 min read · Skilled", img: "/images/skilled/united-kingdom/uk-global-talent.webp", href: "/insights" },
   ],
   destHeading: "Where your skills take you",
-  destSub: "Seven skilled-migration destinations.",
+  destSub: "Eight skilled-migration destinations.",
   regions: ["All", "Americas", "Europe", "Oceania"],
   countries: [
     { name: "Canada", slug: "canada", region: "Americas", img: "/images/skilled/canada/canada-express-entry.webp", note: "Express Entry · PNP" },
@@ -66,6 +66,7 @@ const config: VerticalConfig = {
     { name: "United States", slug: "usa", region: "Americas", img: "/images/skilled/usa/eb1a.webp", note: "EB-1 · EB-2 NIW" },
     { name: "Italy", slug: "italy", region: "Europe", img: "/images/skilled/italy/italy-digital-nomad-visa.webp", note: "Work & talent routes" },
     { name: "Spain", slug: "spain", region: "Europe", img: "/images/skilled/spain/spain-digital-nomad-visa.webp", note: "Work & digital-nomad routes" },
+    { name: "New Zealand", slug: "new-zealand", region: "Oceania", img: "/images/skilled/new-zealand/new-zealand.webp", note: "Green List Tier 1 · Tier 2" },
   ],
   routesEyebrow: "How you qualify",
   routesEyebrowAr: "المسارات",

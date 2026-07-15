@@ -183,7 +183,7 @@ const orgJsonLd = {
   address: {
     "@type": "PostalAddress",
     streetAddress:
-      "Aurbis Prime, 11, Kaveri Regent Coronet, 80 Feet Road, 3rd Block, Koramangala",
+      "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala",
     addressLocality: "Bengaluru",
     addressRegion: "KA",
     postalCode: "560034",

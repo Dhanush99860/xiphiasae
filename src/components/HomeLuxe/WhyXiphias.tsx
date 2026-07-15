@@ -94,9 +94,10 @@ export default function WhyXiphias({
             {/* heading */}
             <Fade>
               <h2 className={`${serifClass} text-[clamp(1.9rem,3.8vw,3rem)] font-medium leading-[1.04]`}>
-                Seventeen years. Ten thousand families.{" "}
-                <span className="italic" style={{ color: GOLD }}>One standard.</span>
+                Why Choose XIPHIAS{" "}
+                <span className="italic" style={{ color: GOLD }}>Immigration Consultants in Dubai?</span>
               </h2>
+              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#0c1f3f]/65">XIPHIAS Immigration DMCC provides confidential, end-to-end guidance for investors, families, entrepreneurs and businesses seeking residency, citizenship and global mobility solutions.</p>
             </Fade>
 
             {/* stats strip */}
