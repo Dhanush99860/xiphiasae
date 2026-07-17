@@ -13,6 +13,25 @@
     opacity: 1 !important;
     transform: none !important;
   }
+
+  #home-hero .home-hero-copy,
+  #home-hero .home-hero-actions,
+  #home-hero .home-hero-chips {
+    width: calc(100vw - 2.5rem) !important;
+    max-width: calc(100vw - 2.5rem) !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+
+  #home-hero .home-hero-actions > a {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  #home-hero .home-hero-chips {
+    overflow: hidden;
+  }
 }
 
 /* Root vars */

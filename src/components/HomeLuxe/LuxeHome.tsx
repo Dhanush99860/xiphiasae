@@ -89,27 +89,76 @@ function Btn({ children, light, ghost, href = "#" }: { children: React.ReactNode
 /* ─────────── 1 · HERO (real photo · keyword-dense · the LCP image) ─────────── */
 const HERO_QUICK: [string, string][] = [["Golden Visa", "/golden-visa"], ["Citizenship by Investment", "/citizenship"], ["Residency", "/residency"], ["Skilled Migration", "/skilled"], ["Corporate Mobility", "/corporate"]];
 const HERO_STATS = [{ v: "35", u: "jurisdictions" }, { v: "17 yrs", u: "advising" }, { v: "10,000+", u: "families" }, { v: "98%", u: "approval" }];
+const HERO_PROOF = [
+  "UAE Golden Visa, residency and citizenship routes",
+  "Eligibility, documents, filing and post-approval support",
+  "Private advisory for investors, families and companies",
+];
 function Hero({ serifClass }: { serifClass: string }) {
   return (
-    <section data-tone="dark" className="relative flex min-h-screen items-center overflow-hidden text-[#eef3fb]" style={{ background: "#0a1733" }}>
+    <section id="home-hero" data-tone="dark" className="relative isolate overflow-hidden text-[#eef3fb]" style={{ background: "#0a1733" }}>
       <Ambient tone="dark" />
       <motion.div className="absolute inset-0" initial={{ scale: 1.12 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }}>
-        <Image src={HERO_FAMILY} alt="" fill sizes="100vw" priority className="object-cover [filter:grayscale(0.3)_brightness(0.58)_contrast(1.05)]" />
+        <Image src={HERO_FAMILY} alt="" fill sizes="100vw" priority className="object-cover object-[58%_center] [filter:grayscale(0.22)_brightness(0.62)_contrast(1.08)] lg:object-center" />
       </motion.div>
-      <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(8,18,42,0.92) 0%, rgba(8,18,42,0.55) 55%, rgba(8,18,42,0.3) 100%)" }} />
-      <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(8,18,42,0.8) 0%, transparent 45%)" }} />
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-12 lg:px-20">
-        <div className="lcp-instant">
-          <Eyebrow ar="الهجرة والإقامة">Dubai · Global mobility since 2007</Eyebrow>
-          <h1 className={`${serifClass} mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] font-medium leading-[1.02]`}><Rise text="Immigration Consultants in Dubai for" className="block" /><span className="block italic" style={{ color: GOLD }}><Rise text="Residency and Citizenship" delay={0.25} /></span></h1>
-          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="mt-6 max-w-xl text-[17px] leading-relaxed text-white/75">XIPHIAS Immigration provides end-to-end guidance for UAE Golden Visas, global residency and citizenship by investment programs. We help investors, families and businesses identify and complete suitable immigration pathways.</motion.p>
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.65 }} className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center"><Btn href="/citizenship">Book a private consultation</Btn><Btn ghost href="/eligibility">Check your eligibility</Btn></motion.div>
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.8 }} className="mt-7 flex flex-wrap gap-2">{HERO_QUICK.map(([label, href]) => <a key={label} href={href} className="rounded-full border px-3.5 py-1.5 text-[12px] text-white/75 transition-colors hover:border-[#bfa15c] hover:text-[#bfa15c]" style={{ borderColor: "rgba(191,161,92,0.35)" }}>{label}</a>)}</motion.div>
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.95 }} className="mt-9 flex flex-wrap gap-x-8 gap-y-3 border-t pt-7" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{HERO_STATS.map((s) => <div key={s.u} className="flex flex-col"><span className="text-[clamp(1.3rem,2vw,1.8rem)] font-semibold tabular-nums" style={{ color: GOLD }}>{s.v}</span><span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/50">{s.u}</span></div>)}</motion.div>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 1.1 }} className="mt-6 text-[12px] font-semibold" style={{ color: GOLD }}>Licensed in the UAE · IMC &amp; ICCRC members</motion.p>
+      <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(6,15,35,0.96) 0%, rgba(6,15,35,0.76) 42%, rgba(6,15,35,0.38) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, rgba(6,15,35,0.9) 0%, rgba(6,15,35,0.18) 52%, rgba(6,15,35,0.34) 100%)" }} />
+      <div className="absolute left-0 top-0 h-full w-[44vw] bg-[#061027]/45" />
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[92rem] flex-col justify-center px-5 pb-12 pt-32 sm:px-10 sm:pb-16 sm:pt-36 lg:px-16 lg:pb-20 lg:pt-32 xl:px-20">
+        <div className="lcp-instant grid min-w-0 grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(18rem,0.44fr)] xl:gap-16">
+          <div className="home-hero-copy min-w-0" style={{ width: "100%", maxWidth: "min(50rem, calc(100vw - 2.5rem))" }}>
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#d5b866] sm:text-[11px] sm:tracking-[0.34em]">
+              <span className="h-px w-8 bg-[#d5b866]" />
+              <span>Dubai · Global Mobility Since 2007</span>
+              <span lang="ar" dir="rtl" className="hidden font-arabic-display text-sm tracking-normal sm:inline">الهجرة والإقامة</span>
+            </p>
+            <h1 className={`${serifClass} mt-5 max-w-[11ch] text-[clamp(2.55rem,9.4vw,3.15rem)] font-medium leading-[0.96] text-white sm:max-w-[13ch] sm:text-[clamp(3.6rem,7.2vw,6.3rem)] lg:max-w-[12.5ch]`}>
+              <span className="block sm:inline">Immigration</span>{" "}
+              <span className="block sm:inline">Consultants</span>{" "}
+              <span className="block">in Dubai</span>
+              <span className="mt-3 block text-[0.52em] italic leading-[1.05] text-[#d5b866] sm:mt-4 sm:text-[0.58em]">Residency &amp; Citizenship</span>
+            </h1>
+            <p className="mt-5 max-w-[34rem] text-[14px] leading-6 text-white/78 sm:mt-6 sm:max-w-[42rem] sm:text-[17px] sm:leading-8 lg:text-[18px]">XIPHIAS Immigration provides end-to-end guidance for UAE Golden Visas, global residency and citizenship by investment programs. We help investors, families and businesses identify and complete suitable immigration pathways.</p>
+            <div className="home-hero-actions mt-6 flex w-full max-w-full flex-col items-stretch gap-3 sm:mt-7 sm:w-auto sm:flex-row sm:items-center">
+              <a href="/personal-booking" className="group flex w-full max-w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-center text-[12px] font-semibold uppercase tracking-[0.1em] text-[#0a1733] transition-transform hover:-translate-y-0.5 sm:w-auto sm:px-7 sm:text-[13px] sm:tracking-[0.12em]" style={{ background: GOLD }}>Book a private consultation<span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+              <a href="/eligibility" className="flex w-full max-w-full items-center justify-center rounded-full border border-white/25 px-5 py-3.5 text-center text-[12px] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:border-[#bfa15c] sm:w-auto sm:px-7 sm:text-[13px] sm:tracking-[0.12em]">Check your eligibility</a>
+            </div>
+            <div className="home-hero-chips mt-5 flex max-w-full flex-wrap gap-2 sm:mt-6">{HERO_QUICK.map(([label, href]) => <a key={label} href={href} className="shrink-0 rounded-full border px-3 py-1.5 text-[11px] text-white/76 transition-colors hover:border-[#bfa15c] hover:text-[#bfa15c] sm:px-3.5 sm:text-[12px]" style={{ borderColor: "rgba(191,161,92,0.38)" }}>{label}</a>)}</div>
+            <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#d5b866] sm:hidden">35 jurisdictions · 17 yrs advising · Licensed UAE</p>
+          </div>
+
+          <aside className="hidden border-l pl-8 lg:block" style={{ borderColor: "rgba(191,161,92,0.34)" }}>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#d5b866]">Private advisory desk</p>
+            <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-6">
+              {HERO_STATS.map((s) => (
+                <div key={s.u} className="min-w-0">
+                  <span className="block text-[clamp(1.55rem,2.1vw,2rem)] font-semibold tabular-nums text-[#d5b866]">{s.v}</span>
+                  <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.18em] text-white/52">{s.u}</span>
+                </div>
+              ))}
+            </div>
+            <ul className="mt-8 space-y-4 border-t pt-7 text-[14px] leading-6 text-white/72" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
+              {HERO_PROOF.map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span className="mt-2 h-px w-5 shrink-0 bg-[#d5b866]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-7 text-[12px] font-semibold text-[#d5b866]">Licensed in the UAE · IMC &amp; ICCRC members</p>
+          </aside>
+        </div>
+        <div className="mt-8 hidden max-w-[42rem] grid-cols-2 gap-x-5 gap-y-4 border-t pt-5 sm:grid lg:hidden" style={{ borderColor: "rgba(255,255,255,0.13)" }}>
+          {HERO_STATS.map((s) => (
+            <div key={s.u} className="min-w-0">
+              <span className="block text-[1.55rem] font-semibold leading-none tabular-nums text-[#d5b866]">{s.v}</span>
+              <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/54">{s.u}</span>
+            </div>
+          ))}
+          <p className="col-span-2 text-[12px] font-semibold text-[#d5b866]">Licensed in the UAE · IMC &amp; ICCRC members</p>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-2 text-white/55"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
+      <div className="absolute inset-x-0 bottom-8 z-10 hidden flex-col items-center gap-2 text-white/55 lg:flex"><span className="text-[10px] font-medium uppercase tracking-[0.3em]">Scroll</span><span className="block h-9 w-px" style={{ background: `linear-gradient(${GOLD},transparent)` }} /></div>
     </section>
   );
 }
