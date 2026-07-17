@@ -6,7 +6,7 @@ const COMPANY_EMAIL = process.env.NEXT_PUBLIC_PDF_EMAIL || "immigration@xiphias.
 const COMPANY_PHONE = process.env.NEXT_PUBLIC_PDF_PHONE || "+91 9021335577";
 const COMPANY_ADDRESS =
   process.env.NEXT_PUBLIC_PDF_ADDRESS ||
-  "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034";
+  "1st Floor, JK Nirmala Arcade, Plot no. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034";
 
 const esc = (s: unknown) =>
   String(s ?? "")

@@ -65,7 +65,7 @@ export default function TermsPage() {
     site: SITE_URL,
     legalEmail: "immigration@xiphias.in",
     registeredOffice:
-      "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
+      "1st Floor, JK Nirmala Arcade, Plot no. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
     jurisdiction: "Bengaluru, Karnataka, India",
   } as const;
 

@@ -183,7 +183,7 @@ const orgJsonLd = {
   address: {
     "@type": "PostalAddress",
     streetAddress:
-      "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala",
+      "1st Floor, JK Nirmala Arcade, Plot no. 780, 80 Feet Rd, 4th Block, Koramangala",
     addressLocality: "Bengaluru",
     addressRegion: "KA",
     postalCode: "560034",

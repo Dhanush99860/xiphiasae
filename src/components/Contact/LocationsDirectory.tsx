@@ -144,13 +144,13 @@ export default function LocationsDirectory({
       company: "XIPHIAS IMMIGRATION PVT LTD",
       regionKey: "india",
       address: [
-        "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala",
+        "1st Floor, JK Nirmala Arcade, Plot no. 780, 80 Feet Rd, 4th Block, Koramangala",
         "Bengaluru, Karnataka 560034",
       ],
       phones: ["+91 9021335577"],
       email: "immigration@xiphias.in",
       mapQuery:
-        "First Floor, ESSZED Meridian, Plot No. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
+        "1st Floor, JK Nirmala Arcade, Plot no. 780, 80 Feet Rd, 4th Block, Koramangala, Bengaluru, Karnataka 560034",
     },
     {
       id: "gurugram",
