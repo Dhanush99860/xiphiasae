@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ use helper
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { ProgramShell, type ProgramShellData } from "@/components/Vertical/CatchAllHubs";
 import { countryImage } from "@/components/Countries/country-image";
@@ -20,7 +20,7 @@ import { countryImage } from "@/components/Countries/country-image";
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const runtime = "nodejs"; // ensure Node.js runtime on Vercel
 

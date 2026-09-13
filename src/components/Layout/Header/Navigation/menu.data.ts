@@ -444,6 +444,15 @@ const skilledCountries: HeaderItem[] = [
     ],
   },
   {
+    label: 'New Zealand',
+    href: '/skilled/new-zealand',
+    meta: { code: 'NZ' },
+    submenu: [
+      { label: 'Green List - Tier 1', href: '/skilled/new-zealand/green-list-straight-to-residence-visa' },
+      { label: 'Green List - Tier 2', href: '/skilled/new-zealand/green-list-work-to-residence-visa' },
+    ],
+  },
+  {
     label: 'Spain',
     href: '/skilled/spain',
     meta: { code: 'ES' },

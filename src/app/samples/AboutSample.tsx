@@ -19,7 +19,7 @@ function Rise({ text, className, delay = 0, play }: { text: string; className?: 
   const words = text.split(" ");
   return (
     <motion.span className={className} style={{ display: "inline-block" }} initial="hidden" animate={play === undefined ? undefined : play ? "show" : "hidden"} whileInView={play === undefined ? "show" : undefined} viewport={play === undefined ? { once: true, amount: 0.4 } : undefined} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}>
-      {words.map((w, i) => (<span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginInlineEnd: i < words.length - 1 ? "0.26em" : undefined }}><motion.span style={{ display: "inline-block" }} variants={{ hidden: { y: "115%" }, show: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>{w}</motion.span></span>))}
+      {words.map((w, i) => (<span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.14em", marginBottom: "-0.14em", paddingInlineEnd: "0.06em", marginInlineEnd: i < words.length - 1 ? "0.26em" : undefined }}><motion.span style={{ display: "inline-block" }} variants={{ hidden: { y: "115%" }, show: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>{w}</motion.span></span>))}
     </motion.span>
   );
 }
@@ -30,7 +30,7 @@ function Eyebrow({ children, ar }: { children: React.ReactNode; ar: string }) {
   return <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />{children}<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">{ar}</span></p>;
 }
 
-const STATS = [{ v: "2007", u: "founded" }, { v: "10,000+", u: "families relocated" }, { v: "35", u: "jurisdictions" }, { v: "3", u: "global offices" }];
+const STATS = [{ v: "2009", u: "founded" }, { v: "10,000+", u: "families relocated" }, { v: "35", u: "jurisdictions" }, { v: "3", u: "global offices" }];
 const OFFICES = [
   { city: "Dubai", note: "DIFC · Gate Village", ar: "دبي" },
   { city: "London", note: "Mayfair", ar: "لندن" },
@@ -53,7 +53,7 @@ export default function AboutSample({ serifClass }: { serifClass: string }) {
             <Fade play={play}><p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: "rgba(238,243,251,0.5)" }}><a href="/" className="hover:text-[#bfa15c]">Home</a> <span style={{ color: GOLD }}>/</span> About</p></Fade>
             <Fade play={play} delay={0.1}><p className="mt-7 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />About XIPHIAS<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">من نحن</span></p></Fade>
             <h1 className={`${serifClass} mt-5 text-[clamp(2.6rem,6vw,5rem)] font-medium leading-[0.98]`}><Rise text="Seventeen years of" play={play} delay={0.2} className="block" /><span className="block italic" style={{ color: GOLD }}><Rise text="moving families forward." play={play} delay={0.5} /></span></h1>
-            <Fade play={play} delay={0.9}><p className="mt-7 max-w-xl text-[16px] leading-relaxed text-white/75">A private global-mobility practice for those who value discretion. Since 2007 we have arranged residency, citizenship and second passports for more than 10,000 families — quietly, and end to end.</p></Fade>
+            <Fade play={play} delay={0.9}><p className="mt-7 max-w-xl text-[16px] leading-relaxed text-white/75">A private global-mobility practice for those who value discretion. Since 2009 we have arranged residency, citizenship and second passports for more than 10,000 families — quietly, and end to end.</p></Fade>
             <Fade play={play} delay={1.05}><div className="mt-9 grid max-w-lg grid-cols-2 gap-x-8 gap-y-6 border-t pt-7 sm:grid-cols-4" style={{ borderColor: "rgba(255,255,255,0.12)" }}>{STATS.map((s) => <div key={s.u} className="flex flex-col gap-1"><span className={`${serifClass} text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none`} style={{ color: GOLD }}>{s.v}</span><span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/50">{s.u}</span></div>)}</div></Fade>
           </div>
           <motion.div initial={{ opacity: 0, scale: 1.06 }} animate={play ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">
@@ -72,7 +72,7 @@ export default function AboutSample({ serifClass }: { serifClass: string }) {
         <div className="mx-auto max-w-4xl">
           <Eyebrow ar="قصتنا">Our story</Eyebrow>
           <h2 className={`${serifClass} mt-5 text-[clamp(2rem,4vw,3.2rem)] font-medium leading-[1.08]`}><Rise text="From a single desk to a global practice." /></h2>
-          <Fade delay={0.1}><p className="mt-7 text-[17px] leading-relaxed text-[#0c1f3f]/75">XIPHIAS Immigration began in 2007 as a single advisory with one conviction: that a family&apos;s global future is too important to leave to a processing factory. Today, from offices in Dubai, London and Bengaluru, we advise internationally mobile families and businesses on residency, citizenship and skilled migration across more than thirty-five jurisdictions.</p></Fade>
+          <Fade delay={0.1}><p className="mt-7 text-[17px] leading-relaxed text-[#0c1f3f]/75">XIPHIAS Immigration began in 2009 as a single advisory with one conviction: that a family&apos;s global future is too important to leave to a processing factory. Today, from offices in Dubai, London and Bengaluru, we advise internationally mobile families and businesses on residency, citizenship and skilled migration across more than thirty-five jurisdictions.</p></Fade>
           <Fade delay={0.2}><p className="mt-4 text-[16px] leading-relaxed text-[#0c1f3f]/65">We do not sell programmes. We map the right jurisdiction and route to each client&apos;s goals — mobility, tax, education, security or a genuine plan B — and we handle every step ourselves, from the source-of-funds dossier to the passport in hand. One accountable desk. Transparent costs. Discretion as standard.</p></Fade>
           <Fade delay={0.3}><blockquote className={`${serifClass} mt-12 border-l-2 pl-7 text-[clamp(1.5rem,3vw,2.2rem)] font-medium italic leading-snug`} style={{ borderColor: GOLD }}>&ldquo;We measure success in families settled — not files processed.&rdquo;</blockquote></Fade>
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useRef, useState } from "react";
+import Turnstile from "@/components/Turnstile";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Loader from "@/components/Common/Loader";
@@ -33,6 +34,8 @@ export default function ContactForm({
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [msgLen, setMsgLen] = useState(defaults?.message?.length ?? 0);
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
+  const renderedAt = useRef<number>(Date.now());
   const formRef = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
 
@@ -268,6 +271,10 @@ export default function ContactForm({
             I agree to be contacted about my inquiry. We never sell your data.
           </label>
         )}
+
+        <div className="md:col-span-2">
+          <Turnstile onToken={setTurnstileToken} />
+        </div>
 
         <div className="md:col-span-2">
           <button

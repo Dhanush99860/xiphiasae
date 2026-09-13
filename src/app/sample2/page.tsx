@@ -1,9 +1,9 @@
 // Sample 2 — MIX: video hero + handcrafted animations + wow (the version that existed).
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import Sample2Mix from "@/components/HomeSamples/Sample2Mix";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const metadata: Metadata = { title: "Sample 2 · Mix — XIPHIAS", robots: { index: false } };
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import Ambient from "@/components/HomeLuxe/Ambient";
 import LuxeHeader from "@/components/HomeLuxe/LuxeHeader";
@@ -9,12 +9,7 @@ import LuxeFooter from "@/components/HomeLuxe/LuxeFooter";
 import { countryImage } from "@/components/Countries/country-image";
 import { INDEX_FACTORS, INDEX_DISCLAIMER } from "@/lib/program-index";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const GOLD = "#bfa15c";
 const GOLD_DEEP = "#a87d1f";

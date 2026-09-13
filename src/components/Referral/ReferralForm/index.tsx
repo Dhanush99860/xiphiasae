@@ -11,6 +11,7 @@ import {
   FiGlobe,
   FiMessageSquare,
 } from "react-icons/fi";
+import Turnstile from "@/components/Turnstile";
 
 type Props = {
   className?: string;
@@ -25,6 +26,9 @@ export default function ReferralForm({
 }: Props) {
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
+  const [company, setCompany] = useState(""); // honeypot
+  const renderedAt = useRef<number>(Date.now());
   const [notesLen, setNotesLen] = useState(0);
   const formRef = useRef<HTMLFormElement | null>(null);
   const router = useRouter();
@@ -121,6 +125,9 @@ export default function ReferralForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...payload,
+          turnstileToken,
+          company,
+          elapsedMs: Date.now() - renderedAt.current,
           page:
             typeof window !== "undefined" ? window.location.pathname : "",
           referrerUrl:
@@ -349,6 +356,10 @@ export default function ReferralForm({
         </label>
 
         <div className="md:col-span-2">
+          <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+            <input name="company" tabIndex={-1} autoComplete="off" value={company} onChange={(e) => setCompany(e.target.value)} />
+          </div>
+          <Turnstile onToken={setTurnstileToken} />
           <button
             type="submit"
             disabled={loading}

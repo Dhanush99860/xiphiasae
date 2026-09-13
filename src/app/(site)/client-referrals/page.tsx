@@ -1,15 +1,10 @@
 // src/app/(site)/client-referrals/page.tsx
 
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import ReferralsView from "./ReferralsView";
 
-const serif = Cormorant_Garamond({
-    subsets: ["latin"],
-    weight: ["500", "600", "700"],
-    style: ["normal", "italic"],
-    display: "swap",
-});
+const serif = cormorant;
 
 const CANONICAL = "/client-referrals";
 const ABSOLUTE_URL =

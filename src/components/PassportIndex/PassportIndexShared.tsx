@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import {
   ArrowRight,
   BarChart3,
@@ -36,12 +36,7 @@ export const NAVY_2 = "#13284f";
 
 // Cormorant serif — defined module-side so both server pages and client
 // components that import this shell share the exact same headline font.
-export const passportSerif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+export const passportSerif = cormorant;
 export const serifClass = passportSerif.className;
 
 export type PassportStats = {

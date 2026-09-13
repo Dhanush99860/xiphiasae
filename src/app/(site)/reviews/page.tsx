@@ -1,5 +1,5 @@
-﻿import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import type { Metadata } from "next";
+import { cormorant } from "@/lib/local-fonts";
 import type { Testimonial } from "@/components/Citizenship/TestimonialCarousel";
 import ReviewsPageShell from "@/components/Reviews/ReviewsPageShell";
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
@@ -11,12 +11,7 @@ import {
   topLevelReviews,
 } from "@/lib/reviews/legacyReviews";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const CANONICAL = "/reviews";
 const ABSOLUTE_URL = "https://www.xiphiasimmigration.com/reviews";
@@ -24,7 +19,7 @@ const PAGE_SIZE = 10;
 
 type SearchParams = Record<string, string | string[] | undefined>;
 type PageProps = {
-  searchParams?: SearchParams | Promise<SearchParams>;
+  searchParams?: Promise<SearchParams>;
 };
 
 const first = (value?: string | string[]) => (Array.isArray(value) ? value[0] : value);
@@ -36,7 +31,7 @@ function getPageHref(page: number) {
 export const revalidate = 86400;
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const sp = await Promise.resolve(searchParams ?? {});
+  const sp = (await searchParams) ?? {};
   const requestedPage = Math.max(1, Number(first(sp.page) ?? "1"));
   const totalPages = Math.max(1, Math.ceil(topLevelReviews.length / PAGE_SIZE));
   const page = Math.min(requestedPage, totalPages);
@@ -92,7 +87,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 }
 
 export default async function ReviewsPage({ searchParams }: PageProps) {
-  const sp = await Promise.resolve(searchParams ?? {});
+  const sp = (await searchParams) ?? {};
   const requestedPage = Math.max(1, Number(first(sp.page) ?? "1"));
   const totalPages = Math.max(1, Math.ceil(topLevelReviews.length / PAGE_SIZE));
   const currentPage = Math.min(requestedPage, totalPages);

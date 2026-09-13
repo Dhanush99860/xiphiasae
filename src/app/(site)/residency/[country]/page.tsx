@@ -1,6 +1,6 @@
 // src/app/(site)/residency/[country]/page.tsx
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import {
   getResidencyCountrySlugs,
   getResidencyPrograms,
@@ -9,7 +9,7 @@ import {
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
 import CountryHub, { type CountryData } from "@/components/Country/CountryHub";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const runtime = "nodejs";
 export const dynamic = "force-static";

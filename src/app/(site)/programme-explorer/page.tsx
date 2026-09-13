@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import ProgrammeExplorerMix, {
   type MixProgramme,
@@ -10,12 +10,7 @@ import {
   type ProgrammeExplorerItem,
 } from "@/lib/programme-explorer";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const metadata: Metadata = {
   title: "Programme Explorer — Every Residency, Citizenship & Mobility Route | XIPHIAS",

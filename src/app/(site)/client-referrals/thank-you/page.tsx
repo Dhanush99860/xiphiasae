@@ -2,17 +2,12 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import Header from "@/components/HomeLuxe/LuxeHeader";
 import Footer from "@/components/HomeLuxe/LuxeFooter";
 import Ambient from "@/components/HomeLuxe/Ambient";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const GOLD = "#bfa15c";
 const NAVY = "#0a1733";

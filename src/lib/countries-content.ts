@@ -34,9 +34,11 @@ import type {
   CountrySummary,
   CountryTrackGroup,
   CountryOverview,
+  DirectoryCountry,
+  DirectoryRegion,
 } from "./countries-shared";
 export { TRACK_LABEL, TRACK_PILL, TRACK_ORDER };
-export type { Vertical, ProgrammeItem, CountrySummary, CountryTrackGroup, CountryOverview };
+export type { Vertical, ProgrammeItem, CountrySummary, CountryTrackGroup, CountryOverview, DirectoryCountry, DirectoryRegion };
 
 type AnyProgramMeta =
   | ResidencyProgramMeta
@@ -231,4 +233,54 @@ export function getCountryOverview(slug: string): CountryOverview | null {
 
 export function getCountrySlugs(): string[] {
   return [...programmesByCountry().keys()].sort();
+}
+
+/**
+ * Region-grouped catalogue of EVERY country and EVERY programme we run there.
+ * Powers the homepage programmes directory, which sits directly under the hero
+ * as the first thing a visitor can click. Programme summaries are dropped so
+ * the whole catalogue stays cheap to serialise into the client bundle.
+ */
+export function getCountryDirectory(): DirectoryRegion[] {
+  const byCountry = programmesByCountry();
+
+  const countries: DirectoryCountry[] = [];
+  for (const [slug, items] of byCountry) {
+    const meta = metaFor(slug);
+    // Track order first, then title — so each card reads citizenship → residency
+    // → skilled → corporate, matching the rest of the site.
+    const ordered = TRACK_ORDER.flatMap((track) =>
+      items.filter((i) => i.track === track).sort((a, b) => a.title.localeCompare(b.title)),
+    );
+    countries.push({
+      slug,
+      name: meta.name,
+      code: meta.code,
+      region: meta.region,
+      tracks: TRACK_ORDER.filter((t) => items.some((i) => i.track === t)),
+      programmeCount: items.length,
+      programmes: ordered.map(({ track, title, href, investmentLabel, timelineLabel }) => ({
+        track,
+        title,
+        href,
+        investmentLabel,
+        timelineLabel,
+      })),
+    });
+  }
+  countries.sort((a, b) => a.name.localeCompare(b.name));
+
+  const byRegion = new Map<string, DirectoryCountry[]>();
+  for (const c of countries) {
+    const list = byRegion.get(c.region) ?? [];
+    list.push(c);
+    byRegion.set(c.region, list);
+  }
+  const ordered = [
+    ...REGION_ORDER,
+    ...[...byRegion.keys()].filter((r) => !REGION_ORDER.includes(r)),
+  ];
+  return ordered
+    .filter((region) => byRegion.has(region))
+    .map((region) => ({ region, countries: byRegion.get(region)! }));
 }

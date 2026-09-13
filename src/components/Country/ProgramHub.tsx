@@ -80,7 +80,7 @@ function Rise({ text, className, delay = 0, play }: { text: string; className?: 
   return (
     <motion.span className={className} style={{ display: "inline-block" }} initial="hidden" animate={play === undefined ? undefined : play ? "show" : "hidden"} whileInView={play === undefined ? "show" : undefined} viewport={play === undefined ? { once: true, amount: 0.4 } : undefined} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}>
       {text.split(" ").map((w, i, arr) => (
-        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginInlineEnd: i < arr.length - 1 ? "0.26em" : undefined }}>
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.14em", marginBottom: "-0.14em", paddingInlineEnd: "0.06em", marginInlineEnd: i < arr.length - 1 ? "0.26em" : undefined }}>
           <motion.span style={{ display: "inline-block" }} variants={{ hidden: { y: "115%" }, show: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>{w}</motion.span>
         </span>
       ))}

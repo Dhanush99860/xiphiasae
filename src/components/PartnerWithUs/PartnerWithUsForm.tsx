@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowRight,
   Building2,
@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   User2,
 } from "lucide-react";
+import Turnstile from "@/components/Turnstile";
 
 type Props = {
   id?: string;
@@ -54,6 +55,9 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
   const [form, setForm] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
+  const [company, setCompany] = useState(""); // honeypot
+  const renderedAt = useRef<number>(Date.now());
   const [serverMessage, setServerMessage] = useState("");
 
   function setField<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -109,6 +113,9 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
+          turnstileToken,
+          company,
+          elapsedMs: Date.now() - renderedAt.current,
           page: typeof window !== "undefined" ? window.location.pathname : "",
           referrer: typeof document !== "undefined" ? document.referrer || "" : "",
         }),
@@ -263,6 +270,10 @@ export default function PartnerWithUsForm({ id = "partner-form", className = "" 
           ) : null}
 
           <div className="md:col-span-2 flex flex-wrap items-center gap-3 pt-1">
+            <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+              <input name="company" tabIndex={-1} autoComplete="off" value={company} onChange={(e) => setCompany(e.target.value)} />
+            </div>
+            <Turnstile onToken={setTurnstileToken} />
             <button
               type="submit"
               disabled={status === "submitting"}

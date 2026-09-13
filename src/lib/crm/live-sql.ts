@@ -56,7 +56,7 @@ function env(name: string, fallback = "") {
 function getDatabaseName(region: CrmRegionKey) {
   return region === "india"
     ? env("XIPHIAS_CRM_INDIA_DATABASE", "immigration_com")
-    : env("XIPHIAS_CRM_DUBAI_DATABASE", "dubai_crm");
+    : env("XIPHIAS_CRM_DUBAI_DATABASE", "immigration_com_Dubai");
 }
 
 export function isLiveCrmConfigured() {
@@ -64,13 +64,22 @@ export function isLiveCrmConfigured() {
 }
 
 function getSqlConfig(region: CrmRegionKey): sql.config {
+  // The CRM runs on a NAMED instance (e.g. "InnoveIndia\SQLEXPRESS2022"), which
+  // resolves its port dynamically through SQL Browser. Passing a fixed port with a
+  // named instance never connects, so split the two and let mssql resolve it.
+  const rawHost = env("XIPHIAS_CRM_SQL_HOST", "localhost");
+  const [hostPart, instancePart] = rawHost.split("\\");
+  const explicitPort = env("XIPHIAS_CRM_SQL_PORT", "");
+
   return {
-    server: env("XIPHIAS_CRM_SQL_HOST", "localhost"),
-    port: Number(env("XIPHIAS_CRM_SQL_PORT", "14333")),
+    server: hostPart,
+    // Only send a port when there is no named instance.
+    ...(instancePart || !explicitPort ? {} : { port: Number(explicitPort) }),
     user: env("XIPHIAS_CRM_SQL_USER", "sa"),
     password: env("XIPHIAS_CRM_SQL_PASSWORD"),
     database: getDatabaseName(region),
     options: {
+      ...(instancePart ? { instanceName: instancePart } : {}),
       encrypt: env("XIPHIAS_CRM_SQL_ENCRYPT", "true").toLowerCase() === "true",
       trustServerCertificate: env("XIPHIAS_CRM_SQL_TRUST_SERVER_CERTIFICATE", "true").toLowerCase() === "true",
     },
@@ -90,10 +99,31 @@ export async function getLiveCrmPool(region: CrmRegionKey) {
   if (!pools.xiphiasCrmSqlPools) pools.xiphiasCrmSqlPools = new Map();
 
   const existing = pools.xiphiasCrmSqlPools.get(key);
-  if (existing) return existing;
+  if (existing) {
+    // Reuse only a pool that is still actually connected. A closed pool would
+    // otherwise be handed out forever.
+    try {
+      const pool = await existing;
+      if (pool.connected) return pool;
+    } catch {
+      // fall through and reconnect below
+    }
+    pools.xiphiasCrmSqlPools.delete(key);
+  }
 
   const poolPromise = new sql.ConnectionPool(getSqlConfig(region)).connect();
+
+  // CRITICAL: never leave a REJECTED promise in the cache. Doing so poisons the
+  // CRM mirror for the whole life of the process - one transient failure (or a
+  // bad host while the server boots) and every later lead silently fails to
+  // mirror, even after the configuration is corrected.
   pools.xiphiasCrmSqlPools.set(key, poolPromise);
+  poolPromise.catch(() => {
+    if (pools.xiphiasCrmSqlPools?.get(key) === poolPromise) {
+      pools.xiphiasCrmSqlPools.delete(key);
+    }
+  });
+
   return poolPromise;
 }
 

@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { getPlatformRepository } from "@/lib/platform/repository";
 import { captureVisitorEvent } from "@/lib/platform/visitor-analytics";
+import { getLeadNotificationRecipients } from "@/lib/platform/email";
+import { scoreLead } from "@/lib/leadQuality";
+import { verifyTurnstile, clientIpFrom } from "@/lib/turnstile";
 
 export async function POST(req: Request) {
   console.log("📨 API /api/referral hit");
@@ -50,6 +53,30 @@ export async function POST(req: Request) {
       const cleanPage = String(page || req.headers.get("referer") || "/client-referrals").trim();
       const cleanReferrerUrl = String(referrerUrl || req.headers.get("referer") || "").trim();
       const repo = getPlatformRepository();
+      // ---------- BOT / SPAM GATE ----------
+      const quality = scoreLead({
+        name: cleanFriendName,
+        email: cleanFriendEmail,
+        phone: cleanFriendPhone,
+        message: cleanNotes,
+        honeypot: String(body?.company ?? ""),
+        elapsedMs: Number(body?.elapsedMs ?? NaN),
+      });
+      // Scored, never dropped: the Dubai CRM runs its own spam assessment and
+      // review queue, so every enquiry must reach it. Blocking here made
+      // flagged leads invisible in both systems.
+      if (quality.isSpam) {
+        console.warn("[spam] flagged (passed through)", { route: "referral", score: quality.score, reasons: quality.reasons });
+      }
+
+      const turnstile = await verifyTurnstile(typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined, clientIpFrom(req.headers));
+      if (!turnstile.ok) {
+        return NextResponse.json(
+          { ok: false, error: "Please complete the verification check and try again." },
+          { status: 400 },
+        );
+      }
+
       const lead = repo.createLead({
         source: "website",
         status: "new",
@@ -235,7 +262,7 @@ export async function POST(req: Request) {
 
     const adminMail = {
       from: `"XIPHIAS Website" <${process.env.SMTP_USER}>`,
-      to: "immigration@xiphias.in",
+      to: getLeadNotificationRecipients(),
       subject: "📩 New client referral from website",
       html: adminHtml,
     };

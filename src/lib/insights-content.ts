@@ -110,7 +110,9 @@ function isHiddenInsight(data: Record<string, unknown>) {
   return (
     data.draft === true ||
     (data as any).hidden === true ||
+    coerceString((data as any).visibility)?.toLowerCase() === "draft" ||
     coerceString((data as any).visibility)?.toLowerCase() === "hidden" ||
+    coerceString((data as any).status)?.toLowerCase() === "draft" ||
     coerceString((data as any).status)?.toLowerCase() === "hidden"
   );
 }
@@ -296,6 +298,26 @@ function metaFromRaw(raw: RawDoc): InsightMeta {
     coerceString((raw.data as any).poster) ||
     undefined;
 
+  // Editorial + SEO metadata written by the content admin
+  const reviewer =
+    coerceString((raw.data as any).reviewedBy) ||
+    coerceString((raw.data as any).reviewer);
+  const lastReviewed = coerceString((raw.data as any).lastReviewed);
+  const seoTitle = coerceString((raw.data as any).seoTitle);
+  const seoDescription = coerceString((raw.data as any).seoDescription);
+  const primaryKeyword =
+    coerceString((raw.data as any).primaryKeyword) ||
+    coerceString((raw.data as any).targetKeyword);
+  const searchIntent = coerceString((raw.data as any).searchIntent);
+  const contentCluster =
+    coerceString((raw.data as any).contentCluster) ||
+    coerceString((raw.data as any).topicCluster);
+  const officialSources = normalizeArray((raw.data as any).officialSources);
+  const canonical = coerceString((raw.data as any).canonical);
+  const noindex =
+    (raw.data as any).noindex === true ||
+    coerceString((raw.data as any).noindex)?.toLowerCase() === "true";
+
   const date = coerceString(raw.data.date);
   const updated =
     coerceString((raw.data as any).updated) ||
@@ -310,6 +332,16 @@ function metaFromRaw(raw: RawDoc): InsightMeta {
     title,
     summary,
     author,
+    reviewer,
+    lastReviewed,
+    seoTitle,
+    seoDescription,
+    primaryKeyword,
+    searchIntent,
+    contentCluster,
+    officialSources: officialSources && officialSources.length ? officialSources : undefined,
+    canonical,
+    noindex: noindex || undefined,
     country: country && country.length ? country : undefined,
     program: program && program.length ? program : undefined,
     tags,

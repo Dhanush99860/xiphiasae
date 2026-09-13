@@ -8,12 +8,12 @@ const GOLD = "#bfa15c";
 const INK = "#0c1f3f";
 
 const BENEFITS = [
-  { t: "Global Mobility", d: "Eligible programs may provide wider visa-free or visa-on-arrival access for international business and family travel." },
-  { t: "Family Security", d: "Many programs allow applicants to include a spouse, dependent children and, in selected cases, parents." },
-  { t: "Business Opportunities", d: "International residency can support business expansion, market access, banking and global relocation." },
-  { t: "Education and Lifestyle", d: "Residency may provide access to education, healthcare and long-term living opportunities in the selected destination." },
-  { t: "Future Planning", d: "A second residence can provide families with greater flexibility when planning where to live, work, study or retire." },
-  { t: "Tax efficiency", d: "Certain residency programs may support international tax planning, depending on your citizenship, residence and personal circumstances. Independent tax advice should be obtained before making a decision." },
+  { t: "Global Mobility", d: "Access wider international travel opportunities through eligible residency and citizenship programs." },
+  { t: "Family Security", d: "Include eligible spouses, children and dependent parents in selected programs." },
+  { t: "Business Opportunities", d: "Support international business expansion, investment and global relocation." },
+  { t: "Education and Lifestyle", d: "Access international education, healthcare and long-term living opportunities." },
+  { t: "Future Planning", d: "Create additional options for where your family can live, work, study or retire." },
+  { t: "International Tax Planning", d: "Selected residency programs may support international tax planning, subject to professional advice." },
 ];
 
 export default function WhyInvest({
@@ -36,8 +36,7 @@ export default function WhyInvest({
           <div>
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Why invest<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">لماذا الاستثمار</span></p>
             <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] font-medium leading-[1.05]`}>Benefits of Second <span className="italic" style={{ color: GOLD }}>Residency and Citizenship by Investment</span></h2>
-            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-[#0c1f3f]/75">For internationally mobile families, a second residence or citizenship is no longer a luxury — it is sound planning. It is the difference between options and dependence: where you can live, bank, invest, school your children and retire, on your own terms.</p>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-[#0c1f3f]/65">We advise on the full spectrum — from a 10-year UAE Golden Visa to a Caribbean or European passport — matching the right programme to your goals, budget and timeline, and handling every step from the source-of-funds dossier to the passport in your hand.</p>
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-[#0c1f3f]/75">XIPHIAS helps UAE residents compare suitable residency and citizenship programs based on investment, processing time, family inclusion and global mobility.</p>
           </div>
           {/* parallax image */}
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg">

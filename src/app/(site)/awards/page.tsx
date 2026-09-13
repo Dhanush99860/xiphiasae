@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { awardsData } from "@/components/awards/awards.data";
 import { HeroAwards } from "@/components/awards/HeroAwards"; // hero stays static for optimal LCP
 import Header from "@/components/HomeLuxe/LuxeHeader";
@@ -8,12 +8,7 @@ import Footer from "@/components/HomeLuxe/LuxeFooter";
 // Dynamically import the heavier below-the-fold grid to reduce initial JS payload.
 import nextDynamic from "next/dynamic";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 // Dynamically import the heavier below-the-fold client sections. The module
 // exports a named component (no default export), so we explicitly select the

@@ -71,8 +71,9 @@ export default function InsightsNews({
           <div>
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Insights &amp; news<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">رؤى وأخبار</span></p>
             <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] font-medium leading-[1.05]`}>Immigration and <span className="italic" style={{ color: GOLD }}>Investment Migration Insights</span></h2>
+            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#0c1f3f]/60">Get current guidance on Dubai visa services, UAE Golden Visa requirements, citizenship by investment, global residency and skilled migration.</p>
           </div>
-          <a href="/insights" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>All insights <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+          <a href="/insights" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Read Immigration Insights <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
         </div>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">

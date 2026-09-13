@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import LuxeHome from "@/components/HomeLuxe/LuxeHome";
+import { getCountryDirectory } from "@/lib/countries-content";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Immigration Consultants in Dubai | Golden Visa & Citizenship",
+  title: "Top Immigration Consultants in Dubai | Golden Visa & Citizenship",
   description:
-    "Trusted immigration consultants in Dubai for UAE Golden Visas, residency and citizenship by investment. Get a confidential eligibility assessment.",
+    "Best immigration consultants in Dubai for Golden Visas, residency, citizenship by investment and skilled migration. Get a confidential eligibility assessment.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Visa & Immigration Consultants in Dubai | XIPHIAS",
     description:
-      "Golden visas, second passports & investor residency across 35+ jurisdictions. Licensed IMC advisors based in Dubai since 2007.",
+      "Golden visas, second passports & investor residency across 35+ jurisdictions. Licensed IMC advisors — XIPHIAS since 2009, XIPHIAS Dubai since 2017.",
     url: "https://www.xiphiasimmigration.com",
     siteName: "XIPHIAS Immigration",
     locale: "en_US",
@@ -36,5 +32,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <LuxeHome serifClass={serif.className} />;
+  // Full programme + country catalogue, read at build time and rendered directly
+  // under the hero as the first thing on the page a visitor can click.
+  const directory = getCountryDirectory();
+  return <LuxeHome serifClass={serif.className} directory={directory} />;
 }

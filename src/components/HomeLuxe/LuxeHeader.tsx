@@ -9,6 +9,7 @@ const INK = "#0c1f3f";
 const NAVY = "#0a1733";
 const NAVY2 = "#0d1f3f";
 const OFFWHITE = "#eef3fb";
+const CRM_LOGIN_URL = "https://xiphiasimmigration.ae/DUBAI/Account/Login?ReturnUrl=%2fDUBAI";
 
 const MARK_T = { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -166,6 +167,15 @@ export default function LuxeHeader({ serifClass }: { serifClass: string }) {
             {/* Logo — small, top-left, never clipped */}
             <a href="/" onClick={close} className="absolute left-6 top-6 z-50 block w-fit sm:left-10 sm:top-8 lg:left-16" aria-label="XIPHIAS Immigration — home">
               <Image src="/images/logo/xiphias-immigration-white.png" alt="XIPHIAS Immigration" width={260} height={66} priority className="h-14 w-44 object-contain object-left" />
+            </a>
+
+            {/* CRM login */}
+            <a
+              href={CRM_LOGIN_URL}
+              className="absolute right-20 top-5 z-50 inline-flex h-11 items-center justify-center rounded-full border px-4 text-[10px] font-bold uppercase tracking-[0.18em] text-[#bfa15c] transition-colors hover:bg-[#bfa15c] hover:text-[#0a1733] sm:right-28 sm:top-8 sm:px-5 sm:text-[11px]"
+              style={{ borderColor: "rgba(191,161,92,0.65)" }}
+            >
+              CRM Login
             </a>
 
             {/* Close */}

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import PersonalBookingHub from "@/components/PersonalBooking/PersonalBookingHub";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const revalidate = 86400;
 

@@ -5,14 +5,14 @@ import { getAllContentCached } from "@/lib/content";
 import type { Metadata } from "next";
 import type { Vertical, ProgramDoc } from "@/lib/content/types";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ add
 
 import { VerticalLanding, type VerticalLandingData } from "@/components/Vertical/CatchAllHubs";
 import { countryImage } from "@/components/Countries/country-image";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 // Editorial frames for the full-bleed vertical hero / CTA (real assets in /public).
 const VERTICAL_HERO: Record<string, { hero: string; cta: string }> = {
@@ -35,9 +35,9 @@ export const dynamicParams = true;
 export async function generateMetadata({
   params,
 }: {
-  params: { vertical: Vertical };
+  params: Promise<{ vertical: Vertical }>;
 }): Promise<Metadata> {
-  const { vertical } = params;
+  const { vertical } = await params;
   if (!VERTICALS.includes(vertical)) {
     return { title: "Not found" };
   }
@@ -77,12 +77,12 @@ export async function generateMetadata({
   };
 }
 
-export default function VerticalPage({
+export default async function VerticalPage({
   params,
 }: {
-  params: { vertical: Vertical };
+  params: Promise<{ vertical: Vertical }>;
 }) {
-  const { vertical } = params;
+  const { vertical } = await params;
 
   // Extra guard (helps keep logs clean on Vercel)
   if (!VERTICALS.includes(vertical)) return notFound();

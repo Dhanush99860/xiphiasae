@@ -1,16 +1,11 @@
 // app/(site)/media/page.tsx
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getAllInsights } from "@/lib/insights-content";
 import ContentIndex, { type ContentIndexPost } from "@/components/Content/ContentIndex";
 import type { InsightMeta } from "@/types/insights";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 // SEO metadata for the media listing page
 export const metadata: Metadata = {

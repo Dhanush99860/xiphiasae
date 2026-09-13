@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { PRODUCT_CATALOG, IS_TEST_PRICING, type ProductConfig } from "@/lib/payments/product-catalog";
 import PaymentCatalog from "@/components/Payment/PaymentCatalog";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const metadata: Metadata = {
   title: "Reports & Checkout | XIPHIAS",

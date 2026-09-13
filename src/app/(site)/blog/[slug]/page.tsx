@@ -2,13 +2,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import nextDynamic from "next/dynamic";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getInsightBySlug } from "@/lib/insights-content";
 import ArticleDetail from "@/components/Content/ArticleDetail";
 
 const InsightJsonLd = nextDynamic(() => import("@/components/SEO/InsightJsonLd"));
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 function formatDate(input?: string) {
   if (!input) return "";
@@ -22,7 +22,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 type Params = { slug: string };
-type PageProps = { params: Params | Promise<Params> };
+type PageProps = { params: Promise<Params> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await Promise.resolve(params);
@@ -35,17 +35,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const description = record.summary || `Blog: ${record.title}`;
+  const metaTitle = record.seoTitle || record.title;
+  const description = record.seoDescription || record.summary || `Blog: ${record.title}`;
 
   // record.url SHOULD be absolute ideally, but canonical can safely be relative because metadataBase is set in layout.
-  const canonical = record.url && record.url.startsWith("http") ? record.url : `/blog/${slug}`;
+  const defaultCanonical = record.url && record.url.startsWith("http") ? record.url : `/blog/${slug}`;
+  const canonical = record.canonical || defaultCanonical;
   const hero = record.hero && record.hero.startsWith("http") ? record.hero : record.hero || undefined;
 
   return {
-    title: record.title,
+    title: metaTitle,
     description,
     alternates: { canonical },
-    robots: { index: true, follow: true },
+    robots: record.noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: record.title,
       description,

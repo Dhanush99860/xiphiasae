@@ -1,14 +1,14 @@
 // src/app/(site)/guide/page.tsx
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { headerMenu } from "@/components/Layout/Header/Navigation/menu.data";
 import GuideView from "@/components/guid/GuideView";
 import { SitemapGroup } from "@/components/guid/GuideSidebar";
 import { getBrochureUrl } from "@/components/guid/brochures";
 import { extraLinkGroups } from "@/components/guid/extraLinks";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 // ---------- Types ----------
 export type ProgramItem = {

@@ -1,11 +1,11 @@
 // src/app/(site)/corporate/page.tsx
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getCorporateCountries, type CountryMeta } from "@/lib/corporate-content";
 import { JsonLd } from "@/lib/seo";
 import VerticalHub, { type VerticalConfig } from "@/components/Vertical/VerticalHub";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const revalidate = 86400;
 

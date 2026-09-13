@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import PassportPowerClient from "@/components/PassportIndex/PassportPowerClient";
 import { passportIndexStats, passportRecords } from "@/data/passport-index";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
 

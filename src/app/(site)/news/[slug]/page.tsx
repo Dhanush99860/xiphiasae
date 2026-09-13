@@ -2,12 +2,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import nextDynamic from "next/dynamic";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 const InsightJsonLd = nextDynamic(() => import("@/components/SEO/InsightJsonLd"));
 import { getInsightBySlug } from "@/lib/insights-content";
 import ArticleDetail from "@/components/Content/ArticleDetail";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 function formatDate(input?: string) {
   if (!input) return "";
@@ -28,11 +28,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const record = await getInsightBySlug("news", slug);
   if (!record) return { title: "Not Found" };
 
-  const description = record.summary || `News: ${record.title}`;
+  const metaTitle = record.seoTitle || record.title;
+  const description = record.seoDescription || record.summary || `News: ${record.title}`;
+  const canonical = record.canonical || record.url;
   return {
-    title: record.title,
+    title: metaTitle,
     description,
-    alternates: { canonical: record.url },
+    alternates: { canonical },
+    robots: record.noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: record.title,
       description,

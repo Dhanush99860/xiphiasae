@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import SolutionPage from "@/components/Solutions/SolutionPage";
 import { SOLUTIONS, getSolutionProgrammes } from "@/lib/solutions";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const cfg = SOLUTIONS["for-entrepreneurs"];
 export const revalidate = 86400;

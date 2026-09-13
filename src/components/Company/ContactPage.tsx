@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Turnstile from "@/components/Turnstile";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Header from "@/components/HomeLuxe/LuxeHeader";
@@ -99,6 +100,10 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
   const [sent, setSent] = useState(false);
   const [play, setPlay] = useState(false);
   const [activeRegion, setActiveRegion] = useState<string>("UAE");
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
+  const [company, setCompany] = useState(""); // honeypot — humans never see this
+  const [error, setError] = useState<string | null>(null);
+  const renderedAt = useRef<number>(Date.now());
 
   useEffect(() => { const t = setTimeout(() => setPlay(true), 120); return () => clearTimeout(t); }, []);
 
@@ -108,14 +113,19 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
     e.preventDefault();
     if (submitting) return;
     setSubmitting(true);
+    setError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, message, interest, variant: "contact", page: typeof window !== "undefined" ? window.location.pathname : undefined, referrer: typeof document !== "undefined" ? document.referrer : undefined, consent: true }),
+        body: JSON.stringify({ name, phone, email, message, interest, variant: "contact", page: typeof window !== "undefined" ? window.location.pathname : undefined, referrer: typeof document !== "undefined" ? document.referrer : undefined, consent: true, turnstileToken, company, elapsedMs: Date.now() - renderedAt.current }),
       });
-      if (res.ok) setSent(true);
-    } catch { /* network error — keep form so user can retry */ } finally { setSubmitting(false); }
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data?.ok !== false) setSent(true);
+      else setError(data?.error || "Something went wrong. Please try again.");
+    } catch {
+      setError("Could not reach the server. Please check your connection and try again.");
+    } finally { setSubmitting(false); }
   }
 
   return (
@@ -237,7 +247,7 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
                 <p className="mt-2 max-w-xs text-[13px] leading-relaxed text-[#0c1f3f]/55">A senior advisor will be in touch within one business day. Everything stays confidential.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="relative flex flex-col gap-4">
                 <div className="border-b pb-4" style={{ borderColor: `${INK}0e` }}>
                   <h2 className={`${serifClass} text-[1.55rem] font-medium text-[#0c1f3f]`}>Request a private consultation</h2>
                   <p className="mt-1 text-[12px] text-[#0c1f3f]/40">All enquiries handled in strict confidence.</p>
@@ -284,6 +294,29 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
                   <input type="checkbox" name="consent" required className="mt-0.5 accent-[#bfa15c]" />
                   I agree to be contacted about my enquiry. We never sell your data.
                 </label>
+
+                {/* Honeypot: positioned off-screen and hidden from assistive tech.
+                    A human never sees or fills this; bots fill every field. */}
+                <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+                  <label htmlFor="company">Company (leave this field empty)</label>
+                  <input
+                    id="company"
+                    name="company"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                </div>
+
+                <Turnstile onToken={setTurnstileToken} className="mt-1" />
+
+                {error ? (
+                  <p role="alert" className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-[12px] text-red-700">
+                    {error}
+                  </p>
+                ) : null}
 
                 <button
                   type="submit"
@@ -371,7 +404,7 @@ export default function ContactPage({ serifClass }: { serifClass: string }) {
             </motion.div>
           </AnimatePresence>
 
-          <p className="mt-8 text-[10px] uppercase tracking-[0.2em] text-white/20">XIPHIAS Immigration · Est. 2007 · All offices by appointment only</p>
+          <p className="mt-8 text-[10px] uppercase tracking-[0.2em] text-white/20">XIPHIAS Immigration · Est. 2009 · All offices by appointment only</p>
         </div>
       </section>
 

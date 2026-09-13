@@ -81,6 +81,24 @@ function Restore-PreviousBuild {
     return $true
 }
 
+function Remove-BackupBestEffort([string]$Path) {
+    if (-not (Test-Path -LiteralPath $Path)) { return $true }
+
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        try {
+            Remove-Item -LiteralPath $Path -Recurse -Force -ErrorAction Stop
+            return $true
+        }
+        catch {
+            if ($attempt -lt 3) {
+                Start-Sleep -Milliseconds 750
+            }
+        }
+    }
+
+    return $false
+}
+
 Set-Location -LiteralPath $projectRoot
 
 try {
@@ -95,7 +113,10 @@ try {
 
     Write-Step "Saving the current build for rollback"
     if (Test-Path -LiteralPath $backupPath) {
-        Remove-Item -LiteralPath $backupPath -Recurse -Force
+        if (-not (Remove-BackupBestEffort $backupPath)) {
+            $backupPath = Join-Path $projectRoot (".next.deploy-backup-" + (Get-Date -Format "yyyyMMdd-HHmmss"))
+            Write-Host "The previous backup is still in use. Using $backupPath instead." -ForegroundColor Yellow
+        }
     }
     if (Test-Path -LiteralPath $buildPath) {
         Move-Item -LiteralPath $buildPath -Destination $backupPath
@@ -120,7 +141,10 @@ try {
     }
 
     if (Test-Path -LiteralPath $backupPath) {
-        Remove-Item -LiteralPath $backupPath -Recurse -Force
+        if (-not (Remove-BackupBestEffort $backupPath)) {
+            Write-Host "Deployment succeeded, but the rollback folder could not be removed: $backupPath" -ForegroundColor Yellow
+            Write-Host "It can be deleted later after the old process releases it." -ForegroundColor Yellow
+        }
     }
 
     Write-Host ""

@@ -1,7 +1,7 @@
 // src/app/(site)/careers/[slug]/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getJobBySlug, jobsStaticParams, jobJsonLd, getAllJobs } from "@/lib/jobs";
 import { formatDateUS, formatDateUSShort } from "@/lib/format";
 import JobDetailSections from "@/components/careers/JobDetailSections";
@@ -10,7 +10,7 @@ import Header from "@/components/HomeLuxe/LuxeHeader";
 import Footer from "@/components/HomeLuxe/LuxeFooter";
 import Ambient from "@/components/HomeLuxe/Ambient";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 const GOLD = "#bfa15c";
 const GOLD_DEEP = "#a87d1f";
@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 const SITE = "https://www.xiphiasimmigration.com";
 
 type Params = { slug: string };
-type PageProps = { params: Params | Promise<Params> };
+type PageProps = { params: Promise<Params> };
 
 // ----- Helpers -----
 function fmtDate(iso?: string) {

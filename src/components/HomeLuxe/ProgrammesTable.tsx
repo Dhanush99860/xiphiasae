@@ -17,6 +17,9 @@ const DATA: Record<"citizenship" | "residency", Row[]> = {
     { flag: "turkey", name: "Türkiye", route: "Real estate", from: "$400,000", time: "~6 months", note: "E-2 eligible · 113 visa-free", href: "/citizenship/turkey" },
     { flag: "st-lucia", name: "Saint Lucia", route: "Donation / Bonds", from: "$240,000", time: "6–12 months", note: "145 visa-free", href: "/citizenship/saint-lucia" },
     { flag: "Ejypt", name: "Egypt", route: "Donation / Deposit", from: "$250,000", time: "6–9 months", note: "Regional base · fast track", href: "/citizenship/egypt" },
+    { flag: "vanuatu", name: "Vanuatu", route: "Donation (VDSP)", from: "$130,000", time: "1–2 months", note: "Fastest CBI · 117 visa-free", href: "/citizenship/vanuatu" },
+    { flag: "Nauru", name: "Nauru", route: "Donation", from: "$105,000", time: "3–4 months", note: "Newest CBI · family-inclusive", href: "/citizenship/nauru" },
+    { flag: "sao-tome", name: "São Tomé & Príncipe", route: "Donation (NTF)", from: "$90,000", time: "~6 weeks", note: "Most affordable entry", href: "/citizenship/saotome" },
   ],
   residency: [
     { flag: "UAE", name: "United Arab Emirates", route: "Golden Visa · property", from: "$545,000", time: "2–4 weeks", note: "10-year residency · 0% income tax", href: "/golden-visa" },
@@ -43,7 +46,7 @@ export default function ProgrammesTable({ serifClass, defaultTab = "citizenship"
           <div>
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />What we offer<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">برامجنا</span></p>
             <h2 className={`${serifClass} mt-5 text-[clamp(2.2rem,4.4vw,3.4rem)] font-medium leading-[1.05]`}>Compare Residency and <span className="italic" style={{ color: GOLD }}>Citizenship by Investment Programs</span></h2>
-            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#0c1f3f]/60">Compare minimum investments, estimated processing times, family eligibility and mobility benefits across leading global immigration programs.</p>
+            <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#0c1f3f]/60">Compare UAE Golden Visa, residency by investment and second citizenship programs by cost, timeline, family eligibility and mobility benefits. The best immigration consultants help you identify a program suited to your goals and investment range.</p>
           </div>
           <div className="flex flex-wrap gap-2.5 text-center">
             {[["35", "jurisdictions"], ["60+", "programmes"], ["$90k", "entry point"], ["190", "destinations"]].map(([v, u]) => (
@@ -98,7 +101,7 @@ export default function ProgrammesTable({ serifClass, defaultTab = "citizenship"
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
           <p className="text-[13px] text-[#0c1f3f]/55">Figures are minimum qualifying investments, exclusive of government and due-diligence fees.</p>
-          <a href="/citizenship" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Compare All Immigration Programs <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+          <a href="/citizenship" className="group inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Compare Immigration Programs <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
         </div>
       </div>
     </section>

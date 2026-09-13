@@ -1,5 +1,7 @@
 "use client";
 
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+
 const GOLD = "#bfa15c";
 const INK = "#0c1f3f";
 
@@ -58,6 +60,14 @@ const OFFICES = [
   "Los Angeles", "Doha", "São Paulo",
 ];
 
+const SOCIALS = [
+  { label: "Facebook", href: "https://www.facebook.com/xiphiasimmigration", Icon: Facebook },
+  { label: "Instagram", href: "https://www.instagram.com/xiphias.immigration/", Icon: Instagram },
+  { label: "X", href: "https://x.com/XiphiasInfo", Icon: Twitter },
+  { label: "YouTube", href: "https://www.youtube.com/@immigrationxiphias5228", Icon: Youtube },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/xiphias-immigration-pvt-limited", Icon: Linkedin },
+] as const;
+
 export default function LuxeFooter({ serifClass }: { serifClass: string }) {
   return (
     <footer data-tone="light" className="relative px-6 pb-8 pt-12 text-[#0c1f3f] sm:px-12 lg:px-20" style={{ background: "#f7faff" }}>
@@ -70,7 +80,7 @@ export default function LuxeFooter({ serifClass }: { serifClass: string }) {
         >
           <div className="flex items-baseline gap-4">
             <span className={`${serifClass} text-[1.8rem] font-semibold tracking-[0.04em]`}>XIPHIAS</span>
-            <span className="hidden text-[12px] text-[#0c1f3f]/40 sm:inline">Private global mobility · Est. 2007</span>
+            <span className="hidden text-[12px] text-[#0c1f3f]/40 sm:inline">Private global mobility · Est. 2009</span>
           </div>
           <a
             href="/contact"
@@ -119,6 +129,38 @@ export default function LuxeFooter({ serifClass }: { serifClass: string }) {
         </div>
 
         {/* ── bottom bar ── */}
+        <div
+          className="flex flex-col gap-4 border-t py-6 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderColor: `${INK}12` }}
+        >
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em]" style={{ color: GOLD }}>Follow XIPHIAS</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {SOCIALS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Follow XIPHIAS on ${label}`}
+                  title={label}
+                  className="group inline-flex h-10 w-10 items-center justify-center rounded-full border text-[#0c1f3f]/55 transition-all hover:-translate-y-0.5 hover:text-[#bfa15c]"
+                  style={{ borderColor: `${INK}1f` }}
+                >
+                  <Icon className="h-[1.05rem] w-[1.05rem] transition-transform group-hover:scale-110" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          </div>
+          <a
+            href="/content-admin"
+            className="inline-flex w-fit items-center justify-center rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0c1f3f]/65 transition-colors hover:border-[#bfa15c] hover:text-[#bfa15c]"
+            style={{ borderColor: `${INK}26` }}
+          >
+            CMS Admin Login
+          </a>
+        </div>
+
         <div
           className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
           style={{ borderColor: `${INK}12` }}

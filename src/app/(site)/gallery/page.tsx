@@ -1,11 +1,11 @@
 // src/app/(site)/gallery/page.tsx
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import GalleryView from "@/components/Gallery/GalleryView";
 import { getGallery } from "@/lib/gallery";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const revalidate = 600; // cache at the edge for 10 mins
 

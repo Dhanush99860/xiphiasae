@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { getProgrammeExplorerData } from "@/lib/programme-explorer";
 import { toCostProgram } from "@/lib/cost-estimator";
 import ProgramIndexClient from "@/components/ProgramIndex/ProgramIndexClient";
 import type { ProgramIndexItem } from "@/lib/program-index";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const metadata: Metadata = {
   title: "XIPHIAS Program Index — XIA Intelligence",

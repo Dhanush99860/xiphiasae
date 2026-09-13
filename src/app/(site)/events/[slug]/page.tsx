@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { CalendarDays, Camera, MapPin, Tag } from "lucide-react";
 import { formatDateLong } from "@/lib/date-format";
 import { getAllEvents, getEventBySlug } from "@/lib/events-data";
@@ -12,12 +12,7 @@ import ArticleDetail from "@/components/Content/ArticleDetail";
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const revalidate = 86400;
 

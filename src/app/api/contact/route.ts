@@ -2,13 +2,18 @@
 export const runtime = "nodejs";
 
 import { NextResponse, type NextRequest } from "next/server";
+import nodemailer from "nodemailer";
 import { getPlatformRepository } from "@/lib/platform/repository";
 import { sendLeadAlert } from "@/lib/platform/whatsapp";
 import { captureVisitorEvent } from "@/lib/platform/visitor-analytics";
+import { scoreLead } from "@/lib/leadQuality";
+import { verifyTurnstile, clientIpFrom } from "@/lib/turnstile";
+import { getLeadNotificationRecipients } from "@/lib/platform/email";
 
 // ✅ This route never throws to the frontend (always 200).
 // ✅ If Email/WhatsApp envs are missing, it SKIPS those sends.
-// ✅ Uses non-literal dynamic import for "nodemailer" so TS won't require it.
+// ✅ Uses a STATIC nodemailer import — a non-literal dynamic import compiles to an
+//    empty webpack context and throws MODULE_NOT_FOUND on every request.
 
 export async function POST(req: NextRequest) {
   const t0 = Date.now();
@@ -35,6 +40,38 @@ export async function POST(req: NextRequest) {
           whatsapp: "skipped",
         },
         { status: 200 }
+      );
+    }
+
+    // ---------- BOT / SPAM GATE ----------
+    // Order matters: honeypot and scoring are free, so they run before the
+    // network call to Cloudflare. Rejections return 200 with ok:true so a bot
+    // cannot tell it was blocked and retune itself.
+    const quality = scoreLead({
+      name,
+      email,
+      phone,
+      message,
+      honeypot: String(body?.company ?? ""),
+      elapsedMs: Number(body?.elapsedMs ?? NaN),
+    });
+
+    // Scored, never dropped: the Dubai CRM runs its own spam assessment and
+    // review queue, so every enquiry must reach it. Blocking here made
+    // flagged leads invisible in both systems.
+    if (quality.isSpam) {
+      console.warn("[spam] flagged (passed through)", { route: "contact", score: quality.score, reasons: quality.reasons });
+    }
+
+    const turnstile = await verifyTurnstile(
+      typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined,
+      clientIpFrom(req.headers),
+    );
+    if (!turnstile.ok) {
+      console.warn("[api/contact] rejected by turnstile", { name, reason: turnstile.reason });
+      return NextResponse.json(
+        { ok: false, error: "Please complete the verification check and try again." },
+        { status: 400 },
       );
     }
 
@@ -81,19 +118,11 @@ export async function POST(req: NextRequest) {
       process.env.EMAIL_FROM ||
       process.env.SMTP_USER ||
       "immigration@xiphias.in";
-    const toEmail =
-      process.env.EMAIL_TO ||
-      process.env.SMTP_USER ||
-      "immigration@xiphias.in";
+    const toEmail = getLeadNotificationRecipients();
     const hasEmailCfg = !!process.env.SMTP_HOST && !!fromEmail && !!toEmail;
 
     if (hasEmailCfg) {
       try {
-        // ⬇️ Non-literal dynamic import avoids TS2307 when nodemailer isn't installed
-        const pkgName: string = "nodemailer";
-        const nodemailerMod: any = await import(pkgName);
-        const nodemailer = nodemailerMod.default ?? nodemailerMod;
-
         const transporter = nodemailer.createTransport({
           host: process.env.SMTP_HOST,
           port: Number(process.env.SMTP_PORT || 587),
@@ -128,8 +157,15 @@ export async function POST(req: NextRequest) {
         });
 
         emailStatus = "sent";
-      } catch {
-        // nodemailer not installed or SMTP error → keep UI happy
+      } catch (err) {
+        // Keep the UI happy, but never lose the reason: a silent catch here hid a
+        // total contact-form outage for months. Always surface it in the server log.
+        console.error("[api/contact] lead email FAILED", {
+          leadId: platformLead.id,
+          host: process.env.SMTP_HOST,
+          to: toEmail,
+          error: err instanceof Error ? err.name + ": " + err.message : String(err),
+        });
         emailStatus = "failed";
       }
     }
@@ -143,8 +179,9 @@ export async function POST(req: NextRequest) {
       { ok: true, leadId: platformLead.id, email: emailStatus, whatsapp: whatsappStatus, tookMs: Date.now() - t0 },
       { status: 200 }
     );
-  } catch {
-    // Final safety net: never fail the client
+  } catch (err) {
+    // Final safety net: never fail the client, but always log why.
+    console.error("[api/contact] request FAILED", err);
     return NextResponse.json({ ok: true, email: "skipped", whatsapp: "skipped" }, { status: 200 });
   }
 }

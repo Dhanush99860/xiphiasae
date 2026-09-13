@@ -1,6 +1,6 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Lato, Inter, Sora, Reem_Kufi, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { inter, lato, plexArabic, reemKufi, sora } from "@/lib/local-fonts";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
@@ -13,40 +13,6 @@ import SiteChrome from "@/components/Layout/SiteChrome";
 // ✅ GA4 components
 
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-});
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-  display: "swap",
-});
-
-// UAE refresh — Arabic faces. Display = calligraphic kufi for hero kickers /
-// eyebrows; body = clean sans for Arabic copy. Exposed as CSS vars and mapped
-// to the `font-arabic` / `font-arabic-display` Tailwind utilities.
-const reemKufi = Reem_Kufi({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-arabic-display",
-  display: "swap",
-});
-
-const plexArabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-arabic",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.xiphiasimmigration.com"),
@@ -174,10 +140,11 @@ const orgJsonLd = {
   logo: `${SITE}/images/logo/xiphias-immigration.png`,
   image: `${SITE}/xiphias-immigration.png`,
   sameAs: [
-    "https://www.linkedin.com/company/xiphias-immigration/",
-    "https://www.facebook.com/xiphias",
-    "https://www.instagram.com/xiphias",
-    "https://twitter.com/xiphiasimmig",
+    "https://www.linkedin.com/company/xiphias-immigration-pvt-limited",
+    "https://www.facebook.com/xiphiasimmigration",
+    "https://www.instagram.com/xiphias.immigration/",
+    "https://x.com/XiphiasInfo",
+    "https://www.youtube.com/@immigrationxiphias5228",
   ],
   areaServed: "Worldwide",
   address: {

@@ -4,7 +4,7 @@
 "use client";
 import React from "react";
 import Head from "next/head";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { ORG, LEADERSHIP, ADVISORS, TEAM, EVENTS } from "@/components/Team/team";
 import Header from "@/components/HomeLuxe/LuxeHeader";
 import Footer from "@/components/HomeLuxe/LuxeFooter";
@@ -17,12 +17,7 @@ import { Events } from "@/components/Team/Events";
 import { CTA } from "@/components/Team/CTA";
 import { JsonLd } from "@/components/Team/JsonLd";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const NAVY = "#0a1733";
 

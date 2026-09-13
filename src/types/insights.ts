@@ -14,6 +14,18 @@ export type InsightMeta = {
   title: string;
   summary?: string;
   author?: string;
+  reviewer?: string;
+  lastReviewed?: string;
+
+  /** Editorial + SEO metadata managed from the content admin */
+  seoTitle?: string;
+  seoDescription?: string;
+  primaryKeyword?: string;
+  searchIntent?: string;
+  contentCluster?: string;
+  officialSources?: string[];
+  canonical?: string;
+  noindex?: boolean;
 
   /** Always normalized to arrays */
   country?: string[];

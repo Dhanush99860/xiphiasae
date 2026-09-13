@@ -5,15 +5,11 @@ import { readContentAdminImage } from "@/lib/content-admin/store";
 export const dynamic = "force-dynamic";
 
 type RouteContext = {
-  params:
-    | {
-        bucket: string;
-        fileName: string;
-      }
-    | Promise<{
-        bucket: string;
-        fileName: string;
-      }>;
+  // Next 16 always passes route params as a Promise.
+  params: Promise<{
+    bucket: string;
+    fileName: string;
+  }>;
 };
 
 export async function GET(_request: Request, context: RouteContext) {

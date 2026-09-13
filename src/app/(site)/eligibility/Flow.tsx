@@ -14,6 +14,7 @@ import { getQuestionsForTrack } from "@/lib/eligibility/questions";
 import { scoreAssessment } from "@/lib/eligibility/scoring";
 import type { Track, AnswerMap, Result } from "@/lib/eligibility/types";
 import { trackEvent } from "@/lib/eligibility/analytics";
+import Turnstile from "@/components/Turnstile";
 
 type Stage = "select" | "quiz" | "lead" | "result";
 
@@ -44,6 +45,7 @@ export default function Flow() {
   const [track, setTrack] = useState<Track | null>(null);
   const [stage, setStage] = useState<Stage>("select");
   const [answers, setAnswers] = useState<AnswerMap>({});
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
   const [stepIndex, setStepIndex] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -274,7 +276,7 @@ export default function Flow() {
 
   /* -------------------- lead submit -------------------- */
   const submitLead = useCallback(async () => {
-    const payload = { name, email, phone, track, answers };
+    const payload = { name, email, phone, track, answers, turnstileToken };
     try {
       const res = await fetch("/api/eligibility/submit", {
         method: "POST",
@@ -425,6 +427,7 @@ export default function Flow() {
                       setPhone={setPhone}
                       onSubmitAction={submitLead}
                     />
+                    <Turnstile onToken={setTurnstileToken} className="mt-3" />
                   </div>
                 </Section>
               )}

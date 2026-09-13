@@ -50,3 +50,22 @@ export type CountryOverview = CountrySummary & {
   groups: CountryTrackGroup[];
   programmes: ProgrammeItem[];
 };
+
+/** Trimmed programme shape for the homepage directory (no summary — keeps the
+ *  client payload small when every programme in the catalogue is serialised). */
+export type DirectoryProgramme = {
+  track: Vertical;
+  title: string;
+  href: string;
+  investmentLabel: string;
+  timelineLabel: string;
+};
+
+export type DirectoryCountry = CountrySummary & {
+  programmes: DirectoryProgramme[];
+};
+
+export type DirectoryRegion = {
+  region: string;
+  countries: DirectoryCountry[];
+};

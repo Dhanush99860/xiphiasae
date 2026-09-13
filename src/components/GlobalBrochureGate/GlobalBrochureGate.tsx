@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Turnstile from "@/components/Turnstile";
 
 /**
  * GlobalBrochureGate intercepts clicks on any anchor whose href points to a PDF
@@ -10,6 +11,7 @@ import React, { useState, useEffect } from "react";
 export default function GlobalBrochureGate() {
   const [open, setOpen] = useState(false);
   const [brochureUrl, setBrochureUrl] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -81,7 +83,7 @@ export default function GlobalBrochureGate() {
         await fetch("/api/brochure-lead", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, phone, email, brochure: brochureUrl }),
+          body: JSON.stringify({ name, phone, email, brochure: brochureUrl, turnstileToken }),
         });
       } catch (err) {
         // swallow network errors; still allow download
@@ -203,6 +205,7 @@ export default function GlobalBrochureGate() {
           </div>
 
           {/* Submit button */}
+          <Turnstile onToken={setTurnstileToken} />
           <button
             type="button"
             onClick={handleSubmit}

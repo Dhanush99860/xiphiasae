@@ -37,7 +37,8 @@ export default function PassportPower({ serifClass }: { serifClass: string }) {
     <section data-tone="dark" className="relative isolate px-6 py-24 text-[#eef3fb] sm:px-12 lg:px-20" style={{ background: `radial-gradient(120% 90% at 85% 0%, #13284f 0%, ${NAVY} 60%)` }}>
       <div className="mx-auto max-w-6xl">
         <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Intelligence<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">مؤشر الجوازات</span></p>
-        <h2 className={`${serifClass} mt-5 max-w-3xl text-[clamp(2.2rem,4.6vw,3.6rem)] font-medium leading-[1.04]`}>How far could your passport <span className="italic" style={{ color: GOLD }}>really</span> take you?</h2>
+        <h2 className={`${serifClass} mt-5 max-w-3xl text-[clamp(2.2rem,4.6vw,3.6rem)] font-medium leading-[1.04]`}>Compare Second Passports <span className="italic" style={{ color: GOLD }}>and Global Mobility</span></h2>
+        <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-white/65">Compare second passports by investment amount, processing time, family inclusion and visa-free access. Our best immigration consultants help investors and families evaluate suitable citizenship by investment options.</p>
 
         <div className="mt-12 grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <div>
@@ -64,7 +65,7 @@ export default function PassportPower({ serifClass }: { serifClass: string }) {
             <motion.p key={`u${i}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-7 max-w-md rounded-lg border px-5 py-4 text-[15px] leading-relaxed text-white/80" style={{ borderColor: "rgba(191,161,92,0.3)", background: "rgba(191,161,92,0.06)" }}>
               That&apos;s <span style={{ color: GOLD }} className="font-semibold">+{uplift} destinations</span> visa-free — plus the right to live, bank, invest and educate your family across the world, wherever tomorrow takes them.
             </motion.p>
-            <a href="/passport-index" className="group mt-7 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Explore the full passport index <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
+            <a href="/citizenship" className="group mt-7 inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.1em]" style={{ color: GOLD }}>Compare Second Passport Programs <span className="transition-transform duration-300 group-hover:translate-x-1">→</span></a>
           </div>
 
           <div>

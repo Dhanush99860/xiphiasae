@@ -107,7 +107,7 @@ function FooterLight({ serifClass }: { serifClass: string }) {
         <div className="flex flex-col justify-between gap-8 border-b pb-12 lg:flex-row lg:items-end" style={{ borderColor: `${INK}1f` }}>
           <div>
             <span className={`${serifClass} text-[2.4rem] font-semibold tracking-[0.04em]`}>XIPHIAS</span>
-            <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-[#14110c]/60">A private global-mobility practice. Residency, citizenship and second passports — arranged with discretion since 2007.</p>
+            <p className="mt-3 max-w-sm text-[14px] leading-relaxed text-[#14110c]/60">A private global-mobility practice. Residency, citizenship and second passports — arranged with discretion since 2009.</p>
           </div>
           <a href="#" className="inline-flex w-fit items-center gap-2 rounded-full px-6 py-3 text-[12px] font-semibold uppercase tracking-[0.1em] text-[#0b0e13]" style={{ background: GOLD }}>Book a consultation →</a>
         </div>

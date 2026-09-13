@@ -98,3 +98,23 @@ export function keyValueHtml(rows: [string, string | undefined][]) {
     </table>
   `;
 }
+
+/**
+ * Recipients for a new-lead notification from the public .ae forms.
+ *
+ * Several routes used to hardcode "immigration@xiphias.in", which meant .ae
+ * enquiries landed only in the India inbox and never reached the Dubai team.
+ * This sends to both: the configured EMAIL_TO (Dubai) plus the India desk.
+ *
+ * Returns a comma-separated list, deduped, in the form nodemailer expects.
+ */
+export function getLeadNotificationRecipients() {
+  const india = "immigration@xiphias.in";
+  const configured = process.env.EMAIL_TO || process.env.SMTP_USER || india;
+  // LEAD_NOTIFY_EXTRA lets you add testing/observer addresses without a code change.
+  const extra = (process.env.LEAD_NOTIFY_EXTRA || "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return Array.from(new Set([configured, india, ...extra].filter(Boolean))).join(", ");
+}

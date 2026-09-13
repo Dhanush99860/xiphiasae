@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import fg from "fast-glob";
 import matter from "gray-matter";
+import { editorTextToMdx } from "@/lib/content-admin/content-format";
 
 export type ContentAdminKind = "blog" | "articles" | "news";
 
@@ -72,10 +73,18 @@ export type ContentAdminItem = {
   programs: string[];
   seoTitle: string;
   seoDescription: string;
+  primaryKeyword: string;
+  searchIntent: string;
+  contentCluster: string;
+  reviewer: string;
+  lastReviewed: string;
+  officialSources: string[];
+  canonical: string;
+  noindex: boolean;
   url: string;
   wordCount: number;
-  visibility: "public" | "hidden";
-  status: "ready" | "needs-review" | "hidden";
+  visibility: "public" | "draft" | "hidden";
+  status: "ready" | "needs-review" | "draft" | "hidden";
 };
 
 export type SaveContentAdminInput = {
@@ -96,6 +105,14 @@ export type SaveContentAdminInput = {
   programs?: string[] | string;
   seoTitle?: string;
   seoDescription?: string;
+  primaryKeyword?: string;
+  searchIntent?: string;
+  contentCluster?: string;
+  reviewer?: string;
+  lastReviewed?: string;
+  officialSources?: string[] | string;
+  canonical?: string;
+  noindex?: boolean;
   visibility?: string;
 };
 
@@ -281,6 +298,18 @@ function coerceArray(value: unknown): string[] {
     .filter(Boolean);
 }
 
+function coerceSourceUrls(value: unknown): string[] {
+  if (!Array.isArray(value)) return coerceArray(value);
+  return value
+    .map((item) => {
+      if (item && typeof item === "object" && "url" in item) {
+        return coerceString((item as { url?: unknown }).url);
+      }
+      return coerceString(item);
+    })
+    .filter(Boolean);
+}
+
 function firstString(...values: unknown[]) {
   for (const value of values) {
     const next = coerceString(value);
@@ -309,9 +338,17 @@ function isHiddenFrontmatter(data: Record<string, unknown>) {
   return (
     data.draft === true ||
     data.hidden === true ||
+    coerceString(data.visibility).toLowerCase() === "draft" ||
     coerceString(data.visibility).toLowerCase() === "hidden" ||
+    coerceString(data.status).toLowerCase() === "draft" ||
     coerceString(data.status).toLowerCase() === "hidden"
   );
+}
+
+function normalizeVisibility(value: unknown): "public" | "draft" | "hidden" {
+  const visibility = coerceString(value).toLowerCase();
+  if (visibility === "draft" || visibility === "hidden") return visibility;
+  return "public";
 }
 
 function normalizeDate(value: unknown) {
@@ -343,7 +380,15 @@ function itemFromFile(kind: ContentAdminKind, filePath: string, source: string):
   );
 
   const wordCount = countWords(parsed.content);
-  const visibility = isHiddenFrontmatter(data) ? "hidden" : "public";
+  const visibility = normalizeVisibility(
+    data.hidden === true ||
+      coerceString(data.visibility).toLowerCase() === "hidden" ||
+      coerceString(data.status).toLowerCase() === "hidden"
+      ? "hidden"
+      : data.draft === true
+      ? "draft"
+      : data.visibility || data.status,
+  );
 
   return {
     kind,
@@ -362,10 +407,25 @@ function itemFromFile(kind: ContentAdminKind, filePath: string, source: string):
     programs: coerceArray(data.programs || data.program),
     seoTitle: firstString(data.seoTitle, data.metaTitle, title),
     seoDescription: firstString(data.seoDescription, data.metaDescription, summary),
+    primaryKeyword: firstString(data.primaryKeyword, data.targetKeyword),
+    searchIntent: firstString(data.searchIntent),
+    contentCluster: firstString(data.contentCluster, data.topicCluster),
+    reviewer: firstString(data.reviewedBy, data.reviewer),
+    lastReviewed: normalizeDate(data.lastReviewed),
+    officialSources: coerceSourceUrls(data.officialSources),
+    canonical: firstString(data.canonical),
+    noindex: data.noindex === true || coerceString(data.noindex).toLowerCase() === "true",
     url: getUrl(kind, slug),
     wordCount,
     visibility,
-    status: visibility === "hidden" ? "hidden" : title && summary && parsed.content.trim() ? "ready" : "needs-review",
+    status:
+      visibility === "hidden"
+        ? "hidden"
+        : visibility === "draft"
+        ? "draft"
+        : title && summary && parsed.content.trim()
+        ? "ready"
+        : "needs-review",
   };
 }
 
@@ -466,11 +526,11 @@ export async function saveContentAdminItem(input: SaveContentAdminInput) {
 
   const today = new Date().toISOString().slice(0, 10);
   const body =
-    coerceString(input.body) ||
+    editorTextToMdx(coerceString(input.body)) ||
     `## Overview\n\nWrite the full ${KIND_CONFIG[kind].label.toLowerCase()} content here.\n`;
 
   const summary = coerceString(input.summary) || previewFromBody(body);
-  const visibility = coerceString(input.visibility).toLowerCase() === "hidden" ? "hidden" : "public";
+  const visibility = normalizeVisibility(input.visibility);
   const frontmatter = compactFrontmatter({
     title,
     slug,
@@ -478,8 +538,9 @@ export async function saveContentAdminItem(input: SaveContentAdminInput) {
     updated: normalizeDate(input.updated) || today,
     summary,
     visibility,
-    status: visibility === "hidden" ? "hidden" : "published",
-    draft: visibility === "hidden" ? true : undefined,
+    status: visibility === "public" ? "published" : visibility,
+    draft: visibility === "draft" ? true : undefined,
+    hidden: visibility === "hidden" ? true : undefined,
     hero: coerceString(input.hero),
     heroAlt: coerceString(input.heroAlt) || title,
     tags: coerceArray(input.tags),
@@ -488,6 +549,14 @@ export async function saveContentAdminItem(input: SaveContentAdminInput) {
     author: coerceString(input.author) || "XIPHIAS Immigration",
     seoTitle: coerceString(input.seoTitle),
     seoDescription: coerceString(input.seoDescription),
+    primaryKeyword: coerceString(input.primaryKeyword),
+    searchIntent: coerceString(input.searchIntent),
+    contentCluster: coerceString(input.contentCluster),
+    reviewedBy: coerceString(input.reviewer),
+    lastReviewed: normalizeDate(input.lastReviewed),
+    officialSources: coerceSourceUrls(input.officialSources),
+    canonical: coerceString(input.canonical),
+    noindex: input.noindex === true ? true : undefined,
   });
 
   const file = matter.stringify(`${body.trim()}\n`, frontmatter);

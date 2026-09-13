@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
 import PartnerWithUsView from "./PartnerWithUsView";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const CANONICAL = "/partner-with-us";
 const ABSOLUTE_URL = "https://www.xiphiasimmigration.com/partner-with-us";

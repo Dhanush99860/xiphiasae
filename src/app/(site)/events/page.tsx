@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import type { EventRecord } from "@/types/events";
 import { getAllEvents } from "@/lib/events-data";
 import ContentIndex, { type ContentIndexPost } from "@/components/Content/ContentIndex";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
 const OG_IMAGE = "/xiphias-immigration.png";

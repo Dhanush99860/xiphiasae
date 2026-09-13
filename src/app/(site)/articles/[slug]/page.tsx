@@ -2,13 +2,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import nextDynamic from "next/dynamic";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getInsightBySlug } from "@/lib/insights-content";
 import ArticleDetail from "@/components/Content/ArticleDetail";
 
 const InsightJsonLd = nextDynamic(() => import("@/components/SEO/InsightJsonLd"));
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 const SITE_URL = "https://www.xiphiasimmigration.com";
 
@@ -24,7 +24,7 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 type Params = { slug: string };
-type PageProps = { params: Params | Promise<Params> };
+type PageProps = { params: Promise<Params> };
 
 const absUrl = (u: string) => (u.startsWith("http://") || u.startsWith("https://") ? u : `${SITE_URL}${u.startsWith("/") ? u : `/${u}`}`);
 
@@ -39,16 +39,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const description = record.summary || `Article: ${record.title}`;
+  const metaTitle = record.seoTitle || record.title;
+  const description = record.seoDescription || record.summary || `Article: ${record.title}`;
 
-  const canonical = record.url ? absUrl(record.url) : `${SITE_URL}/articles/${slug}`;
+  const defaultCanonical = record.url ? absUrl(record.url) : `${SITE_URL}/articles/${slug}`;
+  const canonical = record.canonical
+    ? record.canonical.startsWith("http")
+      ? record.canonical
+      : absUrl(record.canonical)
+    : defaultCanonical;
   const hero = record.hero ? absUrl(record.hero) : undefined;
 
   return {
-    title: record.title,
+    title: metaTitle,
     description,
     alternates: { canonical },
-    robots: { index: true, follow: true },
+    robots: record.noindex ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: {
       title: record.title,
       description,

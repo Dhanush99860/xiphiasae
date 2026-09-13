@@ -1,6 +1,6 @@
 // src/app/(site)/accessibility/page.tsx
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import {
   LedgerShell,
   Section,
@@ -10,12 +10,7 @@ import {
   type TocItem,
 } from "@/components/Legal/LedgerLegal";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 // ✅ Keep one canonical domain everywhere
 const SITE_URL = "https://www.xiphiasimmigration.com";

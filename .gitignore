@@ -55,3 +55,16 @@ next-env.d.ts
 
 # Runtime data store — contains real customer/lead PII, must never be committed
 your/persistent/platform-store.json
+
+# Build rollback/backup folders left by deploy-production.ps1 (large, disposable)
+.next.*
+
+# Runtime data store — ALL variants, including timestamped backups.
+# These contain real customer names, emails and phone numbers.
+your/
+platform-store*.json
+
+# Legacy env templates that still hold live credentials.
+# Tracked historically — see SECURITY note; do not add new ones.
+env.production
+env.download

@@ -1,11 +1,11 @@
 // src/app/(site)/residency/page.tsx
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import { getResidencyCountries, getResidencyPrograms, type ProgramMeta, type CountryMeta } from "@/lib/residency-content";
 import { JsonLd } from "@/lib/seo";
 import VerticalHub, { type VerticalConfig } from "@/components/Vertical/VerticalHub";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const revalidate = 86400;
 
@@ -86,7 +86,7 @@ const config: VerticalConfig = {
   ],
   destHeading: "Where we secure residency",
   destSub: "Twenty jurisdictions to call home.",
-  regions: ["All", "Europe", "Gulf", "Asia", "Caribbean"],
+  regions: ["All", "Europe", "Gulf", "Asia", "Americas", "Caribbean", "Oceania", "Africa"],
   countries: [
     { name: "United Arab Emirates", slug: "uae",      region: "Gulf",      img: "/images/residency/uae/uae-golden-visa.webp",                                      time: "2–4 wks",  visa: "183", from: "$545k",   note: "10-yr Golden Visa" },
     { name: "Portugal",             slug: "portugal", region: "Europe",    img: "/images/residency/portugal/portugal-golden-visa.webp",                             time: "6–9 mo",   visa: "188", from: "€500k",  note: "EU · citizenship in 5 yrs" },
@@ -97,6 +97,17 @@ const config: VerticalConfig = {
     { name: "Bulgaria",             slug: "bulgaria", region: "Europe",    img: "/images/residency/bulgaria/bulgaria-aif.webp",                                     time: "6 mo",     visa: "176", from: "€512k",  note: "EU permanent residence" },
     { name: "Singapore",            slug: "singapore",region: "Asia",      img: "/images/residency/singapore/singapore-gip-pr-investment-hero.webp",                time: "9–12 mo",  visa: "195", from: "S$10M",  note: "Global Investor (GIP)" },
     { name: "Curaçao",              slug: "curacao",  region: "Caribbean", img: "/images/residency/curacao/curacao-3-year-investor-residency.webp",                 time: "3–4 mo",   visa: "187", from: "$280k",  note: "Dutch citizenship in 5 yrs" },
+    { name: "Switzerland",          slug: "switzerland", region: "Europe", img: "/images/residency/switzerland/switzerland.webp",                                    time: "3–6 mo",   visa: "187", from: "CHF 450k/yr", note: "Lump-sum tax residence" },
+    { name: "Monaco",               slug: "monaco",   region: "Europe",    img: "/images/residency/Monaco/monaco-residency-property-investment.webp",               time: "3–6 mo",   visa: "178", from: "€500k",  note: "Tax-free living" },
+    { name: "Latvia",               slug: "latvia",   region: "Europe",    img: "/images/residency/latvia/latvia-residency-by-investment-golden-visa.webp",          time: "1–3 mo",   visa: "184", from: "€250k",  note: "Golden Visa · Schengen" },
+    { name: "Hong Kong",            slug: "hong-kong",region: "Asia",      img: "/images/residency/hong-kong/hong-kong-residency-investment.webp",                  time: "6–9 mo",   visa: "170", from: "HK$30M", note: "CIES investor scheme" },
+    { name: "Malaysia",             slug: "malaysia", region: "Asia",      img: "/images/residency/malaysia/malaysia-residency-investment.webp",                    time: "3–6 mo",   visa: "183", from: "$150k",  note: "MM2H long-stay residence" },
+    { name: "Canada",               slug: "canada",   region: "Americas",  img: "/images/residency/canada/canada-start-up-visa.webp",                               time: "12–18 mo", visa: "185", from: "C$200k", note: "Start-Up Visa & provincial routes" },
+    { name: "USA",                  slug: "usa",      region: "Americas",  img: "/images/residency/usa/usa-eb5.webp",                                               time: "24–36 mo", visa: "182", from: "$800k",  note: "EB-5 investor green card" },
+    { name: "Panama",               slug: "panama",   region: "Americas",  img: "/images/residency/panama/panama-residency-by-investment.webp",                     time: "1–2 mo",   visa: "141", from: "$300k",  note: "Qualified Investor visa" },
+    { name: "Uruguay",              slug: "uruguay",  region: "Americas",  img: "/images/residency/uruguay/uruguay-residency-by-investment.webp",                   time: "3–6 mo",   visa: "153", from: "$525k",  note: "Residency by investment" },
+    { name: "New Zealand",          slug: "new-zealand", region: "Oceania", img: "/images/residency/new-zealand/new-zealand-residency-by-investment.webp",          time: "6–9 mo",   visa: "190", from: "NZ$5M",  note: "Active Investor Plus" },
+    { name: "Mauritius",            slug: "mauritius",region: "Africa",    img: "/images/residency/mauritius/mauritius-residency-investment.webp",                  time: "3–6 mo",   visa: "143", from: "$375k",  note: "Permanent residence via property" },
   ],
   routesEyebrow: "How you invest",
   routesEyebrowAr: "طرق الاستثمار",

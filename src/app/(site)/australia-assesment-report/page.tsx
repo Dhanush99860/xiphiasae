@@ -940,7 +940,7 @@ function buildReportHtml(args: {
 export default async function AustraliaAssessmentReportPage({
   searchParams,
 }: {
-  searchParams: SearchParams | Promise<SearchParams>;
+  searchParams: Promise<SearchParams>;
 }) {
   const sp = await searchParams;
 

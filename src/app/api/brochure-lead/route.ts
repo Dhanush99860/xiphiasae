@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { getPlatformRepository } from "@/lib/platform/repository";
 import { captureVisitorEvent } from "@/lib/platform/visitor-analytics";
+import { getLeadNotificationRecipients } from "@/lib/platform/email";
+import { scoreLead } from "@/lib/leadQuality";
+import { verifyTurnstile, clientIpFrom } from "@/lib/turnstile";
 
 /**
  * API route to handle brochure download leads.
@@ -66,6 +69,30 @@ export async function POST(req: Request) {
     let leadId: string | undefined;
     try {
       const repo = getPlatformRepository();
+      // ---------- BOT / SPAM GATE ----------
+      const quality = scoreLead({
+        name: safeName,
+        email: safeEmail,
+        phone: safePhone,
+        message: "",
+        honeypot: String(body?.company ?? ""),
+        elapsedMs: Number(body?.elapsedMs ?? NaN),
+      });
+      // Scored, never dropped: the Dubai CRM runs its own spam assessment and
+      // review queue, so every enquiry must reach it. Blocking here made
+      // flagged leads invisible in both systems.
+      if (quality.isSpam) {
+        console.warn("[spam] flagged (passed through)", { route: "brochure-lead", score: quality.score, reasons: quality.reasons });
+      }
+
+      const turnstile = await verifyTurnstile(typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined, clientIpFrom(req.headers));
+      if (!turnstile.ok) {
+        return NextResponse.json(
+          { ok: false, error: "Please complete the verification check and try again." },
+          { status: 400 },
+        );
+      }
+
       const lead = repo.createLead({
         source: "website",
         status: "new",
@@ -175,7 +202,7 @@ export async function POST(req: Request) {
 
     const adminMail = {
       from: `"XIPHIAS Website" <${process.env.SMTP_USER}>`,
-      to: "immigration@xiphias.in",
+      to: getLeadNotificationRecipients(),
       subject: "📄 New Brochure Download Lead",
       html: adminHtml,
     };

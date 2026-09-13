@@ -2,13 +2,15 @@ type Props = {
   code: string;
   size?: number;
   className?: string;
+  /** Defer the fetch when the flag is well below the fold (e.g. long directories). */
+  loading?: "lazy" | "eager";
 };
 
 /**
  * ISO-2 country flag via flagcdn, with a graceful globe fallback when the code
  * is missing. Decorative — hidden from assistive tech.
  */
-export default function Flag({ code, size = 32, className }: Props) {
+export default function Flag({ code, size = 32, className, loading }: Props) {
   const height = Math.round((size * 3) / 4);
   if (!code || code.length !== 2) {
     return (
@@ -23,6 +25,8 @@ export default function Flag({ code, size = 32, className }: Props) {
       src={`https://flagcdn.com/${code.toLowerCase()}.svg`}
       alt=""
       aria-hidden
+      loading={loading}
+      decoding="async"
       width={size}
       height={height}
       className={`shrink-0 rounded-[4px] object-cover ring-1 ring-gold/30 ${className ?? ""}`}

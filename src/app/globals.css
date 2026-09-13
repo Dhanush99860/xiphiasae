@@ -39,6 +39,39 @@
   --bg-header: #ffffff;
   --bg-modal: #ffffff;
   --header-h: 120px;
+  --font-inter: Inter, "Segoe UI", Arial, sans-serif;
+  --font-sora: Sora, "Segoe UI", Arial, sans-serif;
+  --font-arabic-display: "Reem Kufi", Tahoma, Arial, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+}
+
+.font-cormorant-local {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+
+.font-inter-local,
+.font-inter-variable {
+  font-family: var(--font-inter);
+}
+
+.font-sora-local,
+.font-sora-variable {
+  font-family: var(--font-sora);
+}
+
+.font-lato-local,
+.font-lato-variable {
+  font-family: Lato, "Segoe UI", Arial, sans-serif;
+}
+
+.font-arabic-display-local,
+.font-arabic-display-variable {
+  font-family: var(--font-arabic-display);
+}
+
+.font-arabic-local,
+.font-arabic-variable {
+  font-family: var(--font-arabic);
 }
 
 .dark {
@@ -56,16 +89,36 @@ body {
   overscroll-behavior-y: none; /* stops pull-to-refresh rubber band */
 }
 
-/* Hide scrollbars site-wide (scrolling still works) — owner preference: no
-   visible scrollbar strips anywhere, including overflow panels like the menu. */
-* {
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* legacy Edge/IE */
+/* Slim page scrollbar: translucent, draggable and track-clickable. Internal
+   carousels can still opt out with the .no-scrollbar utility below. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(191, 161, 92, 0.72) transparent;
 }
-*::-webkit-scrollbar {         /* Chromium / Safari */
-  width: 0;
-  height: 0;
-  display: none;
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  min-height: 44px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(191, 161, 92, 0.68);
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: rgba(191, 161, 92, 0.92);
+  background-clip: padding-box;
 }
 
 /* Mobile carousel utility (keeps TopPrograms server-side) */

@@ -9,7 +9,7 @@ const DISMISS_UNTIL_KEY = "xiphias_quick_enquiry_dismissed_until";
 const SUBMITTED_UNTIL_KEY = "xiphias_quick_enquiry_submitted_until";
 const SESSION_SHOWN_KEY = "xiphias_quick_enquiry_shown_session";
 
-const SHOW_DELAY_MS = 25_000;
+const SHOW_DELAY_MS = 800; // near-instant: just enough for the page to paint first
 const SHOW_SCROLL_RATIO = 0.35;
 const DISMISS_HIDE_DAYS = 7;
 const SUBMIT_HIDE_DAYS = 30;
@@ -100,20 +100,7 @@ export default function QuickEnquiryPopup() {
 
     if (skipRoute) return;
 
-    const now = Date.now();
-    const dismissedUntil = readUntilFromLocalStorage(DISMISS_UNTIL_KEY);
-    const submittedUntil = readUntilFromLocalStorage(SUBMITTED_UNTIL_KEY);
-    let shownThisSession = false;
-
-    try {
-      shownThisSession = window.sessionStorage.getItem(SESSION_SHOWN_KEY) === "1";
-    } catch {
-      shownThisSession = false;
-    }
-
-    if (shownThisSession || now < dismissedUntil || now < submittedUntil) {
-      return;
-    }
+    // Shown on every page load, per request - no post-submit or dismissal cooldown.
 
     let fired = false;
     const trigger = () => {

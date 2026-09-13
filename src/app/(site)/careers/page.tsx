@@ -1,7 +1,7 @@
 // app/careers/page.tsx
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import Hero from "@/components/careers/Hero";
 import { getAllJobs } from "@/lib/jobs";
 import JobList from "@/components/careers/JobList";
@@ -12,7 +12,7 @@ import Header from "@/components/HomeLuxe/LuxeHeader";
 import Footer from "@/components/HomeLuxe/LuxeFooter";
 import Ambient from "@/components/HomeLuxe/Ambient";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 const GOLD = "#bfa15c";
 const NAVY = "#0a1733";

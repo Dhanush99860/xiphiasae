@@ -1010,7 +1010,7 @@ function buildReportHtml(args: {
 export default async function CanadaAssessmentReportPage({
   searchParams,
 }: {
-  searchParams: SearchParams | Promise<SearchParams>;
+  searchParams: Promise<SearchParams>;
 }) {
   const sp = await searchParams; // ✅ unwrap promise
 

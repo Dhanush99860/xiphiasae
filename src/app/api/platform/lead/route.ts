@@ -6,6 +6,8 @@ import { sendPlatformEmail, getPlatformRecipient, keyValueHtml } from "@/lib/pla
 import { captureVisitorEvent } from "@/lib/platform/visitor-analytics";
 import type { LeadSource } from "@/lib/platform/types";
 import { isTrack } from "@/lib/eligibility/types";
+import { scoreLead } from "@/lib/leadQuality";
+import { verifyTurnstile, clientIpFrom } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,6 +30,30 @@ export async function POST(req: NextRequest) {
   }
 
   const repo = getPlatformRepository();
+  // ---------- BOT / SPAM GATE ----------
+  const quality = scoreLead({
+    name,
+    email,
+    phone,
+    message: normalizeText(body.message, 4000),
+    honeypot: normalizeText(body.company, 200),
+    elapsedMs: Number(body?.elapsedMs ?? NaN),
+  });
+  // Scored, never dropped: the Dubai CRM runs its own spam assessment and
+  // review queue, so every enquiry must reach it. Blocking here made
+  // flagged leads invisible in both systems.
+  if (quality.isSpam) {
+    console.warn("[spam] flagged (passed through)", { route: "platform/lead", score: quality.score, reasons: quality.reasons });
+  }
+
+  const turnstile = await verifyTurnstile(typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined, clientIpFrom(req.headers));
+  if (!turnstile.ok) {
+    return NextResponse.json(
+      { ok: false, error: "Please complete the verification check and try again." },
+      { status: 400 },
+    );
+  }
+
   const lead = repo.createLead({
     source,
     name,

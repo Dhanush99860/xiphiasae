@@ -56,7 +56,7 @@ function HeroA({ serifClass }: { serifClass: string }) {
       <Nav />
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 pb-20 pt-6 sm:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28">
         <div>
-          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Dubai · Global mobility since 2007<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">الهجرة والإقامة</span></p>
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}><span className="h-px w-8" style={{ background: GOLD }} />Dubai · Global mobility since 2009<span lang="ar" dir="rtl" className="font-arabic-display text-sm tracking-normal">الهجرة والإقامة</span></p>
           <h1 className={`${serifClass} mt-5 text-[clamp(2.5rem,5.2vw,4.4rem)] font-medium leading-[1.02]`}>Immigration, residency &amp; <span className="italic" style={{ color: GOLD }}>citizenship</span> — expertly advised.</h1>
           <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-white/75">Golden visas, residency and second passports across 35 jurisdictions — handled end-to-end by XIPHIAS Immigration. 17 years of advisory, 10,000+ families relocated.</p>
           <div className="mt-7 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
@@ -92,7 +92,7 @@ function HeroB({ serifClass }: { serifClass: string }) {
         <Nav />
         <div className="mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-center px-6 sm:px-10">
           <div className="ml-auto max-w-2xl text-right lg:max-w-xl">
-            <p className="flex items-center justify-end gap-3 text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>Dubai · Global mobility since 2007<span className="h-px w-8" style={{ background: GOLD }} /></p>
+            <p className="flex items-center justify-end gap-3 text-[11px] font-semibold uppercase tracking-[0.32em]" style={{ color: GOLD }}>Dubai · Global mobility since 2009<span className="h-px w-8" style={{ background: GOLD }} /></p>
             <h1 className={`${serifClass} mt-5 text-[clamp(2.6rem,5.6vw,5rem)] font-medium leading-[1.0]`}>Your global future, <span className="italic" style={{ color: GOLD }}>expertly advised</span> from Dubai.</h1>
             <p className="ml-auto mt-5 max-w-md text-[16px] leading-relaxed text-white/80">Immigration, residency, golden visas and citizenship by investment across 35 jurisdictions — end-to-end, with 17 years and 10,000+ families behind us.</p>
             <div className="mt-7 flex flex-col items-end gap-3 sm:flex-row sm:justify-end">

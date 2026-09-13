@@ -97,7 +97,12 @@ export default function WhyXiphias({
                 Why Choose XIPHIAS{" "}
                 <span className="italic" style={{ color: GOLD }}>Immigration Consultants in Dubai?</span>
               </h2>
-              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#0c1f3f]/65">XIPHIAS Immigration DMCC provides confidential, end-to-end guidance for investors, families, entrepreneurs and businesses seeking residency, citizenship and global mobility solutions.</p>
+              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#0c1f3f]/65">XIPHIAS has advised on global mobility since 2009, and XIPHIAS Immigration DMCC has served clients from Dubai as a UAE-licensed consultancy since 2017. Our top immigration consultants provide transparent guidance for investors, families, professionals and businesses. Choose XIPHIAS when searching for the best immigration consultants for Dubai visa, UAE Golden Visa, residency, citizenship and global immigration support.</p>
+              <ul className="mt-5 grid gap-2 text-[14px] text-[#0c1f3f]/70 sm:grid-cols-2">
+                {["Personalised eligibility assessment", "Transparent cost guidance", "Dedicated immigration advisor", "End-to-end application support"].map((item) => (
+                  <li key={item} className="flex items-center gap-2"><span className="h-px w-4 shrink-0" style={{ background: GOLD }} />{item}</li>
+                ))}
+              </ul>
             </Fade>
 
             {/* stats strip */}

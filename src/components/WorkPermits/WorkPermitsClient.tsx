@@ -31,6 +31,7 @@ import {
   workPermitCountries,
   type WorkPermitCountry,
 } from "@/lib/work-permits";
+import Turnstile from "@/components/Turnstile";
 
 const GOLD = "#bfa15c";
 const GOLD_DEEP = "#a87d1f";
@@ -87,6 +88,7 @@ export default function WorkPermitsClient({
   const [selectedSlug, setSelectedSlug] = useState(initialCountry.slug);
   const [selectedPermit, setSelectedPermit] = useState(initialCountry.permitTypes[0]);
   const [fileName, setFileName] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const intakeRef = useRef<HTMLDivElement>(null);
 
@@ -114,6 +116,7 @@ export default function WorkPermitsClient({
     formData.set("countrySlug", selectedCountry.slug);
     formData.set("permitType", selectedPermit);
     formData.set("page", "/work-permits");
+    if (turnstileToken) formData.set("turnstileToken", turnstileToken);
 
     try {
       const response = await fetch("/api/work-permit", {
@@ -594,6 +597,7 @@ export default function WorkPermitsClient({
               </label>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Turnstile onToken={setTurnstileToken} />
                 <button
                   type="submit"
                   disabled={submitState.status === "submitting"}

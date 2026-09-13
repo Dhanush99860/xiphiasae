@@ -7,14 +7,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { JsonLd, breadcrumbLd } from "@/lib/seo"; // ✅ add
 
 import { CountryListing, type CountryListingData } from "@/components/Vertical/CatchAllHubs";
 import { countryImage } from "@/components/Countries/country-image";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const runtime = "nodejs";
 

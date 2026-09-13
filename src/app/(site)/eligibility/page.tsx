@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import nextDynamic from "next/dynamic";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 // Navy/gold "Tool Panel" shell; it wraps the existing interactive <Flow/> wizard
 // (logic, scoring, lead-gate, API submit and results preserved verbatim).

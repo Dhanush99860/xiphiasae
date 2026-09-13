@@ -73,7 +73,7 @@ export default function Hero({ serifClass, openCount }: { serifClass: string; op
           {[
             [typeof openCount === "number" ? String(openCount) : "—", "Open roles"],
             ["10+", "Global offices"],
-            ["2007", "Est."],
+            ["2009", "Est."],
             ["Bengaluru", "HQ"],
           ].map(([v, u]) => (
             <div key={u} className="flex items-baseline gap-2">

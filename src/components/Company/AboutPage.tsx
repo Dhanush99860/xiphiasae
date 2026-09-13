@@ -19,7 +19,7 @@ function Rise({ text, className, delay = 0, play }: { text: string; className?: 
   return (
     <motion.span className={className} style={{ display: "inline-block" }} initial="hidden" animate={play === undefined ? undefined : play ? "show" : "hidden"} whileInView={play === undefined ? "show" : undefined} viewport={play === undefined ? { once: true, amount: 0.4 } : undefined} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: delay } } }}>
       {words.map((w, i) => (
-        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", marginInlineEnd: i < words.length - 1 ? "0.26em" : undefined }}>
+        <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom", paddingBottom: "0.14em", marginBottom: "-0.14em", paddingInlineEnd: "0.06em", marginInlineEnd: i < words.length - 1 ? "0.26em" : undefined }}>
           <motion.span style={{ display: "inline-block" }} variants={{ hidden: { y: "115%" }, show: { y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>{w}</motion.span>
         </span>
       ))}
@@ -47,7 +47,7 @@ function Eyebrow({ children, ar, light }: { children: React.ReactNode; ar: strin
 
 /* ── data ── */
 const HERO_STATS = [
-  { v: "2007", u: "Founded" },
+  { v: "2009", u: "Founded" },
   { v: "17+", u: "Years advising" },
   { v: "10,000+", u: "Families" },
   { v: "35+", u: "Jurisdictions" },
@@ -65,10 +65,10 @@ const BIG_STATS = [
 ];
 
 const MILESTONES = [
-  { year: "2007", title: "Founded in Bengaluru", text: "Varun Singh establishes XIPHIAS with one conviction: immigration advisory must be personal, rigorous and truly end-to-end." },
-  { year: "2009", title: "Dubai office opens", text: "A presence established in Dubai — the crossroads of global mobility — serving Gulf and Middle East clients from the heart of the region." },
+  { year: "2009", title: "XIPHIAS founded", text: "Varun Singh establishes XIPHIAS on one conviction: immigration advisory must be personal, rigorous and truly end-to-end." },
   { year: "2014", title: "Top 5 recognition", text: "Silicon India names XIPHIAS among India's Top 5 Immigration Consultants. The first of more than forty industry awards to follow." },
   { year: "2016", title: "ISO 9001:2015 Certified", text: "Quality management certification formalises our commitment to process excellence, client outcomes and regulatory compliance." },
+  { year: "2017", title: "XIPHIAS Dubai established", text: "XIPHIAS Immigration DMCC opens in Dubai — the crossroads of global mobility — serving Gulf and Middle East clients from the heart of the region." },
   { year: "2019", title: "UK & global expansion", text: "Corporate LiveWire (UK) Corporate Excellence Award. Practice extended to corporate mobility, work permits and employer-sponsored visas." },
   { year: "2022", title: "London · Mayfair opens", text: "European HNI advisory desk established in Mayfair to serve the growing EU golden-visa and citizenship market." },
   { year: "2025", title: "Forbes India recognition", text: "Named India's Most Trusted Global Mobility Brand by Forbes India — 10,000 families relocated, four continents served." },
@@ -158,7 +158,7 @@ function Hero({ serifClass, play }: { serifClass: string; play: boolean }) {
         </h1>
         <Fade play={play} delay={0.85}>
           <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-white/75">
-            A private global-mobility practice for those who value discretion. Since 2007 we have arranged residency, citizenship and second passports for more than 10,000 families across 35 jurisdictions — quietly, rigorously and end to end.
+            A private global-mobility practice for those who value discretion. Since 2009 we have arranged residency, citizenship and second passports for more than 10,000 families across 35 jurisdictions — quietly, rigorously and end to end.
           </p>
         </Fade>
         <Fade play={play} delay={1.0}>
@@ -208,7 +208,7 @@ function Story({ serifClass }: { serifClass: string }) {
             </h2>
             <Fade delay={0.1}>
               <p className="mt-7 text-[16px] leading-relaxed text-[#0c1f3f]/75">
-                XIPHIAS Immigration began in 2007 as a single advisory with one conviction: that a family's global future is too important to be left to a processing factory. Varun Singh founded the practice on the belief that every client deserves a named senior advisor — someone who understands not just the visa, but the life being planned around it.
+                XIPHIAS Immigration began in 2009 as a single advisory with one conviction: that a family's global future is too important to be left to a processing factory. Varun Singh founded the practice on the belief that every client deserves a named senior advisor — someone who understands not just the visa, but the life being planned around it.
               </p>
             </Fade>
             <Fade delay={0.2}>

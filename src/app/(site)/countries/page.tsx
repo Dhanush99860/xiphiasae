@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { getCountriesByRegion } from "@/lib/countries-content";
 import type { CountrySummary } from "@/lib/countries-shared";
 import { JsonLd } from "@/lib/seo";
 import CountriesSpotlightIndex from "@/components/Countries/CountriesSpotlightIndex";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const revalidate = 86400;
 

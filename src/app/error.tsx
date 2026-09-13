@@ -1,14 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 const GOLD = "#bfa15c";
 const NAVY = "#0a1733";

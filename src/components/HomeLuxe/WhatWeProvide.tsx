@@ -16,12 +16,12 @@ type ProvideItem = {
 };
 
 const ITEMS: ProvideItem[] = [
-  { t: "Citizenship by Investment Advisory", line: "A second passport in 3–6 months — donation or real estate.", chip: "10 programmes", img: "/images/citizenship/grenada/grenada-citizenship.webp" },
-  { t: "Residency and Golden Visa Services", line: "Live, work and retire across 35 jurisdictions.", chip: "20+ programmes", img: "/images/residency/uae/uae-golden-visa.webp" },
-  { t: "Skilled and Corporate Immigration", line: "Talent, founders and whole teams — relocated.", chip: "Canada · Australia · UK", img: "/images/corporate/uae/dubai-corporate-immigration.webp" },
-  { t: "Source-of-Funds and Due-Diligence Support", line: "Pre-cleared before a single file is filed.", chip: "Under NDA", img: "/images/residency/singapore/singapore-gip-pr-investment-hero.webp" },
-  { t: "Relocation, Banking and Education Support", line: "Settled in — not just approved.", chip: "End to end", img: "/images/Pexels/pexels-gatsby-yang-857486579-37669246.jpg" },
-  { t: "Lifetime Immigration Concierge", line: "Advisors retained for life, not for a transaction.", chip: "On call", img: "/images/citizenship/dubai/dubai-country-image.webp" },
+  { t: "Citizenship by Investment Advisory", line: "Compare second passport programs, investment routes, costs and family requirements.", chip: "Second citizenship", img: "/images/citizenship/grenada/grenada-citizenship.webp" },
+  { t: "Residency and Golden Visa Services", line: "Complete UAE Golden Visa and global residency support from top immigration consultants.", chip: "UAE and global", img: "/images/residency/uae/uae-golden-visa.webp" },
+  { t: "Skilled Migration Services", line: "Skilled migration and permanent residency guidance for Canada, Australia, the UK and other destinations.", chip: "Canada · Australia · UK", img: "/images/corporate/uae/dubai-corporate-immigration.webp" },
+  { t: "Corporate Immigration Services", line: "UAE visa and Dubai visa services for founders, executives, specialists and business teams.", chip: "Business mobility", img: "/images/corporate/uae/dubai-corporate-immigration.webp" },
+  { t: "Due-Diligence Support", line: "Confidential identity, financial and source-of-funds document preparation.", chip: "Confidential", img: "/images/residency/singapore/singapore-gip-pr-investment-hero.webp" },
+  { t: "Relocation Support", line: "Post-approval assistance for residence formalities, schooling and family relocation.", chip: "Post-approval", img: "/images/Pexels/pexels-gatsby-yang-857486579-37669246.jpg" },
 ];
 
 function Row({ item, i, serifClass }: { item: ProvideItem; i: number; serifClass: string }) {

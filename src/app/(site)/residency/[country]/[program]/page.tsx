@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 import {
   getResidencyCountrySlugs,
   getResidencyPrograms,
@@ -11,7 +11,7 @@ import {
 import { JsonLd, breadcrumbLd } from "@/lib/seo";
 import ProgramHub, { type ProgramData } from "@/components/Country/ProgramHub";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], style: ["normal", "italic"], display: "swap" });
+const serif = cormorant;
 
 export const revalidate = 86400;
 export const dynamicParams = true;

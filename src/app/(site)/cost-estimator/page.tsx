@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 
 import { getProgrammeExplorerData } from "@/lib/programme-explorer";
 import { toCostProgram, type CostProgram } from "@/lib/cost-estimator";
 import CostEstimatorClient from "@/components/CostEstimator/CostEstimatorClient";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 export const metadata: Metadata = {
   title: "Family Cost Estimator — XIA Intelligence",

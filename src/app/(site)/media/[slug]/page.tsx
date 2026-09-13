@@ -1,19 +1,14 @@
 // src/app/(site)/media/[slug]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Cormorant_Garamond } from "next/font/google";
+import { cormorant } from "@/lib/local-fonts";
 // Dynamically import media detail components to reduce initial bundle size.
 import nextDynamic from "next/dynamic";
 const InsightJsonLd = nextDynamic(() => import("@/components/SEO/InsightJsonLd"));
 import ArticleDetail from "@/components/Content/ArticleDetail";
 import { getInsightBySlug } from "@/lib/insights-content";
 
-const serif = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+const serif = cormorant;
 
 function formatDate(input?: string) {
   if (!input) return "";

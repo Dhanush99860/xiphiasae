@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Turnstile from "@/components/Turnstile";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -24,6 +25,9 @@ const TRUST = [
 export default function Hero() {
   const [form, setForm]     = useState({ name: "", email: "", phone: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [turnstileToken, setTurnstileToken] = useState<string | undefined>();
+  const [company, setCompany] = useState(""); // honeypot
+  const renderedAt = useRef<number>(Date.now());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -43,6 +47,9 @@ export default function Hero() {
           source: "website",
           page: "hero",
           consent: true,
+          turnstileToken,
+          company,
+          elapsedMs: Date.now() - renderedAt.current,
         }),
       });
       if (!res.ok) throw new Error("Request failed");
@@ -194,6 +201,10 @@ export default function Hero() {
               </label>
 
               {/* Submit */}
+              <div aria-hidden="true" className="absolute left-[-9999px] h-px w-px overflow-hidden">
+                <input name="company" tabIndex={-1} autoComplete="off" value={company} onChange={(e) => setCompany(e.target.value)} />
+              </div>
+              <Turnstile onToken={setTurnstileToken} theme="dark" className="shrink-0" />
               <button
                 type="submit"
                 disabled={status === "sending"}
